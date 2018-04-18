@@ -15,9 +15,14 @@
   },
   "dependencies": {
     "axios": "^0.18.0",
+    "local-storage": "^1.4.2",
     "npm": "^5.8.0",
     "vue": "^2.5.2",
-    "vue-router": "^3.0.1"
+    "vue-axios": "^2.1.1",
+    "vue-localstorage": "^0.6.2",
+    "vue-resource": "^1.5.0",
+    "vue-router": "^3.0.1",
+    "vue-sessionstorage": "^1.0.0"
   },
   "devDependencies": {
     "autoprefixer": "^7.1.2",

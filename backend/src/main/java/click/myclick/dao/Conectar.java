@@ -1,6 +1,12 @@
 package click.myclick.dao;
 
-import com.mongodb.*;
+import com.mongodb.BasicDBObject;
+import com.mongodb.DB;
+import com.mongodb.DBCollection;
+import com.mongodb.DBCursor;
+import com.mongodb.DBObject;
+import com.mongodb.MongoClient;
+import com.mongodb.MongoClientURI;
 
 public class Conectar {
 	private static MongoClient mongoClient;
@@ -8,9 +14,9 @@ public class Conectar {
 
 	public static void conecta() throws Exception {
 		if (mongoClient == null) {
-			mongoClient = new MongoClient();
+			mongoClient = new MongoClient(new MongoClientURI("mongodb://myproject:lsI8f8ZX41WVuUB9738n26TDWUMJpNZtA5StMrnEt0e0aHTy2dDhQFAN30pKa6esHDMy4eejxXff01BKsdISIg==@myproject.documents.azure.com:10255/?ssl=true&replicaSet=globaldb"));
 			database = mongoClient.getDB("myclick");
-			saveTest();
+			//saveTest();
 		}
 	}
 

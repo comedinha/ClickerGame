@@ -6,26 +6,24 @@
     <button @click="callRestService()">CALL API</button>
 
     <h4>Backend response: {{ response }}</h4>
-    <h5>Test: {{ test }}</h5>
 
   </div>
 </template>
 
 <script>
-import {HTTP} from '@/http-common'
+import {HTTP} from '@/services/http-common'
 export default {
   name: 'hello',
   data () {
     return {
       msg: 'Test REST-API:',
-      test: this.$session.get('Test'),
       response: [],
       errors: []
     }
   },
   methods: {
     callRestService () {
-      HTTP.post(`/message`)
+      HTTP.post(`/api/message`)
         .then(request => { this.response = request.data })
         .catch(e => { this.errors.push(e) })
     }

@@ -5,8 +5,19 @@
 </template>
 
 <script>
+import {HTTP} from './services/http-common'
 export default {
-  name: 'App'
+  name: 'App',
+  created: function () {
+    HTTP.interceptors.response.use(undefined, function (err) {
+      return new Promise(function (resolve, reject) {
+        if (err.status === 401 && err.config && !err.config.__isRetryRequest) {
+          this.$store.dispatch('authLogout')
+        }
+        throw err
+      })
+    })
+  }
 }
 </script>
 

@@ -18,7 +18,6 @@
 </template>
 
 <script>
-import auth from '../../services/auth'
 export default {
   data () {
     return {
@@ -31,11 +30,10 @@ export default {
   },
   methods: {
     submit () {
-      const credentials = {
-        username: this.credentials.username,
-        password: this.credentials.password
-      }
-      auth.login(this, credentials, 'Counter')
+      const { username, password } = this
+      this.$store.dispatch('authRequest', { username, password }).then(() => {
+        this.$router.push('/')
+      })
     }
   }
 }

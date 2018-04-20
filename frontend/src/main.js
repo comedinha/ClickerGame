@@ -4,15 +4,12 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 
 import App from './App'
-import auth from './services/auth'
 import router from './router'
 import store from './store'
 
 Vue.use(VueResource)
 
 Vue.config.productionTip = false
-
-auth.checkAuth()
 
 /* eslint-disable no-new */
 new Vue({

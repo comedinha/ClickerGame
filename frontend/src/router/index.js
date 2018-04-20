@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+import store from '../store'
+
 import Home from '@/components/Home'
 
 import Login from '@/components/auth/Login'
@@ -8,6 +10,22 @@ import Logout from '@/components/auth/Logout'
 
 import Test from '@/components/tests/Test'
 import Counter from '@/components/tests/Counter'
+
+const ifNotAuthenticated = (to, from, next) => {
+  if (!store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/')
+}
+
+const ifAuthenticated = (to, from, next) => {
+  if (store.getters.isAuthenticated) {
+    next()
+    return
+  }
+  next('/Login')
+}
 
 Vue.use(Router)
 
@@ -21,22 +39,26 @@ export default new Router({
     {
       path: '/Login',
       name: 'Login',
-      component: Login
+      component: Login,
+      beforeEnter: ifNotAuthenticated
     },
     {
       path: '/Logout',
       name: 'Logout',
-      component: Logout
+      component: Logout,
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/Test',
       name: 'Test',
-      component: Test
+      component: Test,
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/Counter',
       name: 'Counter',
-      component: Counter
+      component: Counter,
+      beforeEnter: ifAuthenticated
     }
   ]
 })

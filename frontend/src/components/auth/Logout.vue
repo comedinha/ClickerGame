@@ -4,12 +4,12 @@
 
 <script>
 // import notificationService from '../../services/notificationService'
-import auth from '../../services/auth'
+// import auth from '../../services/auth'
 export default {
   route: {
     activate (transition) {
-      return auth.logout().then(function () {
-        auth.remove()
+      return this.logout().then(function () {
+        // auth.remove()
         // notificationService.show(notificationService.USER_LOGGED_OUT)
         transition.redirect('/Login')
       }).catch(function (res) {

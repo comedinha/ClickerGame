@@ -12,7 +12,6 @@
 </template>
 
 <script>
-import auth from '../../services/auth'
 import { mapActions, mapGetters } from 'vuex'
 export default {
   methods: mapActions([
@@ -24,11 +23,6 @@ export default {
   computed: mapGetters([
     'count',
     'recentHistory'
-  ]),
-  route: {
-    canActivate () {
-      return auth.user.authenticated
-    }
-  }
+  ])
 }
 </script>

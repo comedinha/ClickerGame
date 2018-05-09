@@ -5,7 +5,6 @@ import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.web.bind.annotation.*;
-import click.myclick.dao.Conectar;
 
 @RestController()
 @RequestMapping("/auth")
@@ -17,7 +16,6 @@ public class AuthController {
     @PostMapping(path = "/login")
     public String login(HttpServletRequest request) throws Exception {
         LOG.info("GET called on /login resource");
-        Conectar.conecta();
         return "";
     }
 

@@ -1,0 +1,44 @@
+{
+    "run": {
+        "default": "",
+        "items": [
+            {
+                "name": "backend",
+                "projectName": "backend",
+                "workingDirectory": "c:\\Users\\comed\\OneDrive\\Faculdade\\3º Ano\\Primeiro Semestre\\Integrador\\ClickerGame",
+                "args": [],
+                "vmargs": [],
+                "preLaunchTask": ""
+            },
+            {
+                "name": "frontend",
+                "projectName": "frontend",
+                "workingDirectory": "c:\\Users\\comed\\OneDrive\\Faculdade\\3º Ano\\Primeiro Semestre\\Integrador\\ClickerGame",
+                "args": [],
+                "vmargs": [],
+                "preLaunchTask": ""
+            }
+        ]
+    },
+    "debug": {
+        "default": "",
+        "items": [
+            {
+                "name": "backend",
+                "projectName": "backend",
+                "workingDirectory": "c:\\Users\\comed\\OneDrive\\Faculdade\\3º Ano\\Primeiro Semestre\\Integrador\\ClickerGame",
+                "args": [],
+                "vmargs": [],
+                "preLaunchTask": ""
+            },
+            {
+                "name": "frontend",
+                "projectName": "frontend",
+                "workingDirectory": "c:\\Users\\comed\\OneDrive\\Faculdade\\3º Ano\\Primeiro Semestre\\Integrador\\ClickerGame",
+                "args": [],
+                "vmargs": [],
+                "preLaunchTask": ""
+            }
+        ]
+    }
+}

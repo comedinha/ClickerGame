@@ -3,10 +3,12 @@ package click.myclick;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
-@SpringBootApplication
-public class MyclickApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(MyclickApplication.class, args);
-	}
+@SpringBootApplication
+public class Application {
+
+    public static void main(final String[] args) {
+        SpringApplication.run(Application.class, args);
+    }
+
 }

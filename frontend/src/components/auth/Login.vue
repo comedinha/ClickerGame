@@ -30,7 +30,7 @@ export default {
   },
   methods: {
     submit () {
-      const { username, password } = this
+      const { username, password } = this.credentials
       this.$store.dispatch('authRequest', { username, password }).then(() => {
         this.$router.push('/')
       })

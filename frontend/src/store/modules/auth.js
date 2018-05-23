@@ -14,7 +14,7 @@ const actions = {
   authRequest: ({commit, dispatch}, user) => {
     return new Promise((resolve, reject) => {
       commit('authRequest')
-      axios({ url: 'auth', data: user, method: 'POST' })
+      axios({ url: 'api/auth', data: user, method: 'POST' })
         .then(resp => {
           const token = resp.data.token
           localStorage.setItem('user-token', token)

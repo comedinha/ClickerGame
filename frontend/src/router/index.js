@@ -51,8 +51,7 @@ export default new Router({
     {
       path: '/Test',
       name: 'Test',
-      component: Test,
-      beforeEnter: ifAuthenticated
+      component: Test
     },
     {
       path: '/Counter',

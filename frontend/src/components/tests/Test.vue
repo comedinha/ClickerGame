@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     callRestService () {
-      HTTP.post(`/api/message`)
+      HTTP.post(`/api/hello`)
         .then(request => { this.response = request.data })
         .catch(e => { this.errors.push(e) })
     }

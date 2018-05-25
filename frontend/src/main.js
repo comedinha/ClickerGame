@@ -9,6 +9,13 @@ import store from './store'
 
 Vue.use(VueResource)
 
+Vue.http.options = {
+  root: 'http://localhost:8088/',
+  headers: {
+    'x-auth-token': localStorage.getItem('x-auth-token')
+  }
+}
+
 Vue.config.productionTip = false
 
 /* eslint-disable no-new */

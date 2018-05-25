@@ -1,7 +1,7 @@
-import {HTTP as axios} from '@/services/http-common'
+import Vue from 'vue'
 
 const state = {
-  token: localStorage.getItem('user-token') || '',
+  token: localStorage.getItem('x-auth-token') || '',
   status: ''
 }
 
@@ -14,18 +14,15 @@ const actions = {
   authRequest: ({commit, dispatch}, user) => {
     return new Promise((resolve, reject) => {
       commit('authRequest')
-      axios({ url: 'api/auth', data: user, method: 'POST' })
+      Vue.http.post('api/auth', user)
         .then(resp => {
           const token = resp.data.token
-          localStorage.setItem('user-token', token)
-          axios.defaults.headers.common['Authorization'] = token
+          localStorage.setItem('x-auth-token', token)
           commit('authSuccess', token)
-          dispatch('userRequest')
           resolve(resp)
-        })
-        .catch(err => {
+        }, err => {
           commit('authError', err)
-          localStorage.removeItem('user-token')
+          localStorage.removeItem('x-auth-token')
           reject(err)
         })
     })
@@ -34,8 +31,7 @@ const actions = {
   authLogout: ({commit, dispatch}) => {
     return new Promise((resolve, reject) => {
       commit('authLogout')
-      localStorage.removeItem('user-token')
-      delete axios.defaults.headers.common['Authorization']
+      localStorage.removeItem('x-auth-token')
       resolve()
     })
   }

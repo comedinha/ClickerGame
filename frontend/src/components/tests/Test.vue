@@ -11,7 +11,6 @@
 </template>
 
 <script>
-import {HTTP} from '@/services/http-common'
 export default {
   name: 'hello',
   data () {
@@ -23,9 +22,11 @@ export default {
   },
   methods: {
     callRestService () {
-      HTTP.post(`/api/hello`)
-        .then(request => { this.response = request.data })
-        .catch(e => { this.errors.push(e) })
+      this.$http.get('api/hello')
+        .then(
+          request => { this.response = request.bodyText },
+          e => { this.errors.push(e) }
+        )
     }
   }
 }

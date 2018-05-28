@@ -11,6 +11,19 @@ const getters = {
 }
 
 const actions = {
+  authCreate: ({commit, dispatch}, user) => {
+    return new Promise((resolve, reject) => {
+      commit('authRequest')
+      Vue.http.post('api/signup', user)
+        .then(resp => {
+          commit('authCreated')
+        }, err => {
+          commit('authError', err)
+          reject(err)
+        })
+    })
+  },
+
   authRequest: ({commit, dispatch}, user) => {
     return new Promise((resolve, reject) => {
       commit('authRequest')
@@ -44,6 +57,9 @@ const mutations = {
   authSuccess: (state, token) => {
     state.status = 'success'
     state.token = token
+  },
+  authCreated: (state) => {
+    state.status = 'created'
   },
   authError: (state) => {
     state.status = 'error'

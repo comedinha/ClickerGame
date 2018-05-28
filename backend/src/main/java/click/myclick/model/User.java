@@ -12,6 +12,7 @@ public class User extends BaseEntity implements UserDetails {
     private static final long serialVersionUID = 7954325925563724664L;
 
     private List<Authority> authorities;
+
     private String username;
     private String password;
     private boolean accountNonExpired;

@@ -5,6 +5,7 @@ import store from '../store'
 
 import Home from '@/components/Home'
 
+import Signup from '@/components/auth/Signup'
 import Login from '@/components/auth/Login'
 import Logout from '@/components/auth/Logout'
 
@@ -32,15 +33,22 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/',
-      name: 'Home',
-      component: Home
-    },
-    {
       path: '/Login',
       name: 'Login',
       component: Login,
       beforeEnter: ifNotAuthenticated
+    },
+    {
+      path: '/Signup',
+      name: 'Signup',
+      component: Signup,
+      beforeEnter: ifNotAuthenticated
+    },
+    {
+      path: '/',
+      name: 'Home',
+      component: Home,
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/Logout',
@@ -51,7 +59,8 @@ export default new Router({
     {
       path: '/Test',
       name: 'Test',
-      component: Test
+      component: Test,
+      beforeEnter: ifAuthenticated
     },
     {
       path: '/Counter',

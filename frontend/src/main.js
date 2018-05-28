@@ -2,6 +2,7 @@
 // (runtime-only or standalone) has been set in webpack.base.conf with an alias.
 import Vue from 'vue'
 import VueResource from 'vue-resource'
+import Vuelidate from 'vuelidate'
 
 import App from './App'
 import router from './router'
@@ -9,6 +10,7 @@ import store from './store'
 import './lang'
 
 Vue.use(VueResource)
+Vue.use(Vuelidate)
 
 Vue.http.options = {
   root: 'http://localhost:8088/',

@@ -6,7 +6,7 @@ import store from '../store'
 import Home from '@/components/Home'
 
 import Signup from '@/components/auth/Signup'
-import Login from '@/components/auth/Login'
+import Signin from '@/components/auth/Signin'
 import Logout from '@/components/auth/Logout'
 
 import Test from '@/components/tests/Test'
@@ -25,7 +25,7 @@ const ifAuthenticated = (to, from, next) => {
     next()
     return
   }
-  next('/Login')
+  next('/Signin')
 }
 
 Vue.use(Router)
@@ -33,9 +33,9 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/Login',
-      name: 'Login',
-      component: Login,
+      path: '/Signin',
+      name: 'Signin',
+      component: Signin,
       beforeEnter: ifNotAuthenticated
     },
     {

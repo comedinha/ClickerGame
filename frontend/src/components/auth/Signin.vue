@@ -1,7 +1,7 @@
 <template>
   <div class="col-sm-4 col-sm-offset-4">
-    <h2>Log In</h2>
-    <p>Log in to your account to get some great quotes.</p>
+    <h2 v-text="$ml.get('signin.title')" />
+    <p v-text="$ml.get('signin.description')" />
     <div class="alert alert-danger" v-if="error">
       <p>{{ error }}</p>
     </div>
@@ -13,7 +13,7 @@
         <input type="password" class="form-control"
           placeholder="Enter your password" v-model="credentials.password">
     </div>
-    <button class="btn btn-primary" @click="submit()">Access</button>
+    <button class="btn btn-primary" @click="submit()" v-text="$ml.get('signin.button')" />
   </div>
 </template>
 

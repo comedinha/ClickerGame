@@ -8,4 +8,5 @@ import javax.servlet.http.HttpServletRequest;
 public interface TokenAuthenticationService {
 
     Authentication authenticate(HttpServletRequest request);
+
 }

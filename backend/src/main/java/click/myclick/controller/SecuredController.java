@@ -17,4 +17,5 @@ public class SecuredController {
     public ResponseEntity<?> sayHello(Authentication auth) {
         return new ResponseEntity<>("Secured hello " + auth.getName() + "!", HttpStatus.OK);
     }
+
 }

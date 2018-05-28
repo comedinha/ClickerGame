@@ -62,4 +62,5 @@ public class JsonWebTokenService implements TokenService {
     public static void setTokenExpirationTime(final int tokenExpirationTime) {
         JsonWebTokenService.tokenExpirationTime = tokenExpirationTime;
     }
+
 }

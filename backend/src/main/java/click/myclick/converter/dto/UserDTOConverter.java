@@ -13,6 +13,7 @@ import java.util.List;
 
 
 public class UserDTOConverter implements Converter<UserDTO, User> {
+
     @Override
     public User convert(final UserDTO dto) {
         final User user = new User();
@@ -31,4 +32,5 @@ public class UserDTOConverter implements Converter<UserDTO, User> {
         user.setAuthorities(authorities);
         return user;
     }
+
 }

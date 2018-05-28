@@ -55,4 +55,5 @@ public class UserAuthentication implements Authentication {
     public User getUser() {
         return user;
     }
+
 }

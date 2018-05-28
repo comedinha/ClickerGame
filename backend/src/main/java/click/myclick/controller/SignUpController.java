@@ -31,4 +31,5 @@ public class SignUpController {
     public ResponseEntity<?> signUp(@RequestBody final UserDTO dto) {
         return new ResponseEntity<>(service.create(converterFacade.convert(dto)), HttpStatus.OK);
     }
+
 }

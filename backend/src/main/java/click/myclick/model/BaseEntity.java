@@ -42,4 +42,5 @@ public class BaseEntity implements Serializable {
     public void setUpdatedAt(final String updatedAt) {
         this.updatedAt = updatedAt;
     }
+
 }

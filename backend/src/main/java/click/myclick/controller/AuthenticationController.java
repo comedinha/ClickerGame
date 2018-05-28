@@ -34,4 +34,5 @@ public class AuthenticationController {
             return new ResponseEntity<>("Authentication failed", HttpStatus.BAD_REQUEST);
         }
     }
+
 }

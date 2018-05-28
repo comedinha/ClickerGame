@@ -30,4 +30,5 @@ public class ServiceException extends RuntimeException {
     public void setService(final String service) {
         this.service = service;
     }
+
 }

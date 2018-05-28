@@ -28,4 +28,5 @@ public class BasicUserDetailsService implements UserDetailsService {
             throw new UsernameNotFoundException("User with username:" + username + " not found");
         }
     }
+
 }

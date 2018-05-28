@@ -19,4 +19,5 @@ public class TokenDTO implements Serializable {
     public void setToken(final String token) {
         this.token = token;
     }
+
 }

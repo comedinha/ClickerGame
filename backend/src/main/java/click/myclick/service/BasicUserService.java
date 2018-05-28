@@ -61,4 +61,5 @@ public class BasicUserService implements UserService {
         repository.deleteById(id);
         return id;
     }
+
 }

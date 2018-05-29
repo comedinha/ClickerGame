@@ -11,6 +11,7 @@ import Logout from '@/components/auth/Logout'
 
 import Test from '@/components/tests/Test'
 import Counter from '@/components/tests/Counter'
+import Visual from '@/components/tests/Visual'
 
 const ifNotAuthenticated = (to, from, next) => {
   if (!store.getters.isAuthenticated) {
@@ -67,6 +68,11 @@ export default new Router({
       name: 'Counter',
       component: Counter,
       beforeEnter: ifAuthenticated
+    },
+    {
+      path: '/Visual',
+      name: 'Visual',
+      component: Visual
     }
   ]
 })

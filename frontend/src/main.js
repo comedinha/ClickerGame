@@ -4,11 +4,9 @@ import Vue from 'vue'
 import VueResource from 'vue-resource'
 import Vuelidate from 'vuelidate'
 import Vuetify from 'vuetify'
-import BootstrapVue from 'bootstrap-vue'
 
-import 'bootstrap/dist/css/bootstrap.css'
-import 'bootstrap-vue/dist/bootstrap-vue.css'
 import 'vuetify/dist/vuetify.min.css'
+import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
 import App from './App'
 import router from './router'
@@ -17,7 +15,6 @@ import './lang'
 
 Vue.use(VueResource)
 Vue.use(Vuelidate)
-Vue.use(BootstrapVue)
 Vue.use(Vuetify)
 
 Vue.http.options = {

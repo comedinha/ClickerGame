@@ -1,37 +1,21 @@
 <template>
-  <div class="col-sm-4 col-sm-offset-4">
-    <h2 v-text="$ml.get('signup.title')" />
-    <p v-text="$ml.get('signup.description')" />
-    <div class="alert alert-danger" v-if="error">
-      <p>{{ error }}</p>
-    </div>
-    <div class="form-group" :class="{ 'form-group--error': $v.credentials.username.$error }">
-      <label class="form__label" v-text="$ml.get('signup.username.title')"/>
-      <input class="form__input" v-model.trim="$v.credentials.username.$model" />
-    </div>
-    <div class="error" v-if="!$v.credentials.username.required" v-text="$ml.get('signup.required')"/>
-    <div class="error" v-if="!$v.credentials.username.minLength" v-text="$ml.with('c', $v.credentials.username.$params.minLength.min).get('signup.username.errorLimit')" />
-
-    <div class="form-group" :class="{ 'form-group--error': $v.credentials.email.$error }">
-      <label class="form__label" v-text="$ml.get('signup.email.title')"/>
-      <input class="form__input" v-model.trim="$v.credentials.email.$model" />
-    </div>
-    <div class="error" v-if="!$v.credentials.email.required" v-text="$ml.get('signup.required')"/>
-    <div class="error" v-if="!$v.credentials.email.email" v-text="$ml.get('signup.email.validEmail')"/>
-
-    <div class="form-group" :class="{ 'form-group--error': $v.credentials.password.$error }">
-      <label class="form__label" v-text="$ml.get('signup.password.title')"/>
-      <input class="form__input" v-model.trim="$v.credentials.password.$model" type="password"/>
-    </div>
-    <div class="error" v-if="!$v.credentials.password.required" v-text="$ml.get('signup.required')"/>
-    <div class="error" v-if="!$v.credentials.password.minLength" v-text="$ml.with('c', $v.credentials.password.$params.minLength.min).get('signup.password.errorLimit')" />
-    <div class="form-group" :class="{ 'form-group--error': $v.credentials.confirmPassword.$error }">
-      <label class="form__label" v-text="$ml.get('signup.confirmPassword.title')"/>
-      <input class="form__input" v-model.trim="$v.credentials.confirmPassword.$model" type="password"/>
-    </div>
-    <div class="error" v-if="!$v.credentials.confirmPassword.sameAsPassword" v-text="$ml.get('signup.confirmPassword.errorIdentical')"/>
-    <button class="btn btn-primary" @click="submit()" v-text="$ml.get('signup.button')" />
-  </div>
+  <v-card-text>
+    <v-alert :value="true" type="error" v-if="error">
+      {{ error }}
+    </v-alert>
+    <v-form>
+      <v-text-field prepend-icon="person" v-model="credentials.name" :error-messages="nameErrors" :label="$ml.get('signup.name.title')" required @input="$v.credentials.name.$touch()" @blur="$v.credentials.name.$touch()" />
+      <v-text-field prepend-icon="email" v-model="credentials.username" :error-messages="emailErrors" :label="$ml.get('signup.username.title')" required @input="$v.credentials.username.$touch()" @blur="$v.credentials.username.$touch()" />
+      <v-card-actions>
+        <v-text-field prepend-icon="lock" v-model="credentials.password" :error-messages="passwordErrors" :label="$ml.get('signup.password.title')" required @input="$v.credentials.password.$touch()" @blur="$v.credentials.password.$touch()" type="password" />
+        <v-text-field v-model="credentials.confirmPassword" :error-messages="confirmPasswordErrors" :label="$ml.get('signup.confirmPassword.title')" required @input="$v.credentials.confirmPassword.$touch()" @blur="$v.credentials.confirmPassword.$touch()" type="password" />
+      </v-card-actions>
+    </v-form>
+    <v-card-actions>
+      <v-spacer />
+      <v-btn color="primary" @click="submit()" v-text="$ml.get('signup.button')" />
+    </v-card-actions>
+  </v-card-text>
 </template>
 
 <script>
@@ -42,9 +26,9 @@ export default {
     return {
       credentials: {
         username: '',
+        name: '',
         password: '',
-        confirmPassword: '',
-        email: ''
+        confirmPassword: ''
       },
       error: ''
     }
@@ -53,11 +37,11 @@ export default {
     credentials: {
       username: {
         required,
-        minLength: minLength(4)
-      },
-      email: {
-        required,
         email
+      },
+      name: {
+        required,
+        minLength: minLength(4)
       },
       password: {
         required,
@@ -68,12 +52,41 @@ export default {
       }
     }
   },
+  computed: {
+    emailErrors () {
+      const errors = []
+      if (!this.$v.credentials.username.$dirty) return errors
+      !this.$v.credentials.username.required && errors.push(this.$ml.get('signup.required'))
+      !this.$v.credentials.username.email && errors.push(this.$ml.get('signup.username.validEmail'))
+      return errors
+    },
+    nameErrors () {
+      const errors = []
+      if (!this.$v.credentials.name.$dirty) return errors
+      !this.$v.credentials.name.required && errors.push(this.$ml.get('signup.required'))
+      !this.$v.credentials.name.minLength && errors.push(this.$ml.with('c', this.$v.credentials.name.$params.minLength.min).get('signup.name.errorLimit'))
+      return errors
+    },
+    passwordErrors () {
+      const errors = []
+      if (!this.$v.credentials.password.$dirty) return errors
+      !this.$v.credentials.password.required && errors.push(this.$ml.get('signup.required'))
+      !this.$v.credentials.password.minLength && errors.push(this.$ml.with('c', this.$v.credentials.password.$params.minLength.min).get('signup.password.errorLimit'))
+      return errors
+    },
+    confirmPasswordErrors () {
+      const errors = []
+      if (!this.$v.credentials.confirmPassword.$dirty) return errors
+      !this.$v.credentials.confirmPassword.sameAsPassword && errors.push(this.$ml.get('signup.confirmPassword.errorIdentical'))
+      return errors
+    }
+  },
   methods: {
     submit () {
       if (!this.$v.$invalid) {
-        const { username, password, email } = this.credentials
-        this.$store.dispatch('authCreate', { username, password, email }).then(() => {
-          this.$router.push('/Signin')
+        const { username, name, password } = this.credentials
+        this.$store.dispatch('authCreate', { username, name, password }).then(() => {
+          this.$router.push('Signin')
         })
       } else {
         this.error = this.$ml.get('signup.errorRequired')

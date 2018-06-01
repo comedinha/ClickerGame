@@ -22,6 +22,7 @@ public class UserDTOConverter implements Converter<UserDTO, User> {
 
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
         user.setPassword(passwordEncoder.encode(dto.getPassword()));
+        user.setName(dto.getName());
 
         user.setAccountNonExpired(false);
         user.setCredentialsNonExpired(false);

@@ -5,13 +5,13 @@ import store from '../store'
 
 import Home from '@/components/Home'
 
+import Auth from '@/components/auth/Auth'
 import Signup from '@/components/auth/Signup'
 import Signin from '@/components/auth/Signin'
 import Logout from '@/components/auth/Logout'
 
 import Test from '@/components/tests/Test'
 import Counter from '@/components/tests/Counter'
-import Visual from '@/components/tests/Visual'
 
 const ifNotAuthenticated = (to, from, next) => {
   if (!store.getters.isAuthenticated) {
@@ -26,7 +26,7 @@ const ifAuthenticated = (to, from, next) => {
     next()
     return
   }
-  next('/Signin')
+  next('Signin')
 }
 
 Vue.use(Router)
@@ -34,27 +34,35 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/Signin',
-      name: 'Signin',
-      component: Signin,
-      beforeEnter: ifNotAuthenticated
-    },
-    {
-      path: '/Signup',
-      name: 'Signup',
-      component: Signup,
-      beforeEnter: ifNotAuthenticated
+      path: '/Auth',
+      name: 'Auth',
+      component: Auth,
+      beforeEnter: ifNotAuthenticated,
+      children: [
+        {
+          path: '/Signin',
+          name: 'Signin',
+          component: Signin,
+          beforeEnter: ifNotAuthenticated
+        },
+        {
+          path: '/Signup',
+          name: 'Signup',
+          component: Signup,
+          beforeEnter: ifNotAuthenticated
+        },
+        {
+          path: '/Logout',
+          name: 'Logout',
+          component: Logout,
+          beforeEnter: ifAuthenticated
+        }
+      ]
     },
     {
       path: '/',
       name: 'Home',
       component: Home,
-      beforeEnter: ifAuthenticated
-    },
-    {
-      path: '/Logout',
-      name: 'Logout',
-      component: Logout,
       beforeEnter: ifAuthenticated
     },
     {
@@ -68,11 +76,6 @@ export default new Router({
       name: 'Counter',
       component: Counter,
       beforeEnter: ifAuthenticated
-    },
-    {
-      path: '/Visual',
-      name: 'Visual',
-      component: Visual
     }
   ]
 })

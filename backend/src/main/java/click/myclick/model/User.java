@@ -15,6 +15,7 @@ public class User extends BaseEntity implements UserDetails {
 
     private String username;
     private String password;
+    private String name;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
@@ -55,6 +56,10 @@ public class User extends BaseEntity implements UserDetails {
         return isEnabled;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setAuthorities(final List<Authority> authorities) {
         this.authorities = authorities;
     }
@@ -81,6 +86,10 @@ public class User extends BaseEntity implements UserDetails {
 
     public void setEnabled(final boolean enabled) {
         isEnabled = enabled;
+    }
+
+    public void setName(final String name) {
+        this.name = name;
     }
 
 }

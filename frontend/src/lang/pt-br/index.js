@@ -1,8 +1,26 @@
 export default {
   signin: {
     title: 'Entrar',
-    description: 'Descrição do Login',
-    button: 'Entrar'
+    button: 'Entrar',
+
+    forgotten: {
+      title: 'Esqueci minha senha',
+      text: 'Recuperar Senha',
+      description: 'Digite seu endereço de email e enviaremos instruções de recuperação.',
+      confirm: 'Se o endereço de email for correto nós enviamos as intruções.',
+      button: 'Recuperar'
+    },
+
+    required: 'Campo necessário.',
+    errorRequired: 'Entre com os dados em todos os campos requeridos.',
+    email: {
+      title: 'Email: ',
+      validEmail: 'Digite um endereço de email válido.'
+    },
+    password: {
+      title: 'Senha: ',
+      errorLimit: 'A senha deve ao menos {c} digitos.'
+    }
   },
   signup: {
     title: 'Cadastrar',
@@ -12,19 +30,19 @@ export default {
     required: 'Campo necessário.',
     errorRequired: 'Entre com os dados em todos os campos requeridos.',
     username: {
-      title: 'Nome de usuário: ',
-      errorLimit: 'O nome de usuário deve ter ao menos {c} caracteres.'
-    },
-    email: {
       title: 'Email: ',
       validEmail: 'Digite um endereço de email válido.'
+    },
+    name: {
+      title: 'Nome: ',
+      errorLimit: 'O nome deve ter ao menos {c} caracteres.'
     },
     password: {
       title: 'Senha: ',
       errorLimit: 'A senha deve ao menos {c} digitos.'
     },
     confirmPassword: {
-      title: 'Confirme o password: ',
+      title: 'Confirmação: ',
       errorIdentical: 'A confirmação precisa ser identica a senha.'
     }
   }

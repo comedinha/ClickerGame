@@ -46,5 +46,12 @@ export default {
       title: 'Confirmação: ',
       errorIdentical: 'A confirmação precisa ser identica a senha.'
     }
+  },
+  email: {
+    title: 'Código: ',
+    button: 'Ativar',
+
+    required: 'Campo necessário.',
+    errorRequired: 'Entre com os dados em todos os campos requeridos.'
   }
 }

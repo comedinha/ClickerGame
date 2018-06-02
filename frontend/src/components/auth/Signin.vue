@@ -13,10 +13,21 @@
     <v-card-actions>
       <v-btn small flat color="indigo" @click.native.stop="forgotten.display = !forgotten.display">{{ $ml.get('signin.forgotten.title') }}</v-btn>
       <v-spacer />
-      <v-btn color="primary" @click="submit()" >{{ $ml.get('signin.button') }}</v-btn>
+      <v-tooltip right close-delay="1000">
+        <v-btn slot="activator" color="primary" :loading="load" @click="onSubmit">{{ $ml.get('signin.button') }}</v-btn>
+        <spam>
+          <vue-recaptcha
+            ref="invisibleRecaptcha"
+            @verify="onVerify"
+            @expired="onExpired"
+            size="invisible"
+            :sitekey="sitekey"
+            badge="inline" />
+        </spam>
+      </v-tooltip>
     </v-card-actions>
     <br />
-    <hr />
+    <v-divider />
     <v-btn block color="success" disabled >{{ $ml.get('signin.guest') }}</v-btn>
     <v-dialog v-model="forgotten.display" max-width="500px">
       <v-card>
@@ -27,7 +38,7 @@
           {{ $ml.get('signin.forgotten.description') }}
         </v-alert>
         <v-card-text>
-          <v-text-field prepend-icon="email" v-model="forgotten.email" :error-messages="emailErrors" :label="$ml.get('signin.email.title')" required @input="$v.credentials.username.$touch()" @blur="$v.credentials.username.$touch()" />
+          <v-text-field prepend-icon="email" v-model="forgotten.email" :error-messages="emailForgottenErrors" :label="$ml.get('signin.email.title')" required @input="$v.forgotten.email.$touch()" @blur="$v.forgotten.email.$touch()" />
         </v-card-text>
         <v-card-actions>
           <v-spacer />
@@ -40,10 +51,12 @@
 
 <script>
 import { required, email } from 'vuelidate/lib/validators'
+import VueRecaptcha from 'vue-recaptcha'
 
 export default {
   data () {
     return {
+      sitekey: '6Lfk1FwUAAAAAMcjjT1vE-D9MLIgLaKm4_4BN44W',
       credentials: {
         username: '',
         password: ''
@@ -65,9 +78,25 @@ export default {
       password: {
         required
       }
+    },
+    forgotten: {
+      email: {
+        required,
+        email
+      }
     }
   },
+  components: {
+    VueRecaptcha
+  },
   computed: {
+    emailForgottenErrors () {
+      const errors = []
+      if (!this.$v.forgotten.email.$dirty) return errors
+      !this.$v.forgotten.email.required && errors.push(this.$ml.get('signin.required'))
+      !this.$v.forgotten.email.email && errors.push(this.$ml.get('signin.email.validEmail'))
+      return errors
+    },
     emailErrors () {
       const errors = []
       if (!this.$v.credentials.username.$dirty) return errors
@@ -83,15 +112,26 @@ export default {
     }
   },
   methods: {
-    submit () {
+    send () {
+      this.$v.$touch()
       if (!this.$v.$invalid) {
-        const { username, password } = this.credentials
-        this.$store.dispatch('authRequest', { username, password }).then(() => {
+        const { username, password, captcharesponse } = this.credentials
+        this.$store.dispatch('authRequest', { username, password, captcharesponse }).then(() => {
           this.$router.push('/')
         })
       } else {
         this.error = this.$ml.get('signin.errorRequired')
       }
+    },
+    onSubmit () {
+      this.$refs.invisibleRecaptcha.execute()
+    },
+    onVerify (response) {
+      this.credentials.captcharesponse = response
+      this.send()
+    },
+    onExpired () {
+      this.$refs.invisibleRecaptcha.reset()
     }
   }
 }

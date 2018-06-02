@@ -7,6 +7,7 @@ import Home from '@/components/Home'
 
 import Auth from '@/components/template/Auth'
 
+import Activeemail from '@/components/auth/Activeemail'
 import Signup from '@/components/auth/Signup'
 import Signin from '@/components/auth/Signin'
 import Logout from '@/components/auth/Logout'
@@ -51,6 +52,12 @@ export default new Router({
           path: '/Signup',
           name: 'Signup',
           component: Signup,
+          beforeEnter: ifNotAuthenticated
+        },
+        {
+          path: '/Email',
+          name: 'Email',
+          component: Activeemail,
           beforeEnter: ifNotAuthenticated
         },
         {

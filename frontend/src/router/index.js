@@ -5,7 +5,8 @@ import store from '../store'
 
 import Home from '@/components/Home'
 
-import Auth from '@/components/auth/Auth'
+import Auth from '@/components/template/Auth'
+
 import Signup from '@/components/auth/Signup'
 import Signin from '@/components/auth/Signin'
 import Logout from '@/components/auth/Logout'
@@ -35,6 +36,7 @@ export default new Router({
   routes: [
     {
       path: '/Auth',
+      redirect: 'Signin',
       name: 'Auth',
       component: Auth,
       beforeEnter: ifNotAuthenticated,

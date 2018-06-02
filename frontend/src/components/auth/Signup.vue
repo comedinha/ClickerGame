@@ -13,23 +13,36 @@
     </v-form>
     <v-card-actions>
       <v-spacer />
-      <v-btn color="primary" @click="submit()" v-text="$ml.get('signup.button')" />
+      <vue-recaptcha
+        ref="invisibleRecaptcha"
+        @verify="onVerify"
+        @expired="onExpired"
+        size="invisible"
+        :sitekey="sitekey"
+        badge="bottomleft">
+        <v-btn color="primary" :loading="load" @click="onSubmit">{{ $ml.get('signup.button') }}</v-btn>
+      </vue-recaptcha>
     </v-card-actions>
   </v-card-text>
 </template>
 
 <script>
 import { required, minLength, sameAs, email } from 'vuelidate/lib/validators'
+import VueRecaptcha from 'vue-recaptcha'
 
 export default {
   data () {
     return {
+      sitekey: '6Lfk1FwUAAAAAMcjjT1vE-D9MLIgLaKm4_4BN44W',
       credentials: {
         username: '',
         name: '',
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        captcharesponse: ''
       },
+      loggedIn: false,
+      load: false,
       error: ''
     }
   },
@@ -51,6 +64,9 @@ export default {
         sameAsPassword: sameAs('password')
       }
     }
+  },
+  components: {
+    VueRecaptcha
   },
   computed: {
     emailErrors () {
@@ -82,15 +98,26 @@ export default {
     }
   },
   methods: {
-    submit () {
+    send () {
       if (!this.$v.$invalid) {
-        const { username, name, password } = this.credentials
-        this.$store.dispatch('authCreate', { username, name, password }).then(() => {
+        this.load = true
+        const { username, name, password, captcharesponse } = this.credentials
+        this.$store.dispatch('authCreate', { username, name, password, captcharesponse }).then(() => {
           this.$router.push('Signin')
         })
       } else {
         this.error = this.$ml.get('signup.errorRequired')
       }
+    },
+    onSubmit () {
+      this.$refs.invisibleRecaptcha.execute()
+    },
+    onVerify (response) {
+      this.credentials.captcharesponse = response
+      this.send()
+    },
+    onExpired () {
+      this.$refs.invisibleRecaptcha.reset()
     }
   }
 }

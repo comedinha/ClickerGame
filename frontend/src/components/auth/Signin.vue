@@ -13,8 +13,11 @@
     <v-card-actions>
       <v-btn small flat color="indigo" @click.native.stop="forgotten.display = !forgotten.display">{{ $ml.get('signin.forgotten.title') }}</v-btn>
       <v-spacer />
-      <v-btn color="primary" @click="submit()" v-text="$ml.get('signin.button')" />
+      <v-btn color="primary" @click="submit()" >{{ $ml.get('signin.button') }}</v-btn>
     </v-card-actions>
+    <br />
+    <hr />
+    <v-btn block color="success" disabled >{{ $ml.get('signin.guest') }}</v-btn>
     <v-dialog v-model="forgotten.display" max-width="500px">
       <v-card>
         <v-card-title>

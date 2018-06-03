@@ -15,15 +15,7 @@
       <v-spacer />
       <v-tooltip right close-delay="1000">
         <v-btn slot="activator" color="primary" :loading="load" @click="onSubmit">{{ $ml.get('signin.button') }}</v-btn>
-        <spam>
-          <vue-recaptcha
-            ref="invisibleRecaptcha"
-            @verify="onVerify"
-            @expired="onExpired"
-            size="invisible"
-            :sitekey="sitekey"
-            badge="inline" />
-        </spam>
+        <vue-recaptcha ref="invisibleRecaptcha" @verify="onVerify" @expired="onExpired" size="invisible" :sitekey="sitekey" badge="inline" />
       </v-tooltip>
     </v-card-actions>
     <br />
@@ -61,6 +53,7 @@ export default {
         username: '',
         password: ''
       },
+      load: false,
       error: '',
       forgotten: {
         display: false,
@@ -115,6 +108,7 @@ export default {
     send () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
+        this.load = true
         const { username, password, captcharesponse } = this.credentials
         this.$store.dispatch('authRequest', { username, password, captcharesponse }).then(() => {
           this.$router.push('/')

@@ -15,15 +15,7 @@
       <v-spacer />
       <v-tooltip right close-delay="1000">
         <v-btn slot="activator" color="primary" :loading="load" @click="onSubmit">{{ $ml.get('signup.button') }}</v-btn>
-        <spam>
-          <vue-recaptcha
-            ref="invisibleRecaptcha"
-            @verify="onVerify"
-            @expired="onExpired"
-            size="invisible"
-            :sitekey="sitekey"
-            badge="inline" />
-        </spam>
+        <vue-recaptcha ref="invisibleRecaptcha" @verify="onVerify" @expired="onExpired" size="invisible" :sitekey="sitekey" badge="inline" />
       </v-tooltip>
     </v-card-actions>
   </v-card-text>

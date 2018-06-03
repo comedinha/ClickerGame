@@ -96,16 +96,17 @@ export default {
     send () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        this.load = true
         const { username, name, password, captcharesponse } = this.credentials
         this.$store.dispatch('authCreate', { username, name, password, captcharesponse }).then(() => {
           this.$router.push('Signin')
         })
       } else {
+        this.load = false
         this.error = this.$ml.get('signup.errorRequired')
       }
     },
     onSubmit () {
+      this.load = true
       this.$refs.invisibleRecaptcha.execute()
     },
     onVerify (response) {

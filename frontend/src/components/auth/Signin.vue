@@ -106,18 +106,19 @@ export default {
   },
   methods: {
     send () {
-      this.$v.$touch()
+      this.$v.credentials.$touch()
       if (!this.$v.credentials.$invalid) {
-        this.load = true
         const { username, password, captcharesponse } = this.credentials
         this.$store.dispatch('authRequest', { username, password, captcharesponse }).then(() => {
           this.$router.push('/')
         })
       } else {
+        this.load = false
         this.error = this.$ml.get('signin.errorRequired')
       }
     },
     onSubmit () {
+      this.load = true
       this.$refs.invisibleRecaptcha.execute()
     },
     onVerify (response) {

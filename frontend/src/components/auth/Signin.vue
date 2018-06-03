@@ -107,7 +107,7 @@ export default {
   methods: {
     send () {
       this.$v.$touch()
-      if (!this.$v.$invalid) {
+      if (!this.$v.credentials.$invalid) {
         this.load = true
         const { username, password, captcharesponse } = this.credentials
         this.$store.dispatch('authRequest', { username, password, captcharesponse }).then(() => {

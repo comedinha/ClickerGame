@@ -16,7 +16,7 @@
   "dependencies": {
     "bootstrap-vue": "^2.0.0-rc.11",
     "material-design-icons-iconfont": "^3.0.3",
-    "npm": ">=6.1.0",
+    "npm": "^6.1.0",
     "vue": ">=2.5.16",
     "vue-multilanguage": "^4.0.7",
     "vue-recaptcha": "^1.1.1",

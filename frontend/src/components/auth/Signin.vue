@@ -7,23 +7,15 @@
       {{ error }}
     </v-alert>
     <v-form>
-      <v-text-field prepend-icon="email" v-model="credentials.username" :error-messages="emailErrors" :label="$ml.get('signin.email.title')" required @input="$v.credentials.username.$touch()" @blur="$v.credentials.username.$touch()" />
-      <v-text-field prepend-icon="lock" v-model="credentials.password" :error-messages="passwordErrors" :label="$ml.get('signin.password.title')" required @input="$v.credentials.password.$touch()" @blur="$v.credentials.password.$touch()" type="password" />
+      <v-text-field prepend-icon="email" v-model="credentials.username" @keyup.enter="onSubmit" :error-messages="emailErrors" :label="$ml.get('signin.email.title')" required @input="$v.credentials.username.$touch()" @blur="$v.credentials.username.$touch()" />
+      <v-text-field prepend-icon="lock" v-model="credentials.password" @keyup.enter="onSubmit" :error-messages="passwordErrors" :label="$ml.get('signin.password.title')" required @input="$v.credentials.password.$touch()" @blur="$v.credentials.password.$touch()" type="password" />
     </v-form>
     <v-card-actions>
       <v-btn small flat color="indigo" @click.native.stop="forgotten.display = !forgotten.display">{{ $ml.get('signin.forgotten.title') }}</v-btn>
       <v-spacer />
       <v-tooltip right close-delay="1000">
         <v-btn slot="activator" color="primary" :loading="load" @click="onSubmit">{{ $ml.get('signin.button') }}</v-btn>
-        <spam>
-          <vue-recaptcha
-            ref="invisibleRecaptcha"
-            @verify="onVerify"
-            @expired="onExpired"
-            size="invisible"
-            :sitekey="sitekey"
-            badge="inline" />
-        </spam>
+        <vue-recaptcha ref="invisibleRecaptcha" @verify="onVerify" @expired="onExpired" size="invisible" :sitekey="sitekey" badge="inline" />
       </v-tooltip>
     </v-card-actions>
     <br />
@@ -61,6 +53,7 @@ export default {
         username: '',
         password: ''
       },
+      load: false,
       error: '',
       forgotten: {
         display: false,
@@ -113,17 +106,19 @@ export default {
   },
   methods: {
     send () {
-      this.$v.$touch()
-      if (!this.$v.$invalid) {
+      this.$v.credentials.$touch()
+      if (!this.$v.credentials.$invalid) {
         const { username, password, captcharesponse } = this.credentials
         this.$store.dispatch('authRequest', { username, password, captcharesponse }).then(() => {
           this.$router.push('/')
         })
       } else {
+        this.load = false
         this.error = this.$ml.get('signin.errorRequired')
       }
     },
     onSubmit () {
+      this.load = true
       this.$refs.invisibleRecaptcha.execute()
     },
     onVerify (response) {

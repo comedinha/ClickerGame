@@ -3,14 +3,15 @@ import Router from 'vue-router'
 
 import store from '../store'
 
-import Home from '@/components/Home'
-
+import Footer from '@/components/Template/Footer'
 import Auth from '@/components/template/Auth'
 
 import Activeemail from '@/components/auth/Activeemail'
 import Signup from '@/components/auth/Signup'
 import Signin from '@/components/auth/Signin'
 import Logout from '@/components/auth/Logout'
+
+import Home from '@/components/lobby/Index'
 
 import Test from '@/components/tests/Test'
 import Counter from '@/components/tests/Counter'
@@ -36,43 +37,51 @@ Vue.use(Router)
 export default new Router({
   routes: [
     {
-      path: '/Auth',
-      redirect: 'Signin',
-      name: 'Auth',
-      component: Auth,
-      beforeEnter: ifNotAuthenticated,
+      path: '/',
+      redirect: '/Index',
+      name: 'Footer',
+      component: Footer,
       children: [
         {
-          path: '/Signin',
-          name: 'Signin',
-          component: Signin,
-          beforeEnter: ifNotAuthenticated
-        },
-        {
-          path: '/Signup',
-          name: 'Signup',
-          component: Signup,
-          beforeEnter: ifNotAuthenticated
-        },
-        {
-          path: '/Email',
-          name: 'Email',
-          component: Activeemail,
-          beforeEnter: ifNotAuthenticated
-        },
-        {
-          path: '/Logout',
-          name: 'Logout',
-          component: Logout,
+          path: '/Index',
+          name: 'Index',
+          component: Home,
           beforeEnter: ifAuthenticated
+        },
+        {
+          path: '/Auth',
+          redirect: 'Signin',
+          name: 'Auth',
+          component: Auth,
+          beforeEnter: ifNotAuthenticated,
+          children: [
+            {
+              path: '/Signin',
+              name: 'Signin',
+              component: Signin,
+              beforeEnter: ifNotAuthenticated
+            },
+            {
+              path: '/Signup',
+              name: 'Signup',
+              component: Signup,
+              beforeEnter: ifNotAuthenticated
+            },
+            {
+              path: '/Email',
+              name: 'Email',
+              component: Activeemail,
+              beforeEnter: ifNotAuthenticated
+            },
+            {
+              path: '/Logout',
+              name: 'Logout',
+              component: Logout,
+              beforeEnter: ifAuthenticated
+            }
+          ]
         }
       ]
-    },
-    {
-      path: '/',
-      name: 'Home',
-      component: Home,
-      beforeEnter: ifAuthenticated
     },
     {
       path: '/Test',

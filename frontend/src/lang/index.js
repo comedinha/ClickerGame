@@ -6,9 +6,9 @@ import ptbr from './pt-br'
 Vue.use(MLInstaller)
 
 export default new MLCreate({
-  initial: 'portuguese',
+  initial: 'Portuguese (Brazil)',
   save: process.env.NODE_ENV === 'production',
   languages: [
-    new MLanguage('portuguese').create(ptbr)
+    new MLanguage('Portuguese (Brazil)').create(ptbr)
   ]
 })

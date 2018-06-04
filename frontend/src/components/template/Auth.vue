@@ -1,9 +1,21 @@
 <template>
   <v-app id="inspire">
+    <v-navigation-drawer app right class="hidden-sm-and-down">
+      <script2 async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
+      <!-- ClickGameAuth -->
+      <ins class="adsbygoogle"
+          style="display:block"
+          data-ad-client="ca-pub-9155104656479961"
+          data-ad-slot="9627167729"
+          data-ad-format="auto" />
+      <script2>
+      (adsbygoogle = window.adsbygoogle || []).push({});
+      </script2>
+    </v-navigation-drawer>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
-          <v-flex xs12 sm8 md4>
+          <v-flex xs12 sm8 md5>
             <v-card class="elevation-12">
               <v-toolbar>
                 <v-toolbar-title>My Click</v-toolbar-title>

@@ -7,8 +7,8 @@
       {{ error }}
     </v-alert>
     <v-form>
-      <v-text-field prepend-icon="email" v-model="credentials.username" :error-messages="emailErrors" :label="$ml.get('signin.email.title')" required @input="$v.credentials.username.$touch()" @blur="$v.credentials.username.$touch()" />
-      <v-text-field prepend-icon="lock" v-model="credentials.password" :error-messages="passwordErrors" :label="$ml.get('signin.password.title')" required @input="$v.credentials.password.$touch()" @blur="$v.credentials.password.$touch()" type="password" />
+      <v-text-field prepend-icon="email" v-model="credentials.username" @keyup.enter="onSubmit" :error-messages="emailErrors" :label="$ml.get('signin.email.title')" required @input="$v.credentials.username.$touch()" @blur="$v.credentials.username.$touch()" />
+      <v-text-field prepend-icon="lock" v-model="credentials.password" @keyup.enter="onSubmit" :error-messages="passwordErrors" :label="$ml.get('signin.password.title')" required @input="$v.credentials.password.$touch()" @blur="$v.credentials.password.$touch()" type="password" />
     </v-form>
     <v-card-actions>
       <v-btn small flat color="indigo" @click.native.stop="forgotten.display = !forgotten.display">{{ $ml.get('signin.forgotten.title') }}</v-btn>

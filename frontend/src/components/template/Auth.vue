@@ -1,28 +1,17 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer app right hidden-sm-and-down>
+    <v-navigation-drawer app right class="hidden-sm-and-down">
       <script2 async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
+      <!-- ClickGameAuth -->
       <ins class="adsbygoogle"
-          style="display:inline-block;width:160px;height:600px"
+          style="display:block"
           data-ad-client="ca-pub-9155104656479961"
-          data-ad-slot="4031990452" />
+          data-ad-slot="9627167729"
+          data-ad-format="auto" />
       <script2>
       (adsbygoogle = window.adsbygoogle || []).push({});
       </script2>
     </v-navigation-drawer>
-    <v-toolbar app class="elevation-0">
-      <v-spacer />
-      <v-menu offset-y>
-        <v-btn icon slot="activator">
-          <v-icon>flag</v-icon>
-        </v-btn>
-        <v-list>
-          <v-list-tile v-for="lang in $ml.list" :key="lang" @click="$ml.change(lang)">
-            <v-list-tile-title>{{ lang }}</v-list-tile-title>
-          </v-list-tile>
-        </v-list>
-      </v-menu>
-    </v-toolbar>
     <v-content>
       <v-container fluid fill-height>
         <v-layout align-center justify-center>

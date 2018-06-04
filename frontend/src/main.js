@@ -6,6 +6,9 @@ import Vuelidate from 'vuelidate'
 import Vuetify from 'vuetify'
 import Vuescript2 from 'vue-script2'
 
+import ElementUI from 'element-ui'
+import 'element-ui/lib/theme-chalk/index.css'
+
 import 'vuetify/dist/vuetify.min.css'
 import 'material-design-icons-iconfont/dist/material-design-icons.css'
 
@@ -18,6 +21,7 @@ Vue.use(VueResource)
 Vue.use(Vuelidate)
 Vue.use(Vuetify)
 Vue.use(Vuescript2)
+Vue.use(ElementUI)
 
 Vue.http.options = {
   root: 'http://localhost:8088/',

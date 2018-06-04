@@ -4,11 +4,11 @@
       {{ error }}
     </v-alert>
     <v-form>
-      <v-text-field prepend-icon="person" v-model="credentials.name" :error-messages="nameErrors" :label="$ml.get('signup.name.title')" required @input="$v.credentials.name.$touch()" @blur="$v.credentials.name.$touch()" />
-      <v-text-field prepend-icon="email" v-model="credentials.username" :error-messages="emailErrors" :label="$ml.get('signup.username.title')" required @input="$v.credentials.username.$touch()" @blur="$v.credentials.username.$touch()" />
+      <v-text-field prepend-icon="person" v-model="credentials.name" @keyup.enter="onSubmit" :error-messages="nameErrors" :label="$ml.get('signup.name.title')" required @input="$v.credentials.name.$touch()" @blur="$v.credentials.name.$touch()" />
+      <v-text-field prepend-icon="email" v-model="credentials.username" @keyup.enter="onSubmit" :error-messages="emailErrors" :label="$ml.get('signup.username.title')" required @input="$v.credentials.username.$touch()" @blur="$v.credentials.username.$touch()" />
       <v-card-actions>
-        <v-text-field prepend-icon="lock" v-model="credentials.password" :error-messages="passwordErrors" :label="$ml.get('signup.password.title')" required @input="$v.credentials.password.$touch()" @blur="$v.credentials.password.$touch()" type="password" />
-        <v-text-field v-model="credentials.confirmPassword" :error-messages="confirmPasswordErrors" :label="$ml.get('signup.confirmPassword.title')" required @input="$v.credentials.confirmPassword.$touch()" @blur="$v.credentials.confirmPassword.$touch()" type="password" />
+        <v-text-field prepend-icon="lock" v-model="credentials.password" @keyup.enter="onSubmit" :error-messages="passwordErrors" :label="$ml.get('signup.password.title')" required @input="$v.credentials.password.$touch()" @blur="$v.credentials.password.$touch()" type="password" />
+        <v-text-field v-model="credentials.confirmPassword" @keyup.enter="onSubmit" :error-messages="confirmPasswordErrors" :label="$ml.get('signup.confirmPassword.title')" required @input="$v.credentials.confirmPassword.$touch()" @blur="$v.credentials.confirmPassword.$touch()" type="password" />
       </v-card-actions>
     </v-form>
     <v-card-actions>
@@ -53,7 +53,7 @@ export default {
       },
       password: {
         required,
-        minLength: minLength(6)
+        minLength: minLength(8)
       },
       confirmPassword: {
         sameAsPassword: sameAs('password')

@@ -36,7 +36,7 @@
 </template>
 
 <script>
-import Footer from '@/components/Template/Footer'
+import Footer from '@/components/template/block/Footer'
 
 export default {
   data () {

@@ -1,6 +1,7 @@
 <template>
   <v-card-text>
-    <v-alert :value="true" type="success" v-if="forgotten.send">
+    <Recovery :forgotten="forgotten" @updateRecovery="forgotten = $event" />
+    <v-alert :value="true" type="success" v-if="forgotten.alert">
       {{ $ml.get('signin.forgotten.confirm') }}
     </v-alert>
     <v-alert :value="true" type="error" v-if="error">
@@ -21,27 +22,12 @@
     <br />
     <v-divider />
     <v-btn block color="success" disabled >{{ $ml.get('signin.guest') }}</v-btn>
-    <v-dialog v-model="forgotten.display" max-width="500px">
-      <v-card>
-        <v-card-title>
-          <span class="headline">{{ $ml.get('signin.forgotten.text') }}</span>
-        </v-card-title>
-        <v-alert :value="true" type="info">
-          {{ $ml.get('signin.forgotten.description') }}
-        </v-alert>
-        <v-card-text>
-          <v-text-field prepend-icon="email" v-model="forgotten.email" :error-messages="emailForgottenErrors" :label="$ml.get('signin.email.title')" required @input="$v.forgotten.email.$touch()" @blur="$v.forgotten.email.$touch()" />
-        </v-card-text>
-        <v-card-actions>
-          <v-spacer />
-          <v-btn flat color="primary" @click.native="forgotten.display = false">{{ $ml.get('signin.forgotten.button') }}</v-btn>
-        </v-card-actions>
-      </v-card>
-    </v-dialog>
   </v-card-text>
 </template>
 
 <script>
+import Recovery from '@/components/auth/dialog/Recovery'
+
 import { required, email } from 'vuelidate/lib/validators'
 import VueRecaptcha from 'vue-recaptcha'
 
@@ -49,17 +35,16 @@ export default {
   data () {
     return {
       sitekey: '6Lfk1FwUAAAAAMcjjT1vE-D9MLIgLaKm4_4BN44W',
+      load: false,
+      error: '',
       credentials: {
         username: '',
         password: '',
         captcharesponse: ''
       },
-      load: false,
-      error: '',
       forgotten: {
         display: false,
-        send: false,
-        email: ''
+        alert: false
       }
     }
   },
@@ -72,25 +57,13 @@ export default {
       password: {
         required
       }
-    },
-    forgotten: {
-      email: {
-        required,
-        email
-      }
     }
   },
   components: {
-    VueRecaptcha
+    VueRecaptcha,
+    Recovery
   },
   computed: {
-    emailForgottenErrors () {
-      const errors = []
-      if (!this.$v.forgotten.email.$dirty) return errors
-      !this.$v.forgotten.email.required && errors.push(this.$ml.get('signin.required'))
-      !this.$v.forgotten.email.email && errors.push(this.$ml.get('signin.email.validEmail'))
-      return errors
-    },
     emailErrors () {
       const errors = []
       if (!this.$v.credentials.username.$dirty) return errors

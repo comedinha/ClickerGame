@@ -4,12 +4,13 @@ import Router from 'vue-router'
 import store from '../store'
 
 import Auth from '@/components/template/Auth'
+import Index from '@/components/template/Index'
 
-import Activeemail from '@/components/auth/Activeemail'
+import Email from '@/components/auth/Email'
 import Signup from '@/components/auth/Signup'
 import Signin from '@/components/auth/Signin'
 
-import Home from '@/components/lobby/Index'
+import Lobby from '@/components/lobby/Lobby'
 
 import Test from '@/components/tests/Test'
 import Counter from '@/components/tests/Counter'
@@ -36,9 +37,17 @@ export default new Router({
   routes: [
     {
       path: '/',
-      name: 'Home',
-      component: Home,
-      beforeEnter: ifAuthenticated
+      name: 'Index',
+      redirect: 'Lobby',
+      component: Index,
+      beforeEnter: ifAuthenticated,
+      children: [
+        {
+          path: '/Lobby',
+          name: 'Lobby',
+          component: Lobby
+        }
+      ]
     },
     {
       path: '/Auth',
@@ -61,7 +70,7 @@ export default new Router({
         {
           path: '/Email',
           name: 'Email',
-          component: Activeemail,
+          component: Email,
           beforeEnter: ifNotAuthenticated
         }
       ]

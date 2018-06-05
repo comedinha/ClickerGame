@@ -51,7 +51,8 @@ export default {
       sitekey: '6Lfk1FwUAAAAAMcjjT1vE-D9MLIgLaKm4_4BN44W',
       credentials: {
         username: '',
-        password: ''
+        password: '',
+        captcharesponse: ''
       },
       load: false,
       error: '',

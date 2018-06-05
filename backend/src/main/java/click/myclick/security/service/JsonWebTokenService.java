@@ -35,7 +35,6 @@ public class JsonWebTokenService implements TokenService {
 
     @Override
     public String getToken(final String username, final String password) {
-        System.out.println(username);
         if (username == null || password == null) {
             return null;
         }

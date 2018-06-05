@@ -9,6 +9,7 @@ public class LoginDTO implements Serializable {
 
     private String username;
     private String password;
+    private String captcharesponse;
 
     public LoginDTO() {
     }
@@ -28,5 +29,12 @@ public class LoginDTO implements Serializable {
     public void setPassword(final String password) {
         this.password = password;
     }
-    
+
+    public String getCaptcharesponse() {
+        return captcharesponse;
+    }
+
+    public void setCaptcharesponse(final String captcharesponse) {
+        this.captcharesponse = captcharesponse;
+    }
 }

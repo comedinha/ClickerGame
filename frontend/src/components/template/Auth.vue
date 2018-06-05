@@ -31,14 +31,20 @@
         </v-layout>
       </v-container>
     </v-content>
+    <Footer />
   </v-app>
 </template>
 
 <script>
+import Footer from '@/components/Template/Footer'
+
 export default {
   data () {
     return {
     }
+  },
+  components: {
+    Footer
   }
 }
 </script>

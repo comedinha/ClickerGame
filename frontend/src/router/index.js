@@ -3,7 +3,6 @@ import Router from 'vue-router'
 
 import store from '../store'
 
-import Footer from '@/components/Template/Footer'
 import Auth from '@/components/template/Auth'
 
 import Activeemail from '@/components/auth/Activeemail'
@@ -37,41 +36,33 @@ export default new Router({
   routes: [
     {
       path: '/',
-      redirect: '/Index',
-      name: 'Footer',
-      component: Footer,
+      name: 'Home',
+      component: Home,
+      beforeEnter: ifAuthenticated
+    },
+    {
+      path: '/Auth',
+      redirect: 'Signin',
+      name: 'Auth',
+      component: Auth,
       children: [
         {
-          path: '/Index',
-          name: 'Index',
-          component: Home,
-          beforeEnter: ifAuthenticated
+          path: '/Signin',
+          name: 'Signin',
+          component: Signin,
+          beforeEnter: ifNotAuthenticated
         },
         {
-          path: '/Auth',
-          redirect: 'Signin',
-          name: 'Auth',
-          component: Auth,
-          children: [
-            {
-              path: '/Signin',
-              name: 'Signin',
-              component: Signin,
-              beforeEnter: ifNotAuthenticated
-            },
-            {
-              path: '/Signup',
-              name: 'Signup',
-              component: Signup,
-              beforeEnter: ifNotAuthenticated
-            },
-            {
-              path: '/Email',
-              name: 'Email',
-              component: Activeemail,
-              beforeEnter: ifNotAuthenticated
-            }
-          ]
+          path: '/Signup',
+          name: 'Signup',
+          component: Signup,
+          beforeEnter: ifNotAuthenticated
+        },
+        {
+          path: '/Email',
+          name: 'Email',
+          component: Activeemail,
+          beforeEnter: ifNotAuthenticated
         }
       ]
     },

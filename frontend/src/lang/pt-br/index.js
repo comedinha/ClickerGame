@@ -36,7 +36,8 @@ export default {
     },
     name: {
       title: 'Nome: ',
-      errorLimit: 'O nome deve ter ao menos {c} caracteres.'
+      minLength: 'O nome deve ter no mínimo {c} caracteres.',
+      maxLength: 'O nome deve ter no máximo {c} caracteres.'
     },
     password: {
       title: 'Senha: ',

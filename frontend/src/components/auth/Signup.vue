@@ -22,7 +22,7 @@
 </template>
 
 <script>
-import { required, minLength, sameAs, email } from 'vuelidate/lib/validators'
+import { required, minLength, maxLength, sameAs, email } from 'vuelidate/lib/validators'
 import VueRecaptcha from 'vue-recaptcha'
 
 export default {
@@ -49,7 +49,8 @@ export default {
       },
       name: {
         required,
-        minLength: minLength(4)
+        minLength: minLength(4),
+        maxLength: maxLength(16)
       },
       password: {
         required,
@@ -75,7 +76,8 @@ export default {
       const errors = []
       if (!this.$v.credentials.name.$dirty) return errors
       !this.$v.credentials.name.required && errors.push(this.$ml.get('signup.required'))
-      !this.$v.credentials.name.minLength && errors.push(this.$ml.with('c', this.$v.credentials.name.$params.minLength.min).get('signup.name.errorLimit'))
+      !this.$v.credentials.name.minLength && errors.push(this.$ml.with('c', this.$v.credentials.name.$params.minLength.min).get('signup.name.minLength'))
+      !this.$v.credentials.name.maxLength && errors.push(this.$ml.with('c', this.$v.credentials.name.$params.maxLength.max).get('signup.name.maxLength'))
       return errors
     },
     passwordErrors () {

@@ -32,118 +32,34 @@
     <v-content>
       <v-container fluid grid-list-sm fixed>
         <v-layout row wrap>
-          <v-flex d-flex xs12 sm4 md2>
-            <v-card fluid>
-              <v-toolbar dense flat>
-                <v-toolbar-title>Meus Cenários</v-toolbar-title>
-              </v-toolbar>
-              <v-container fluid grid-list-md>
-                <v-data-iterator :items="mygames.items" :rows-per-page-items="mygames.rowsPerPageItems" :pagination.sync="mygames.pagination" content-tag="v-layout" row wrap>
-                  <v-flex slot="item" slot-scope="props" md12>
-                    <v-card>
-                      <v-card-media height="100px">
-                        <v-container fill-height fluid>
-                          <v-layout fill-height>
-                            <v-flex xs12 align-end flexbox>
-                              <span class="headline black--text">{{props.item.name}}</span>
-                            </v-flex>
-                          </v-layout>
-                        </v-container>
-                      </v-card-media>
-                      <v-card-actions>
-                        <v-spacer />
-                        <v-btn>Editar</v-btn>
-                        <v-spacer />
-                      </v-card-actions>
-                    </v-card>
-                  </v-flex>
-                  <v-flex slot="pageText" slot-scope="props">
-                    {{ props.pageStart }} - {{ props.pageStop }} de {{ props.itemsLength }}
-                  </v-flex>
-                </v-data-iterator>
-              </v-container>
-              <v-card-actions>
-                <v-btn block>Criar Cenário</v-btn>
-              </v-card-actions>
-            </v-card>
-          </v-flex>
+          <MyScenes :myscanes="myscanes"/>
           <v-flex d-flex xs12 sm8 md6>
             <v-layout column>
-              <v-flex d-flex>
-                <v-card fluid v-bind:style="{'background-color': carousel.mostPlay}">
-                  <v-toolbar dense flat>
-                    <v-toolbar-title>Os mais jogados</v-toolbar-title>
-                  </v-toolbar>
-                  <v-card-text>
-                    <el-carousel indicator-position="none" @change="changeMostPlayedCarousel" :autoplay="carousel.autoplay" type="card" height="175px">
-                      <el-carousel-item v-for="item in mostPlay" :key="item.name">
-                        <h3>{{ item.name }}</h3>
-                      </el-carousel-item>
-                    </el-carousel>
-                  </v-card-text>
-                </v-card>
-              </v-flex>
-              <v-flex d-flex>
-                <v-card fluid v-bind:style="{'background-color': carousel.recentAdd}">
-                  <v-toolbar dense flat>
-                    <v-toolbar-title>Jogos Adicionados Recentemente</v-toolbar-title>
-                  </v-toolbar>
-                  <v-card-text>
-                    <el-carousel indicator-position="none" @change="changeRecentAddedCarousel" :autoplay="carousel.autoplay" type="card" height="175px">
-                      <el-carousel-item v-for="item in recentAdd" :key="item.name">
-                        <h3>{{ item.name }}</h3>
-                      </el-carousel-item>
-                    </el-carousel>
-                  </v-card-text>
-                </v-card>
-              </v-flex>
+              <MostPlayed :mostPlay="mostPlay" />
+              <recentCreated :recentAdd="recentAdd" />
             </v-layout>
           </v-flex>
-          <v-flex d-flex xs12 sm12 md4>
-            <v-card fluid>
-              <v-toolbar dense flat>
-                <v-toolbar-title>Jogos que você jogou</v-toolbar-title>
-              </v-toolbar>
-              <v-card-actions>
-                <v-text-field v-model="allgames.search" append-icon="search" label="Buscar" single-line />
-              </v-card-actions>
-              <v-container fluid grid-list-md>
-                <v-data-iterator :items="allgames.items" :search="allgames.search" :rows-per-page-items="allgames.rowsPerPageItems" :pagination.sync="allgames.pagination" content-tag="v-layout" row wrap>
-                  <v-flex slot="item" slot-scope="props" md6>
-                    <v-card>
-                      <v-card-media height="100px">
-                        <v-container fill-height fluid>
-                          <v-layout fill-height>
-                            <v-flex xs12 align-end flexbox>
-                              <span class="headline black--text">{{props.item.name}}</span>
-                            </v-flex>
-                          </v-layout>
-                        </v-container>
-                      </v-card-media>
-                      <v-card-actions>
-                        <v-spacer />
-                        <v-btn>Jogar</v-btn>
-                        <v-spacer />
-                      </v-card-actions>
-                    </v-card>
-                  </v-flex>
-                </v-data-iterator>
-              </v-container>
-            </v-card>
-          </v-flex>
+          <Played :allGames="allGames" />
         </v-layout>
       </v-container>
     </v-content>
+    <Footer />
   </v-app>
 </template>
 
 <script>
-import Drawer from '@/components/lobby/pages/Drawer'
+import Drawer from '@/components/lobby/blocks/Drawer'
+import MyScenes from '@/components/lobby/blocks/MyScenes'
+import MostPlayed from '@/components/lobby/blocks/MostPlayed'
+import RecentCreated from '@/components/lobby/blocks/RecentCreated'
+import Played from '@/components/lobby/blocks/Played'
+
+import Footer from '@/components/Template/Footer'
 
 export default {
   data () {
     return {
-      mygames: {
+      myscanes: {
         search: '',
         rowsPerPageItems: [2],
         pagination: {
@@ -167,7 +83,7 @@ export default {
           }
         ]
       },
-      allgames: {
+      allGames: {
         search: '',
         rowsPerPageItems: [4],
         pagination: {
@@ -219,23 +135,18 @@ export default {
           background: 'blue'
         }
       ],
-      carousel: {
-        autoplay: false,
-        mostPlay: '',
-        recentAdd: ''
-      },
       drawer: false
     }
   },
   components: {
-    Drawer
+    Drawer,
+    MyScenes,
+    MostPlayed,
+    RecentCreated,
+    Played,
+    Footer
   },
   methods: {
-    changeMostPlayedCarousel (val, oldVal) {
-      if (this.mostPlay[val].background) {
-        this.carousel.mostPlay = this.mostPlay[val].background
-      }
-    },
     changeRecentAddedCarousel (val, oldVal) {
       if (this.recentAdd[val].background) {
         this.carousel.recentAdd = this.recentAdd[val].background

@@ -2,7 +2,7 @@ export default {
   signin: {
     title: 'Entrar',
     button: 'Entrar',
-    guest: 'Entrar como desconhecido',
+    guest: 'Entrar como anônimo',
 
     forgotten: {
       title: 'Esqueci minha senha',

@@ -1,42 +1,6 @@
 <template>
   <v-app id="inspire">
-    <v-navigation-drawer class="hidden-md-and-up" v-model="drawer" fixed right>
-      <v-list>
-      <v-list-tile>
-        <v-list-tile-action>
-          <v-icon>home</v-icon>
-        </v-list-tile-action>
-        <v-list-tile-title>Home</v-list-tile-title>
-      </v-list-tile>
-      <v-list-group prepend-icon="account_circle" value="true">
-        <v-list-tile slot="activator">
-          <v-list-tile-title>Users</v-list-tile-title>
-        </v-list-tile>
-        <v-list-group sub-group no-action value="true">
-          <v-list-tile slot="activator">
-            <v-list-tile-title>Admin</v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile>
-            <v-list-tile-title>Test</v-list-tile-title>
-            <v-list-tile-action>
-              <v-icon>admin</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-        </v-list-group>
-        <v-list-group sub-group no-action>
-          <v-list-tile slot="activator">
-            <v-list-tile-title>Actions</v-list-tile-title>
-          </v-list-tile>
-          <v-list-tile>
-            <v-list-tile-title>test</v-list-tile-title>
-            <v-list-tile-action>
-              <v-icon>clock</v-icon>
-            </v-list-tile-action>
-          </v-list-tile>
-        </v-list-group>
-      </v-list-group>
-    </v-list>
-    </v-navigation-drawer>
+    <Drawer :drawer="drawer" @updateDrawer="drawer = $event" />
     <v-toolbar dense>
       <v-btn icon>
         <v-badge top color="red">
@@ -63,7 +27,7 @@
           </v-list-tile>
         </v-list>
       </v-menu>
-      <v-toolbar-side-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
+      <v-toolbar-side-icon class="hidden-md-and-up" @click.stop="drawer = !drawer" />
     </v-toolbar>
     <v-content>
       <v-container fluid grid-list-sm fixed>
@@ -174,6 +138,8 @@
 </template>
 
 <script>
+import Drawer from '@/components/lobby/pages/Drawer'
+
 export default {
   data () {
     return {
@@ -261,12 +227,19 @@ export default {
       drawer: false
     }
   },
+  components: {
+    Drawer
+  },
   methods: {
     changeMostPlayedCarousel (val, oldVal) {
-      this.carousel.mostPlay = this.mostPlay[val].background
+      if (this.mostPlay[val].background) {
+        this.carousel.mostPlay = this.mostPlay[val].background
+      }
     },
     changeRecentAddedCarousel (val, oldVal) {
-      this.carousel.recentAdd = this.recentAdd[val].background
+      if (this.recentAdd[val].background) {
+        this.carousel.recentAdd = this.recentAdd[val].background
+      }
     },
     logout () {
       this.$store.dispatch('authLogout').then(() => {

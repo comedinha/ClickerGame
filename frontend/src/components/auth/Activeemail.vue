@@ -45,7 +45,7 @@ export default {
       this.$v.$touch()
       if (!this.$v.$invalid) {
         const { code } = this.credentials
-        this.$store.dispatch('authRequest', { code }).then(() => {
+        this.$store.dispatch('-', { code }).then(() => {
           this.$router.push('/')
         })
       } else {

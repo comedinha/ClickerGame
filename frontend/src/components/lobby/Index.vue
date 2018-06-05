@@ -58,6 +58,9 @@
           <v-list-tile>
             <v-list-tile-title>Preferências</v-list-tile-title>
           </v-list-tile>
+          <v-list-tile @click="logout">
+            <v-list-tile-title>Logout</v-list-tile-title>
+          </v-list-tile>
         </v-list>
       </v-menu>
       <v-toolbar-side-icon class="hidden-md-and-up" @click.stop="drawer = !drawer"></v-toolbar-side-icon>
@@ -103,28 +106,28 @@
           <v-flex d-flex xs12 sm8 md6>
             <v-layout column>
               <v-flex d-flex>
-                <v-card fluid>
+                <v-card fluid v-bind:style="{'background-color': carousel.mostPlay}">
                   <v-toolbar dense flat>
-                    <v-toolbar-title>Os 10 mais jogados</v-toolbar-title>
+                    <v-toolbar-title>Os mais jogados</v-toolbar-title>
                   </v-toolbar>
                   <v-card-text>
-                    <el-carousel :autoplay="autoplay" type="card" height="125px">
-                      <el-carousel-item v-for="item in 10" :key="item">
-                        <h3>{{ item }}</h3>
+                    <el-carousel indicator-position="none" @change="changeMostPlayedCarousel" :autoplay="carousel.autoplay" type="card" height="175px">
+                      <el-carousel-item v-for="item in mostPlay" :key="item.name">
+                        <h3>{{ item.name }}</h3>
                       </el-carousel-item>
                     </el-carousel>
                   </v-card-text>
                 </v-card>
               </v-flex>
               <v-flex d-flex>
-                <v-card fluid>
+                <v-card fluid v-bind:style="{'background-color': carousel.recentAdd}">
                   <v-toolbar dense flat>
-                    <v-toolbar-title>Seus últimos jogos</v-toolbar-title>
+                    <v-toolbar-title>Jogos Adicionados Recentemente</v-toolbar-title>
                   </v-toolbar>
                   <v-card-text>
-                    <el-carousel :autoplay="autoplay" type="card" height="125px">
-                      <el-carousel-item v-for="item in 10" :key="item">
-                        <h3>{{ item }}</h3>
+                    <el-carousel indicator-position="none" @change="changeRecentAddedCarousel" :autoplay="carousel.autoplay" type="card" height="175px">
+                      <el-carousel-item v-for="item in recentAdd" :key="item.name">
+                        <h3>{{ item.name }}</h3>
                       </el-carousel-item>
                     </el-carousel>
                   </v-card-text>
@@ -135,10 +138,9 @@
           <v-flex d-flex xs12 sm12 md4>
             <v-card fluid>
               <v-toolbar dense flat>
-                <v-toolbar-title>Todos os Jogos</v-toolbar-title>
+                <v-toolbar-title>Jogos que você jogou</v-toolbar-title>
               </v-toolbar>
               <v-card-actions>
-                <v-btn small>Ordernar Por</v-btn>
                 <v-text-field v-model="allgames.search" append-icon="search" label="Buscar" single-line />
               </v-card-actions>
               <v-container fluid grid-list-md>
@@ -177,7 +179,7 @@ export default {
     return {
       mygames: {
         search: '',
-        rowsPerPageItems: 2,
+        rowsPerPageItems: [2],
         pagination: {
           rowsPerPage: 2
         },
@@ -201,7 +203,7 @@ export default {
       },
       allgames: {
         search: '',
-        rowsPerPageItems: 4,
+        rowsPerPageItems: [4],
         pagination: {
           rowsPerPage: 4
         },
@@ -223,8 +225,53 @@ export default {
           }
         ]
       },
-      autoplay: false,
+      mostPlay: [
+        {
+          name: 'Jogo',
+          background: 'white'
+        },
+        {
+          name: 'Jogo 2',
+          background: 'red'
+        },
+        {
+          name: 'Jogo 3',
+          background: 'blue'
+        }
+      ],
+      recentAdd: [
+        {
+          name: 'Jogo',
+          background: 'white'
+        },
+        {
+          name: 'Jogo 2',
+          background: 'red'
+        },
+        {
+          name: 'Jogo 3',
+          background: 'blue'
+        }
+      ],
+      carousel: {
+        autoplay: false,
+        mostPlay: '',
+        recentAdd: ''
+      },
       drawer: false
+    }
+  },
+  methods: {
+    changeMostPlayedCarousel (val, oldVal) {
+      this.carousel.mostPlay = this.mostPlay[val].background
+    },
+    changeRecentAddedCarousel (val, oldVal) {
+      this.carousel.recentAdd = this.recentAdd[val].background
+    },
+    logout () {
+      this.$store.dispatch('authLogout').then(() => {
+        this.$router.push('/Signin')
+      })
     }
   }
 }

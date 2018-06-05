@@ -98,7 +98,7 @@ export default {
       if (!this.$v.$invalid) {
         const { username, name, password, captcharesponse } = this.credentials
         this.$store.dispatch('authCreate', { username, name, password, captcharesponse }).then(() => {
-          this.$router.push('Signin')
+          this.$router.push('/Signin')
         })
       } else {
         this.load = false

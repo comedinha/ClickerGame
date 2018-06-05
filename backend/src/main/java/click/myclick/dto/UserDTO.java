@@ -37,5 +37,4 @@ public class UserDTO implements Serializable {
     public void setName(final String name) {
         this.name = name;
     } 
-
 }

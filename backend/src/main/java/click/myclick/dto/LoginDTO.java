@@ -28,5 +28,5 @@ public class LoginDTO implements Serializable {
     public void setPassword(final String password) {
         this.password = password;
     }
-
+    
 }

@@ -32,15 +32,17 @@ public class CaptchaService implements ICaptchaService {
     private static final Pattern RESPONSE_PATTERN = Pattern.compile("[A-Za-z0-9_-]+");
 
     @Override
-    public void processResponse(final String response) throws Exception {
+    public boolean processResponse(final String response) throws Exception {
         LOGGER.debug("Attempting to validate response {}", response);
 
         if (reCaptchaAttemptService.isBlocked(getClientIP())) {
-            throw new ReCaptchaInvalidException("Client exceeded maximum number of failed attempts");
+            System.out.println("Client exceeded maximum number of failed attempts");
+            return false;
         }
 
         if (!responseSanityCheck(response)) {
-            throw new ReCaptchaInvalidException("Response contains invalid characters");
+            System.out.println("Response contains invalid characters");
+            return false;
         }
 
         final URI verifyUri = URI.create(String.format("https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s&remoteip=%s", getReCaptchaSecret(), response, getClientIP()));
@@ -52,12 +54,16 @@ public class CaptchaService implements ICaptchaService {
                 if (googleResponse.hasClientError()) {
                     reCaptchaAttemptService.reCaptchaFailed(getClientIP());
                 }
-                throw new ReCaptchaInvalidException("reCaptcha was not successfully validated");
+                System.out.println("reCaptcha was not successfully validated");
+                return false;
             }
         } catch (RestClientException rce) {
-            throw new ReCaptchaUnavailableException("Registration unavailable at this time.  Please try again later.", rce);
+            System.out.println("Registration unavailable at this time.  Please try again later.");
+            return false;
         }
         reCaptchaAttemptService.reCaptchaSucceeded(getClientIP());
+        System.out.println("reCaptcha was successfully validated");
+        return true;
     }
 
     private boolean responseSanityCheck(final String response) {

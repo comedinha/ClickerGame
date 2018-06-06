@@ -31,8 +31,9 @@ public class AuthenticationController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> authenticate(@RequestBody final LoginDTO dto) throws Exception {
         final String responseCaptcha = dto.getCaptcharesponse();
-        System.out.println(responseCaptcha);
         captchaService.processResponse(responseCaptcha);
+
+        System.out.println(captchaService.getReCaptchaSecret());
 
         if(!captchaService.getReCaptchaSecret().equals("6Lfk1FwUAAAAAKvC6emvdIdGmwiBiiR-V7t6Da13")) {
             return new ResponseEntity<>("Authentication failed", HttpStatus.BAD_REQUEST);

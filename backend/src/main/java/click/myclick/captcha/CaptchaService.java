@@ -1,5 +1,6 @@
 package click.myclick.captcha;
 
+import click.myclick.captcha.ReCaptchaAttemptService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestOperations;
+
 import javax.servlet.http.HttpServletRequest;
 import java.net.URI;
 import java.util.regex.Pattern;
@@ -34,11 +36,11 @@ public class CaptchaService implements ICaptchaService {
         LOGGER.debug("Attempting to validate response {}", response);
 
         if (reCaptchaAttemptService.isBlocked(getClientIP())) {
-            System.out.println("click.myclick.captcha - 1");
+            throw new ReCaptchaInvalidException("Client exceeded maximum number of failed attempts");
         }
 
         if (!responseSanityCheck(response)) {
-            System.out.println("click.myclick.captcha - 2");
+            throw new ReCaptchaInvalidException("Response contains invalid characters");
         }
 
         final URI verifyUri = URI.create(String.format("https://www.google.com/recaptcha/api/siteverify?secret=%s&response=%s&remoteip=%s", getReCaptchaSecret(), response, getClientIP()));
@@ -50,10 +52,10 @@ public class CaptchaService implements ICaptchaService {
                 if (googleResponse.hasClientError()) {
                     reCaptchaAttemptService.reCaptchaFailed(getClientIP());
                 }
-                System.out.println("click.myclick.captcha - 3");
+                throw new ReCaptchaInvalidException("reCaptcha was not successfully validated");
             }
         } catch (RestClientException rce) {
-            System.out.println("click.myclick.captcha - 4");
+            throw new ReCaptchaUnavailableException("Registration unavailable at this time.  Please try again later.", rce);
         }
         reCaptchaAttemptService.reCaptchaSucceeded(getClientIP());
     }

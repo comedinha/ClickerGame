@@ -40,8 +40,6 @@
 import Drawer from '@/components/template/block/Drawer'
 import Footer from '@/components/template/block/Footer'
 
-import 'vue-awesome/icons'
-
 export default {
   data () {
     return {

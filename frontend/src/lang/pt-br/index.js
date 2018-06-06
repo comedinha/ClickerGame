@@ -90,7 +90,7 @@ export default {
       },
 
       played: {
-        title: 'Jogos que você jogou',
+        title: 'Cenários que você jogou',
         pagination: 'Página {a} de {t}',
         search: 'Buscar',
 

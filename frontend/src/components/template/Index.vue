@@ -5,7 +5,7 @@
       <v-btn icon>
         <v-badge top color="red">
           <span slot="badge">1</span>
-          <v-icon>announcement</v-icon>
+          <v-icon>fas fa-newspaper</v-icon>
         </v-badge>
       </v-btn>
       <v-spacer />
@@ -39,6 +39,8 @@
 <script>
 import Drawer from '@/components/template/block/Drawer'
 import Footer from '@/components/template/block/Footer'
+
+import 'vue-awesome/icons'
 
 export default {
   data () {

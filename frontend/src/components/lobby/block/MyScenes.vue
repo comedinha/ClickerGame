@@ -29,9 +29,9 @@
           </v-flex>
         </v-data-iterator>
       </v-container>
-      <v-card-actions>
+      <v-container align-end>
         <v-btn block>{{ $ml.get('lobby.block.myscenes.button') }}</v-btn>
-      </v-card-actions>
+      </v-container>
     </v-card>
   </v-flex>
 </template>

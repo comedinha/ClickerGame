@@ -83,7 +83,7 @@ export default {
     passwordErrors () {
       const errors = []
       if (!this.$v.credentials.password.$dirty) return errors
-      !this.$v.credentials.password.required && errors.push(this.$ml.get('signup.required'))
+      !this.$v.credentials.password.required && errors.push(this.$ml.get('auth.signup.required'))
       !this.$v.credentials.password.minLength && errors.push(this.$ml.with('c', this.$v.credentials.password.$params.minLength.min).get('auth.signup.password.errorLimit'))
       return errors
     },

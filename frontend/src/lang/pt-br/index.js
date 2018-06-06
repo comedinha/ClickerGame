@@ -108,9 +108,42 @@ export default {
   template: {
     index: {
       user: {
-        changePassword: 'Editar Senha',
-        preferences: 'Preferências',
+        information: 'Mudar Informações',
         logout: 'Desconectar'
+      }
+    },
+
+    dialog: {
+      news: {
+        title: 'Últimas Noticias',
+        adminButton: 'Nova',
+
+        noNews: 'Não há noticias adicionadas no momento.'
+      },
+
+      updateInformation: {
+        title: 'Atualizar Informações',
+        description: 'Se algum campo for deixado em branco as informações serão mantidas.',
+        button: 'Salvar',
+
+        required: 'Campo necessário.',
+        errorRequired: 'Entre com os dados em todos os campos requeridos.',
+        name: {
+          title: 'Nome: ',
+          minLength: 'O nome deve ter no mínimo {c} caracteres.',
+          maxLength: 'O nome deve ter no máximo {c} caracteres.'
+        },
+        password: {
+          title: 'Senha: ',
+          errorLimit: 'A senha deve ao menos {c} digitos.'
+        },
+        confirmPassword: {
+          title: 'Confirmação: ',
+          errorIdentical: 'A confirmação precisa ser identica a senha.'
+        },
+        oldPassword: {
+          title: 'Senha atual: '
+        }
       }
     }
   }

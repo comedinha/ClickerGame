@@ -1,38 +1,22 @@
 <template>
     <v-navigation-drawer class="hidden-md-and-up" v-model="drawerFlag" fixed right>
       <v-list>
-        <v-list-tile>
-          <v-list-tile-action>
-            <v-icon>home</v-icon>
-          </v-list-tile-action>
-          <v-list-tile-title>Home</v-list-tile-title>
-        </v-list-tile>
         <v-list-group prepend-icon="account_circle" value="true">
           <v-list-tile slot="activator">
-            <v-list-tile-title>Users</v-list-tile-title>
+            <v-list-tile-title>Username</v-list-tile-title>
           </v-list-tile>
-          <v-list-group sub-group no-action value="true">
-            <v-list-tile slot="activator">
-              <v-list-tile-title>Admin</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile>
-              <v-list-tile-title>Test</v-list-tile-title>
-              <v-list-tile-action>
-                <v-icon>admin</v-icon>
-              </v-list-tile-action>
-            </v-list-tile>
-          </v-list-group>
-          <v-list-group sub-group no-action>
-            <v-list-tile slot="activator">
-              <v-list-tile-title>Actions</v-list-tile-title>
-            </v-list-tile>
-            <v-list-tile>
-              <v-list-tile-title>test</v-list-tile-title>
-              <v-list-tile-action>
-                <v-icon>clock</v-icon>
-              </v-list-tile-action>
-            </v-list-tile>
-          </v-list-group>
+          <v-list-tile @click="openInformation">
+            <v-list-tile-action>
+              <v-icon>settings</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>{{ $ml.get('template.index.user.information') }}</v-list-tile-content>
+          </v-list-tile>
+          <v-list-tile @click="logout">
+            <v-list-tile-action>
+              <v-icon>lock_open</v-icon>
+            </v-list-tile-action>
+            <v-list-tile-content>{{ $ml.get('template.index.user.logout') }}</v-list-tile-content>
+          </v-list-tile>
         </v-list-group>
       </v-list>
     </v-navigation-drawer>
@@ -40,7 +24,7 @@
 
 <script>
 export default {
-  props: ['drawer'],
+  props: ['drawer', 'information'],
   data () {
     return {
     }
@@ -53,6 +37,25 @@ export default {
       set (val) {
         this.$emit('updateDrawer', val)
       }
+    },
+    informationFlag: {
+      get () {
+        return this.information
+      },
+      set (val) {
+        this.$emit('updateInformation', val)
+      }
+    }
+  },
+  methods: {
+    openInformation () {
+      this.informationFlag = true
+      this.drawerFlag = false
+    },
+    logout () {
+      this.$store.dispatch('authLogout').then(() => {
+        this.$router.push('/Signin')
+      })
     }
   }
 }

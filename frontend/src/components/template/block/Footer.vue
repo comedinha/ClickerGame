@@ -13,7 +13,7 @@
           </v-list>
         </v-menu>
         <v-spacer />
-        &copy;2018 — <strong>My Click</strong>
+        &copy;{{ $ml.get('game.year') }} — <strong>{{ $ml.get('game.name') }}</strong>
         <v-spacer />
       </v-card-actions>
     </v-card>

@@ -4,11 +4,11 @@
       {{ error }}
     </v-alert>
     <v-form>
-      <v-text-field prepend-icon="vpn_key" v-model="credentials.code" :error-messages="codeErrors" :label="$ml.get('email.title')" required @input="$v.credentials.code.$touch()" @blur="$v.credentials.code.$touch()" />
+      <v-text-field prepend-icon="vpn_key" v-model="credentials.code" :error-messages="codeErrors" :label="$ml.get('auth.email.title')" required @input="$v.credentials.code.$touch()" @blur="$v.credentials.code.$touch()" />
     </v-form>
     <v-card-actions>
       <v-spacer />
-      <v-btn slot="activator" color="primary" :loading="load" @click="send">{{ $ml.get('email.button') }}</v-btn>
+      <v-btn slot="activator" color="primary" :loading="load" @click="send">{{ $ml.get('auth.email.button') }}</v-btn>
     </v-card-actions>
   </v-card-text>
 </template>
@@ -22,7 +22,8 @@ export default {
       credentials: {
         code: ''
       },
-      error: ''
+      error: '',
+      load: false
     }
   },
   validations: {
@@ -36,7 +37,7 @@ export default {
     codeErrors () {
       const errors = []
       if (!this.$v.credentials.code.$dirty) return errors
-      !this.$v.credentials.code.required && errors.push(this.$ml.get('email.required'))
+      !this.$v.credentials.code.required && errors.push(this.$ml.get('auth.email.required'))
       return errors
     }
   },
@@ -44,12 +45,9 @@ export default {
     send () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        const { code } = this.credentials
-        this.$store.dispatch('-', { code }).then(() => {
-          this.$router.push('/')
-        })
+        this.load = true
       } else {
-        this.error = this.$ml.get('email.errorRequired')
+        this.error = this.$ml.get('auth.email.errorRequired')
       }
     }
   }

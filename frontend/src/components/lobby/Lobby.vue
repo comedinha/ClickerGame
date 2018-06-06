@@ -23,11 +23,6 @@ export default {
   data () {
     return {
       myscanes: {
-        search: '',
-        rowsPerPageItems: [2],
-        pagination: {
-          rowsPerPage: 2
-        },
         items: [
           {
             name: 'Jogo'
@@ -47,11 +42,6 @@ export default {
         ]
       },
       allGames: {
-        search: '',
-        rowsPerPageItems: [4],
-        pagination: {
-          rowsPerPage: 4
-        },
         items: [
           {
             name: 'Jogo'

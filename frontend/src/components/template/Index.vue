@@ -9,7 +9,7 @@
         </v-badge>
       </v-btn>
       <v-spacer />
-      <v-toolbar-title>My Click</v-toolbar-title>
+      <v-toolbar-title>{{ $ml.get('game.name') }}</v-toolbar-title>
       <v-spacer />
       <v-menu class="hidden-sm-and-down" open-on-hover bottom offset-y>
         <v-toolbar-title slot="activator">
@@ -17,13 +17,13 @@
         </v-toolbar-title>
         <v-list>
           <v-list-tile>
-            <v-list-tile-title>Editar Senha</v-list-tile-title>
+            <v-list-tile-title>{{ $ml.get('template.index.user.changePassword') }}</v-list-tile-title>
           </v-list-tile>
           <v-list-tile>
-            <v-list-tile-title>Preferências</v-list-tile-title>
+            <v-list-tile-title>{{ $ml.get('template.index.user.preferences') }}</v-list-tile-title>
           </v-list-tile>
           <v-list-tile @click="logout">
-            <v-list-tile-title>Logout</v-list-tile-title>
+            <v-list-tile-title>{{ $ml.get('template.index.user.logout') }}</v-list-tile-title>
           </v-list-tile>
         </v-list>
       </v-menu>

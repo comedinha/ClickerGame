@@ -18,11 +18,11 @@
           <v-flex xs12 sm8 md5>
             <v-card class="elevation-12">
               <v-toolbar>
-                <v-toolbar-title>My Click</v-toolbar-title>
+                <v-toolbar-title>{{ $ml.get('game.name') }}</v-toolbar-title>
                 <v-spacer />
                 <v-toolbar-items>
-                  <v-btn block flat color="primary" to="Signin">{{ $ml.get('signin.title') }}</v-btn>
-                  <v-btn block flat color="primary" to="Signup">{{ $ml.get('signup.title') }}</v-btn>
+                  <v-btn block flat color="primary" to="Signin">{{ $ml.get('auth.signin.title') }}</v-btn>
+                  <v-btn block flat color="primary" to="Signup">{{ $ml.get('auth.signup.title') }}</v-btn>
                 </v-toolbar-items>
               </v-toolbar>
               <router-view/>

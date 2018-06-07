@@ -2,7 +2,7 @@
   <v-flex d-flex xs12 sm4 md2>
     <v-card fluid>
       <v-toolbar dense flat>
-        <v-toolbar-title>{{ $ml.get('lobby.block.myscenes.title') }}</v-toolbar-title>
+        <v-toolbar-title>{{ $ml.get('lobby.block.myScenes.title') }}</v-toolbar-title>
       </v-toolbar>
       <v-container fluid grid-list-md>
         <v-data-iterator :items="myscanes.items" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
@@ -19,18 +19,18 @@
               </v-card-media>
               <v-card-actions>
                 <v-spacer />
-                <v-btn>{{ $ml.get('lobby.block.myscenes.scene.edit') }}</v-btn>
+                <v-btn>{{ $ml.get('lobby.block.myScenes.scene.edit') }}</v-btn>
                 <v-spacer />
               </v-card-actions>
             </v-card>
           </v-flex>
           <v-flex slot="pageText" slot-scope="props">
-            {{ $ml.with('a', pagination.page).with('t', Math.ceil(props.itemsLength / pagination.rowsPerPage)).get('lobby.block.myscenes.pagination') }}
+            {{ $ml.with('a', pagination.page).with('t', Math.ceil(props.itemsLength / pagination.rowsPerPage)).get('lobby.block.myScenes.pagination') }}
           </v-flex>
         </v-data-iterator>
       </v-container>
       <v-container align-end>
-        <v-btn block>{{ $ml.get('lobby.block.myscenes.button') }}</v-btn>
+        <v-btn block>{{ $ml.get('lobby.block.myScenes.button') }}</v-btn>
       </v-container>
     </v-card>
   </v-flex>

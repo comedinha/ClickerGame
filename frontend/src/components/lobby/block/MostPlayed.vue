@@ -2,7 +2,7 @@
   <v-flex d-flex>
     <v-card fluid v-bind:style="{'background-color': bgcolor}">
       <v-toolbar dense flat>
-        <v-toolbar-title>{{ $ml.get('lobby.block.mostplayed.title') }}</v-toolbar-title>
+        <v-toolbar-title>{{ $ml.get('lobby.block.mostPlayed.title') }}</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
         <el-carousel indicator-position="none" @change="changeCarousel" type="card" height="175px">

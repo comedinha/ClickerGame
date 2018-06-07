@@ -5,7 +5,7 @@
       <v-flex d-flex xs12 sm8 md6>
         <v-layout column>
           <MostPlayed :mostPlay="mostPlay" />
-          <recentCreated :recentAdd="recentAdd" />
+          <BestRated :bestRated="bestRated" />
         </v-layout>
       </v-flex>
       <Played :allGames="allGames" />
@@ -16,7 +16,7 @@
 <script>
 import MyScenes from '@/components/lobby/block/MyScenes'
 import MostPlayed from '@/components/lobby/block/MostPlayed'
-import RecentCreated from '@/components/lobby/block/RecentCreated'
+import BestRated from '@/components/lobby/block/BestRated'
 import Played from '@/components/lobby/block/Played'
 
 export default {
@@ -67,25 +67,25 @@ export default {
         },
         {
           name: 'Jogo 2',
-          background: 'red'
+          background: 'white'
         },
         {
           name: 'Jogo 3',
-          background: 'blue'
+          background: 'white'
         }
       ],
-      recentAdd: [
+      bestRated: [
         {
           name: 'Jogo',
           background: 'white'
         },
         {
           name: 'Jogo 2',
-          background: 'red'
+          background: 'white'
         },
         {
           name: 'Jogo 3',
-          background: 'blue'
+          background: 'white'
         }
       ]
     }
@@ -93,7 +93,7 @@ export default {
   components: {
     MyScenes,
     MostPlayed,
-    RecentCreated,
+    BestRated,
     Played
   }
 }

@@ -5,12 +5,15 @@ import store from '../store'
 
 import Auth from '@/components/template/Auth'
 import Index from '@/components/template/Index'
+import Scene from '@/components/template/Scene'
 
 import Email from '@/components/auth/Email'
 import Signup from '@/components/auth/Signup'
 import Signin from '@/components/auth/Signin'
 
 import Lobby from '@/components/lobby/Lobby'
+
+import SceneCreator from '@/components/sceneCreator/SceneCreator'
 
 import Test from '@/components/tests/Test'
 import Counter from '@/components/tests/Counter'
@@ -72,6 +75,20 @@ export default new Router({
           name: 'Email',
           component: Email,
           beforeEnter: ifNotAuthenticated
+        }
+      ]
+    },
+    {
+      path: '/Scene',
+      name: 'Scene',
+      redirect: 'SceneCreator',
+      component: Scene,
+      beforeEnter: ifAuthenticated,
+      children: [
+        {
+          path: '/SceneCreator',
+          name: 'SceneCreator',
+          component: SceneCreator
         }
       ]
     },

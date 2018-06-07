@@ -12,7 +12,7 @@
       </v-alert>
       <v-form>
         <v-card-text>
-          <v-text-field prepend-icon="email" v-model="name" :error-messages="nameErrors" :label="$ml.get('template.dialog.updateInformation.name.title')" @input="$v.name.$touch()" @blur="$v.name.$touch()" />
+          <v-text-field prepend-icon="person" v-model="name" :error-messages="nameErrors" :label="$ml.get('template.dialog.updateInformation.name.title')" @input="$v.name.$touch()" @blur="$v.name.$touch()" />
           <v-card-actions>
             <v-text-field prepend-icon="lock" v-model="password" :error-messages="passwordErrors" :label="$ml.get('template.dialog.updateInformation.password.title')" @input="$v.password.$touch()" @blur="$v.password.$touch()" type="password" />
             <v-text-field v-model="confirmPassword" :error-messages="confirmPasswordErrors" :label="$ml.get('template.dialog.updateInformation.confirmPassword.title')" @input="$v.confirmPassword.$touch()" @blur="$v.confirmPassword.$touch()" type="password" />

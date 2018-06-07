@@ -75,11 +75,15 @@ export default {
 
   lobby: {
     block: {
-      mostplayed: {
+      bestRated: {
+        title: 'Cenários melhores avaliados'
+      },
+
+      mostPlayed: {
         title: 'Cenários mais jogados'
       },
 
-      myscenes: {
+      myScenes: {
         title: 'Meus Cenários',
         pagination: '{a} de {t}',
         button: 'Criar Cenário',
@@ -97,10 +101,6 @@ export default {
         scene: {
           play: 'Jogar'
         }
-      },
-
-      recentcreated: {
-        title: 'Cenários recém criados'
       }
     }
   },

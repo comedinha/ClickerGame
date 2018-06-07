@@ -10,7 +10,7 @@
           <v-icon>new_releases</v-icon>
         </v-badge>
       </v-btn>
-      <v-btn icon v-if="!update">
+      <v-btn icon v-if="!update" @click.stop="news = !news" :update="update" @updateUpdate="update = $event">
         <v-icon>info</v-icon>
       </v-btn>
       <v-spacer />
@@ -52,7 +52,7 @@ export default {
       drawer: false,
       information: false,
       news: false,
-      update: true
+      update: false
     }
   },
   components: {

@@ -13,7 +13,7 @@ import Signin from '@/components/auth/Signin'
 
 import Lobby from '@/components/lobby/Lobby'
 
-import SceneCreator from '@/components/sceneCreator/SceneCreator'
+import SceneCreator from '@/components/scene/creator/SceneCreator'
 
 import Test from '@/components/tests/Test'
 import Counter from '@/components/tests/Counter'

@@ -16,6 +16,7 @@ public class User extends BaseEntity implements UserDetails {
     private String username;
     private String password;
     private String name;
+    private String tokenEmail;
     private boolean accountNonExpired;
     private boolean accountNonLocked;
     private boolean credentialsNonExpired;
@@ -90,6 +91,14 @@ public class User extends BaseEntity implements UserDetails {
 
     public void setName(final String name) {
         this.name = name;
+    }
+
+    public void setTokenEmail(String tokenEmail) {
+        this.tokenEmail = tokenEmail;
+    }
+
+    public String getTokenEmail() {
+        return tokenEmail;
     }
 
 }

@@ -33,7 +33,6 @@ public class AuthenticationController {
         final String responseCaptcha = dto.getCaptcharesponse();
         System.out.println(responseCaptcha);
         if(!captchaService.processResponse(responseCaptcha)) {
-            System.out.printf("BAD_REQUEST");
             return new ResponseEntity<>("Authentication failed", HttpStatus.BAD_REQUEST);
         }
 

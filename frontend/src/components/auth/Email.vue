@@ -4,7 +4,8 @@
       {{ error }}
     </v-alert>
     <v-form>
-      <v-text-field prepend-icon="vpn_key" v-model="credentials.code" :error-messages="codeErrors" :label="$ml.get('auth.email.title')" required @input="$v.credentials.code.$touch()" @blur="$v.credentials.code.$touch()" />
+      <v-text-field prepend-icon="email" v-model="credentials.username" :error-messages="usernameErrors" :label="$ml.get('auth.email.username.title')" required @input="$v.credentials.username.$touch()" @blur="$v.credentials.username.$touch()" />
+      <v-text-field prepend-icon="vpn_key" v-model="credentials.token" :error-messages="tokenErrors" :label="$ml.get('auth.email.token.title')" required @input="$v.credentials.token.$touch()" @blur="$v.credentials.token.$touch()" />
     </v-form>
     <v-card-actions>
       <v-spacer />
@@ -14,13 +15,14 @@
 </template>
 
 <script>
-import { required } from 'vuelidate/lib/validators'
+import { required, email } from 'vuelidate/lib/validators'
 
 export default {
   data () {
     return {
       credentials: {
-        code: ''
+        username: this.$route.params.email,
+        token: this.$route.params.token
       },
       error: '',
       load: false
@@ -28,16 +30,30 @@ export default {
   },
   validations: {
     credentials: {
-      code: {
+      username: {
+        required,
+        email
+      },
+      token: {
         required
       }
     }
   },
+  created () {
+    this.send()
+  },
   computed: {
-    codeErrors () {
+    usernameErrors () {
       const errors = []
-      if (!this.$v.credentials.code.$dirty) return errors
-      !this.$v.credentials.code.required && errors.push(this.$ml.get('auth.email.required'))
+      if (!this.$v.credentials.username.$dirty) return errors
+      !this.$v.credentials.username.required && errors.push(this.$ml.get('auth.email.required'))
+      !this.$v.credentials.username.email && errors.push(this.$ml.get('auth.email.username.validEmail'))
+      return errors
+    },
+    tokenErrors () {
+      const errors = []
+      if (!this.$v.credentials.token.$dirty) return errors
+      !this.$v.credentials.token.required && errors.push(this.$ml.get('auth.email.required'))
       return errors
     }
   },
@@ -46,6 +62,10 @@ export default {
       this.$v.$touch()
       if (!this.$v.$invalid) {
         this.load = true
+        const { username, token } = this.credentials
+        this.$store.dispatch('authActive', { username, token }).then(() => {
+          this.$router.push('/')
+        })
       } else {
         this.error = this.$ml.get('auth.email.errorRequired')
       }

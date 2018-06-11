@@ -41,6 +41,19 @@ const actions = {
     })
   },
 
+  authActive: ({commit, dispatch}, user) => {
+    return new Promise((resolve, reject) => {
+      commit('authRequest')
+      Vue.http.post('api/authEmail', user)
+        .then(resp => {
+          commit('authActive')
+        }, err => {
+          commit('authError', err)
+          reject(err)
+        })
+    })
+  },
+
   authLogout: ({commit, dispatch}) => {
     return new Promise((resolve, reject) => {
       commit('authLogout')
@@ -57,6 +70,9 @@ const mutations = {
   authSuccess: (state, token) => {
     state.status = 'success'
     state.token = token
+  },
+  authActive: (state) => {
+    state.status = 'activated'
   },
   authCreated: (state) => {
     state.status = 'created'

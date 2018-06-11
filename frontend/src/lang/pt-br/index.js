@@ -6,17 +6,25 @@ export default {
 
   auth: {
     email: {
-      title: 'Código: ',
       button: 'Ativar',
 
       required: 'Campo necessário.',
-      errorRequired: 'Entre com os dados em todos os campos requeridos.'
+      errorRequired: 'Entre com os dados em todos os campos requeridos.',
+
+      token: {
+        title: 'Token: '
+      },
+
+      username: {
+        title: 'Email: ',
+        validEmail: 'Digite um endereço de email válido.'
+      }
     },
 
     signin: {
       title: 'Entrar',
       button: 'Entrar',
-      guest: 'Entrar como anônimo',
+      guest: 'Entrar como visitante',
       recovery: 'Esqueci minha Senha',
 
       required: 'Campo necessário.',

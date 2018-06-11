@@ -71,7 +71,7 @@ export default new Router({
           beforeEnter: ifNotAuthenticated
         },
         {
-          path: '/Email',
+          path: '/Email/:email/:token',
           name: 'Email',
           component: Email,
           beforeEnter: ifNotAuthenticated

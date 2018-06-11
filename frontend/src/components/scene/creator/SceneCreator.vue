@@ -43,7 +43,13 @@
               {{ tab.title }}
             </v-tab>
             <v-tab-item class="scroll-y" style="max-height: 82vh" v-for="tab in tabs" :key="tab.ref">
-              <v-card-actions v-if="editMode"><v-btn block>+</v-btn></v-card-actions>
+              <v-card-actions v-if="editMode">
+                <v-btn block>+</v-btn>
+              </v-card-actions>
+              <v-card-actions v-if="!editMode">
+                <v-spacer />
+                <v-btn>1x</v-btn>
+              </v-card-actions>
               <v-list v-if="tab.type === 'item'" two-line>
                 <template v-for="item in tab.items">
                   <v-divider :key="item.divRef" />
@@ -81,7 +87,7 @@
               </v-container>
             </v-tab-item>
             <v-spacer />
-            <v-btn v-if="editMode" icon @click.stop="newTab = !newTab" ripple>
+            <v-btn v-if="editMode" icon @click.stop="editTab = !editTab" ripple>
               <v-icon>settings</v-icon>
             </v-btn>
           </v-tabs>
@@ -99,23 +105,23 @@ export default {
     return {
       userVision: true,
       editMode: true,
+
       saved: false,
       saveWarning: false,
-      gridCount: 2,
+
       clickButton: 1,
       infoScreen: 1,
       gridContent: [
-        {x: 9, y: 4, w: 5, h: 5, i: 'Grid 0', type: 'button'},
-        {x: 9, y: 0, w: 5, h: 2, i: 'Grid 1', type: 'information'}
+        {x: 9, y: 4, w: 5, h: 5, i: 'Grid 0', type: 'button', ref: 'Button 0'},
+        {x: 9, y: 0, w: 5, h: 2, i: 'Grid 1', type: 'information', ref: 'Information 0'}
       ],
-      tabNum: 3,
+
       tabs: [
         {
           i: 0,
           type: 'item',
           ref: 'Tab 0',
           title: 'Items',
-          itemNum: 2,
           items: [
             {
               i: 0,
@@ -123,7 +129,6 @@ export default {
               divRef: 'Div 0',
               title: 'Image Test',
               img: 'https://media.giphy.com/media/14chvzoFjnDBGE/giphy.gif',
-              gridNum: 0,
               grids: []
             },
             {
@@ -132,7 +137,6 @@ export default {
               divRef: 'Div 1',
               title: 'Image Test 2',
               img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png',
-              gridNum: 0,
               grids: []
             }
           ]
@@ -142,7 +146,6 @@ export default {
           type: 'upgrade',
           ref: 'Tab 1',
           title: 'Upgrades',
-          itemNum: 5,
           items: [
             {
               i: 0,
@@ -178,7 +181,8 @@ export default {
         }
       ],
       active: 0,
-      newTab: false
+
+      editTab: false
     }
   },
   components: {
@@ -204,10 +208,9 @@ export default {
     },
     newGridItem (tab, item) {
       let tabItemGrid = {
-        i: this.tabs[tab.i].items[item.i].gridNum++,
+        i: this.tabs[tab.i].items[item.i].grids.length,
         img: item.img
       }
-      console.log(tabItemGrid)
       this.tabs[tab.i].items[item.i].grids.push(tabItemGrid)
 
       let newGridItem = {
@@ -215,13 +218,12 @@ export default {
         y: 0,
         w: 1,
         h: 1,
-        i: 'Grid ' + this.gridCount++,
+        i: 'Grid ' + this.gridContent.length,
         type: 'image',
         ref: tab.i,
         itemRef: item.i,
         gridRef: tabItemGrid.i
       }
-      console.log(newGridItem)
       this.gridContent.push(newGridItem)
     }
   }

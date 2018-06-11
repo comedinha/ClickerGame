@@ -1,4 +1,5 @@
 package click.myclick.service;
+import click.myclick.repository.UserRepository;
 
 import click.myclick.model.User;
 
@@ -18,5 +19,7 @@ public interface UserService {
     User update(String id, User object);
 
     String delete(String id);
+    
+    UserRepository getRepository();
     
 }

@@ -8,16 +8,10 @@ import java.util.Random;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.mail.SimpleMailMessage;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
 @Component
-public class Email {
-
-    @Autowired
-    private Environment env;
-		
+public class Email {		
 	public JavaMailSender configMail() {
         JavaMailSenderImpl mailSender = new JavaMailSenderImpl();
 		
@@ -47,7 +41,7 @@ public class Email {
 		simpleMailMessage.setTo(user.getUsername());
 		simpleMailMessage.setSubject("Confirmação de cadastro");
 		simpleMailMessage.setText("Clique no link para confirmar o e-mail\n\n" +
-									"http://localhost:8080/#/email/:" + user.getUsername() + "&" + token);
+									"http://localhost:8080/#/email/" + user.getUsername() + "/" + token);
 		javaMailSender.send(simpleMailMessage);
 		return token;
 	}

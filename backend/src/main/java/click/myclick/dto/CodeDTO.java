@@ -7,17 +7,26 @@ public class CodeDTO implements Serializable {
 
     private static final long serialVersionUID = 6710061358371752955L;
 
-    private String code;
+    private String username;
+    private String token;
 
     public CodeDTO() {
     }
 
-    public String getCode() {
-        return code;
+    public void setUsername(final String username) {
+        this.username = username;
     }
 
-    public void setCode(final String code) {
-        this.code = code;
+    public String getUsername() {
+        return username;
+    }
+
+    public void setToken(final String token) {
+        this.token = token;
+    }
+
+    public String getToken() {
+        return token;
     }
 
 }

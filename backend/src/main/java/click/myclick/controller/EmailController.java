@@ -28,7 +28,7 @@ public class EmailController {
     public ResponseEntity<?> emailCheck(@RequestBody final CodeDTO dto) {
         System.out.println("controller 0");
 
-        if(checkTokenEmail.checkToken(service, dto.getCode())) {
+        if(checkTokenEmail.checkToken(service, dto)) {
             System.out.println("controller ok");
             return new ResponseEntity<>(HttpStatus.OK);    
         } else {

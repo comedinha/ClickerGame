@@ -62,4 +62,9 @@ public class BasicUserService implements UserService {
         return id;
     }
 
+    @Override
+    public UserRepository getRepository() {
+        return repository;
+    }
+
 }

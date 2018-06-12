@@ -1,8 +1,8 @@
 package click.myclick.controller;
 
-import click.myclick.dto.CodeDTO;
-import click.myclick.service.CheckTokenEmail;
+import click.myclick.dto.PasswordRecoveryDTO;
 import click.myclick.service.UserService;
+import click.myclick.service.PasswordRecovery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,27 +13,25 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/authEmail")
-public class EmailController {
-    private final CheckTokenEmail checkTokenEmail;
+@RequestMapping("/api/authPasswordRecovery")
+public class PasswordRecoveryController {
+    
     private final UserService service;
+    private final PasswordRecovery passwordRecovery;
 
     @Autowired
-    public EmailController(final CheckTokenEmail checkTokenEmail, final UserService service) {
-        this.checkTokenEmail = checkTokenEmail;
+    public PasswordRecoveryController(final UserService service, final PasswordRecovery passwordRecovery) {
         this.service = service;
+        this.passwordRecovery = passwordRecovery;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> emailCheck(@RequestBody final CodeDTO dto) {
-
-        if(checkTokenEmail.checkToken(service, dto)) {
-            System.out.println("Controller HTTP_OK");
+    public ResponseEntity<?> recovery(@RequestBody final PasswordRecoveryDTO dto) {
+        System.out.println("Controller");
+        if(passwordRecovery.recovery(service, dto.getUsername())) {
             return new ResponseEntity<>(HttpStatus.OK);    
         } else {
-            System.out.println("Controller HTTP_BAD");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        
     }
 }

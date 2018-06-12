@@ -1,9 +1,6 @@
 package click.myclick.service;
 
-import click.myclick.dto.UserDTO;
-
 import java.util.Properties;
-import java.util.Random;
 
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
@@ -31,18 +28,14 @@ public class Email {
 		return mailSender;
     }
     
-    public String enviar(UserDTO user) {
+    public void send(String email, String token, String msg) {
 		JavaMailSender javaMailSender = configMail();
-		
-		String token = Integer.toString(new Random().nextInt(1000000));
 		
 		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 		simpleMailMessage.setFrom("sudowinchester@gamil.com");
-		simpleMailMessage.setTo(user.getUsername());
+		simpleMailMessage.setTo(email);
 		simpleMailMessage.setSubject("Confirmação de cadastro");
-		simpleMailMessage.setText("Clique no link para confirmar o e-mail\n\n" +
-									"http://localhost:8080/#/email/" + user.getUsername() + "/" + token);
+		simpleMailMessage.setText(msg);
 		javaMailSender.send(simpleMailMessage);
-		return token;
 	}
 }

@@ -7,7 +7,7 @@
           <v-btn small icon v-if="editMode" @click="changeGridItem(item)"><v-icon>settings</v-icon></v-btn>
         </v-card-actions>
       </v-card>
-      <v-card color="transparent" flat tile v-if="item.type === 'image'" fab height="100%" :img="tabs[item.ref].items[item.itemRef].grids[item.gridRef].img">
+      <v-card color="transparent" flat tile v-if="item.type === 'image'" fab height="100%" :img="item.ref.img">
         <v-card-actions>
           <v-spacer />
           <v-btn small icon v-if="editMode" @click="changeGridItem(item)"><v-icon>settings</v-icon></v-btn>

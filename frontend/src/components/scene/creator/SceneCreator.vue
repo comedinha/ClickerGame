@@ -37,13 +37,12 @@ export default {
 
       tabs: [
         {
-          i: 0,
           type: 'item',
-          ref: 'Tab 0',
+          refTab: 'Tab 0',
+          refItem: 'Item 0',
           title: 'Items',
           items: [
             {
-              i: 0,
               ref: 'Content 0',
               divRef: 'Div 0',
               title: 'Image Test',
@@ -51,7 +50,6 @@ export default {
               grids: []
             },
             {
-              i: 1,
               ref: 'Content 1',
               divRef: 'Div 1',
               title: 'Image Test 2',
@@ -61,37 +59,32 @@ export default {
           ]
         },
         {
-          i: 1,
           type: 'upgrade',
-          ref: 'Tab 1',
+          refTab: 'Tab 1',
+          refItem: 'Item 1',
           title: 'Upgrades',
           items: [
             {
-              i: 0,
               title: 'Upgrade',
               price: '100',
               img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
             },
             {
-              i: 1,
               title: 'Upgrade',
               price: '100',
               img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
             },
             {
-              i: 2,
               title: 'Upgrade',
               price: '100',
               img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
             },
             {
-              i: 3,
               title: 'Upgrade',
               price: '100',
               img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
             },
             {
-              i: 4,
               title: 'Upgrade',
               price: '100',
               img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'

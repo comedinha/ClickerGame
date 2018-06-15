@@ -1,9 +1,9 @@
 <template>
   <v-tabs v-model="active" fixed-tabs>
-    <v-tab v-for="tab in tabs" :key="tab.i" ripple>
+    <v-tab v-for="tab in tabs" :key="tab.refTab" ripple>
       {{ tab.title }}
     </v-tab>
-    <v-tab-item class="scroll-y" style="max-height: 82vh" v-for="tab in tabs" :key="tab.ref">
+    <v-tab-item class="scroll-y" style="max-height: 82vh" v-for="tab in tabs" :key="tab.refItem">
       <v-card-actions v-if="editMode">
         <v-btn block>+</v-btn>
       </v-card-actions>
@@ -24,7 +24,7 @@
             </v-list-tile-content>
             <v-list-tile-action>
               <v-card flat v-if="editMode">
-                <v-btn icon @click="newGridItem(tab, item)">
+                <v-btn icon @click="newGridItem(item)">
                   <v-icon>grid_on</v-icon>
                 </v-btn>
                 <v-btn icon>
@@ -47,10 +47,6 @@
         </v-layout>
       </v-container>
     </v-tab-item>
-    <v-spacer />
-    <v-btn v-if="editMode" icon @click.stop="editTab = !editTab" ripple>
-      <v-icon>settings</v-icon>
-    </v-btn>
   </v-tabs>
 </template>
 
@@ -70,23 +66,13 @@ export default {
       set (val) {
         this.$emit('updateGridContent', val)
       }
-    },
-    tabsFlag: {
-      get () {
-        return this.tabs
-      },
-      set (val) {
-        this.$emit('updateTabs', val)
-      }
     }
   },
   methods: {
-    newGridItem (tab, item) {
+    newGridItem (item) {
       let tabItemGrid = {
-        i: this.tabs[tab.i].items[item.i].grids.length,
         img: item.img
       }
-      this.tabsFlag[tab.i].items[item.i].grids.push(tabItemGrid)
 
       let newGridItem = {
         x: 0,
@@ -95,9 +81,7 @@ export default {
         h: 1,
         i: 'Grid ' + this.gridContent.length,
         type: 'image',
-        ref: tab.i,
-        itemRef: item.i,
-        gridRef: tabItemGrid.i
+        ref: item.grids[(item.grids.push(tabItemGrid) - 1)]
       }
       this.gridContentFlag.push(newGridItem)
     }

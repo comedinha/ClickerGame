@@ -88,8 +88,8 @@ export default {
         }).catch(errorCode => {
           this.onExpired()
           this.load = false
-          if (errorCode.statusText) {
-            this.error = errorCode.statusText
+          if (errorCode.bodyText) {
+            this.error = errorCode.bodyText
           } else {
             this.error = errorCode.status
           }

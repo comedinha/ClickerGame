@@ -31,29 +31,12 @@ const actions = {
       commit('authStatus', 'loading')
       Vue.http.post('api/auth', user)
         .then(resp => {
-<<<<<<< .mine
           commit('authLogin', resp.data.token)
           commit('authStatus', 'success')
           resolve()
         }, errorCode => {
           commit('authStatus', 'error')
           reject(errorCode)
-
-
-
-
-=======
-          console.log('RESP:')
-          console.log(resp)
-          const token = resp.data.token
-          localStorage.setItem('x-auth-token', token)
-          commit('authSuccess', token)
-          resolve(resp)
-        }, err => {
-          commit('authError', err)
-          localStorage.removeItem('x-auth-token')
-          reject(err)
->>>>>>> .theirs
         })
     })
   },

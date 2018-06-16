@@ -27,14 +27,15 @@ public class PasswordRecoveryController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> recovery(@RequestBody final PasswordRecoveryDTO dto) {
-        System.out.println("Controller");
-        System.out.println("DTO: " + dto.getEmail());
-        if(passwordRecovery.recovery(service, dto.getEmail())) {
-            System.out.println("HTTP_OK");
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            System.out.println("HTTP_BAD");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        
+        switch(passwordRecovery.recovery(service, dto.getEmail())) {
+            case 0:
+                return new ResponseEntity<>(HttpStatus.OK);
+            case 1:
+                //Usuario não encontrado
+                return new ResponseEntity<>("B01", HttpStatus.BAD_REQUEST);
         }
+
+        return new ResponseEntity<>("C01", HttpStatus.BAD_REQUEST);
     }
 }

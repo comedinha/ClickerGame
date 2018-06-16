@@ -28,13 +28,13 @@ public class Email {
 		return mailSender;
     }
     
-    public void send(String email, String token, String msg) {
+    public void send(String email, String token, String title, String msg) {
 		JavaMailSender javaMailSender = configMail();
 		
 		SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
 		simpleMailMessage.setFrom("sudowinchester@gamil.com");
 		simpleMailMessage.setTo(email);
-		simpleMailMessage.setSubject("Confirmação de cadastro");
+		simpleMailMessage.setSubject(title);
 		simpleMailMessage.setText(msg);
 		javaMailSender.send(simpleMailMessage);
 	}

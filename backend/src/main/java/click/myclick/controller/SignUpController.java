@@ -29,8 +29,11 @@ public class SignUpController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> signUp(@RequestBody final UserDTO dto) {
-        
-        return new ResponseEntity<>(service.create(converterFacade.convert(dto)), HttpStatus.OK);
+
+        if(service.create(converterFacade.convert(dto)) != null)
+            return new ResponseEntity<>(HttpStatus.OK);
+        else
+            return new ResponseEntity<>("C02", HttpStatus.BAD_REQUEST);
     }
 
 }

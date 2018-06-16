@@ -1,0 +1,8 @@
+A01 - Captcha incorreto/invalido
+A02 - Email e/ou senha do usuario incorretas
+
+B01 - Usuario não encontrado
+B02 - Token invalido
+
+C01 - Erro inesperado
+C02 - Erro ao criar/adicionar usuario

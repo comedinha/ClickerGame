@@ -56,10 +56,22 @@ const actions = {
 
   authPasswordRecovery: ({commit, dispatch}, user) => {
     return new Promise((resolve, reject) => {
-      console.log('User:')
-      console.log(user)
       commit('authRequest')
-      Vue.http.post('/api/authPasswordRecovery', user)
+      Vue.http.post('api/authPasswordRecovery', user)
+        .then(resp => {
+          commit('authActive')
+        }, err => {
+          commit('authError', err)
+          reject(err)
+        })
+    })
+  },
+
+  authPasswordReset: ({commit, dispatch}, user) => {
+    return new Promise((resolve, reject) => {
+      commit('authRequest')
+      console.log(user)
+      Vue.http.post('api/authPasswordReset', user)
         .then(resp => {
           commit('authActive')
         }, err => {

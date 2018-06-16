@@ -26,14 +26,12 @@ public class EmailController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> emailCheck(@RequestBody final CodeDTO dto) {
-
         if(checkTokenEmail.checkToken(service, dto)) {
             System.out.println("Controller HTTP_OK");
-            return new ResponseEntity<>(HttpStatus.OK);    
+            return new ResponseEntity<>(HttpStatus.OK);
         } else {
             System.out.println("Controller HTTP_BAD");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }
-        
     }
 }

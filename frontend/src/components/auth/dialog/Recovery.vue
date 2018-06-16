@@ -61,10 +61,9 @@ export default {
       if (!this.$v.$invalid) {
         this.recoveryFlag.display = false
         this.recoveryFlag.alert = true
-        console.log(this.email)
-        const { username } = this.email
-        console.log(username)
-        this.$store.dispatch('authPasswordRecovery', { username }).then(() => {
+        const { email } = this
+        console.log(email)
+        this.$store.dispatch('authPasswordRecovery', { email }).then(() => {
           this.$router.push('/')
         })
       } else {

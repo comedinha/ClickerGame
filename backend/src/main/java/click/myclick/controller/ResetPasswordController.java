@@ -1,6 +1,6 @@
 package click.myclick.controller;
 
-import click.myclick.dto.PasswordRecoveryDTO;
+import click.myclick.dto.PasswordResetDTO;
 import click.myclick.service.UserService;
 import click.myclick.service.PasswordRecovery;
 
@@ -13,28 +13,27 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/authPasswordRecovery")
-public class PasswordRecoveryController {
+@RequestMapping("api/authPasswordReset")
+public class ResetPasswordController {
     
     private final UserService service;
     private final PasswordRecovery passwordRecovery;
 
     @Autowired
-    public PasswordRecoveryController(final UserService service, final PasswordRecovery passwordRecovery) {
+    public ResetPasswordController(final UserService service, final PasswordRecovery passwordRecovery) {
         this.service = service;
         this.passwordRecovery = passwordRecovery;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> recovery(@RequestBody final PasswordRecoveryDTO dto) {
-        System.out.println("Controller");
-        System.out.println("DTO: " + dto.getEmail());
-        if(passwordRecovery.recovery(service, dto.getEmail())) {
-            System.out.println("HTTP_OK");
+    public ResponseEntity<?> reset(@RequestBody final PasswordResetDTO dto) {
+        System.out.println("Reset Controller");
+        if(passwordRecovery.resetPassword(service, dto)) {
+            System.out.println("Reset Controller OK");
             return new ResponseEntity<>(HttpStatus.OK);
         } else {
-            System.out.println("HTTP_BAD");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }
+            System.out.println("Reset Controller BAD");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
+        }    
     }
 }

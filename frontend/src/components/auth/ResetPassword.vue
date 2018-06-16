@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import { required, email } from 'vuelidate/lib/validators'
+import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
 
 export default {
   data () {
@@ -24,7 +24,7 @@ export default {
         username: this.$route.params.email,
         token: this.$route.params.token,
         password: '',
-        confirmPassword: '',
+        confirmPassword: ''
       },
       error: '',
       load: false

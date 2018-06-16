@@ -8,6 +8,7 @@ import Index from '@/components/template/Index'
 import Scene from '@/components/template/Scene'
 
 import Email from '@/components/auth/Email'
+import ResetPassword from '@/components/auth/ResetPassword'
 import Signup from '@/components/auth/Signup'
 import Signin from '@/components/auth/Signin'
 
@@ -79,6 +80,7 @@ export default new Router({
         {
           path: '/ResetPassword/:email/:token',
           name: 'ResetPassword',
+          component: ResetPassword,
           beforeEnter: ifNotAuthenticated
         }
       ]

@@ -71,6 +71,7 @@ export default {
       !this.$v.credentials.username.email && errors.push(this.$ml.get('auth.signin.email.validEmail'))
       return errors
     },
+
     passwordErrors () {
       const errors = []
       if (!this.$v.credentials.password.$dirty) return errors
@@ -100,6 +101,7 @@ export default {
         this.error = this.$ml.get('auth.signin.errorRequired')
       }
     },
+
     onSubmit () {
       this.load = true
       if (!this.credentials.captcharesponse) {
@@ -108,10 +110,12 @@ export default {
         this.send()
       }
     },
+
     onVerify (response) {
       this.credentials.captcharesponse = response
       this.send()
     },
+
     onExpired () {
       this.credentials.captcharesponse = ''
       this.$refs.invisibleRecaptcha.reset()

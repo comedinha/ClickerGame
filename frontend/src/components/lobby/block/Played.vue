@@ -8,7 +8,7 @@
         <v-text-field v-model="search" append-icon="search" :label="$ml.get('lobby.block.played.search')" single-line />
       </v-card-actions>
       <v-container fluid grid-list-md>
-        <v-data-iterator :items="allGames.items" :search="search" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
+        <v-data-iterator :items="getAllGames.items" :search="search" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md6>
             <v-card>
               <v-card-media height="100px">
@@ -37,14 +37,20 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  props: ['allGames'],
   data () {
     return {
       search: '',
       rowsPerPageItems: [4],
       pagination: {}
     }
+  },
+  computed: {
+    ...mapGetters([
+      'getAllGames'
+    ])
   }
 }
 </script>

@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="informationFlag" max-width="500px">
+  <v-dialog v-model="informationDialog" max-width="500px">
     <v-card>
       <v-card-title>
         <span class="headline">{{ $ml.get('template.dialog.updateInformation.title') }}</span>
@@ -32,7 +32,6 @@
 import { required, minLength, maxLength, sameAs } from 'vuelidate/lib/validators'
 
 export default {
-  props: ['information'],
   data () {
     return {
       name: '',
@@ -65,30 +64,34 @@ export default {
       !this.$v.name.maxLength && errors.push(this.$ml.with('c', this.$v.name.$params.maxLength.max).get('template.dialog.updateInformation.name.maxLength'))
       return errors
     },
+
     passwordErrors () {
       const errors = []
       if (!this.$v.password.$dirty) return errors
       !this.$v.password.minLength && errors.push(this.$ml.with('c', this.$v.password.$params.minLength.min).get('template.dialog.updateInformation.password.errorLimit'))
       return errors
     },
+
     confirmPasswordErrors () {
       const errors = []
       if (!this.$v.confirmPassword.$dirty) return errors
       !this.$v.confirmPassword.sameAsPassword && errors.push(this.$ml.get('template.dialog.updateInformation.confirmPassword.errorIdentical'))
       return errors
     },
+
     oldPasswordErrors () {
       const errors = []
       if (!this.$v.oldPassword.$dirty) return errors
       !this.$v.oldPassword.required && errors.push(this.$ml.get('template.dialog.updateInformation.required'))
       return errors
     },
-    informationFlag: {
+
+    informationDialog: {
       get () {
-        return this.information
+        return this.$store.getters.getInformationDialog
       },
-      set (val) {
-        this.$emit('updateInformation', val)
+      set (value) {
+        this.$store.dispatch('setInformationDialog', value)
       }
     }
   },
@@ -96,7 +99,7 @@ export default {
     send () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        this.recoveryFlag = false
+        console.log('Falta fazer')
       } else {
         this.error = this.$ml.get('template.dialog.updateInformation.errorRequired')
       }

@@ -50,6 +50,7 @@ export default {
       !this.$v.credentials.username.email && errors.push(this.$ml.get('auth.email.username.validEmail'))
       return errors
     },
+
     tokenErrors () {
       const errors = []
       if (!this.$v.credentials.token.$dirty) return errors

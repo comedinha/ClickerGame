@@ -5,7 +5,7 @@
         <v-toolbar-title>{{ $ml.get('lobby.block.myScenes.title') }}</v-toolbar-title>
       </v-toolbar>
       <v-container fluid grid-list-md>
-        <v-data-iterator :items="myscanes.items" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
+        <v-data-iterator :items="getMyScanes.items" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md12>
             <v-card>
               <v-card-media height="100px">
@@ -37,13 +37,19 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  props: ['myscanes'],
   data () {
     return {
       rowsPerPageItems: [2],
       pagination: {}
     }
+  },
+  computed: {
+    ...mapGetters([
+      'getMyScanes'
+    ])
   }
 }
 </script>

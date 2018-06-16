@@ -3,8 +3,8 @@
     <v-btn small @click="backToLobby">Voltar ao Lobby</v-btn>
     <v-btn small>Informações</v-btn>
     <v-spacer />
-    <v-btn small v-if="userVision && editMode" @click="editMode = !editMode">Visão do Usuário</v-btn>
-    <v-btn small v-if="userVision && !editMode" @click="editMode = !editMode">Visão do Criador</v-btn>
+    <v-btn small v-if="getUserVision && editMode" @click="editMode = !editMode">Visão do Usuário</v-btn>
+    <v-btn small v-if="getUserVision && !editMode" @click="editMode = !editMode">Visão do Criador</v-btn>
     <v-btn small v-if="editMode">Cenário</v-btn>
     <v-btn small v-if="editMode">Log</v-btn>
   </v-toolbar>
@@ -16,14 +16,15 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
-      'userVision'
+      'getUserVision'
     ]),
+
     editMode: {
       get () {
-        return this.$store.state.scene.editMode
+        return this.$store.getters.getEditMode
       },
       set (value) {
-        this.$store.dispatch('updateEditMode', value)
+        this.$store.dispatch('setEditMode', value)
       }
     }
   },

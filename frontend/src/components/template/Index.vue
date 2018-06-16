@@ -1,17 +1,15 @@
 <template>
   <v-app id="inspire">
-    <UpdateInformation :information="information" @updateInformation="information = $event" />
-    <News :admin="admin" :news="news" @updateNews="news = $event" />
-    <Drawer :drawer="drawer" @updateDrawer="drawer = $event" :information="information" @updateInformation="information = $event" />
+    <UpdateInformation />
+    <News />
+    <Drawer />
     <v-toolbar dense>
-      <v-btn icon v-if="update" @click.stop="news = !news" :update="update" @updateUpdate="update = $event">
-        <v-badge overlap top color="red">
+      <v-btn icon @click.stop="newsDialog = !newsDialog">
+        <v-badge icon v-if="getNewsUpdate" overlap top color="red">
           <span slot="badge">!</span>
           <v-icon>developer_board</v-icon>
         </v-badge>
-      </v-btn>
-      <v-btn icon v-if="!update" @click.stop="news = !news" :update="update" @updateUpdate="update = $event">
-        <v-icon>developer_board</v-icon>
+        <v-icon icon v-if="!getNewsUpdate">developer_board</v-icon>
       </v-btn>
       <v-spacer />
       <v-toolbar-title>{{ $ml.get('game.name') }}</v-toolbar-title>
@@ -21,7 +19,7 @@
           Username <v-icon>arrow_drop_down</v-icon>
         </v-toolbar-title>
         <v-list>
-          <v-list-tile @click.stop="information = !information">
+          <v-list-tile @click.stop="informationDialog = !informationDialog">
             <v-list-tile-content>{{ $ml.get('template.index.user.information') }}</v-list-tile-content>
           </v-list-tile>
           <v-list-tile @click="logout">
@@ -39,6 +37,8 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import Drawer from '@/components/template/block/Drawer'
 import Footer from '@/components/template/block/Footer'
 
@@ -46,20 +46,43 @@ import UpdateInformation from '@/components/template/dialog/UpdateInformation'
 import News from '@/components/template/dialog/News'
 
 export default {
-  data () {
-    return {
-      admin: true,
-      drawer: false,
-      information: false,
-      news: false,
-      update: false
-    }
-  },
   components: {
     Drawer,
     Footer,
     UpdateInformation,
     News
+  },
+  computed: {
+    ...mapGetters([
+      'getNewsUpdate'
+    ]),
+
+    newsDialog: {
+      get () {
+        return this.$store.getters.getNewsDialog
+      },
+      set (value) {
+        this.$store.dispatch('setNewsDialog', value)
+      }
+    },
+
+    informationDialog: {
+      get () {
+        return this.$store.getters.getInformationDialog
+      },
+      set (value) {
+        this.$store.dispatch('setInformationDialog', value)
+      }
+    },
+
+    drawer: {
+      get () {
+        return this.$store.getters.getDrawer
+      },
+      set (value) {
+        this.$store.dispatch('setDrawer', value)
+      }
+    }
   },
   methods: {
     logout () {

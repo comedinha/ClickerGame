@@ -6,7 +6,7 @@
       </v-toolbar>
       <v-card-text>
         <el-carousel indicator-position="none" @change="changeCarousel" type="card" height="175px">
-          <el-carousel-item v-for="item in mostPlay" :key="item.name">
+          <el-carousel-item v-for="item in getMostPlayed" :key="item.name">
             <h3>{{ item.name }}</h3>
           </el-carousel-item>
         </el-carousel>
@@ -16,17 +16,23 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  props: ['mostPlay'],
   data () {
     return {
       bgcolor: ''
     }
   },
+  computed: {
+    ...mapGetters([
+      'getMostPlayed'
+    ])
+  },
   methods: {
     changeCarousel (val, oldVal) {
-      if (this.mostPlay[val].background) {
-        this.bgcolor = this.mostPlay[val].background
+      if (this.getMostPlayed[val].background) {
+        this.bgcolor = this.getMostPlayed[val].background
       }
     }
   }

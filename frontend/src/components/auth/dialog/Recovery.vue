@@ -46,6 +46,7 @@ export default {
       !this.$v.email.email && errors.push(this.$ml.get('auth.dialog.recovery.validEmail'))
       return errors
     },
+
     recoveryFlag: {
       get () {
         return this.recovery

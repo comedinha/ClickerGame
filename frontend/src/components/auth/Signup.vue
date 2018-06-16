@@ -72,6 +72,7 @@ export default {
       !this.$v.credentials.username.email && errors.push(this.$ml.get('auth.signup.username.validEmail'))
       return errors
     },
+
     nameErrors () {
       const errors = []
       if (!this.$v.credentials.name.$dirty) return errors
@@ -80,6 +81,7 @@ export default {
       !this.$v.credentials.name.maxLength && errors.push(this.$ml.with('c', this.$v.credentials.name.$params.maxLength.max).get('auth.signup.name.maxLength'))
       return errors
     },
+
     passwordErrors () {
       const errors = []
       if (!this.$v.credentials.password.$dirty) return errors
@@ -87,6 +89,7 @@ export default {
       !this.$v.credentials.password.minLength && errors.push(this.$ml.with('c', this.$v.credentials.password.$params.minLength.min).get('auth.signup.password.errorLimit'))
       return errors
     },
+
     confirmPasswordErrors () {
       const errors = []
       if (!this.$v.credentials.confirmPassword.$dirty) return errors
@@ -116,6 +119,7 @@ export default {
         this.error = this.$ml.get('auth.signup.errorRequired')
       }
     },
+
     onSubmit () {
       this.load = true
       if (!this.credentials.captcharesponse) {
@@ -124,10 +128,12 @@ export default {
         this.send()
       }
     },
+
     onVerify (response) {
       this.credentials.captcharesponse = response
       this.send()
     },
+
     onExpired () {
       this.credentials.captcharesponse = ''
       this.$refs.invisibleRecaptcha.reset()

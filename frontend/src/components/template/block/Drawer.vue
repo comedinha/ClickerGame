@@ -1,5 +1,5 @@
 <template>
-    <v-navigation-drawer class="hidden-md-and-up" v-model="drawerFlag" fixed right>
+    <v-navigation-drawer class="hidden-md-and-up" v-model="drawer" fixed right>
       <v-list>
         <v-list-group prepend-icon="account_circle" value="true">
           <v-list-tile slot="activator">
@@ -24,30 +24,31 @@
 
 <script>
 export default {
-  props: ['drawer', 'information'],
   computed: {
-    drawerFlag: {
+    informationDialog: {
       get () {
-        return this.drawer
+        return this.$store.getters.getInformationDialog
       },
-      set (val) {
-        this.$emit('updateDrawer', val)
+      set (value) {
+        this.$store.dispatch('setInformationDialog', value)
       }
     },
-    informationFlag: {
+
+    drawer: {
       get () {
-        return this.information
+        return this.$store.getters.getDrawer
       },
-      set (val) {
-        this.$emit('updateInformation', val)
+      set (value) {
+        this.$store.dispatch('setDrawer', value)
       }
     }
   },
   methods: {
     openInformation () {
-      this.informationFlag = true
-      this.drawerFlag = false
+      this.informationDialog = true
+      this.drawer = false
     },
+
     logout () {
       this.$store.dispatch('signout').then(() => {
         this.$router.push('/Signin')

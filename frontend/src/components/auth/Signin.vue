@@ -83,23 +83,37 @@ export default {
       this.$v.credentials.$touch()
       if (!this.$v.credentials.$invalid) {
         const { username, password, captcharesponse } = this.credentials
-        this.$store.dispatch('authRequest', { username, password, captcharesponse }).then(() => {
+        this.$store.dispatch('signin', { username, password, captcharesponse }).then(() => {
           this.$router.push('/')
+        }).catch(errorCode => {
+          this.onExpired()
+          this.load = false
+          if (errorCode.statusText) {
+            this.error = errorCode.statusText
+          } else {
+            this.error = errorCode.status
+          }
         })
       } else {
+        this.onExpired()
         this.load = false
         this.error = this.$ml.get('auth.signin.errorRequired')
       }
     },
     onSubmit () {
       this.load = true
-      this.$refs.invisibleRecaptcha.execute()
+      if (!this.credentials.captcharesponse) {
+        this.$refs.invisibleRecaptcha.execute()
+      } else {
+        this.send()
+      }
     },
     onVerify (response) {
       this.credentials.captcharesponse = response
       this.send()
     },
     onExpired () {
+      this.credentials.captcharesponse = ''
       this.$refs.invisibleRecaptcha.reset()
     }
   }

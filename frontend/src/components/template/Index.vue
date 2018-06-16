@@ -7,11 +7,11 @@
       <v-btn icon v-if="update" @click.stop="news = !news" :update="update" @updateUpdate="update = $event">
         <v-badge overlap top color="red">
           <span slot="badge">!</span>
-          <v-icon>new_releases</v-icon>
+          <v-icon>developer_board</v-icon>
         </v-badge>
       </v-btn>
       <v-btn icon v-if="!update" @click.stop="news = !news" :update="update" @updateUpdate="update = $event">
-        <v-icon>info</v-icon>
+        <v-icon>developer_board</v-icon>
       </v-btn>
       <v-spacer />
       <v-toolbar-title>{{ $ml.get('game.name') }}</v-toolbar-title>
@@ -63,7 +63,7 @@ export default {
   },
   methods: {
     logout () {
-      this.$store.dispatch('authLogout').then(() => {
+      this.$store.dispatch('signout').then(() => {
         this.$router.push('/Signin')
       })
     }

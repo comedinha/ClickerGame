@@ -62,10 +62,7 @@ export default {
         this.recoveryFlag.display = false
         this.recoveryFlag.alert = true
         const { email } = this
-        console.log(email)
-        this.$store.dispatch('authPasswordRecovery', { email }).then(() => {
-          this.$router.push('/')
-        })
+        this.$store.dispatch('passwordRecovery', { email })
       } else {
         this.error = this.$ml.get('auth.dialog.recovery.errorRequired')
       }

@@ -49,7 +49,7 @@ export default {
       this.drawerFlag = false
     },
     logout () {
-      this.$store.dispatch('authLogout').then(() => {
+      this.$store.dispatch('signout').then(() => {
         this.$router.push('/Signin')
       })
     }

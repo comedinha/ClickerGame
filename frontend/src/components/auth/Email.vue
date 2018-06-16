@@ -63,8 +63,15 @@ export default {
       if (!this.$v.$invalid) {
         this.load = true
         const { username, token } = this.credentials
-        this.$store.dispatch('authActive', { username, token }).then(() => {
+        this.$store.dispatch('activeEmail', { username, token }).then(() => {
           this.$router.push('/')
+        }).catch(errorCode => {
+          this.load = false
+          if (errorCode.statusText) {
+            this.error = errorCode.statusText
+          } else {
+            this.error = errorCode.status
+          }
         })
       } else {
         this.error = this.$ml.get('auth.email.errorRequired')

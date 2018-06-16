@@ -7,108 +7,98 @@ const state = {
 
 const getters = {
   isAuthenticated: state => !!state.token,
+
   authStatus: state => state.status
 }
 
 const actions = {
-  authCreate: ({commit, dispatch}, user) => {
+  signup ({commit}, user) {
     return new Promise((resolve, reject) => {
-      commit('authRequest')
+      commit('authStatus', 'loading')
       Vue.http.post('api/signup', user)
-        .then(resp => {
-          commit('authCreated')
-        }, err => {
-          commit('authError', err)
-          reject(err)
+        .then(() => {
+          commit('authStatus', 'success')
+          resolve()
+        }, errorCode => {
+          commit('authStatus', 'error')
+          reject(errorCode)
         })
     })
   },
 
-  authRequest: ({commit, dispatch}, user) => {
+  signin ({commit}, user) {
     return new Promise((resolve, reject) => {
-      commit('authRequest')
+      commit('authStatus', 'loading')
       Vue.http.post('api/auth', user)
         .then(resp => {
-          const token = resp.data.token
-          localStorage.setItem('x-auth-token', token)
-          commit('authSuccess', token)
-          resolve(resp)
-        }, err => {
-          commit('authError', err)
-          localStorage.removeItem('x-auth-token')
-          reject(err)
+          commit('authLogin', resp.data.token)
+          commit('authStatus', 'success')
+          resolve()
+        }, errorCode => {
+          commit('authStatus', 'error')
+          reject(errorCode)
         })
     })
   },
 
-  authActive: ({commit, dispatch}, user) => {
+  activeEmail ({commit}, user) {
     return new Promise((resolve, reject) => {
-      commit('authRequest')
+      commit('authStatus', 'loading')
       Vue.http.post('api/authEmail', user)
-        .then(resp => {
-          commit('authActive')
-        }, err => {
-          commit('authError', err)
-          reject(err)
+        .then(() => {
+          commit('authStatus', 'success')
+          resolve()
+        }, errorCode => {
+          commit('authStatus', 'error')
+          reject(errorCode)
         })
     })
   },
 
-  authPasswordRecovery: ({commit, dispatch}, user) => {
-    return new Promise((resolve, reject) => {
-      commit('authRequest')
-      Vue.http.post('api/authPasswordRecovery', user)
-        .then(resp => {
-          commit('authActive')
-        }, err => {
-          commit('authError', err)
-          reject(err)
-        })
-    })
+  passwordRecovery ({commit}, user) {
+    commit('authStatus', 'loading')
+    Vue.http.post('api/authPasswordRecovery', user)
+      .then(() => {
+        commit('authStatus', 'success')
+      })
   },
 
-  authPasswordReset: ({commit, dispatch}, user) => {
+  passwordReset ({commit}, user) {
     return new Promise((resolve, reject) => {
-      commit('authRequest')
-      console.log(user)
+      commit('authStatus', 'loading')
       Vue.http.post('api/authPasswordReset', user)
-        .then(resp => {
-          commit('authActive')
-        }, err => {
-          commit('authError', err)
-          reject(err)
+        .then(() => {
+          commit('authStatus', 'success')
+          resolve()
+        }, errorCode => {
+          commit('authStatus', 'error')
+          reject(errorCode)
         })
     })
   },
 
-  authLogout: ({commit, dispatch}) => {
-    return new Promise((resolve, reject) => {
+  signout: ({commit}) => {
+    commit('authStatus', 'loading')
+    return new Promise((resolve) => {
       commit('authLogout')
-      localStorage.removeItem('x-auth-token')
+      commit('authStatus', 'success')
       resolve()
     })
   }
 }
 
 const mutations = {
-  authRequest: (state) => {
-    state.status = 'loading'
+  authStatus (state, status) {
+    state.status = status
   },
-  authSuccess: (state, token) => {
-    state.status = 'success'
+
+  authLogin (state, token) {
     state.token = token
+    localStorage.setItem('x-auth-token', token)
   },
-  authActive: (state) => {
-    state.status = 'activated'
-  },
-  authCreated: (state) => {
-    state.status = 'created'
-  },
-  authError: (state) => {
-    state.status = 'error'
-  },
-  authLogout: (state) => {
-    state.status = 'logout'
+
+  authLogout (state) {
+    localStorage.removeItem('x-auth-token')
     state.token = ''
   }
 }

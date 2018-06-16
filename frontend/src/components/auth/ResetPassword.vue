@@ -79,8 +79,15 @@ export default {
       if (!this.$v.$invalid) {
         this.load = true
         const { username, token, password, confirmPassword } = this.credentials
-        this.$store.dispatch('authPasswordReset', { username, token, password, confirmPassword }).then(() => {
+        this.$store.dispatch('passwordReset', { username, token, password, confirmPassword }).then(() => {
           this.$router.push('/')
+        }).catch(errorCode => {
+          this.load = false
+          if (errorCode.statusText) {
+            this.error = errorCode.statusText
+          } else {
+            this.error = errorCode.status
+          }
         })
       } else {
         this.error = this.$ml.get('auth.email.errorRequired')

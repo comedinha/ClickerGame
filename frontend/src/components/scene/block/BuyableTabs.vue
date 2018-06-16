@@ -51,39 +51,23 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  props: ['editMode', 'gridContent', 'tabs'],
   data () {
     return {
       active: 0
     }
   },
   computed: {
-    gridContentFlag: {
-      get () {
-        return this.gridContent
-      },
-      set (val) {
-        this.$emit('updateGridContent', val)
-      }
-    }
+    ...mapGetters([
+      'editMode',
+      'tabs'
+    ])
   },
   methods: {
     newGridItem (item) {
-      let tabItemGrid = {
-        img: item.img
-      }
-
-      let newGridItem = {
-        x: 0,
-        y: 0,
-        w: 1,
-        h: 1,
-        i: 'Grid ' + this.gridContent.length,
-        type: 'image',
-        ref: item.grids[(item.grids.push(tabItemGrid) - 1)]
-      }
-      this.gridContentFlag.push(newGridItem)
+      this.$store.dispatch('newGridItem', item)
     }
   }
 }

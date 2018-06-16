@@ -39,10 +39,6 @@
 import Footer from '@/components/template/block/Footer'
 
 export default {
-  data () {
-    return {
-    }
-  },
   components: {
     Footer
   }

@@ -1,47 +1,37 @@
 <template>
   <v-toolbar dense flat>
-    <v-btn small @click="backLobby">Voltar ao Lobby</v-btn>
+    <v-btn small @click="backToLobby">Voltar ao Lobby</v-btn>
     <v-btn small>Informações</v-btn>
     <v-spacer />
-    <v-btn small v-if="userVision && editMode" @click="editModeFlag = !editModeFlag">Visão do Usuário</v-btn>
-    <v-btn small v-if="userVision && !editMode" @click="editModeFlag = !editModeFlag">Visão do Criador</v-btn>
+    <v-btn small v-if="userVision && editMode" @click="editMode = !editMode">Visão do Usuário</v-btn>
+    <v-btn small v-if="userVision && !editMode" @click="editMode = !editMode">Visão do Criador</v-btn>
     <v-btn small v-if="editMode">Cenário</v-btn>
     <v-btn small v-if="editMode">Log</v-btn>
   </v-toolbar>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  props: ['saved', 'editMode', 'userVision'],
-  data () {
-    return {
-    }
-  },
   computed: {
-    editModeFlag: {
+    ...mapGetters([
+      'userVision'
+    ]),
+    editMode: {
       get () {
-        return this.editMode
+        return this.$store.state.scene.editMode
       },
-      set (val) {
-        this.$emit('updateEditMode', val)
-      }
-    },
-    saveWarningFlag: {
-      get () {
-        return false
-      },
-      set (val) {
-        this.$emit('updateSaveWarning', val)
+      set (value) {
+        this.$store.dispatch('updateEditMode', value)
       }
     }
   },
   methods: {
-    backLobby () {
-      if (this.saved) {
+    backToLobby () {
+      this.$store.dispatch('backToLobby').then(() => {
         this.$router.push('/')
-      } else {
-        this.saveWarningFlag = true
-      }
+      })
     }
   }
 }

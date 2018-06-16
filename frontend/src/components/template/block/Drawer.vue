@@ -25,10 +25,6 @@
 <script>
 export default {
   props: ['drawer', 'information'],
-  data () {
-    return {
-    }
-  },
   computed: {
     drawerFlag: {
       get () {

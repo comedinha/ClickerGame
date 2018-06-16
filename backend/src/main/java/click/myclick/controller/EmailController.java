@@ -26,12 +26,20 @@ public class EmailController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> emailCheck(@RequestBody final CodeDTO dto) {
-        if(checkTokenEmail.checkToken(service, dto)) {
-            System.out.println("Controller HTTP_OK");
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            System.out.println("Controller HTTP_BAD");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+
+        switch(checkTokenEmail.checkToken(service, dto)) {
+            case 0:
+                //Token valido
+                return new ResponseEntity<>(HttpStatus.OK);
+            case 1:
+                //Usuario não encontrado
+                return new ResponseEntity<>("B01", HttpStatus.BAD_REQUEST);
+            case 2:
+                //token invalido
+                return new ResponseEntity<>("B02", HttpStatus.BAD_REQUEST);
         }
+
+        //erro inesperado
+        return new ResponseEntity<>("C01", HttpStatus.BAD_REQUEST);
     }
 }

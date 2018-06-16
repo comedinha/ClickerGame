@@ -29,6 +29,8 @@ const actions = {
       commit('authRequest')
       Vue.http.post('api/auth', user)
         .then(resp => {
+          console.log('RESP:')
+          console.log(resp)
           const token = resp.data.token
           localStorage.setItem('x-auth-token', token)
           commit('authSuccess', token)

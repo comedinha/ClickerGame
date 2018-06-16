@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CheckTokenEmail {
     
-    public boolean checkToken(UserService service, CodeDTO dto) {
+    public int checkToken(UserService service, CodeDTO dto) {
 
         String username = dto.getUsername();
         String token = dto.getToken();
@@ -17,16 +17,16 @@ public class CheckTokenEmail {
         User user = service.findByUsername(username);
 
         if(user == null) {
-            return false;
+            return 1;
         }
 
         if(user.getTokenEmail().equals(token)) {
             user.setEnabled(true);
             user.setTokenEmail("-1");
             service.getRepository().save(user);
-            return true;
+            return 0;
         } else {
-            return false;
+            return 2;
         }
     }
 }

@@ -27,13 +27,16 @@ public class ResetPasswordController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> reset(@RequestBody final PasswordResetDTO dto) {
-        System.out.println("Reset Controller");
-        if(passwordRecovery.resetPassword(service, dto)) {
-            System.out.println("Reset Controller OK");
-            return new ResponseEntity<>(HttpStatus.OK);
-        } else {
-            System.out.println("Reset Controller BAD");
-            return new ResponseEntity<>(HttpStatus.BAD_REQUEST); 
-        }    
+
+        switch(passwordRecovery.resetPassword(service, dto)) {
+            case 0:
+                return new ResponseEntity<>(HttpStatus.OK);
+            case 1:
+                return new ResponseEntity<>("B01", HttpStatus.BAD_REQUEST);
+            case 2:
+                return new ResponseEntity<>("B02", HttpStatus.BAD_REQUEST);
+        }
+
+        return new ResponseEntity<>("C01", HttpStatus.BAD_REQUEST);
     }
 }

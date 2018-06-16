@@ -12,51 +12,49 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Service
 public class PasswordRecovery {
-    public boolean resetPassword(UserService service, PasswordResetDTO dto) {
+    public int resetPassword(UserService service, PasswordResetDTO dto) {
+
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
 
-        System.out.println("Reset");
         String username = dto.getUsername();
         String token = dto.getToken();
 
         User user = service.findByUsername(username);
 
         if(user == null) {
-            return false;
+            return 1;
         }
 
         if(user.getTokenEmail().equals(token)) {
             user.setTokenEmail("-1");
             user.setPassword(passwordEncoder.encode(dto.getPassword()));
             service.getRepository().save(user);
-            return true;
+            return 0;
         } else {
-            return false;
+            return 2;
         }
     }
 
-    public boolean recovery(UserService service, String username) {
-        System.out.println("Recovery0");
-        System.out.println("username: " + username);
+    public int recovery(UserService service, String username) {
+
         User user = service.findByUsername(username);
 
-        System.out.println("Recovery1");
-
         if(user == null) {
-            return false;
+            return 1;
         }
-        System.out.println("Recovery2");
+
         Email email = new Email();
         
         String token = Integer.toString(new Random().nextInt(1000000));
+        String title = "Recuperação de Senha";
         String msg = "Clique no link para fazer a alteração da senha da conta\n\n" +
         "http://localhost:8080/#/ResetPassword/" + username + "/" + token;
 
         user.setTokenEmail(token);
         service.getRepository().save(user);
 
-        email.send(user.getUsername(), token, msg);
+        email.send(user.getUsername(), token, title, msg);
 
-        return true;
+        return 0;
     }
 }

@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/signup").permitAll()
                 .antMatchers("/api/authEmail").permitAll()
                 .antMatchers("/api/authPasswordRecovery").permitAll()
-                .antMatchers("api/authPasswordReset").permitAll()
+                .antMatchers("/api/authPasswordReset").permitAll()
                 .anyRequest().authenticated()
         .and()
             .addFilterBefore(new AuthenticationTokenFilter(tokenAuthenticationService),

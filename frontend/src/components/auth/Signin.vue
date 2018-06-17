@@ -61,19 +61,6 @@ export default {
     Recovery
   },
   computed: {
-    ...mapGetters([
-      'getSuccessMessage'
-    ]),
-
-    recoveryDialog: {
-      get () {
-        return this.$store.getters.getRecoveryDialog
-      },
-      set (value) {
-        this.$store.dispatch('setRecoveryDialog', value)
-      }
-    },
-
     emailErrors () {
       const errors = []
       if (!this.$v.credentials.username.$dirty) return errors
@@ -87,6 +74,19 @@ export default {
       if (!this.$v.credentials.password.$dirty) return errors
       !this.$v.credentials.password.required && errors.push(this.$ml.get('auth.signin.required'))
       return errors
+    },
+
+    ...mapGetters([
+      'getSuccessMessage'
+    ]),
+
+    recoveryDialog: {
+      get () {
+        return this.$store.getters.getRecoveryDialog
+      },
+      set (value) {
+        this.$store.dispatch('setRecoveryDialog', value)
+      }
     }
   },
   methods: {

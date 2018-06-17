@@ -1,6 +1,5 @@
 package click.myclick.security.service;
 
-import click.myclick.exception.model.ServiceException;
 import click.myclick.model.User;
 import io.jsonwebtoken.JwtBuilder;
 import io.jsonwebtoken.Jwts;
@@ -35,27 +34,35 @@ public class JsonWebTokenService implements TokenService {
 
     @Override
     public String getToken(final String username, final String password) {
+
         if (username == null || password == null) {
             return null;
         }
-        final User user = (User) userDetailsService.loadUserByUsername(username);
-        Map<String, Object> tokenData = new HashMap<>();
-        PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-        if (passwordEncoder.matches(password, user.getPassword())) {
-            tokenData.put("clientType", "user");
-            tokenData.put("userID", user.getId());
-            tokenData.put("username", user.getUsername());
-            tokenData.put("token_create_date", LocalDateTime.now());
-            Calendar calendar = Calendar.getInstance();
-            calendar.add(Calendar.MINUTE, tokenExpirationTime);
-            tokenData.put("token_expiration_date", calendar.getTime());
-            JwtBuilder jwtBuilder = Jwts.builder();
-            jwtBuilder.setExpiration(calendar.getTime());
-            jwtBuilder.setClaims(tokenData);
-            return jwtBuilder.signWith(SignatureAlgorithm.HS512, tokenKey).compact();
 
-        } else {
-            throw new ServiceException("Authentication error", this.getClass().getName());
+        try {
+            final User user = (User) userDetailsService.loadUserByUsername(username);
+
+            Map<String, Object> tokenData = new HashMap<>();
+            PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
+
+            if (passwordEncoder.matches(password, user.getPassword())) {
+                tokenData.put("clientType", "user");
+                tokenData.put("userID", user.getId());
+                tokenData.put("username", user.getUsername());
+                tokenData.put("token_create_date", LocalDateTime.now());
+                Calendar calendar = Calendar.getInstance();
+                calendar.add(Calendar.MINUTE, tokenExpirationTime);
+                tokenData.put("token_expiration_date", calendar.getTime());
+                JwtBuilder jwtBuilder = Jwts.builder();
+                jwtBuilder.setExpiration(calendar.getTime());
+                jwtBuilder.setClaims(tokenData);
+
+                return jwtBuilder.signWith(SignatureAlgorithm.HS512, tokenKey).compact();
+            } else {
+                return null;
+            }
+        } catch(Exception e) {
+            return null;
         }
     }
 

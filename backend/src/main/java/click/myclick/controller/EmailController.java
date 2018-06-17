@@ -1,7 +1,7 @@
 package click.myclick.controller;
 
 import click.myclick.dto.CodeDTO;
-import click.myclick.service.CheckTokenEmail;
+import click.myclick.service.CheckEmail;
 import click.myclick.service.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +15,11 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/api/authEmail")
 public class EmailController {
-    private final CheckTokenEmail checkTokenEmail;
+    private final CheckEmail checkTokenEmail;
     private final UserService service;
 
     @Autowired
-    public EmailController(final CheckTokenEmail checkTokenEmail, final UserService service) {
+    public EmailController(final CheckEmail checkTokenEmail, final UserService service) {
         this.checkTokenEmail = checkTokenEmail;
         this.service = service;
     }

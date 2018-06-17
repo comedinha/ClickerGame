@@ -7,7 +7,11 @@ import click.myclick.dto.CodeDTO;
 import org.springframework.stereotype.Service;
 
 @Service
-public class CheckTokenEmail {
+public class CheckEmail {
+
+    public boolean isEnable(UserService service, String username) {
+        return service.findByUsername(username).isEnabled();
+    }
     
     public int checkToken(UserService service, CodeDTO dto) {
 

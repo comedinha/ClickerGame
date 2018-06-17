@@ -4,6 +4,8 @@ import click.myclick.dto.LoginDTO;
 import click.myclick.dto.TokenDTO;
 import click.myclick.captcha.ICaptchaService;
 import click.myclick.security.service.TokenService;
+import click.myclick.service.UserService;
+import click.myclick.service.CheckEmail;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -23,9 +25,14 @@ public class AuthenticationController {
     @Autowired
     private ICaptchaService captchaService;
 
+    private final UserService service;
+    private final CheckEmail checkEmail;
+
     @Autowired
-    public AuthenticationController(final TokenService tokenService) {
+    public AuthenticationController(final TokenService tokenService, final UserService service, final CheckEmail checkEmail) {
         this.tokenService = tokenService;
+        this.service = service;
+        this.checkEmail = checkEmail;
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -35,6 +42,10 @@ public class AuthenticationController {
 
         if(!captchaService.processResponse(responseCaptcha)) {
             return new ResponseEntity<>("A01", HttpStatus.BAD_REQUEST);
+        }
+
+        if(!checkEmail.isEnable(service, dto.getUsername())) {
+            return new ResponseEntity<>("A03", HttpStatus.BAD_REQUEST);
         }
 
         final String token = tokenService.getToken(dto.getUsername(), dto.getPassword());

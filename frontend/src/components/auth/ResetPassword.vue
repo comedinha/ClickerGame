@@ -58,6 +58,9 @@ export default {
   created () {
     this.send()
   },
+  components: {
+    VueRecaptcha
+  },
   computed: {
     usernameErrors () {
       const errors = []

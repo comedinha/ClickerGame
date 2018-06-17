@@ -3,6 +3,7 @@ package click.myclick.controller;
 import click.myclick.dto.PasswordResetDTO;
 import click.myclick.service.UserService;
 import click.myclick.service.PasswordRecovery;
+import click.myclick.captcha.ICaptchaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -15,7 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("api/authPasswordReset")
 public class ResetPasswordController {
-    
+
+    @Autowired
+    private ICaptchaService captchaService;
     private final UserService service;
     private final PasswordRecovery passwordRecovery;
 
@@ -26,7 +29,13 @@ public class ResetPasswordController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> reset(@RequestBody final PasswordResetDTO dto) {
+    public ResponseEntity<?> reset(@RequestBody final PasswordResetDTO dto) throws Exception {
+
+        final String responseCaptcha = dto.getCaptcharesponse();
+
+        if(!captchaService.processResponse(responseCaptcha)) {
+            return new ResponseEntity<>("A01", HttpStatus.BAD_REQUEST);
+        }
 
         switch(passwordRecovery.resetPassword(service, dto)) {
             case 0:

@@ -8,23 +8,30 @@
         <v-text-field prepend-icon="lock" v-model="credentials.confirmPassword" @keyup.enter="onSubmit" :error-messages="confirmPasswordErrors" :label="$ml.get('auth.signup.confirmPassword.title')" required @input="$v.credentials.confirmPassword.$touch()" @blur="$v.credentials.confirmPassword.$touch()" type="password" />
     </v-form>
     <v-card-actions>
+      <v-btn small flat color="indigo" @click.native.stop="recovery.display = !recovery.display">{{ $ml.get('auth.signin.recovery') }}</v-btn>
       <v-spacer />
-      <v-btn slot="activator" color="primary" :loading="load" @click="send">{{ $ml.get('auth.email.button') }}</v-btn>
+      <v-tooltip right close-delay="1000">
+        <v-btn slot="activator" color="primary" :loading="load" @click="onSubmit">{{ $ml.get('auth.signin.button') }}</v-btn>
+        <vue-recaptcha ref="invisibleRecaptcha" @verify="onVerify" @expired="onExpired" size="invisible" :sitekey="sitekey" badge="inline" />
+      </v-tooltip>
     </v-card-actions>
   </v-card-text>
 </template>
 
 <script>
 import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+import VueRecaptcha from 'vue-recaptcha'
 
 export default {
   data () {
     return {
+      sitekey: '6Lfk1FwUAAAAAMcjjT1vE-D9MLIgLaKm4_4BN44W',
       credentials: {
         username: this.$route.params.email,
         token: this.$route.params.token,
         password: '',
-        confirmPassword: ''
+        confirmPassword: '',
+        captcharesponse: ''
       },
       error: '',
       load: false
@@ -80,8 +87,8 @@ export default {
       this.$v.$touch()
       if (!this.$v.$invalid) {
         this.load = true
-        const { username, token, password, confirmPassword } = this.credentials
-        this.$store.dispatch('passwordReset', { username, token, password, confirmPassword }).then(() => {
+        const { username, token, password, confirmPassword, captcharesponse } = this.credentials
+        this.$store.dispatch('passwordReset', { username, token, password, confirmPassword, captcharesponse }).then(() => {
           this.$router.push('/')
         }).catch(errorCode => {
           this.load = false
@@ -94,6 +101,25 @@ export default {
       } else {
         this.error = this.$ml.get('auth.email.errorRequired')
       }
+    },
+
+    onSubmit () {
+      this.load = true
+      if (!this.credentials.captcharesponse) {
+        this.$refs.invisibleRecaptcha.execute()
+      } else {
+        this.send()
+      }
+    },
+
+    onVerify (response) {
+      this.credentials.captcharesponse = response
+      this.send()
+    },
+
+    onExpired () {
+      this.credentials.captcharesponse = ''
+      this.$refs.invisibleRecaptcha.reset()
     }
   }
 }

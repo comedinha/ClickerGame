@@ -10,7 +10,8 @@ public class PasswordResetDTO implements Serializable {
     private String username;
     private String token;
     private String password;
-    private String confirmPassword;
+	private String confirmPassword;
+	private String captcharesponse;
 
     public PasswordResetDTO() {
     }
@@ -45,5 +46,13 @@ public class PasswordResetDTO implements Serializable {
 
 	public void setConfirmpassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
-	}    
+	}
+
+	public String getCaptcharesponse() {
+		return this.captcharesponse;
+	}
+
+	public void setCaptcharesponse(String captcharesponse) {
+		this.captcharesponse = captcharesponse;
+	}
 }

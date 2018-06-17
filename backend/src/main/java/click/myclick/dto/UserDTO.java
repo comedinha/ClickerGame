@@ -10,6 +10,7 @@ public class UserDTO implements Serializable {
     private String username;
     private String name;
     private String password;
+    private String captcharesponse;
 
     public UserDTO() {
     }
@@ -37,4 +38,12 @@ public class UserDTO implements Serializable {
     public void setName(final String name) {
         this.name = name;
     } 
+
+    public String getCaptcharesponse() {
+		return this.captcharesponse;
+	}
+
+	public void setCaptcharesponse(String captcharesponse) {
+		this.captcharesponse = captcharesponse;
+	}
 }

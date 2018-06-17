@@ -3,6 +3,7 @@ package click.myclick.controller;
 import click.myclick.converter.ConverterFacade;
 import click.myclick.dto.UserDTO;
 import click.myclick.service.UserService;
+import click.myclick.captcha.ICaptchaService;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,6 +22,9 @@ public class SignUpController {
     private final ConverterFacade converterFacade;
 
     @Autowired
+    private ICaptchaService captchaService;
+
+    @Autowired
     public SignUpController(final UserService service,
                             final ConverterFacade converterFacade) {
         this.service = service;
@@ -28,7 +32,13 @@ public class SignUpController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> signUp(@RequestBody final UserDTO dto) {
+    public ResponseEntity<?> signUp(@RequestBody final UserDTO dto) throws Exception {
+
+        final String responseCaptcha = dto.getCaptcharesponse();
+
+        if(!captchaService.processResponse(responseCaptcha)) {
+            return new ResponseEntity<>("A01", HttpStatus.BAD_REQUEST);
+        }
 
         if(service.create(converterFacade.convert(dto)) != null)
             return new ResponseEntity<>(HttpStatus.OK);

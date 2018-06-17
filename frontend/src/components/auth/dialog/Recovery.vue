@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="recoveryFlag.display" max-width="500px">
+  <v-dialog v-model="recoveryDialog" max-width="500px">
     <v-card>
       <v-card-title>
         <span class="headline">{{ $ml.get('auth.dialog.recovery.text') }}</span>
@@ -25,7 +25,6 @@
 import { required, email } from 'vuelidate/lib/validators'
 
 export default {
-  props: ['recovery'],
   data () {
     return {
       email: '',
@@ -47,12 +46,12 @@ export default {
       return errors
     },
 
-    recoveryFlag: {
+    recoveryDialog: {
       get () {
-        return this.recovery
+        return this.$store.getters.getRecoveryDialog
       },
-      set (val) {
-        this.$emit('updateRecovery', val)
+      set (value) {
+        this.$store.dispatch('setRecoveryDialog', value)
       }
     }
   },
@@ -60,10 +59,10 @@ export default {
     send () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        this.recoveryFlag.display = false
-        this.recoveryFlag.alert = true
+        this.recoveryDialog = false
         const { email } = this
         this.$store.dispatch('passwordRecovery', { email })
+        this.$store.dispatch('setSuccessMessage', this.$ml.get('auth.dialog.recovery.confirm'))
       } else {
         this.error = this.$ml.get('auth.dialog.recovery.errorRequired')
       }

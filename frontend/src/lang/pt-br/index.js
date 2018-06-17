@@ -4,6 +4,20 @@ export default {
     year: '2018'
   },
 
+  error: {
+    UNK: '{e}: contacte a equipe!',
+
+    A01: 'Algo de errado aconteceu com o captcha, favor tentar novamente.',
+    A02: 'Endereço de email ou senha incorretos.',
+    A03: 'O endereço de email não foi ativado, favor verificar seu email.',
+
+    B01: 'O usuário não foi encontrado.',
+    B02: 'O token é invalido.',
+
+    C01: 'Algum erro inesperado aconteceu, se persistir contacte a equipe.',
+    C02: 'Ocorreu um erro ao criar o usuário.'
+  },
+
   auth: {
     email: {
       button: 'Ativar',
@@ -43,6 +57,7 @@ export default {
       title: 'Cadastrar',
       description: 'Descrição do Cadastro',
       button: 'Registrar',
+      success: 'Se o endereço de email estiver correto nós lhe enviamos instruções para a ativação da conta.',
 
       required: 'Campo necessário.',
       errorRequired: 'Entre com os dados em todos os campos requeridos.',

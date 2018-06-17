@@ -2,13 +2,21 @@ import Vue from 'vue'
 
 const state = {
   token: localStorage.getItem('x-auth-token') || '',
-  status: ''
+
+  status: '',
+
+  recoveryDialog: false,
+  successMessage: ''
 }
 
 const getters = {
   isAuthenticated: state => !!state.token,
 
-  authStatus: state => state.status
+  authStatus: state => state.status,
+
+  getRecoveryDialog: state => state.recoveryDialog,
+
+  getSuccessMessage: state => state.successMessage
 }
 
 const actions = {
@@ -77,13 +85,21 @@ const actions = {
     })
   },
 
-  signout: ({commit}) => {
+  signout ({commit}) {
     commit('authStatus', 'loading')
     return new Promise((resolve) => {
       commit('authLogout')
       commit('authStatus', 'success')
       resolve()
     })
+  },
+
+  setRecoveryDialog ({commit}, event) {
+    commit('recoveryDialog', event)
+  },
+
+  setSuccessMessage ({commit}, message) {
+    commit('successMessage', message)
   }
 }
 
@@ -100,6 +116,14 @@ const mutations = {
   authLogout (state) {
     localStorage.removeItem('x-auth-token')
     state.token = ''
+  },
+
+  recoveryDialog (state, event) {
+    state.recoveryDialog = event
+  },
+
+  successMessage (state, message) {
+    state.successMessage = message
   }
 }
 

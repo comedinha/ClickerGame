@@ -1,8 +1,8 @@
 <template>
   <v-card-text>
-    <Recovery :recovery="recovery" @updateRecovery="recovery = $event" />
-    <v-alert :value="true" type="success" v-if="recovery.alert">
-      {{ $ml.get('auth.dialog.recovery.confirm') }}
+    <Recovery />
+    <v-alert :value="true" type="success" v-if="getSuccessMessage">
+      {{ getSuccessMessage }}
     </v-alert>
     <v-alert :value="true" type="error" v-if="error">
       {{ error }}
@@ -12,7 +12,7 @@
       <v-text-field prepend-icon="lock" v-model="credentials.password" @keyup.enter="onSubmit" :error-messages="passwordErrors" :label="$ml.get('auth.signin.password.title')" required @input="$v.credentials.password.$touch()" @blur="$v.credentials.password.$touch()" type="password" />
     </v-form>
     <v-card-actions>
-      <v-btn small flat color="indigo" @click.native.stop="recovery.display = !recovery.display">{{ $ml.get('auth.signin.recovery') }}</v-btn>
+      <v-btn small flat color="indigo" @click.native.stop="recoveryDialog = !recoveryDialog">{{ $ml.get('auth.signin.recovery') }}</v-btn>
       <v-spacer />
       <v-tooltip right close-delay="500">
         <v-btn slot="activator" color="primary" :loading="load" @click="onSubmit">{{ $ml.get('auth.signin.button') }}</v-btn>
@@ -26,10 +26,11 @@
 </template>
 
 <script>
-import Recovery from '@/components/auth/dialog/Recovery'
-
+import { mapGetters } from 'vuex'
 import { required, email } from 'vuelidate/lib/validators'
 import VueRecaptcha from 'vue-recaptcha'
+
+import Recovery from '@/components/auth/dialog/Recovery'
 
 export default {
   data () {
@@ -41,10 +42,6 @@ export default {
         username: '',
         password: '',
         captcharesponse: ''
-      },
-      recovery: {
-        display: false,
-        alert: false
       }
     }
   },
@@ -77,6 +74,19 @@ export default {
       if (!this.$v.credentials.password.$dirty) return errors
       !this.$v.credentials.password.required && errors.push(this.$ml.get('auth.signin.required'))
       return errors
+    },
+
+    ...mapGetters([
+      'getSuccessMessage'
+    ]),
+
+    recoveryDialog: {
+      get () {
+        return this.$store.getters.getRecoveryDialog
+      },
+      set (value) {
+        this.$store.dispatch('setRecoveryDialog', value)
+      }
     }
   },
   methods: {
@@ -90,9 +100,13 @@ export default {
           this.onExpired()
           this.load = false
           if (errorCode.bodyText) {
-            this.error = errorCode.bodyText
+            if (this.$ml.get('error.' + errorCode.bodyText)) {
+              this.error = this.$ml.get('error.' + errorCode.bodyText)
+            } else {
+              this.error = this.$ml.with('e', errorCode.bodyText).get('error.UNK')
+            }
           } else {
-            this.error = errorCode.status
+            this.error = this.$ml.with('e', errorCode.status).get('error.UNK')
           }
         })
       } else {

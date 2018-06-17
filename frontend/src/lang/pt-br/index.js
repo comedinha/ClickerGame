@@ -57,6 +57,7 @@ export default {
       title: 'Cadastrar',
       description: 'Descrição do Cadastro',
       button: 'Registrar',
+      success: 'Se o endereço de email estiver correto nós lhe enviamos instruções para a ativação da conta.',
 
       required: 'Campo necessário.',
       errorRequired: 'Entre com os dados em todos os campos requeridos.',

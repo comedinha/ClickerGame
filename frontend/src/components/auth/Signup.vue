@@ -104,6 +104,7 @@ export default {
         const { username, name, password, captcharesponse } = this.credentials
         this.$store.dispatch('signup', { username, name, password, captcharesponse }).then(() => {
           this.$router.push('/')
+          this.$store.dispatch('setSuccessMessage', this.$ml.get('auth.signup.success'))
         }).catch(errorCode => {
           this.onExpired()
           this.load = false

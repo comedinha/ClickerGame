@@ -1,8 +1,8 @@
 <template>
   <v-card-text>
-    <Recovery :recovery="recovery" @updateRecovery="recovery = $event" />
-    <v-alert :value="true" type="success" v-if="recovery.alert">
-      {{ $ml.get('auth.dialog.recovery.confirm') }}
+    <Recovery />
+    <v-alert :value="true" type="success" v-if="getSuccessMessage">
+      {{ getSuccessMessage }}
     </v-alert>
     <v-alert :value="true" type="error" v-if="error">
       {{ error }}
@@ -12,7 +12,7 @@
       <v-text-field prepend-icon="lock" v-model="credentials.password" @keyup.enter="onSubmit" :error-messages="passwordErrors" :label="$ml.get('auth.signin.password.title')" required @input="$v.credentials.password.$touch()" @blur="$v.credentials.password.$touch()" type="password" />
     </v-form>
     <v-card-actions>
-      <v-btn small flat color="indigo" @click.native.stop="recovery.display = !recovery.display">{{ $ml.get('auth.signin.recovery') }}</v-btn>
+      <v-btn small flat color="indigo" @click.native.stop="recoveryDialog = !recoveryDialog">{{ $ml.get('auth.signin.recovery') }}</v-btn>
       <v-spacer />
       <v-tooltip right close-delay="500">
         <v-btn slot="activator" color="primary" :loading="load" @click="onSubmit">{{ $ml.get('auth.signin.button') }}</v-btn>
@@ -26,10 +26,11 @@
 </template>
 
 <script>
-import Recovery from '@/components/auth/dialog/Recovery'
-
+import { mapGetters } from 'vuex'
 import { required, email } from 'vuelidate/lib/validators'
 import VueRecaptcha from 'vue-recaptcha'
+
+import Recovery from '@/components/auth/dialog/Recovery'
 
 export default {
   data () {
@@ -41,10 +42,6 @@ export default {
         username: '',
         password: '',
         captcharesponse: ''
-      },
-      recovery: {
-        display: false,
-        alert: false
       }
     }
   },
@@ -64,6 +61,19 @@ export default {
     Recovery
   },
   computed: {
+    ...mapGetters([
+      'getSuccessMessage'
+    ]),
+
+    recoveryDialog: {
+      get () {
+        return this.$store.getters.getRecoveryDialog
+      },
+      set (value) {
+        this.$store.dispatch('setRecoveryDialog', value)
+      }
+    },
+
     emailErrors () {
       const errors = []
       if (!this.$v.credentials.username.$dirty) return errors

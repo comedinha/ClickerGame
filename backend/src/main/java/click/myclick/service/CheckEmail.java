@@ -9,6 +9,15 @@ import org.springframework.stereotype.Service;
 @Service
 public class CheckEmail {
 
+    public int checkExistingEmail(UserService service, String username) {
+        try {
+            User user = service.findByUsername(username);
+            return 0;
+        } catch(Exception e) {
+            return 1;
+        }
+    }
+
     public int isEnable(UserService service, String username) {
         try {
             return service.findByUsername(username).isEnabled()? 0 : 1;

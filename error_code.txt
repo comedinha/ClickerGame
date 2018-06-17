@@ -4,6 +4,7 @@ A03 - Email não verificado
 
 B01 - Usuario não encontrado
 B02 - Token invalido
+B03 - Email já cadastrado
 
 C01 - Erro inesperado
 C02 - Erro ao criar/adicionar usuario

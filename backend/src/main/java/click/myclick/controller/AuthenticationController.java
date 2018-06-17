@@ -29,7 +29,8 @@ public class AuthenticationController {
     private final CheckEmail checkEmail;
 
     @Autowired
-    public AuthenticationController(final TokenService tokenService, final UserService service, final CheckEmail checkEmail) {
+    public AuthenticationController(final TokenService tokenService, final UserService service, 
+                                    final CheckEmail checkEmail) {
         this.tokenService = tokenService;
         this.service = service;
         this.checkEmail = checkEmail;

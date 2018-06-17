@@ -108,9 +108,13 @@ export default {
           this.onExpired()
           this.load = false
           if (errorCode.bodyText) {
-            this.error = errorCode.bodyText
+            if (this.$ml.get('error.' + errorCode.bodyText)) {
+              this.error = this.$ml.get('error.' + errorCode.bodyText)
+            } else {
+              this.error = this.$ml.with('e', errorCode.bodyText).get('error.UNK')
+            }
           } else {
-            this.error = errorCode.status
+            this.error = this.$ml.with('e', errorCode.status).get('error.UNK')
           }
         })
       } else {

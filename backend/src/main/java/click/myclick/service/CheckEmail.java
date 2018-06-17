@@ -9,8 +9,12 @@ import org.springframework.stereotype.Service;
 @Service
 public class CheckEmail {
 
-    public boolean isEnable(UserService service, String username) {
-        return service.findByUsername(username).isEnabled();
+    public int isEnable(UserService service, String username) {
+        try {
+            return service.findByUsername(username).isEnabled()? 0 : 1;
+        } catch(Exception e) {
+            return 2;
+        }
     }
     
     public int checkToken(UserService service, CodeDTO dto) {

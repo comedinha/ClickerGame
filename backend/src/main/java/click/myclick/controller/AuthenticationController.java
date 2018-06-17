@@ -44,8 +44,12 @@ public class AuthenticationController {
             return new ResponseEntity<>("A01", HttpStatus.BAD_REQUEST);
         }
 
-        if(!checkEmail.isEnable(service, dto.getUsername())) {
-            return new ResponseEntity<>("A03", HttpStatus.BAD_REQUEST);
+        if(checkEmail.isEnable(service, dto.getUsername()) == 2) {
+            return new ResponseEntity<>("A02", HttpStatus.BAD_REQUEST);
+        } else {
+            if(checkEmail.isEnable(service, dto.getUsername()) == 1) {
+                return new ResponseEntity<>("A03", HttpStatus.BAD_REQUEST);   
+            }
         }
 
         final String token = tokenService.getToken(dto.getUsername(), dto.getPassword());

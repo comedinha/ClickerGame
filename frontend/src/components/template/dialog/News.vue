@@ -1,10 +1,10 @@
 <template>
-  <v-dialog v-model="newsFlag" max-width="500px">
+  <v-dialog v-model="newsDialog" max-width="500px">
     <v-card>
       <v-card-title>
         <span class="headline">{{ $ml.get('template.dialog.news.title') }}</span>
         <v-spacer />
-        <v-btn v-if="admin">{{ $ml.get('template.dialog.news.adminButton') }}</v-btn>
+        <v-btn v-if="getAdmin">{{ $ml.get('template.dialog.news.adminButton') }}</v-btn>
       </v-card-title>
       <v-alert :value="true" type="error" v-if="!message">
         {{ error }}
@@ -15,8 +15,9 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  props: ['admin', 'news', 'update'],
   data () {
     return {
       message: '',
@@ -24,20 +25,16 @@ export default {
     }
   },
   computed: {
-    newsFlag: {
+    ...mapGetters([
+      'getAdmin'
+    ]),
+
+    newsDialog: {
       get () {
-        return this.news
+        return this.$store.getters.getNewsDialog
       },
-      set (val) {
-        this.$emit('updateNews', val)
-      }
-    },
-    updateFlag: {
-      get () {
-        return this.update
-      },
-      set (val) {
-        this.$emit('updateUpdate', val)
+      set (value) {
+        this.$store.dispatch('setNewsDialog', value)
       }
     }
   }

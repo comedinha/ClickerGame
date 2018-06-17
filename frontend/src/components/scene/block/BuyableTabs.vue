@@ -1,13 +1,13 @@
 <template>
   <v-tabs v-model="active" fixed-tabs>
-    <v-tab v-for="tab in tabs" :key="tab.refTab" ripple>
+    <v-tab v-for="tab in getTabs" :key="tab.refTab" ripple>
       {{ tab.title }}
     </v-tab>
-    <v-tab-item class="scroll-y" style="max-height: 82vh" v-for="tab in tabs" :key="tab.refItem">
-      <v-card-actions v-if="editMode">
+    <v-tab-item class="scroll-y" style="max-height: 82vh" v-for="tab in getTabs" :key="tab.refItem">
+      <v-card-actions v-if="getEditMode">
         <v-btn block>+</v-btn>
       </v-card-actions>
-      <v-card-actions v-if="!editMode">
+      <v-card-actions v-if="!getEditMode">
         <v-spacer />
         <v-btn>1x</v-btn>
       </v-card-actions>
@@ -23,7 +23,7 @@
               <v-list-title-subtitle v-if="item.subtitle">{{ item.subtitle }}</v-list-title-subtitle>
             </v-list-tile-content>
             <v-list-tile-action>
-              <v-card flat v-if="editMode">
+              <v-card flat v-if="getEditMode">
                 <v-btn icon @click="newGridItem(item)">
                   <v-icon>grid_on</v-icon>
                 </v-btn>
@@ -61,8 +61,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'editMode',
-      'tabs'
+      'getEditMode',
+      'getTabs'
     ])
   },
   methods: {

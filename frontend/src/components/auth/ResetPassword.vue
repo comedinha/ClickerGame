@@ -59,6 +59,7 @@ export default {
       !this.$v.credentials.username.email && errors.push(this.$ml.get('auth.email.username.validEmail'))
       return errors
     },
+
     passwordErrors () {
       const errors = []
       if (!this.$v.credentials.password.$dirty) return errors
@@ -66,6 +67,7 @@ export default {
       !this.$v.credentials.password.minLength && errors.push(this.$ml.with('c', this.$v.credentials.password.$params.minLength.min).get('auth.signup.password.errorLimit'))
       return errors
     },
+
     confirmPasswordErrors () {
       const errors = []
       if (!this.$v.credentials.confirmPassword.$dirty) return errors

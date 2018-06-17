@@ -19,13 +19,3 @@
     </v-card>
   </v-footer>
 </template>
-
-<script>
-export default {
-  data () {
-    return {
-      drawer: false
-    }
-  }
-}
-</script>

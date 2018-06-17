@@ -53,6 +53,7 @@ export default new Router({
         }
       ]
     },
+
     {
       path: '/Auth',
       redirect: 'Signin',
@@ -85,6 +86,7 @@ export default new Router({
         }
       ]
     },
+
     {
       path: '/Scene',
       name: 'Scene',
@@ -99,6 +101,7 @@ export default new Router({
         }
       ]
     },
+
     {
       path: '/Test',
       name: 'Test',

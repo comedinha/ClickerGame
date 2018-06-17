@@ -6,7 +6,7 @@
       </v-toolbar>
       <v-card-text>
         <el-carousel indicator-position="none" @change="changeCarousel" type="card" height="175px">
-          <el-carousel-item v-for="item in bestRated" :key="item.name">
+          <el-carousel-item v-for="item in getBestRated" :key="item.name">
             <h3>{{ item.name }}</h3>
           </el-carousel-item>
         </el-carousel>
@@ -16,17 +16,23 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
-  props: ['bestRated'],
   data () {
     return {
       bgcolor: ''
     }
   },
+  computed: {
+    ...mapGetters([
+      'getBestRated'
+    ])
+  },
   methods: {
     changeCarousel (val, oldVal) {
-      if (this.bestRated[val].background) {
-        this.bgcolor = this.bestRated[val].background
+      if (this.getBestRated[val].background) {
+        this.bgcolor = this.getBestRated[val].background
       }
     }
   }

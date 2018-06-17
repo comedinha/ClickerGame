@@ -7,6 +7,7 @@ const state = {
 
   clickButton: 1,
   infoScreen: 1,
+  gridCount: 2,
   gridContent: [
     {x: 9, y: 4, w: 5, h: 5, i: 'Grid 0', type: 'button', ref: 'Button 0'},
     {x: 9, y: 0, w: 5, h: 2, i: 'Grid 1', type: 'information', ref: 'Information 0'}
@@ -73,22 +74,22 @@ const state = {
 
 // getters
 const getters = {
-  userVision: state => state.userVision,
+  getUserVision: state => state.userVision,
 
-  editMode: state => state.editMode,
+  getEditMode: state => state.editMode,
 
-  saved: state => state.saved,
+  getSaved: state => state.saved,
 
-  saveWarning: state => state.saveWarning,
+  getSaveWarning: state => state.saveWarning,
 
-  gridContent: state => state.gridContent,
+  getGridContent: state => state.gridContent,
 
-  tabs: state => state.tabs
+  getTabs: state => state.tabs
 }
 
 // actions
 const actions = {
-  updateEditMode ({ commit }, event) {
+  setEditMode ({ commit }, event) {
     commit('updateEditMode', event)
   },
 
@@ -139,7 +140,7 @@ const mutations = {
       y: 0,
       w: 1,
       h: 1,
-      i: 'Grid ' + state.gridContent.length,
+      i: 'Grid ' + state.gridCount++,
       type: 'image',
       tab: item,
       ref: item.grids[(item.grids.push(tabItemGrid) - 1)]

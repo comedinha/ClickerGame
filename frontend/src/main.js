@@ -26,10 +26,13 @@ Vue.use(Carousel)
 Vue.use(CarouselItem)
 
 Vue.http.options = {
-  root: 'http://localhost:8088/',
   headers: {
     'x-auth-token': localStorage.getItem('x-auth-token')
   }
+}
+
+if (window.location.hostname === 'localhost') {
+  Vue.http.options.root = 'http://localhost:8088/'
 }
 
 Vue.config.productionTip = false

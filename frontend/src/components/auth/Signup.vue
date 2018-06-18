@@ -5,7 +5,7 @@
     </v-alert>
     <v-form>
       <v-text-field prepend-icon="person" v-model="credentials.name" @keyup.enter="onSubmit" :error-messages="nameErrors" :label="$ml.get('auth.signup.name.title')" required @input="$v.credentials.name.$touch()" @blur="$v.credentials.name.$touch()" />
-      <v-text-field prepend-icon="email" v-model="credentials.username" @keyup.enter="onSubmit" :error-messages="emailErrors" :label="$ml.get('auth.signup.username.title')" required @input="$v.credentials.username.$touch()" @blur="$v.credentials.username.$touch()" />
+      <v-text-field prepend-icon="email" v-model="credentials.username" @keyup.enter="onSubmit" :error-messages="emailErrors" :label="$ml.get('auth.signup.username.title')" required @input="onUsernameInput" @blur="onUsernameInput" />
       <v-card-actions>
         <v-text-field prepend-icon="lock" v-model="credentials.password" @keyup.enter="onSubmit" :error-messages="passwordErrors" :label="$ml.get('auth.signup.password.title')" required @input="$v.credentials.password.$touch()" @blur="$v.credentials.password.$touch()" type="password" />
         <v-text-field v-model="credentials.confirmPassword" @keyup.enter="onSubmit" :error-messages="confirmPasswordErrors" :label="$ml.get('auth.signup.confirmPassword.title')" required @input="$v.credentials.confirmPassword.$touch()" @blur="$v.credentials.confirmPassword.$touch()" type="password" />
@@ -36,6 +36,7 @@ export default {
         confirmPassword: '',
         captcharesponse: ''
       },
+      emailExistis: false,
       loggedIn: false,
       load: false,
       error: ''
@@ -70,6 +71,7 @@ export default {
       if (!this.$v.credentials.username.$dirty) return errors
       !this.$v.credentials.username.required && errors.push(this.$ml.get('auth.signup.required'))
       !this.$v.credentials.username.email && errors.push(this.$ml.get('auth.signup.username.validEmail'))
+      this.emailExistis && errors.push(this.$ml.get('auth.signup.username.existEmail'))
       return errors
     },
 
@@ -99,6 +101,7 @@ export default {
   },
   methods: {
     send () {
+      this.emailExistis = false
       this.$v.$touch()
       if (!this.$v.$invalid) {
         const { username, name, password, captcharesponse } = this.credentials
@@ -111,6 +114,9 @@ export default {
           if (errorCode.bodyText) {
             if (this.$ml.get('error.' + errorCode.bodyText)) {
               this.error = this.$ml.get('error.' + errorCode.bodyText)
+              if (errorCode.bodyText === 'B03') {
+                this.emailExistis = true
+              }
             } else {
               this.error = this.$ml.with('e', errorCode.bodyText).get('error.UNK')
             }
@@ -142,6 +148,11 @@ export default {
     onExpired () {
       this.credentials.captcharesponse = ''
       this.$refs.invisibleRecaptcha.reset()
+    },
+
+    onUsernameInput () {
+      this.$v.credentials.username.$touch()
+      this.emailExistis = false
     }
   }
 }

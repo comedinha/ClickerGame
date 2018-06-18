@@ -64,7 +64,9 @@ export default {
       errorRequired: 'Entre com os dados em todos os campos requeridos.',
       username: {
         title: 'Email: ',
-        validEmail: 'Digite um endereço de email válido.'
+        validEmail: 'Digite um endereço de email válido.',
+
+        existEmail: 'O endereço de email já esta cadastrado.'
       },
       name: {
         title: 'Nome: ',

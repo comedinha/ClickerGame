@@ -27,8 +27,8 @@ export default {
     return {
       sitekey: '6Lfk1FwUAAAAAMcjjT1vE-D9MLIgLaKm4_4BN44W',
       credentials: {
-        username: this.$route.params.email,
-        token: this.$route.params.token,
+        username: this.$route.query.email,
+        token: this.$route.query.token,
         password: '',
         confirmPassword: '',
         captcharesponse: ''
@@ -92,7 +92,7 @@ export default {
         this.load = true
         const { username, token, password, confirmPassword, captcharesponse } = this.credentials
         this.$store.dispatch('passwordReset', { username, token, password, confirmPassword, captcharesponse }).then(() => {
-          this.$router.push('/')
+          this.$router.push('/Signin')
         }).catch(errorCode => {
           this.load = false
           if (errorCode.bodyText) {

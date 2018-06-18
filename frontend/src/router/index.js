@@ -73,13 +73,13 @@ export default new Router({
           beforeEnter: ifNotAuthenticated
         },
         {
-          path: '/Email/:email/:token',
+          path: '/Email',
           name: 'Email',
           component: Email,
           beforeEnter: ifNotAuthenticated
         },
         {
-          path: '/ResetPassword/:email/:token',
+          path: '/ResetPassword',
           name: 'ResetPassword',
           component: ResetPassword,
           beforeEnter: ifNotAuthenticated

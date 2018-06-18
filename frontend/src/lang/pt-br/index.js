@@ -6,6 +6,7 @@ export default {
 
   error: {
     UNK: '{e}: contacte a equipe!',
+    notConnected: 'Houve um problema de conexão, tente novamente mais tarde.',
 
     A01: 'Algo de errado aconteceu com o captcha, favor tentar novamente.',
     A02: 'Endereço de email ou senha incorretos.',

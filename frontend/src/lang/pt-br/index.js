@@ -13,6 +13,7 @@ export default {
 
     B01: 'O usuário não foi encontrado.',
     B02: 'O token é invalido.',
+    B03: 'O endereço de email já está cadastrado.',
 
     C01: 'Algum erro inesperado aconteceu, se persistir contacte a equipe.',
     C02: 'Ocorreu um erro ao criar o usuário.'

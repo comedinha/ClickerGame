@@ -43,13 +43,18 @@ public class SignUpController {
         }
 
         if(checkEmail.checkExistingEmail(service, dto.getUsername()) == 0) {
+            System.out.println("B03");
             return new ResponseEntity<>("B03", HttpStatus.BAD_REQUEST);
         }
-
-        if(service.create(converterFacade.convert(dto)) != null)
-            return new ResponseEntity<>(HttpStatus.OK);
-        else
+        
+        try {
+            if(service.create(converterFacade.convert(dto)) != null)
+                return new ResponseEntity<>(HttpStatus.OK);
+            else
+                return new ResponseEntity<>("C02", HttpStatus.BAD_REQUEST);
+        } catch(Exception e) {
             return new ResponseEntity<>("C02", HttpStatus.BAD_REQUEST);
+        }
     }
 
 }

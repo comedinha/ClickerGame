@@ -23,7 +23,6 @@ public class ConverterFacade {
         String title = "Confirmação de Email";
         String msg = "Clique no link para confirmar o e-mail\n\n" +
         "http://localhost:8080/#/email/" + dto.getUsername() + "/" + token;
-
         email.send(dto.getUsername(), token, title, msg);
 
         User user = (User) converterFactory.getConverter(dto.getClass()).convert(dto);

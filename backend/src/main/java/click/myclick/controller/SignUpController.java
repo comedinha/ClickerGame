@@ -56,5 +56,4 @@ public class SignUpController {
             return new ResponseEntity<>("C02", HttpStatus.BAD_REQUEST);
         }
     }
-
 }

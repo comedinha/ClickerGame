@@ -11,7 +11,7 @@ public class CheckEmail {
 
     public int checkExistingEmail(UserService service, String username) {
         try {
-            User user = service.findByUsername(username);
+            service.findByUsername(username);
             return 0;
         } catch(Exception e) {
             return 1;

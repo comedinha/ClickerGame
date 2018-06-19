@@ -21,8 +21,8 @@ export default {
   data () {
     return {
       credentials: {
-        username: this.$route.params.email,
-        token: this.$route.params.token
+        username: this.$route.query.email,
+        token: this.$route.query.token
       },
       error: '',
       load: false
@@ -65,7 +65,7 @@ export default {
         this.load = true
         const { username, token } = this.credentials
         this.$store.dispatch('activeEmail', { username, token }).then(() => {
-          this.$router.push('/')
+          this.$router.push('/Signin')
         }).catch(errorCode => {
           this.load = false
           if (errorCode.bodyText) {

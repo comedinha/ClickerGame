@@ -99,7 +99,11 @@ export default {
     send () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
-        console.log('Falta fazer')
+        const { name, oldPassword, password, confirmPassword } = this
+        console.log(this)
+        this.$store.dispatch('updateInformation', { name, oldPassword, password, confirmPassword }).then(() => {
+          this.$router.push('/')
+        })
       } else {
         this.error = this.$ml.get('template.dialog.updateInformation.errorRequired')
       }

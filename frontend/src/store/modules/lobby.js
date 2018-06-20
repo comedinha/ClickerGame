@@ -1,3 +1,5 @@
+import Vue from 'vue'
+
 const state = {
   admin: true,
 
@@ -112,6 +114,20 @@ const actions = {
 
   setDrawer ({ commit }, event) {
     commit('updateDrawer', event)
+  },
+
+  updateInformation ({commit}, user) {
+    return new Promise((resolve, reject) => {
+      commit('authStatus', 'loading')
+      Vue.http.post('api/updateInformation', user)
+        .then(() => {
+          commit('authStatus', 'success')
+          resolve()
+        }, errorCode => {
+          commit('authStatus', 'error')
+          reject(errorCode)
+        })
+    })
   }
 }
 

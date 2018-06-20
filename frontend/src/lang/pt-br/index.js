@@ -11,6 +11,7 @@ export default {
     A01: 'Algo de errado aconteceu com o captcha, favor tentar novamente.',
     A02: 'Endereço de email ou senha incorretos.',
     A03: 'O endereço de email não foi ativado, favor verificar seu email.',
+    A04: 'Senha incorreta.',
 
     B01: 'O usuário não foi encontrado.',
     B02: 'O token é invalido.',

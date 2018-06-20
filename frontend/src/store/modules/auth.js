@@ -12,6 +12,8 @@ const state = {
 const getters = {
   isAuthenticated: state => !!state.token,
 
+  authToken: state => state.token,
+
   authStatus: state => state.status,
 
   getRecoveryDialog: state => state.recoveryDialog,

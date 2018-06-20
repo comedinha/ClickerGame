@@ -27,7 +27,7 @@ Vue.use(CarouselItem)
 
 Vue.http.options = {
   headers: {
-    'x-auth-token': localStorage.getItem('x-auth-token')
+    'x-auth-token': store.getters.authToken
   }
 }
 

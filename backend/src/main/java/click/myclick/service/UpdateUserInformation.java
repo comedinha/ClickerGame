@@ -21,8 +21,11 @@ public class UpdateUserInformation {
                 return 1;
             }
 
-            user.setName(dto.getName());
-            user.setPassword(passwordEncoder.encode(dto.getPassword()));
+            if(dto.getName() != null)
+                user.setName(dto.getName());
+            if(dto.getPassword() != null)
+                user.setPassword(passwordEncoder.encode(dto.getPassword()));
+            
             service.getRepository().save(user);
 
             return 0;

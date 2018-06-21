@@ -8,11 +8,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(allowedHeaders = "x-auth-token")
 @RestController
 @RequestMapping("/api/hello")
 public class SecuredController {
 
-    @CrossOrigin(allowedHeaders = "x-auth-token")
     @RequestMapping(method = RequestMethod.GET)
     public ResponseEntity<?> sayHello(Authentication auth) {
         return new ResponseEntity<>("Secured hello " + auth.getName() + "!", HttpStatus.OK);

@@ -11,10 +11,12 @@
       </v-alert>
       {{ message || '' }}
     </v-card>
+    <CKEditor />
   </v-dialog>
 </template>
 
 <script>
+import CKEditor from '@/components/template/dialog/CKEditor'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -23,6 +25,9 @@ export default {
       message: '',
       error: this.$ml.get('template.dialog.news.noNews')
     }
+  },
+  components: {
+    CKEditor
   },
   computed: {
     ...mapGetters([

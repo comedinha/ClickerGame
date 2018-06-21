@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+@CrossOrigin(allowedHeaders = "Origin, Content-Type, x-auth-token")
 @RestController
 @RequestMapping("/api/updateInformation")
 public class UpdateUserInformationController {
@@ -27,7 +28,6 @@ public class UpdateUserInformationController {
         this.updatUserInformation = updatUserInformation;
     }
 
-    @CrossOrigin(allowedHeaders = "x-auth-token")
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> emailCheck(@RequestBody final UserUpdateDTO dto, Authentication auth) {
         System.out.println("Email:" + auth.getPrincipal().toString());

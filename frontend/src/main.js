@@ -5,6 +5,7 @@ import VueResource from 'vue-resource'
 import Vuelidate from 'vuelidate'
 import Vuetify from 'vuetify'
 import Vuescript2 from 'vue-script2'
+import VueCkeditor from 'vue-ckeditor2'
 
 import { Carousel, CarouselItem } from 'element-ui'
 import 'element-ui/lib/theme-chalk/index.css'
@@ -21,6 +22,7 @@ Vue.use(VueResource)
 Vue.use(Vuelidate)
 Vue.use(Vuetify)
 Vue.use(Vuescript2)
+Vue.use(VueCkeditor)
 
 Vue.use(Carousel)
 Vue.use(CarouselItem)

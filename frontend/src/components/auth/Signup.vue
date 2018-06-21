@@ -1,5 +1,6 @@
 <template>
   <v-card-text>
+    <script2 src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer />
     <v-alert :value="true" type="error" v-if="error">
       {{ error }}
     </v-alert>

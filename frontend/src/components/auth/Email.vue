@@ -66,6 +66,7 @@ export default {
         const { username, token } = this.credentials
         this.$store.dispatch('activeEmail', { username, token }).then(() => {
           this.$router.push('/Signin')
+          this.$store.dispatch('setSuccessMessage', this.$ml.get('auth.email.success'))
         }).catch(errorCode => {
           this.load = false
           if (errorCode.bodyText) {

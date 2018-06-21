@@ -5,22 +5,22 @@
       {{ error }}
     </v-alert>
     <v-form>
-        <v-text-field prepend-icon="lock" v-model="credentials.password" @keyup.enter="onSubmit" :error-messages="passwordErrors" :label="$ml.get('auth.signup.password.title')" required @input="$v.credentials.password.$touch()" @blur="$v.credentials.password.$touch()" type="password" />
-        <v-text-field prepend-icon="lock" v-model="credentials.confirmPassword" @keyup.enter="onSubmit" :error-messages="confirmPasswordErrors" :label="$ml.get('auth.signup.confirmPassword.title')" required @input="$v.credentials.confirmPassword.$touch()" @blur="$v.credentials.confirmPassword.$touch()" type="password" />
+        <v-text-field prepend-icon="lock" v-model="credentials.password" @keyup.enter="onSubmit" :error-messages="passwordErrors" :label="$ml.get('auth.resetPassword.password.title')" required @input="$v.credentials.password.$touch()" @blur="$v.credentials.password.$touch()" type="password" />
+        <v-text-field prepend-icon="lock" v-model="credentials.confirmPassword" @keyup.enter="onSubmit" :error-messages="confirmPasswordErrors" :label="$ml.get('auth.resetPassword.confirmPassword.title')" required @input="$v.credentials.confirmPassword.$touch()" @blur="$v.credentials.confirmPassword.$touch()" type="password" />
     </v-form>
     <v-card-actions>
-      <v-btn small flat color="indigo" @click.native.stop="recovery.display = !recovery.display">{{ $ml.get('auth.signin.recovery') }}</v-btn>
       <v-spacer />
-      <v-tooltip right close-delay="1000">
-        <v-btn slot="activator" color="primary" :loading="load" @click="onSubmit">{{ $ml.get('auth.signin.button') }}</v-btn>
+      <v-tooltip left close-delay="500">
+        <v-btn small flat color="indigo" slot="activator" icon><v-icon>security</v-icon></v-btn>
         <vue-recaptcha ref="invisibleRecaptcha" @verify="onVerify" @expired="onExpired" size="invisible" :sitekey="sitekey" badge="inline" />
       </v-tooltip>
+      <v-btn color="primary" :loading="load" @click="onSubmit">{{ $ml.get('auth.resetPassword.button') }}</v-btn>
     </v-card-actions>
   </v-card-text>
 </template>
 
 <script>
-import { required, email, minLength, sameAs } from 'vuelidate/lib/validators'
+import { required, minLength, sameAs } from 'vuelidate/lib/validators'
 import VueRecaptcha from 'vue-recaptcha'
 
 export default {
@@ -40,13 +40,6 @@ export default {
   },
   validations: {
     credentials: {
-      username: {
-        required,
-        email
-      },
-      token: {
-        required
-      },
       password: {
         required,
         minLength: minLength(8)
@@ -56,25 +49,14 @@ export default {
       }
     }
   },
-  created () {
-    this.send()
-  },
   components: {
     VueRecaptcha
   },
   computed: {
-    usernameErrors () {
-      const errors = []
-      if (!this.$v.credentials.username.$dirty) return errors
-      !this.$v.credentials.username.required && errors.push(this.$ml.get('auth.email.required'))
-      !this.$v.credentials.username.email && errors.push(this.$ml.get('auth.email.username.validEmail'))
-      return errors
-    },
-
     passwordErrors () {
       const errors = []
       if (!this.$v.credentials.password.$dirty) return errors
-      !this.$v.credentials.password.required && errors.push(this.$ml.get('auth.signup.required'))
+      !this.$v.credentials.password.required && errors.push(this.$ml.get('auth.resetPassword.required'))
       !this.$v.credentials.password.minLength && errors.push(this.$ml.with('c', this.$v.credentials.password.$params.minLength.min).get('auth.signup.password.errorLimit'))
       return errors
     },
@@ -82,7 +64,7 @@ export default {
     confirmPasswordErrors () {
       const errors = []
       if (!this.$v.credentials.confirmPassword.$dirty) return errors
-      !this.$v.credentials.confirmPassword.sameAsPassword && errors.push(this.$ml.get('auth.signup.confirmPassword.errorIdentical'))
+      !this.$v.credentials.confirmPassword.sameAsPassword && errors.push(this.$ml.get('auth.resetPassword.confirmPassword.errorIdentical'))
       return errors
     }
   },
@@ -94,6 +76,7 @@ export default {
         const { username, token, password, confirmPassword, captcharesponse } = this.credentials
         this.$store.dispatch('passwordReset', { username, token, password, confirmPassword, captcharesponse }).then(() => {
           this.$router.push('/Signin')
+          this.$store.dispatch('setSuccessMessage', this.$ml.get('auth.resetPassword.success'))
         }).catch(errorCode => {
           this.load = false
           if (errorCode.bodyText) {
@@ -107,7 +90,7 @@ export default {
           }
         })
       } else {
-        this.error = this.$ml.get('auth.email.errorRequired')
+        this.error = this.$ml.get('auth.resetPassword.errorRequired')
       }
     },
 

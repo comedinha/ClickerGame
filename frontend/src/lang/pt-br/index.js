@@ -24,6 +24,7 @@ export default {
   auth: {
     email: {
       button: 'Ativar',
+      success: 'O endereço de email foi ativo.',
 
       required: 'Campo necessário.',
       errorRequired: 'Entre com os dados em todos os campos requeridos.',
@@ -35,6 +36,21 @@ export default {
       username: {
         title: 'Email: ',
         validEmail: 'Digite um endereço de email válido.'
+      }
+    },
+
+    resetPassword: {
+      button: 'Trocar Senha',
+
+      required: 'Campo necessário.',
+      errorRequired: 'Entre com os dados em todos os campos requeridos.',
+      password: {
+        title: 'Senha: ',
+        errorLimit: 'A senha deve ao menos {c} digitos.'
+      },
+      confirmPassword: {
+        title: 'Confirmação: ',
+        errorIdentical: 'A confirmação precisa ser identica a senha.'
       }
     },
 
@@ -142,9 +158,20 @@ export default {
     },
 
     dialog: {
+      addNews: {
+        title: 'Adicionar Noticia',
+        addTitle: 'Título:',
+
+        cancel: 'Cancelar',
+        add: 'Adicionar',
+
+        required: 'Preencha os campos necessários'
+      },
+
       news: {
         title: 'Últimas Noticias',
         adminButton: 'Nova',
+        close: 'Fechar',
 
         noNews: 'Não há noticias adicionadas no momento.'
       },

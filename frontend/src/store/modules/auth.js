@@ -6,7 +6,9 @@ const state = {
   status: '',
 
   recoveryDialog: false,
-  successMessage: ''
+
+  successMessage: '',
+  successDialog: false
 }
 
 const getters = {
@@ -18,7 +20,9 @@ const getters = {
 
   getRecoveryDialog: state => state.recoveryDialog,
 
-  getSuccessMessage: state => state.successMessage
+  getSuccessMessage: state => state.successMessage,
+
+  getSuccessDialog: state => state.successDialog
 }
 
 const actions = {
@@ -101,7 +105,13 @@ const actions = {
   },
 
   setSuccessMessage ({commit}, message) {
+    console.log('oi')
     commit('successMessage', message)
+    commit('successDialog', true)
+  },
+
+  setSuccessDialog ({commit}, event) {
+    commit('successDialog', event)
   }
 }
 
@@ -126,6 +136,10 @@ const mutations = {
 
   successMessage (state, message) {
     state.successMessage = message
+  },
+
+  successDialog (state, event) {
+    state.successDialog = event
   }
 }
 

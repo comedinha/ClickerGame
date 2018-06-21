@@ -3,7 +3,7 @@
       <v-list>
         <v-list-group prepend-icon="account_circle" value="true">
           <v-list-tile slot="activator">
-            <v-list-tile-title>Username</v-list-tile-title>
+            <v-list-tile-title>{{ getUsername }}</v-list-tile-title>
           </v-list-tile>
           <v-list-tile @click="openInformation">
             <v-list-tile-action>
@@ -23,8 +23,15 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   computed: {
+    ...mapGetters([
+      'getNewsUpdate',
+      'getUsername'
+    ]),
+
     informationDialog: {
       get () {
         return this.$store.getters.getInformationDialog

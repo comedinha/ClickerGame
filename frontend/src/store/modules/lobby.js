@@ -2,12 +2,14 @@ import Vue from 'vue'
 
 const state = {
   admin: true,
+  username: 'Usuário',
 
   drawer: false,
 
   informationDialog: false,
 
   newsDialog: false,
+  newsAddDialog: false,
   newsUpdate: false,
 
   myScanes: {
@@ -85,11 +87,15 @@ const state = {
 const getters = {
   getAdmin: state => state.admin,
 
+  getUsername: state => state.username,
+
   getDrawer: state => state.drawer,
 
   getInformationDialog: state => state.informationDialog,
 
   getNewsDialog: state => state.newsDialog,
+
+  getNewsAddDialog: state => state.newsAddDialog,
 
   getNewsUpdate: state => state.newsUpdate,
 
@@ -106,6 +112,10 @@ const getters = {
 const actions = {
   setNewsDialog ({ commit }, event) {
     commit('updateNewsDialog', event)
+  },
+
+  setNewsAddDialog ({ commit }, event) {
+    commit('updateNewsAddDialog', event)
   },
 
   setInformationDialog ({ commit }, event) {
@@ -135,6 +145,10 @@ const actions = {
 const mutations = {
   updateNewsDialog (state, event) {
     state.newsDialog = event
+  },
+
+  updateNewsAddDialog (state, event) {
+    state.newsAddDialog = event
   },
 
   updateInformationDialog (state, event) {

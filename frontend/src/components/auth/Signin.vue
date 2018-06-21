@@ -2,9 +2,7 @@
   <v-card-text>
     <script2 src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer />
     <Recovery />
-    <v-alert :value="true" type="success" v-if="getSuccessMessage">
-      {{ getSuccessMessage }}
-    </v-alert>
+    <Message />
     <v-alert :value="true" type="error" v-if="error">
       {{ error }}
     </v-alert>
@@ -15,10 +13,11 @@
     <v-card-actions>
       <v-btn small flat color="indigo" @click.native.stop="recoveryDialog = !recoveryDialog">{{ $ml.get('auth.signin.recovery') }}</v-btn>
       <v-spacer />
-      <v-tooltip right close-delay="500">
-        <v-btn slot="activator" color="primary" :loading="load" @click="onSubmit">{{ $ml.get('auth.signin.button') }}</v-btn>
+      <v-tooltip left close-delay="500">
+        <v-btn small flat color="indigo" slot="activator" icon><v-icon>security</v-icon></v-btn>
         <vue-recaptcha ref="invisibleRecaptcha" @verify="onVerify" @expired="onExpired" size="invisible" :sitekey="sitekey" badge="inline" />
       </v-tooltip>
+      <v-btn color="primary" :loading="load" @click="onSubmit">{{ $ml.get('auth.signin.button') }}</v-btn>
     </v-card-actions>
     <br />
     <v-divider />
@@ -31,6 +30,7 @@ import { mapGetters } from 'vuex'
 import { required, email } from 'vuelidate/lib/validators'
 import VueRecaptcha from 'vue-recaptcha'
 
+import Message from '@/components/auth/dialog/Message'
 import Recovery from '@/components/auth/dialog/Recovery'
 
 export default {
@@ -59,7 +59,8 @@ export default {
   },
   components: {
     VueRecaptcha,
-    Recovery
+    Recovery,
+    Message
   },
   computed: {
     emailErrors () {

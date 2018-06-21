@@ -2,6 +2,7 @@
   <v-app id="inspire">
     <UpdateInformation />
     <News />
+    <AddNews />
     <Drawer />
     <v-toolbar dense>
       <v-btn icon @click.stop="newsDialog = !newsDialog">
@@ -16,7 +17,7 @@
       <v-spacer />
       <v-menu class="hidden-sm-and-down" open-on-hover bottom offset-y>
         <v-toolbar-title slot="activator">
-          Username <v-icon>arrow_drop_down</v-icon>
+          {{ getUsername }} <v-icon>arrow_drop_down</v-icon>
         </v-toolbar-title>
         <v-list>
           <v-list-tile @click.stop="informationDialog = !informationDialog">
@@ -44,17 +45,20 @@ import Footer from '@/components/template/block/Footer'
 
 import UpdateInformation from '@/components/template/dialog/UpdateInformation'
 import News from '@/components/template/dialog/News'
+import AddNews from '@/components/template/dialog/AddNews'
 
 export default {
   components: {
     Drawer,
     Footer,
     UpdateInformation,
-    News
+    News,
+    AddNews
   },
   computed: {
     ...mapGetters([
-      'getNewsUpdate'
+      'getNewsUpdate',
+      'getUsername'
     ]),
 
     newsDialog: {

@@ -14,10 +14,11 @@
     </v-form>
     <v-card-actions>
       <v-spacer />
-      <v-tooltip right close-delay="1000">
-        <v-btn slot="activator" color="primary" :loading="load" @click="onSubmit">{{ $ml.get('auth.signup.button') }}</v-btn>
+      <v-tooltip left close-delay="500">
+        <v-btn small flat color="indigo" slot="activator" icon><v-icon>security</v-icon></v-btn>
         <vue-recaptcha ref="invisibleRecaptcha" @verify="onVerify" @expired="onExpired" size="invisible" :sitekey="sitekey" badge="inline" />
       </v-tooltip>
+      <v-btn color="primary" :loading="load" @click="onSubmit">{{ $ml.get('auth.signup.button') }}</v-btn>
     </v-card-actions>
   </v-card-text>
 </template>

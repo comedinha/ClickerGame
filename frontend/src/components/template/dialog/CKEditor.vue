@@ -1,9 +1,7 @@
 <template>
-  <v-dialog max-width="500px">
-    <v-card>
-      <vue-ckeditor v-model="content" :config="config" />
-    </v-card>
-  </v-dialog>
+  <v-card>
+    <vue-ckeditor v-model="content" :config="config" />
+  </v-card>
 </template>
 
 <script>
@@ -14,7 +12,8 @@ export default {
       config: {
         toolbar: [
           [ 'Bold', 'Italic', 'Underline', 'Strike', 'Subscript', 'Superscript' ]
-        ]
+        ],
+        height: 300
       }
     }
   }

@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-@CrossOrigin(allowedHeaders = "Origin, Content-Type, x-auth-token")
+@CrossOrigin(allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/updateInformation")
 public class UpdateUserInformationController {

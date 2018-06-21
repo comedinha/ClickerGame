@@ -23,11 +23,11 @@ public class UserUpdateDTO implements Serializable {
 		this.name = name;
 	}
 
-	public String getOldpassword() {
+	public String getOldPassword() {
 		return this.oldPassword;
 	}
 
-	public void setOldpassword(String oldPassword) {
+	public void setOldPassword(String oldPassword) {
 		this.oldPassword = oldPassword;
 	}
 

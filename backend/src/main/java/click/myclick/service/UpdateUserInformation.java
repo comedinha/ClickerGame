@@ -17,17 +17,25 @@ public class UpdateUserInformation {
         try {
             User user = service.findByUsername(username);
 
-            if(passwordEncoder.matches(dto.getOldpassword(), user.getPassword())) {
+            System.out.println(dto.getName());
+            System.out.println(dto.getPassword());
+            System.out.println(dto.getOldPassword());
+            System.out.println(dto.getOldPassword() + " = " + user.getPassword());
+
+            if(!passwordEncoder.matches(dto.getOldPassword(), user.getPassword())) {
                 return 1;
             }
 
-            if(dto.getName() != null)
+            if(dto.getName().length() > 3) {
+                System.out.println("name");
                 user.setName(dto.getName());
-            if(dto.getPassword() != null)
+            }
+            if(dto.getPassword().length() > 3) {
+                System.out.println("senha");
                 user.setPassword(passwordEncoder.encode(dto.getPassword()));
-            
-            service.getRepository().save(user);
+            }
 
+            service.getRepository().save(user);
             return 0;
         } catch(Exception e) {
             return 2;

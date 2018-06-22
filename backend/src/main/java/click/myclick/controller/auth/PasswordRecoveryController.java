@@ -1,8 +1,8 @@
-package click.myclick.controller;
+package click.myclick.controller.auth;
 
-import click.myclick.dto.CodeDTO;
-import click.myclick.service.CheckEmail;
+import click.myclick.dto.PasswordRecoveryDTO;
 import click.myclick.service.UserService;
+import click.myclick.service.PasswordRecovery;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -13,33 +13,29 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/authEmail")
-public class EmailController {
-    private final CheckEmail checkTokenEmail;
+@RequestMapping("/api/authPasswordRecovery")
+public class PasswordRecoveryController {
+    
     private final UserService service;
+    private final PasswordRecovery passwordRecovery;
 
     @Autowired
-    public EmailController(final CheckEmail checkTokenEmail, final UserService service) {
-        this.checkTokenEmail = checkTokenEmail;
+    public PasswordRecoveryController(final UserService service, final PasswordRecovery passwordRecovery) {
         this.service = service;
+        this.passwordRecovery = passwordRecovery;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> emailCheck(@RequestBody final CodeDTO dto) {
-
-        switch(checkTokenEmail.checkToken(service, dto)) {
+    public ResponseEntity<?> recovery(@RequestBody final PasswordRecoveryDTO dto) {
+        
+        switch(passwordRecovery.recovery(service, dto.getEmail())) {
             case 0:
-                //Token valido
                 return new ResponseEntity<>(HttpStatus.OK);
             case 1:
                 //Usuario não encontrado
                 return new ResponseEntity<>("B01", HttpStatus.BAD_REQUEST);
-            case 2:
-                //token invalido
-                return new ResponseEntity<>("B02", HttpStatus.BAD_REQUEST);
         }
 
-        //erro inesperado
         return new ResponseEntity<>("C01", HttpStatus.BAD_REQUEST);
     }
 }

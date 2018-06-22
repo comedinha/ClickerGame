@@ -1,4 +1,4 @@
-package click.myclick.controller;
+package click.myclick.controller.auth;
 
 import click.myclick.converter.ConverterFacade;
 import click.myclick.dto.UserDTO;

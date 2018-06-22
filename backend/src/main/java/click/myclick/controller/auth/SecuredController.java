@@ -1,4 +1,4 @@
-package click.myclick.controller;
+package click.myclick.controller.auth;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

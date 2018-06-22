@@ -1,4 +1,4 @@
-package click.myclick.controller;
+package click.myclick.controller.auth;
 
 import click.myclick.dto.LoginDTO;
 import click.myclick.dto.TokenDTO;

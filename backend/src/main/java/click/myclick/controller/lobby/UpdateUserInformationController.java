@@ -1,4 +1,4 @@
-package click.myclick.controller;
+package click.myclick.controller.lobby;
 
 import click.myclick.dto.UserUpdateDTO;
 import click.myclick.service.UserService;
@@ -30,8 +30,9 @@ public class UpdateUserInformationController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> emailCheck(@RequestBody final UserUpdateDTO dto, Authentication auth) {
+        System.out.println("Email:" + auth.getPrincipal().toString());
         final int code = updatUserInformation.update(service, dto, auth.getPrincipal().toString());
-        System.out.println(code);
+        
         if(code == 0)
             return new ResponseEntity<>(HttpStatus.OK);
         else

@@ -9,8 +9,10 @@ const state = {
   informationDialog: false,
 
   newsDialog: false,
-  newsAddDialog: false,
   newsUpdate: false,
+
+  newsAddDialog: false,
+  newsAddContent: '',
 
   myScanes: {
     items: [
@@ -95,9 +97,11 @@ const getters = {
 
   getNewsDialog: state => state.newsDialog,
 
+  getNewsUpdate: state => state.newsUpdate,
+
   getNewsAddDialog: state => state.newsAddDialog,
 
-  getNewsUpdate: state => state.newsUpdate,
+  getNewsAddContent: state => state.newsAddContent,
 
   getMyScanes: state => state.myScanes,
 
@@ -116,6 +120,10 @@ const actions = {
 
   setNewsAddDialog ({ commit }, event) {
     commit('updateNewsAddDialog', event)
+  },
+
+  setNewsAddContent ({ commit }, content) {
+    commit('updateNewsAddContent', content)
   },
 
   setInformationDialog ({ commit }, event) {
@@ -138,6 +146,22 @@ const actions = {
           reject(errorCode)
         })
     })
+  },
+
+  addNews ({commit, state}, title) {
+    return new Promise((resolve, reject) => {
+      commit('authStatus', 'loading')
+      console.log(title)
+      console.log(...state.newsAddContent)
+      Vue.http.post('api/addNews', { title, ...state.newsAddContent })
+        .then(() => {
+          commit('authStatus', 'success')
+          resolve()
+        }, errorCode => {
+          commit('authStatus', 'error')
+          reject(errorCode)
+        })
+    })
   }
 }
 
@@ -149,6 +173,10 @@ const mutations = {
 
   updateNewsAddDialog (state, event) {
     state.newsAddDialog = event
+  },
+
+  updateNewsAddContent (state, content) {
+    state.newsAddContent = content
   },
 
   updateInformationDialog (state, event) {

@@ -8,7 +8,6 @@
 export default {
   data () {
     return {
-      content: '',
       config: {
         toolbar: [
           { name: 'document', items: [ 'Preview' ] },
@@ -21,6 +20,16 @@ export default {
           { name: 'links', items: [ 'Link', 'Unlink' ] },
           { name: 'insert', items: [ 'Image', 'Table', 'HorizontalRule' ] }
         ]
+      }
+    }
+  },
+  computed: {
+    content: {
+      get () {
+        return this.$store.getters.getNewsAddContent
+      },
+      set (value) {
+        this.$store.dispatch('setNewsAddContent', value)
       }
     }
   }

@@ -13,7 +13,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn @click="newsAddDialog = !newsAddDialog">{{ $ml.get('template.dialog.addNews.cancel') }}</v-btn>
-        <v-btn>{{ $ml.get('template.dialog.addNews.add') }}</v-btn>
+        <v-btn @click="send"> {{ $ml.get('template.dialog.addNews.add') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -39,6 +39,9 @@ export default {
       required
     }
   },
+  created () {
+    this.send()
+  },
   computed: {
     titleErrors () {
       const errors = []
@@ -57,6 +60,22 @@ export default {
       },
       set (value) {
         this.$store.dispatch('setNewsAddDialog', value)
+      }
+    }
+  },
+  methods: {
+    send () {
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        this.load = true
+        const { title } = this
+        this.$store.dispatch('addNews', title).then(() => {
+          this.$router.push('/lobby')
+          // this.$store.dispatch('setSuccessMessage', this.$ml.get('auth.email.success'))
+        }).catch(errorCode => {
+          this.load = false
+          // set error
+        })
       }
     }
   }

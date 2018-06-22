@@ -56,6 +56,15 @@ export default {
       if (!this.$v.credentials.token.$dirty) return errors
       !this.$v.credentials.token.required && errors.push(this.$ml.get('auth.email.required'))
       return errors
+    },
+
+    informationDialog: {
+      get () {
+        return this.$store.getters.getInformationDialog
+      },
+      set (value) {
+        this.$store.dispatch('setInformationDialog', value)
+      }
     }
   },
   methods: {

@@ -1,7 +1,7 @@
 package click.myclick.security.service;
 
 import click.myclick.model.User;
-import click.myclick.service.UserService;
+import click.myclick.service.dao.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

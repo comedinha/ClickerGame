@@ -1,6 +1,6 @@
 package click.myclick.service;
 
-import click.myclick.service.UserService;
+import click.myclick.service.dao.user.UserService;
 import click.myclick.model.User;
 import click.myclick.dto.PasswordResetDTO;
 

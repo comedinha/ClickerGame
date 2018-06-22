@@ -1,7 +1,7 @@
 package click.myclick.service;
 
 import click.myclick.model.User;
-import click.myclick.service.UserService;
+import click.myclick.service.dao.user.UserService;
 import click.myclick.dto.CodeDTO;
 
 import org.springframework.stereotype.Service;

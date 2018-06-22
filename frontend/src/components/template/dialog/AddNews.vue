@@ -68,8 +68,7 @@ export default {
       this.$v.$touch()
       if (!this.$v.$invalid) {
         this.load = true
-        const { title } = this
-        this.$store.dispatch('addNews', title).then(() => {
+        this.$store.dispatch('addNews', this.title).then(() => {
           this.$router.push('/lobby')
           // this.$store.dispatch('setSuccessMessage', this.$ml.get('auth.email.success'))
         }).catch(errorCode => {

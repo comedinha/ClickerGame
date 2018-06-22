@@ -174,12 +174,15 @@ const actions = {
     })
   },
 
-  addNews ({commit, state}, title) {
+  addNews ({commit, state}, tl) {
     return new Promise((resolve, reject) => {
       commit('authStatus', 'loading')
-      console.log(title)
-      console.log(...state.newsAddContent)
-      Vue.http.post('api/addNews', { title, ...state.newsAddContent })
+      let addNew = {
+        title: tl,
+        content: state.newsAddContent
+      }
+      console.log(addNew)
+      Vue.http.post('api/addNews', { addNew })
         .then(() => {
           commit('authStatus', 'success')
           resolve()

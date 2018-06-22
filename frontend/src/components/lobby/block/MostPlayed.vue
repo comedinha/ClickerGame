@@ -11,17 +11,15 @@
               <v-card height="100%">
                 <v-toolbar dense flat>
                   <v-toolbar-title>{{ item.name }}</v-toolbar-title>
+                  <v-spacer />
+                  <v-btn small icon><v-icon>info</v-icon></v-btn>
+                  <v-btn small icon><v-icon>play_circle_filled</v-icon></v-btn>
                 </v-toolbar>
                 <v-card-media class='background-image' height="100%" :src="item.background">
                   <v-card class='white--text' color="transparent" flat tile width="100%">
                     <v-card-text class="transprent-text body-2">
                       {{ item.description }}
                     </v-card-text>
-                    <v-card-actions>
-                      <v-spacer />
-                      <v-btn small>Info</v-btn>
-                      <v-btn small>Jogar</v-btn>
-                    </v-card-actions>
                   </v-card>
                 </v-card-media>
               </v-card>

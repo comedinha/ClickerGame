@@ -15,19 +15,29 @@ const state = {
   myScanes: {
     items: [
       {
-        name: 'Jogo'
+        name: 'Jogo',
+        description: 'Texto de descrição x',
+        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
-        name: 'Jogo 2'
+        name: 'Jogo 2',
+        description: 'Texto de descrição x',
+        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
-        name: 'Jogo 3'
+        name: 'Jogo 3',
+        description: 'Texto de descrição x',
+        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
-        name: 'Jogo 4'
+        name: 'Jogo 4',
+        description: 'Texto de descrição x',
+        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
-        name: 'Jogo 5'
+        name: 'Jogo 5',
+        description: 'Texto de descrição x',
+        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       }
     ]
   },
@@ -35,19 +45,29 @@ const state = {
   allGames: {
     items: [
       {
-        name: 'Jogo'
+        name: 'Jogo',
+        description: 'Texto de descrição x',
+        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
-        name: 'Jogo 2'
+        name: 'Jogo 2',
+        description: 'Texto de descrição x',
+        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
-        name: 'Jogo 3'
+        name: 'Jogo 3',
+        description: 'Texto de descrição x',
+        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
-        name: 'Jogo 4'
+        name: 'Jogo 4',
+        description: 'Texto de descrição x',
+        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
-        name: 'Jogo 5'
+        name: 'Jogo 5',
+        description: 'Texto de descrição x',
+        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       }
     ]
   },
@@ -55,30 +75,36 @@ const state = {
   mostPlayed: [
     {
       name: 'Jogo',
-      background: 'white'
+      description: 'Texto de descrição x',
+      background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
     },
     {
       name: 'Jogo 2',
-      background: 'white'
+      description: 'Texto de descrição y',
+      background: 'https://www.gameogre.com/wp-content/uploads/2015/07/clickerhero1-696x392.jpg'
     },
     {
       name: 'Jogo 3',
-      background: 'white'
+      description: 'Texto de descrição z',
+      background: 'https://i.imgur.com/ORbyF5D.jpg'
     }
   ],
 
   bestRated: [
     {
       name: 'Jogo',
-      background: 'white'
+      description: 'Texto de descrição x',
+      background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
     },
     {
       name: 'Jogo 2',
-      background: 'white'
+      description: 'Texto de descrição y',
+      background: 'https://www.gameogre.com/wp-content/uploads/2015/07/clickerhero1-696x392.jpg'
     },
     {
       name: 'Jogo 3',
-      background: 'white'
+      description: 'Texto de descrição z',
+      background: 'https://i.imgur.com/ORbyF5D.jpg'
     }
   ]
 }

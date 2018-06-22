@@ -11,20 +11,21 @@
         <v-data-iterator :items="getAllGames.items" :search="search" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md6>
             <v-card>
-              <v-card-media height="100px">
-                <v-container fill-height fluid>
-                  <v-layout fill-height>
-                    <v-flex xs12 align-end flexbox>
-                      <span class="headline black--text">{{props.item.name}}</span>
-                    </v-flex>
-                  </v-layout>
-                </v-container>
+              <v-toolbar dense flat>
+                <v-toolbar-title>{{ props.item.name }}</v-toolbar-title>
+              </v-toolbar>
+              <v-card-media height="100%" :src="props.item.background">
+                <v-card class='white--text' color="transparent" flat tile>
+                  <v-card-text class="transprent-text body-2">
+                    {{ props.item.description }}
+                  </v-card-text>
+                  <v-card-actions>
+                    <v-spacer />
+                    <v-btn small>Editar</v-btn>
+                    <v-btn small>Jogar</v-btn>
+                  </v-card-actions>
+                </v-card>
               </v-card-media>
-              <v-card-actions>
-                <v-spacer />
-                <v-btn>{{ $ml.get('lobby.block.played.scene.play') }}</v-btn>
-                <v-spacer />
-              </v-card-actions>
             </v-card>
           </v-flex>
           <v-flex slot="pageText" slot-scope="props">

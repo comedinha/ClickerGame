@@ -4,7 +4,7 @@ import click.myclick.dto.LoginDTO;
 import click.myclick.dto.TokenDTO;
 import click.myclick.captcha.ICaptchaService;
 import click.myclick.security.service.TokenService;
-import click.myclick.service.UserService;
+import click.myclick.service.dao.user.UserService;
 import click.myclick.service.CheckEmail;
 
 import org.springframework.beans.factory.annotation.Autowired;

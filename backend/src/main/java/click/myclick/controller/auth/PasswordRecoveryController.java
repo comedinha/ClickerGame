@@ -1,7 +1,7 @@
 package click.myclick.controller.auth;
 
 import click.myclick.dto.PasswordRecoveryDTO;
-import click.myclick.service.UserService;
+import click.myclick.service.dao.user.UserService;
 import click.myclick.service.PasswordRecovery;
 
 import org.springframework.beans.factory.annotation.Autowired;

@@ -2,7 +2,7 @@ package click.myclick.controller.auth;
 
 import click.myclick.converter.ConverterFacade;
 import click.myclick.dto.UserDTO;
-import click.myclick.service.UserService;
+import click.myclick.service.dao.user.UserService;
 import click.myclick.captcha.ICaptchaService;
 import click.myclick.service.CheckEmail;
 

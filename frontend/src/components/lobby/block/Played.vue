@@ -13,17 +13,16 @@
             <v-card>
               <v-toolbar dense flat>
                 <v-toolbar-title>{{ props.item.name }}</v-toolbar-title>
+                <v-spacer />
+                <v-btn small icon><v-icon>info</v-icon></v-btn>
+                <v-btn small icon><v-icon>add_circle</v-icon></v-btn>
+                <v-btn small icon><v-icon>play_circle_filled</v-icon></v-btn>
               </v-toolbar>
               <v-card-media height="100%" :src="props.item.background">
-                <v-card class='white--text' color="transparent" flat tile>
+                <v-card height="105px" class='white--text' color="transparent" flat tile>
                   <v-card-text class="transprent-text body-2">
                     {{ props.item.description }}
                   </v-card-text>
-                  <v-card-actions>
-                    <v-spacer />
-                    <v-btn small>Editar</v-btn>
-                    <v-btn small>Jogar</v-btn>
-                  </v-card-actions>
                 </v-card>
               </v-card-media>
             </v-card>

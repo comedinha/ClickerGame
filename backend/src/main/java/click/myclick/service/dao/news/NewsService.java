@@ -1,25 +1,23 @@
 package click.myclick.service.dao.news;
-import click.myclick.repository.UserRepository;
 
-import click.myclick.model.User;
+import click.myclick.repository.NewsRepository;
+import click.myclick.model.News;
 
 import java.util.List;
 
 
 public interface NewsService {
 
-    User create(User object);
+    News create(News object);
 
-    User find(String id);
+    News find(String id);
 
-    User findByUsername(String userName);
+    List<News> findAll();
 
-    List<User> findAll();
-
-    User update(String id, User object);
+    News update(String id, News object);
 
     String delete(String id);
     
-    UserRepository getRepository();
+    NewsRepository getRepository();
     
 }

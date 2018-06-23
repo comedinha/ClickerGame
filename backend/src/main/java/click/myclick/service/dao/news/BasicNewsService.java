@@ -15,45 +15,40 @@ public class BasicNewsService implements NewsService {
     private final NewsRepository repository;
 
     @Autowired
-    public BasicUserService(final NewsRepository repository) {
+    public BasicNewsService(final NewsRepository repository) {
         this.repository = repository;
     }
 
     @Override
-    public User create(final User user) {
-        user.setCreatedAt(String.valueOf(LocalDateTime.now()));
-        return repository.save(user);
+    public News create(final News news) {
+        news.setCreatedAt(String.valueOf(LocalDateTime.now()));
+        return repository.save(news);
     }
 
     @Override
-    public User find(final String id) {
+    public News find(final String id) {
         return repository.findById(id).get();
     }
 
     @Override
-    public User findByUsername(final String userName) {
-        return repository.findByUsername(userName);
-    }
-
-    @Override
-    public List<User> findAll() {
+    public List<News> findAll() {
         return repository.findAll();
     }
 
     @Override
-    public User update(final String id, final User user) {
-        user.setId(id);
+    public News update(final String id, final News news) {
+        news.setId(id);
 
-        final User saved = repository.findById(id).get();
+        final News saved = repository.findById(id).get();
 
         if (saved != null) {
-            user.setCreatedAt(saved.getCreatedAt());
-            user.setUpdatedAt(String.valueOf(LocalDateTime.now()));
+            news.setCreatedAt(saved.getCreatedAt());
+            news.setUpdatedAt(String.valueOf(LocalDateTime.now()));
         } else {
-            user.setCreatedAt(String.valueOf(LocalDateTime.now()));
+            news.setCreatedAt(String.valueOf(LocalDateTime.now()));
         }
-        repository.save(user);
-        return user;
+        repository.save(news);
+        return news;
     }
 
     @Override
@@ -63,7 +58,7 @@ public class BasicNewsService implements NewsService {
     }
 
     @Override
-    public UserRepository getRepository() {
+    public NewsRepository getRepository() {
         return repository;
     }
 }

@@ -1,31 +1,19 @@
 package click.myclick.model;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 
 
 @Document
-public class News implements Serializable {
+public class News extends BaseEntity implements Serializable {
 
     private static final long serialVersionUID = 8571261118900116242L;
 
-    @Id
-    private String id;
     private String title;
     private String content;
-    //private Date creation;
 
     public News() {
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(final String id) {
-        this.id = id;
     }
 
     public String getTitle() {

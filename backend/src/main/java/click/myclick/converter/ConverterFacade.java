@@ -3,7 +3,7 @@ package click.myclick.converter;
 import click.myclick.converter.factory.ConverterFactory;
 import click.myclick.dto.UserDTO;
 import click.myclick.model.User;
-import click.myclick.service.Email;
+import click.myclick.service.auth.Email;
 
 import java.util.Random;
 

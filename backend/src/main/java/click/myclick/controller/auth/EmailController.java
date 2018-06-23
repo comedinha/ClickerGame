@@ -1,7 +1,7 @@
 package click.myclick.controller.auth;
 
 import click.myclick.dto.CodeDTO;
-import click.myclick.service.CheckEmail;
+import click.myclick.service.auth.CheckEmail;
 import click.myclick.service.dao.user.UserService;
 
 import org.springframework.beans.factory.annotation.Autowired;

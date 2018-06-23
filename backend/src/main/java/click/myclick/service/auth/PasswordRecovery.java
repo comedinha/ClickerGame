@@ -1,4 +1,4 @@
-package click.myclick.service;
+package click.myclick.service.auth;
 
 import click.myclick.service.dao.user.UserService;
 import click.myclick.model.User;

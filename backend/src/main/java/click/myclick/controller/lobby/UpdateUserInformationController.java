@@ -2,7 +2,7 @@ package click.myclick.controller.lobby;
 
 import click.myclick.dto.UserUpdateDTO;
 import click.myclick.service.dao.user.UserService;
-import click.myclick.service.UpdateUserInformation;
+import click.myclick.service.lobby.UpdateUserInformation;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

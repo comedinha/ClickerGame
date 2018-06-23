@@ -1,4 +1,4 @@
-package click.myclick.service;
+package click.myclick.service.auth;
 
 import java.util.Properties;
 

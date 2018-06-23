@@ -27,6 +27,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
             .authorizeRequests()
                 .antMatchers("/api/hello").authenticated()
                 .antMatchers("/api/updateInformation").authenticated()
+                .antMatchers("/api/addNews").authenticated()
         .and()
             .addFilterBefore(new AuthenticationTokenFilter(tokenAuthenticationService),
                         UsernamePasswordAuthenticationFilter.class)

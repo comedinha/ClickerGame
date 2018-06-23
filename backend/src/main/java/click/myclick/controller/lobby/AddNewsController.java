@@ -26,10 +26,10 @@ public class AddNewsController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> emailCheck(@RequestBody final AddNewsDTO dto) {
+    public ResponseEntity<?> addNews(@RequestBody final AddNewsDTO dto) {
         System.out.printf("%s\n%s", dto.getTitle(), dto.getContent());
         
-        int code = newsUtility.addNews(service, dto);
+        final int code = newsUtility.addNews(service, dto);
 
         if(code == 0)
             return new ResponseEntity<>(HttpStatus.OK);

@@ -2,6 +2,7 @@ package click.myclick.controller.lobby;
 
 import click.myclick.dto.AddNewsDTO;
 import click.myclick.service.dao.news.NewsService;
+import click.myclick.service.lobby.NewsUtility;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,18 +19,22 @@ import org.springframework.web.bind.annotation.RestController;
 public class AddNewsController {
 
     private final NewsService service;
+    private final NewsUtility newsUtility;
 
     @Autowired
-    public AddNewsController(final NewsService service) {
+    public AddNewsController(final NewsService service, final NewsUtility newsUtility) {
         this.service = service;
+        this.newsUtility = newsUtility;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> emailCheck(@RequestBody final AddNewsDTO dto) {
         
+        int code = newsUtility.addNews(service, dto);
 
-
-        
-        return new ResponseEntity<>(HttpStatus.OK);
+        if(code == 0)
+            return new ResponseEntity<>(HttpStatus.OK);
+        else
+            return new ResponseEntity<>("C01", HttpStatus.BAD_REQUEST);
     }
 }

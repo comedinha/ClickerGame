@@ -15,6 +15,7 @@ public class News implements Serializable {
     private String id;
     private String title;
     private String content;
+    //private Date creation;
 
     public News() {
     }

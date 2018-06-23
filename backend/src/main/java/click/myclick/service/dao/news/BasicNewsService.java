@@ -1,7 +1,7 @@
-package click.myclick.service.dao.user;
+package click.myclick.service.dao.news;
 
-import click.myclick.model.User;
-import click.myclick.repository.UserRepository;
+import click.myclick.model.News;
+import click.myclick.repository.NewsRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +10,12 @@ import java.util.List;
 
 
 @Service
-public class BasicUserService implements UserService {
+public class BasicNewsService implements NewsService {
 
-    private final UserRepository repository;
+    private final NewsRepository repository;
 
     @Autowired
-    public BasicUserService(final UserRepository repository) {
+    public BasicUserService(final NewsRepository repository) {
         this.repository = repository;
     }
 

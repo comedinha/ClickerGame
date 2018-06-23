@@ -27,11 +27,9 @@ public class UpdateUserInformation {
             }
 
             if(dto.getName().length() > 3) {
-                System.out.println("name");
                 user.setName(dto.getName());
             }
             if(dto.getPassword().length() > 3) {
-                System.out.println("senha");
                 user.setPassword(passwordEncoder.encode(dto.getPassword()));
             }
 

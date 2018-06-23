@@ -18,6 +18,7 @@ public class AddNewsDTO implements Serializable {
 	}
 
 	public void setTitle(String title) {
+		System.out.printf("%s\n", title);
 		this.title = title;
 	}
 
@@ -26,6 +27,7 @@ public class AddNewsDTO implements Serializable {
 	}
 
 	public void setContent(String content) {
+		System.out.printf("%s\n", content);
 		this.content = content;
 	}
 }

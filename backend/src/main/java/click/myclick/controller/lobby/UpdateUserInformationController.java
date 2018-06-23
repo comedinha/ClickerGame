@@ -30,7 +30,6 @@ public class UpdateUserInformationController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> emailCheck(@RequestBody final UserUpdateDTO dto, Authentication auth) {
-        System.out.println("Email:" + auth.getPrincipal().toString());
         final int code = updatUserInformation.update(service, dto, auth.getPrincipal().toString());
         
         if(code == 0)

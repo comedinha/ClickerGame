@@ -11,10 +11,10 @@
               <v-system-bar dense flat>
                 <span>{{ props.item.name }}</span>
               </v-system-bar>
-              <v-card-media height="100%" :src="props.item.background">
+              <v-card-media height="100%" :src="props.item.image">
                 <v-card height="105px" width="100%" class='white--text' color="transparent" flat tile>
                   <v-card-text class="transprent-text body-2">
-                    {{ props.item.description }}
+                    {{ props.item.smallDescription }}
                   </v-card-text>
                 </v-card>
               </v-card-media>
@@ -28,15 +28,15 @@
                   <v-btn small icon slot="activator" @click="infoGame(props.item)"><v-icon>info</v-icon></v-btn>
                   <span>Detalhes</span>
                 </v-tooltip>
-                <v-tooltip v-if="props.item.played" bottom>
+                <v-tooltip v-if="props.item.lastGame" bottom>
                   <v-btn small icon slot="activator" @click="continueGame(props.item)"><v-icon>add_circle</v-icon></v-btn>
                   <span>Novo Jogo</span>
                 </v-tooltip>
-                <v-tooltip v-if="props.item.played" bottom>
+                <v-tooltip v-if="props.item.lastGame" bottom>
                   <v-btn small icon slot="activator" @click="newGame(props.item)"><v-icon>play_circle_filled</v-icon></v-btn>
                   <span>Continuar</span>
                 </v-tooltip>
-                <v-tooltip v-if="!props.item.played" bottom>
+                <v-tooltip v-if="!props.item.lastGame" bottom>
                   <v-btn small icon slot="activator" @click="continueGame(props.item)"><v-icon>play_circle_filled</v-icon></v-btn>
                   <span>Jogar</span>
                 </v-tooltip>
@@ -87,7 +87,7 @@ export default {
     },
 
     continueGame (scene) {
-      this.$router.push('/Scene?id=' + scene.id + '&continue=' + scene.played)
+      this.$router.push('/Scene?id=' + scene.id + '&continue=' + scene.lastGame)
     },
 
     newGame (scene) {

@@ -20,23 +20,23 @@
                     <v-btn small icon slot="activator" @click="infoGame(item)"><v-icon>info</v-icon></v-btn>
                     <span>Detalhes</span>
                   </v-tooltip>
-                  <v-tooltip v-if="item.played" bottom>
+                  <v-tooltip v-if="item.lastGame" bottom>
                     <v-btn small icon slot="activator" @click="continueGame(item)"><v-icon>add_circle</v-icon></v-btn>
                     <span>Novo Jogo</span>
                   </v-tooltip>
-                  <v-tooltip v-if="item.played" bottom>
+                  <v-tooltip v-if="item.lastGame" bottom>
                     <v-btn small icon slot="activator" @click="newGame(item)"><v-icon>play_circle_filled</v-icon></v-btn>
                     <span>Continuar</span>
                   </v-tooltip>
-                  <v-tooltip v-if="!item.played" bottom>
+                  <v-tooltip v-if="!item.lastGame" bottom>
                     <v-btn small icon slot="activator" @click="continueGame(item)"><v-icon>play_circle_filled</v-icon></v-btn>
                     <span>Jogar</span>
                   </v-tooltip>
                 </v-toolbar>
-                <v-card-media class='background-image' height="100%" :src="item.background">
+                <v-card-media class='background-image' height="100%" :src="item.image">
                   <v-card class='white--text' color="transparent" flat tile width="100%">
                     <v-card-text class="transprent-text body-2">
-                      {{ item.description }}
+                      {{ item.smallDescription }}
                     </v-card-text>
                   </v-card>
                 </v-card-media>
@@ -65,8 +65,8 @@ export default {
   },
   methods: {
     changeCarousel (val, oldVal) {
-      if (this.getBestRated[val].background) {
-        this.bgcolor = this.getBestRated[val].background
+      if (this.getBestRated[val].image) {
+        this.bgcolor = this.getBestRated[val].image
       }
     },
 
@@ -79,7 +79,7 @@ export default {
     },
 
     continueGame (scene) {
-      this.$router.push('/Scene?id=' + scene.id + '&continue=' + scene.played)
+      this.$router.push('/Scene?id=' + scene.id + '&continue=' + scene.lastGame)
     },
 
     newGame (scene) {

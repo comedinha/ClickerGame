@@ -23,39 +23,39 @@ const state = {
         id: 0,
         name: 'Jogo',
         creator: true,
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
         id: 1,
         name: 'Jogo 2',
         creator: true,
         played: 'amak',
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
         id: 2,
         name: 'Jogo 3',
         creator: true,
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
         id: 3,
         name: 'Jogo 4',
         creator: true,
-        played: 'aa',
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        lastGame: 'aa',
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
         id: 4,
         name: 'Jogo 5',
         creator: true,
-        played: 'msdnjadns',
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        lastGame: 'msdnjadns',
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       }
     ]
   },
@@ -66,38 +66,38 @@ const state = {
         id: 0,
         name: 'Jogo',
         creator: true,
-        played: 'iasjdo',
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        lastGame: 'iasjdo',
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
         id: 1,
         name: 'Jogo 2',
-        played: 'njndjskf',
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        lastGame: 'njndjskf',
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
         id: 2,
         name: 'Jogo 3',
         creator: true,
-        played: 'njdnsf',
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        lastGame: 'njdnsf',
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
         id: 3,
         name: 'Jogo 4',
-        played: 'sadmsd',
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        lastGame: 'sadmsd',
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
         id: 4,
         name: 'Jogo 5',
-        played: 'dsjnfjsdk',
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        lastGame: 'dsjnfjsdk',
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       }
     ]
   },
@@ -106,23 +106,23 @@ const state = {
     {
       id: 0,
       name: 'Jogo',
-      description: 'Texto de descrição x',
-      played: '0',
-      background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+      smallDescription: 'Texto de descrição x',
+      lastGame: '0',
+      image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
     },
     {
       id: 1,
       name: 'Jogo 2',
-      description: 'Texto de descrição y',
-      background: 'https://www.gameogre.com/wp-content/uploads/2015/07/clickerhero1-696x392.jpg'
+      smallDescription: 'Texto de descrição y',
+      image: 'https://www.gameogre.com/wp-content/uploads/2015/07/clickerhero1-696x392.jpg'
     },
     {
       id: 2,
       name: 'Jogo 3',
       creator: true,
-      description: 'Texto de descrição z',
-      played: '11',
-      background: 'https://i.imgur.com/ORbyF5D.jpg'
+      smallDescription: 'Texto de descrição z',
+      lastGame: '11',
+      image: 'https://i.imgur.com/ORbyF5D.jpg'
     }
   ],
 
@@ -131,21 +131,21 @@ const state = {
       id: 0,
       name: 'Jogo',
       creator: true,
-      description: 'Texto de descrição x',
-      background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+      smallDescription: 'Texto de descrição x',
+      image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
     },
     {
       id: 1,
       name: 'Jogo 2',
-      description: 'Texto de descrição y',
-      background: 'https://www.gameogre.com/wp-content/uploads/2015/07/clickerhero1-696x392.jpg'
+      smallDescription: 'Texto de descrição y',
+      image: 'https://www.gameogre.com/wp-content/uploads/2015/07/clickerhero1-696x392.jpg'
     },
     {
       id: 2,
       name: 'Jogo 3',
-      description: 'Texto de descrição z',
-      played: '1',
-      background: 'https://i.imgur.com/ORbyF5D.jpg'
+      smallDescription: 'Texto de descrição z',
+      lastGame: '1',
+      image: 'https://i.imgur.com/ORbyF5D.jpg'
     }
   ],
 
@@ -154,32 +154,32 @@ const state = {
       {
         id: 0,
         name: 'Jogo',
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
         id: 1,
         name: 'Jogo 2',
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
         id: 2,
         name: 'Jogo 3',
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
         id: 3,
         name: 'Jogo 4',
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
         id: 4,
         name: 'Jogo 5',
-        description: 'Texto de descrição x',
-        background: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       }
     ]
   }
@@ -240,7 +240,7 @@ const actions = {
         content: state.newsAddContent
       }
       console.log(addNew)
-      Vue.http.post('api/addNews', { addNew })
+      Vue.http.post('api/addNews', addNew)
         .then(() => {
           commit('authStatus', 'success')
           resolve()

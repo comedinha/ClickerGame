@@ -240,7 +240,7 @@ const actions = {
         content: state.newsAddContent
       }
       console.log(addNew)
-      Vue.http.post('api/addNews', { addNew })
+      Vue.http.post('api/addNews', addNew)
         .then(() => {
           commit('authStatus', 'success')
           resolve()

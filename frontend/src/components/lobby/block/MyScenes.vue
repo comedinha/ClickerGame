@@ -8,20 +8,39 @@
         <v-data-iterator :items="getMyScanes.items" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md12>
             <v-card>
-              <v-toolbar dense flat>
-                <v-toolbar-title>{{ props.item.name }}</v-toolbar-title>
-                <v-spacer />
-                <v-btn small icon><v-icon>settings</v-icon></v-btn>
-                <v-btn small icon><v-icon>info</v-icon></v-btn>
-                <v-btn small icon><v-icon>play_circle_filled</v-icon></v-btn>
-              </v-toolbar>
+              <v-system-bar dense flat>
+                <span>{{ props.item.name }}</span>
+              </v-system-bar>
               <v-card-media height="100%" :src="props.item.background">
-                <v-card height="105px" class='white--text' color="transparent" flat tile>
+                <v-card height="105px" width="100%" class='white--text' color="transparent" flat tile>
                   <v-card-text class="transprent-text body-2">
                     {{ props.item.description }}
                   </v-card-text>
                 </v-card>
               </v-card-media>
+              <v-system-bar dense flat>
+                <v-spacer />
+                <v-tooltip v-if="props.item.creator" bottom>
+                  <v-btn small icon slot="activator" @click="editGame(props.item)"><v-icon>settings</v-icon></v-btn>
+                  <span>Editar</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <v-btn small icon slot="activator" @click="infoGame(props.item)"><v-icon>info</v-icon></v-btn>
+                  <span>Detalhes</span>
+                </v-tooltip>
+                <v-tooltip v-if="props.item.played" bottom>
+                  <v-btn small icon slot="activator" @click="continueGame(props.item)"><v-icon>add_circle</v-icon></v-btn>
+                  <span>Novo Jogo</span>
+                </v-tooltip>
+                <v-tooltip v-if="props.item.played" bottom>
+                  <v-btn small icon slot="activator" @click="newGame(props.item)"><v-icon>play_circle_filled</v-icon></v-btn>
+                  <span>Continuar</span>
+                </v-tooltip>
+                <v-tooltip v-if="!props.item.played" bottom>
+                  <v-btn small icon slot="activator" @click="continueGame(props.item)"><v-icon>play_circle_filled</v-icon></v-btn>
+                  <span>Jogar</span>
+                </v-tooltip>
+              </v-system-bar>
             </v-card>
           </v-flex>
           <v-flex slot="pageText" slot-scope="props">
@@ -50,6 +69,56 @@ export default {
     ...mapGetters([
       'getMyScanes'
     ])
+  },
+
+  methods: {
+    changeCarousel (val, oldVal) {
+      if (this.getMostPlayed[val].background) {
+        this.bgcolor = this.getMostPlayed[val].background
+      }
+    },
+
+    editGame (scene) {
+      this.$router.push('/SceneCreator?id=' + scene.id)
+    },
+
+    infoGame (scene) {
+      this.$store.dispatch('setSceneDetailMessage', scene)
+    },
+
+    continueGame (scene) {
+      this.$router.push('/Scene?id=' + scene.id + '&continue=' + scene.played)
+    },
+
+    newGame (scene) {
+      this.$router.push('/Scene?id=' + scene.id)
+    }
   }
 }
 </script>
+
+<style>
+  .card-image .card__media__background {
+    background-repeat:no-repeat;
+
+    -webkit-filter: blur(5px);
+    filter: blur(5px);
+    -moz-filter: blur(5px);
+    -o-filter: blur(5px);
+    -ms-filter: blur(5px);
+  }
+
+  .background-image .card__media__background {
+    background-repeat:no-repeat;
+
+    -webkit-filter: blur(0px);
+    filter: blur(0px);
+    -moz-filter: blur(0px);
+    -o-filter: blur(0px);
+    -ms-filter: blur(0px);
+  }
+
+  .transprent-text {
+    background: rgba(0, 0, 0, 0.5);
+  }
+</style>

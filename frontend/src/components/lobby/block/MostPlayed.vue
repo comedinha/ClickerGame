@@ -10,10 +10,28 @@
             <el-carousel-item v-for="item in getMostPlayed" :key="item.name">
               <v-card height="100%">
                 <v-toolbar dense flat>
-                  <v-toolbar-title>{{ item.name }}</v-toolbar-title>
-                  <v-spacer />
-                  <v-btn small icon><v-icon>info</v-icon></v-btn>
-                  <v-btn small icon><v-icon>play_circle_filled</v-icon></v-btn>
+                <v-toolbar-title>{{ item.name }}</v-toolbar-title>
+                <v-spacer />
+                  <v-tooltip v-if="item.creator" bottom>
+                    <v-btn small icon slot="activator" @click="editGame(item)"><v-icon>settings</v-icon></v-btn>
+                    <span>Editar</span>
+                  </v-tooltip>
+                  <v-tooltip bottom>
+                    <v-btn small icon slot="activator" @click="infoGame(item)"><v-icon>info</v-icon></v-btn>
+                    <span>Detalhes</span>
+                  </v-tooltip>
+                  <v-tooltip v-if="item.played" bottom>
+                    <v-btn small icon slot="activator" @click="continueGame(item)"><v-icon>add_circle</v-icon></v-btn>
+                    <span>Novo Jogo</span>
+                  </v-tooltip>
+                  <v-tooltip v-if="item.played" bottom>
+                    <v-btn small icon slot="activator" @click="newGame(item)"><v-icon>play_circle_filled</v-icon></v-btn>
+                    <span>Continuar</span>
+                  </v-tooltip>
+                  <v-tooltip v-if="!item.played" bottom>
+                    <v-btn small icon slot="activator" @click="continueGame(item)"><v-icon>play_circle_filled</v-icon></v-btn>
+                    <span>Jogar</span>
+                  </v-tooltip>
                 </v-toolbar>
                 <v-card-media class='background-image' height="100%" :src="item.background">
                   <v-card class='white--text' color="transparent" flat tile width="100%">
@@ -46,10 +64,26 @@ export default {
     ])
   },
   methods: {
+    editGame (scene) {
+      this.$router.push('/SceneCreator?id=' + scene.id)
+    },
+
+    infoGame (scene) {
+      this.$store.dispatch('setSceneDetailMessage', scene)
+    },
+
     changeCarousel (val, oldVal) {
       if (this.getMostPlayed[val].background) {
         this.bgcolor = this.getMostPlayed[val].background
       }
+    },
+
+    continueGame (scene) {
+      this.$router.push('/Scene?id=' + scene.id + '&continue=' + scene.played)
+    },
+
+    newGame (scene) {
+      this.$router.push('/Scene?id=' + scene.id)
     }
   }
 }
@@ -77,6 +111,6 @@ export default {
   }
 
   .transprent-text {
-    background: rgba(0, 0, 0, 0.5)
+    background: rgba(0, 0, 0, 0.5);
   }
 </style>

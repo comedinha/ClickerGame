@@ -1,5 +1,6 @@
 <template>
   <v-container fluid grid-list-sm fixed>
+    <SceneDetail />
     <v-layout row wrap>
       <MyScenes />
       <v-flex d-flex xs12 sm8 md6>
@@ -19,12 +20,16 @@ import MostPlayed from '@/components/lobby/block/MostPlayed'
 import BestRated from '@/components/lobby/block/BestRated'
 import Played from '@/components/lobby/block/Played'
 
+import SceneDetail from '@/components/lobby/dialog/SceneDetail'
+
 export default {
   components: {
     MyScenes,
     MostPlayed,
     BestRated,
-    Played
+    Played,
+
+    SceneDetail
   }
 }
 </script>

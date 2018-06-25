@@ -18,7 +18,42 @@ const state = {
   sceneDetailDialog: false,
   sceneDetailMessage: 'Test',
 
-  viewAllScenes: false,
+  sceneApprovalDialog: false,
+  sceneApproval: {
+    items: [
+      {
+        id: 0,
+        name: 'Jogo',
+        creator: true,
+        approved: true,
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+      }
+    ]
+  },
+
+  sceneReportDialog: false,
+  sceneReport: {
+    items: [
+      {
+        id: 0,
+        name: 'Jogo',
+        creator: true,
+        approved: true,
+        smallDescription: 'Texto de descrição x',
+        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
+      }
+    ]
+  },
+
+  usersDialog: false,
+  users: [
+    {
+      id: 0,
+      nome: 'a',
+      enabled: false
+    }
+  ],
 
   myScanes: {
     items: [
@@ -26,6 +61,7 @@ const state = {
         id: 0,
         name: 'Jogo',
         creator: true,
+        approved: true,
         smallDescription: 'Texto de descrição x',
         image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
@@ -156,6 +192,7 @@ const state = {
     }
   ],
 
+  viewAllScenes: false,
   allGames: {
     items: [
       {
@@ -216,7 +253,17 @@ const getters = {
 
   getSceneDetailMessage: state => state.sceneDetailMessage,
 
-  getViewAllScenes: state => state.viewAllScenes,
+  getSceneApprovalDialog: state => state.sceneApprovalDialog,
+
+  getSceneApproval: state => state.sceneApproval,
+
+  getSceneReportDialog: state => state.sceneReportDialog,
+
+  getSceneReport: state => state.sceneReport,
+
+  getUsersDialog: state => state.usersDialog,
+
+  getUsers: state => state.getUsers,
 
   getMyScanes: state => state.myScanes,
 
@@ -225,6 +272,8 @@ const getters = {
   getMostPlayed: state => state.mostPlayed,
 
   getBestRated: state => state.bestRated,
+
+  getViewAllScenes: state => state.viewAllScenes,
 
   getAllGames: state => state.allGames
 }
@@ -295,6 +344,18 @@ const actions = {
 
   setViewAllScenes ({ commit }, event) {
     commit('updateViewAllScenes', event)
+  },
+
+  setSceneApprovalDialog ({ commit }, event) {
+    commit('updateSceneApprovalDialog', event)
+  },
+
+  setSceneReportDialog ({ commit }, event) {
+    commit('updateSceneReportDialog', event)
+  },
+
+  setUsersDialog ({ commit }, event) {
+    commit('updateUsersDialog', event)
   }
 }
 
@@ -330,6 +391,18 @@ const mutations = {
 
   updateViewAllScenes (state, event) {
     state.viewAllScenes = event
+  },
+
+  updateSceneApprovalDialog (state, event) {
+    state.sceneApprovalDialog = event
+  },
+
+  updateSceneReportDialog (state, event) {
+    state.sceneReportDialog = event
+  },
+
+  updateUsersDialog (state, event) {
+    state.usersDialog = event
   }
 }
 

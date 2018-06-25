@@ -10,6 +10,11 @@
             <v-card>
               <v-system-bar dense flat>
                 <span>{{ props.item.name }}</span>
+                <v-spacer />
+                <v-tooltip v-if="!props.item.approved" bottom>
+                  <v-icon slot="activator">flag</v-icon>
+                  <span>{{ $ml.get('lobby.lobby.approved') }}</span>
+                </v-tooltip>
               </v-system-bar>
               <v-card-media height="100%" :src="props.item.image">
                 <v-card height="105px" width="100%" class='white--text' color="transparent" flat tile>

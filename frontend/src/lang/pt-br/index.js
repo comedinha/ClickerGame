@@ -124,6 +124,7 @@ export default {
       allScenes: 'Todos os cenários',
       lobby: 'Lobby',
 
+      approved: 'Precisa ser avaliado pela equipe!',
       edit: 'Editar',
       details: 'Detalhes',
       newGame: 'Novo Jogo',

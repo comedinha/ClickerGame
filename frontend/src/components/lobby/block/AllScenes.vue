@@ -10,11 +10,16 @@
         <v-text-field v-model="search" append-icon="search" :label="$ml.get('lobby.block.allScenes.search')" single-line />
       </v-card-actions>
       <v-container fluid grid-list-sm>
-        <v-data-iterator :items="getPlayedGames.items" :search="search" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
+        <v-data-iterator :items="getAllGames.items" :search="search" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md2>
             <v-card>
               <v-system-bar dense flat>
                 <span>{{ props.item.name }}</span>
+                <v-spacer />
+                <v-tooltip v-if="!props.item.approved" bottom>
+                  <v-icon slot="activator">flag</v-icon>
+                  <span>{{ $ml.get('lobby.lobby.approved') }}</span>
+                </v-tooltip>
               </v-system-bar>
               <v-card-media :src="props.item.image">
                 <v-card height="105px" width="100%" class='white--text' color="transparent" flat tile>
@@ -70,7 +75,7 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getPlayedGames'
+      'getAllGames'
     ])
   },
   methods: {

@@ -1,7 +1,10 @@
 <template>
   <v-container fluid grid-list-sm fixed>
     <div v-if="!getViewAllScenes">
+      <Approval v-if="getSceneApprovalDialog" />
+      <Report v-if="getSceneReportDialog" />
       <SceneDetail v-if="getSceneDetailDialog" />
+      <Users v-if="getUsersDialog" />
       <v-layout row wrap>
         <MyScenes v-if="!getGuest" />
         <GuestMessage v-if="getGuest" />
@@ -34,7 +37,10 @@ import GuestMessage from '@/components/lobby/block/GuestMessage'
 
 import AllScenes from '@/components/lobby/block/AllScenes'
 
+import Approval from '@/components/lobby/dialog/Approval'
+import Report from '@/components/lobby/dialog/Report'
 import SceneDetail from '@/components/lobby/dialog/SceneDetail'
+import Users from '@/components/lobby/dialog/Users'
 
 export default {
   components: {
@@ -48,13 +54,19 @@ export default {
 
     AllScenes,
 
-    SceneDetail
+    Approval,
+    Report,
+    SceneDetail,
+    Users
   },
   computed: {
     ...mapGetters([
       'getGuest',
       'getSceneDetailDialog',
-      'getViewAllScenes'
+      'getViewAllScenes',
+      'getSceneApprovalDialog',
+      'getSceneReportDialog',
+      'getUsersDialog'
     ])
   }
 }

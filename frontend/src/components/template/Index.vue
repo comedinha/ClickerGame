@@ -25,6 +25,9 @@
       <v-spacer />
       <v-toolbar-title>{{ $ml.get('game.name') }}</v-toolbar-title>
       <v-spacer />
+      <v-btn v-if="getAdmin" @click="sceneApprovalDialog = !sceneApprovalDialog" small icon><v-icon>flag</v-icon></v-btn>
+      <v-btn v-if="getAdmin" @click="sceneReportDialog = !sceneReportDialog" small icon><v-icon>report_problem</v-icon></v-btn>
+      <v-btn v-if="getAdmin" @click="usersDialog = !usersDialog" small icon><v-icon>people</v-icon></v-btn>
       <v-menu class="hidden-sm-and-down" open-on-hover bottom offset-y>
         <v-toolbar-title slot="activator">
           {{ getUsername }} <v-icon>arrow_drop_down</v-icon>
@@ -67,6 +70,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'getAdmin',
       'getGuest',
       'getNewsUpdate',
       'getUsername',
@@ -106,6 +110,33 @@ export default {
       },
       set (value) {
         this.$store.dispatch('setViewAllScenes', value)
+      }
+    },
+
+    sceneApprovalDialog: {
+      get () {
+        return this.$store.getters.getSceneApprovalDialog
+      },
+      set (value) {
+        this.$store.dispatch('setSceneApprovalDialog', value)
+      }
+    },
+
+    sceneReportDialog: {
+      get () {
+        return this.$store.getters.getSceneReportDialog
+      },
+      set (value) {
+        this.$store.dispatch('setSceneReportDialog', value)
+      }
+    },
+
+    usersDialog: {
+      get () {
+        return this.$store.getters.getUsersDialog
+      },
+      set (value) {
+        this.$store.dispatch('setUsersDialog', value)
       }
     }
   },

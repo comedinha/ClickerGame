@@ -1,9 +1,9 @@
 <template>
   <v-app id="inspire">
-    <UpdateInformation />
-    <News />
-    <AddNews />
-    <Drawer />
+    <UpdateInformation v-if="informationDialog" />
+    <News v-if="newsDialog" />
+    <AddNews v-if="getNewsAddDialog" />
+    <Drawer v-if="drawer" />
     <v-toolbar dense>
       <v-btn icon @click.stop="newsDialog = !newsDialog">
         <v-badge icon v-if="getNewsUpdate" overlap top color="red">
@@ -58,7 +58,8 @@ export default {
   computed: {
     ...mapGetters([
       'getNewsUpdate',
-      'getUsername'
+      'getUsername',
+      'getNewsAddDialog'
     ]),
 
     newsDialog: {

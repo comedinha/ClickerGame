@@ -2,6 +2,7 @@ import Vue from 'vue'
 
 const state = {
   role: 'ROLE_ADMIN',
+
   username: 'Usuário',
 
   drawer: false,

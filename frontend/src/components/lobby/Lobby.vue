@@ -1,20 +1,22 @@
 <template>
   <v-container fluid grid-list-sm fixed>
-    <SceneDetail />
+    <SceneDetail v-if="getSceneDetailDialog" />
     <v-layout row wrap>
-      <MyScenes />
+      <MyScenes v-if="!getGuest" />
       <v-flex d-flex xs12 sm8 md6>
         <v-layout column>
           <MostPlayed />
           <BestRated />
         </v-layout>
       </v-flex>
-      <Played />
+      <Played v-if="!getGuest" />
     </v-layout>
   </v-container>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import MyScenes from '@/components/lobby/block/MyScenes'
 import MostPlayed from '@/components/lobby/block/MostPlayed'
 import BestRated from '@/components/lobby/block/BestRated'
@@ -30,6 +32,12 @@ export default {
     Played,
 
     SceneDetail
+  },
+  computed: {
+    ...mapGetters([
+      'getGuest',
+      'getSceneDetailDialog'
+    ])
   }
 }
 </script>

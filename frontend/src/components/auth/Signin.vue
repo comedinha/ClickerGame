@@ -1,8 +1,8 @@
 <template>
   <v-card-text>
     <script2 src="https://www.google.com/recaptcha/api.js?onload=vueRecaptchaApiLoaded&render=explicit" async defer />
-    <Recovery />
-    <Message />
+    <Recovery v-if="getRecoveryDialog" />
+    <Message v-if="getSuccessDialog" />
     <v-alert :value="true" type="error" v-if="error">
       {{ error }}
     </v-alert>
@@ -79,7 +79,9 @@ export default {
     },
 
     ...mapGetters([
-      'getSuccessMessage'
+      'getSuccessMessage',
+      'getRecoveryDialog',
+      'getSuccessDialog'
     ]),
 
     recoveryDialog: {

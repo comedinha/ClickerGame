@@ -70,6 +70,10 @@
           </v-flex>
         </v-layout>
       </v-container>
+      <v-card-actions>
+        <v-spacer />
+        <v-btn @click="sceneDetailDialog = !sceneDetailDialog">Fechar</v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>

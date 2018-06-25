@@ -15,6 +15,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer />
+        <v-btn flat @click.native="recoveryDialog = !recoveryDialog">{{ $ml.get('auth.dialog.recovery.cancel') }}</v-btn>
         <v-btn flat color="primary" @click.native="send">{{ $ml.get('auth.dialog.recovery.button') }}</v-btn>
       </v-card-actions>
     </v-card>

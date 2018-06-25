@@ -39,9 +39,6 @@ export default {
       required
     }
   },
-  created () {
-    this.send()
-  },
   computed: {
     titleErrors () {
       const errors = []

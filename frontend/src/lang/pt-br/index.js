@@ -107,6 +107,7 @@ export default {
         description: 'Digite seu endereço de email e enviaremos instruções de recuperação.',
         confirm: 'Se o endereço de email for correto nós enviamos as intruções.',
         button: 'Recuperar',
+        cancel: 'Cancelar',
 
         required: 'Campo necessário.',
         errorRequired: 'Entre com os dados em todos os campos requeridos.',

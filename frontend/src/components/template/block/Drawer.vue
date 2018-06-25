@@ -5,7 +5,7 @@
           <v-list-tile slot="activator">
             <v-list-tile-title>{{ getUsername }}</v-list-tile-title>
           </v-list-tile>
-          <v-list-tile @click="openInformation">
+          <v-list-tile v-if="!getGuest" @click="openInformation">
             <v-list-tile-action>
               <v-icon>settings</v-icon>
             </v-list-tile-action>
@@ -28,6 +28,7 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
+      'getGuest',
       'getNewsUpdate',
       'getUsername'
     ]),

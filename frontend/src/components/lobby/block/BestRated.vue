@@ -14,23 +14,23 @@
                   <v-spacer />
                   <v-tooltip v-if="item.creator" bottom>
                     <v-btn small icon slot="activator" @click="editGame(item)"><v-icon>settings</v-icon></v-btn>
-                    <span>Editar</span>
+                    <span>{{ $ml.get('lobby.lobby.edit') }}</span>
                   </v-tooltip>
                   <v-tooltip bottom>
                     <v-btn small icon slot="activator" @click="infoGame(item)"><v-icon>info</v-icon></v-btn>
-                    <span>Detalhes</span>
+                    <span>{{ $ml.get('lobby.lobby.details') }}</span>
                   </v-tooltip>
                   <v-tooltip v-if="item.lastGame" bottom>
                     <v-btn small icon slot="activator" @click="newGame(item)"><v-icon>add_circle</v-icon></v-btn>
-                    <span>Novo Jogo</span>
+                    <span>{{ $ml.get('lobby.lobby.newGame') }}</span>
                   </v-tooltip>
                   <v-tooltip v-if="item.lastGame" bottom>
                     <v-btn small icon slot="activator" @click="continueGame(item)"><v-icon>play_circle_filled</v-icon></v-btn>
-                    <span>Continuar</span>
+                    <span>{{ $ml.get('lobby.lobby.continue') }}</span>
                   </v-tooltip>
                   <v-tooltip v-if="!item.lastGame" bottom>
                     <v-btn small icon slot="activator" @click="newGame(item)"><v-icon>play_circle_filled</v-icon></v-btn>
-                    <span>Jogar</span>
+                    <span>{{ $ml.get('lobby.lobby.play') }}</span>
                   </v-tooltip>
                 </v-toolbar>
                 <v-card-media class='background-image' height="100%" :src="item.image">

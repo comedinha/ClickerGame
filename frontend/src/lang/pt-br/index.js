@@ -119,9 +119,25 @@ export default {
   },
 
   lobby: {
+    lobby: {
+      edit: 'Editar',
+      details: 'Detalhes',
+      newGame: 'Novo Jogo',
+      continue: 'Continuar',
+      play: 'Jogar'
+    },
+
     block: {
+      ads: {
+        title: 'Anúncio'
+      },
+
       bestRated: {
         title: 'Cenários melhores avaliados'
+      },
+
+      guestMessage: {
+        title: 'Vantagens'
       },
 
       mostPlayed: {

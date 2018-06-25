@@ -20,7 +20,7 @@
           {{ getUsername }} <v-icon>arrow_drop_down</v-icon>
         </v-toolbar-title>
         <v-list>
-          <v-list-tile @click.stop="informationDialog = !informationDialog">
+          <v-list-tile v-if="!getGuest" @click.stop="informationDialog = !informationDialog">
             <v-list-tile-content>{{ $ml.get('template.index.user.information') }}</v-list-tile-content>
           </v-list-tile>
           <v-list-tile @click="logout">
@@ -57,6 +57,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'getGuest',
       'getNewsUpdate',
       'getUsername',
       'getNewsAddDialog'

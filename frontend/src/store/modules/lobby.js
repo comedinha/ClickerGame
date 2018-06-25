@@ -18,6 +18,8 @@ const state = {
   sceneDetailDialog: false,
   sceneDetailMessage: 'Test',
 
+  viewAllScenes: false,
+
   myScanes: {
     items: [
       {
@@ -214,6 +216,8 @@ const getters = {
 
   getSceneDetailMessage: state => state.sceneDetailMessage,
 
+  getViewAllScenes: state => state.viewAllScenes,
+
   getMyScanes: state => state.myScanes,
 
   getPlayedGames: state => state.playedGames,
@@ -287,6 +291,10 @@ const actions = {
   setSceneDetailMessage ({ commit }, message) {
     commit('updateSceneDetailMessage', message)
     commit('updateSceneDetailDialog', true)
+  },
+
+  setViewAllScenes ({ commit }, event) {
+    commit('updateViewAllScenes', event)
   }
 }
 
@@ -318,6 +326,10 @@ const mutations = {
 
   updateSceneDetailMessage (state, message) {
     state.sceneDetailMessage = message
+  },
+
+  updateViewAllScenes (state, event) {
+    state.viewAllScenes = event
   }
 }
 

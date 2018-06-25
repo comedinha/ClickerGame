@@ -5,13 +5,23 @@
     <AddNews v-if="getNewsAddDialog" />
     <Drawer v-if="drawer" />
     <v-toolbar dense>
-      <v-btn icon @click.stop="newsDialog = !newsDialog">
-        <v-badge icon v-if="getNewsUpdate" overlap top color="red">
-          <span slot="badge">!</span>
-          <v-icon>developer_board</v-icon>
-        </v-badge>
-        <v-icon icon v-if="!getNewsUpdate">developer_board</v-icon>
-      </v-btn>
+      <v-tooltip v-if="!viewAllScenes" bottom>
+        <v-btn slot="activator" @click="viewAllScenes = !viewAllScenes" icon><v-icon>view_module</v-icon></v-btn>
+        <span>{{ $ml.get('lobby.lobby.allScenes') }}</span>
+      </v-tooltip>
+      <v-tooltip v-if="viewAllScenes" bottom>
+        <v-btn slot="activator" @click="viewAllScenes = !viewAllScenes" icon><v-icon>view_array</v-icon></v-btn>
+        <span>{{ $ml.get('lobby.lobby.lobby') }}</span>
+      </v-tooltip>
+      <v-tooltip bottom>
+        <v-btn slot="activator" icon @click.stop="newsDialog = !newsDialog">
+          <v-badge icon overlap top color="red">
+            <span slot="badge" v-if="getNewsUpdate">!</span>
+            <v-icon>developer_board</v-icon>
+          </v-badge>
+        </v-btn>
+        <span>{{ $ml.get('lobby.lobby.news') }}</span>
+      </v-tooltip>
       <v-spacer />
       <v-toolbar-title>{{ $ml.get('game.name') }}</v-toolbar-title>
       <v-spacer />
@@ -87,6 +97,15 @@ export default {
       },
       set (value) {
         this.$store.dispatch('setDrawer', value)
+      }
+    },
+
+    viewAllScenes: {
+      get () {
+        return this.$store.getters.getViewAllScenes
+      },
+      set (value) {
+        this.$store.dispatch('setViewAllScenes', value)
       }
     }
   },

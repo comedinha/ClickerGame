@@ -120,6 +120,10 @@ export default {
 
   lobby: {
     lobby: {
+      news: 'Últimas notícias',
+      allScenes: 'Todos os cenários',
+      lobby: 'Lobby',
+
       edit: 'Editar',
       details: 'Detalhes',
       newGame: 'Novo Jogo',
@@ -130,6 +134,12 @@ export default {
     block: {
       ads: {
         title: 'Anúncio'
+      },
+
+      allScenes: {
+        title: 'Todos os Cenários',
+        pagination: 'Página {a} de {t}',
+        search: 'Buscar'
       },
 
       bestRated: {
@@ -147,21 +157,13 @@ export default {
       myScenes: {
         title: 'Meus Cenários',
         pagination: '{a} de {t}',
-        button: 'Criar Cenário',
-
-        scene: {
-          edit: 'Editar'
-        }
+        button: 'Criar Cenário'
       },
 
       played: {
         title: 'Cenários que você jogou',
         pagination: 'Página {a} de {t}',
-        search: 'Buscar',
-
-        scene: {
-          play: 'Jogar'
-        }
+        search: 'Buscar'
       }
     }
   },

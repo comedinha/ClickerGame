@@ -7,7 +7,7 @@
       <v-card-actions>
         <v-text-field v-model="search" append-icon="search" :label="$ml.get('lobby.block.played.search')" single-line />
       </v-card-actions>
-      <v-container fluid grid-list-md>
+      <v-container fluid grid-list-sm>
         <v-data-iterator :items="getPlayedGames.items" :search="search" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md6>
             <v-card>
@@ -32,15 +32,15 @@
                   <span>Detalhes</span>
                 </v-tooltip>
                 <v-tooltip v-if="props.item.lastGame" bottom>
-                  <v-btn small icon slot="activator" @click="continueGame(props.item)"><v-icon>add_circle</v-icon></v-btn>
+                  <v-btn small icon slot="activator" @click="newGame(props.item)"><v-icon>add_circle</v-icon></v-btn>
                   <span>Novo Jogo</span>
                 </v-tooltip>
                 <v-tooltip v-if="props.item.lastGame" bottom>
-                  <v-btn small icon slot="activator" @click="newGame(props.item)"><v-icon>play_circle_filled</v-icon></v-btn>
+                  <v-btn small icon slot="activator" @click="continueGame(props.item)"><v-icon>play_circle_filled</v-icon></v-btn>
                   <span>Continuar</span>
                 </v-tooltip>
                 <v-tooltip v-if="!props.item.lastGame" bottom>
-                  <v-btn small icon slot="activator" @click="continueGame(props.item)"><v-icon>play_circle_filled</v-icon></v-btn>
+                  <v-btn small icon slot="activator" @click="newGame(props.item)"><v-icon>play_circle_filled</v-icon></v-btn>
                   <span>Jogar</span>
                 </v-tooltip>
               </v-system-bar>
@@ -92,26 +92,6 @@ export default {
 </script>
 
 <style>
-  .card-image .card__media__background {
-    background-repeat:no-repeat;
-
-    -webkit-filter: blur(5px);
-    filter: blur(5px);
-    -moz-filter: blur(5px);
-    -o-filter: blur(5px);
-    -ms-filter: blur(5px);
-  }
-
-  .background-image .card__media__background {
-    background-repeat:no-repeat;
-
-    -webkit-filter: blur(0px);
-    filter: blur(0px);
-    -moz-filter: blur(0px);
-    -o-filter: blur(0px);
-    -ms-filter: blur(0px);
-  }
-
   .transprent-text {
     background: rgba(0, 0, 0, 0.5);
   }

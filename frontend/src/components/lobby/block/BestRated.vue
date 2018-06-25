@@ -21,15 +21,15 @@
                     <span>Detalhes</span>
                   </v-tooltip>
                   <v-tooltip v-if="item.lastGame" bottom>
-                    <v-btn small icon slot="activator" @click="continueGame(item)"><v-icon>add_circle</v-icon></v-btn>
+                    <v-btn small icon slot="activator" @click="newGame(item)"><v-icon>add_circle</v-icon></v-btn>
                     <span>Novo Jogo</span>
                   </v-tooltip>
                   <v-tooltip v-if="item.lastGame" bottom>
-                    <v-btn small icon slot="activator" @click="newGame(item)"><v-icon>play_circle_filled</v-icon></v-btn>
+                    <v-btn small icon slot="activator" @click="continueGame(item)"><v-icon>play_circle_filled</v-icon></v-btn>
                     <span>Continuar</span>
                   </v-tooltip>
                   <v-tooltip v-if="!item.lastGame" bottom>
-                    <v-btn small icon slot="activator" @click="continueGame(item)"><v-icon>play_circle_filled</v-icon></v-btn>
+                    <v-btn small icon slot="activator" @click="newGame(item)"><v-icon>play_circle_filled</v-icon></v-btn>
                     <span>Jogar</span>
                   </v-tooltip>
                 </v-toolbar>

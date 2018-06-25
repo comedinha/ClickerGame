@@ -1,7 +1,7 @@
 import Vue from 'vue'
 
 const state = {
-  admin: true,
+  role: 'ROLE_ADMIN',
   username: 'Usuário',
 
   drawer: false,
@@ -30,7 +30,7 @@ const state = {
         id: 1,
         name: 'Jogo 2',
         creator: true,
-        played: 'amak',
+        lastGame: 'amak',
         smallDescription: 'Texto de descrição x',
         image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
@@ -68,6 +68,10 @@ const state = {
         creator: true,
         lastGame: 'iasjdo',
         smallDescription: 'Texto de descrição x',
+        description: 'Descrição do jogo completa onde é contado como foi criado o jogo em maior detalhes.',
+        totalComplete: 10,
+        totalPlayed: 25,
+        score: '4.6',
         image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
       },
       {
@@ -187,7 +191,9 @@ const state = {
 
 // getters
 const getters = {
-  getAdmin: state => state.admin,
+  getAdmin: state => state.role === 'ROLE_ADMIN',
+
+  getGuest: state => state.role === 'ANONYMOUS',
 
   getUsername: state => state.username,
 

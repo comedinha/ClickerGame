@@ -20,7 +20,7 @@
           {{ getUsername }} <v-icon>arrow_drop_down</v-icon>
         </v-toolbar-title>
         <v-list>
-          <v-list-tile v-if="!getGuest" @click.stop="informationDialog = !informationDialog">
+          <v-list-tile @click.stop="informationDialog = !informationDialog">
             <v-list-tile-content>{{ $ml.get('template.index.user.information') }}</v-list-tile-content>
           </v-list-tile>
           <v-list-tile @click="logout">
@@ -48,6 +48,9 @@ import News from '@/components/template/dialog/News'
 import AddNews from '@/components/template/dialog/AddNews'
 
 export default {
+  beforeCreate () {
+    this.$store.dispatch('getInfoLobby')
+  },
   components: {
     Drawer,
     Footer,
@@ -57,7 +60,6 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getGuest',
       'getNewsUpdate',
       'getUsername',
       'getNewsAddDialog'

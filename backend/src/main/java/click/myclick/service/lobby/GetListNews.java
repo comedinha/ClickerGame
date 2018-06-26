@@ -22,11 +22,11 @@ public class GetListNews {
 
         for(News news : newsList) {
             if(news.getCreatedAt().compareTo(user.getLastchecknews()) > 0)
-                noSeen.add(new GetNewsDTO(news.getId(), news.getTitle(), news.getContent()));
+                noSeen.add(new GetNewsDTO(news.getTitle(), news.getContent()));
         }
 
         for(int i = 0, j = newsList.size(); i + noSeen.size() < 5; i++) {
-            noSeen.add(new GetNewsDTO(newsList.get(j-i-1).getId(), newsList.get(j-i-1).getTitle(), newsList.get(j-i-1).getContent()));
+            noSeen.add(new GetNewsDTO(newsList.get(j-i-1).getTitle(), newsList.get(j-i-1).getContent()));
         }
 
         user.setLastchecknews(String.valueOf(LocalDateTime.now()));

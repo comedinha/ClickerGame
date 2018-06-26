@@ -44,9 +44,13 @@ const state = {
     items: []
   },
 
-  mostPlayed: [],
+  mostPlayed: {
+    items: []
+  },
 
-  bestRated: [],
+  bestRated: {
+    items: []
+  },
 
   viewAllScenes: false,
   allGames: {
@@ -206,6 +210,7 @@ const actions = {
 const mutations = {
   updateNewsDialog (state, event) {
     state.newsDialog = event
+    state.newsUpdate = 0
   },
 
   updateNewsAddDialog (state, event) {

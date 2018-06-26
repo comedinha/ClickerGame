@@ -4,10 +4,10 @@
       <v-toolbar dense flat>
         <v-toolbar-title>{{ $ml.get('lobby.block.bestRated.title') }}</v-toolbar-title>
       </v-toolbar>
-      <v-card-media class='card-image' :src="bgcolor">
+      <v-card-media class='card-image' :src="bgcolor" v-if="getBestRated.items">
         <v-card-text class="headline white--text">
           <el-carousel indicator-position="none" @change="changeCarousel" type="card" height="175px">
-            <el-carousel-item v-for="item in getBestRated" :key="item.name">
+            <el-carousel-item v-for="item in getBestRated.items" :key="item.name">
               <v-card height="100%">
                 <v-toolbar dense flat>
                   <v-toolbar-title>{{ item.name }}</v-toolbar-title>
@@ -65,8 +65,10 @@ export default {
   },
   methods: {
     changeCarousel (val, oldVal) {
-      if (this.getBestRated[val].image) {
-        this.bgcolor = this.getBestRated[val].image
+      if (this.getBestRated.items.length !== 0) {
+        if (this.getBestRated.items[val].image) {
+          this.bgcolor = this.getBestRated.items[val].image
+        }
       }
     },
 

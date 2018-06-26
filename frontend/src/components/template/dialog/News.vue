@@ -6,10 +6,21 @@
         <v-spacer />
         <v-btn v-if="getAdmin" @click="newsAddDialog = !newsAddDialog">{{ $ml.get('template.dialog.news.adminButton') }}</v-btn>
       </v-card-title>
-      <v-alert :value="true" type="error" v-if="!message">
-        {{ error }}
-      </v-alert>
-      {{ message || '' }}
+      <v-container fluid grid-list-md>
+        <v-data-iterator :items="getNewsContent.items" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
+          <v-flex slot="item" slot-scope="props" md12>
+            <v-card>
+              <v-system-bar dense flat>
+                <span>{{ props.item.title }}</span>
+              </v-system-bar>
+              {{ props.item.content }}
+            </v-card>
+          </v-flex>
+          <v-flex slot="pageText" slot-scope="props">
+            {{ $ml.with('a', pagination.page).with('t', Math.ceil(props.itemsLength / pagination.rowsPerPage)).get('lobby.dialog.approval.pagination') }}
+          </v-flex>
+        </v-data-iterator>
+      </v-container>
       <v-card-actions>
         <v-spacer />
         <v-btn @click="newsDialog = !newsDialog">{{ $ml.get('template.dialog.news.close') }}</v-btn>
@@ -24,13 +35,16 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      message: '',
+      rowsPerPageItems: [1],
+      pagination: {},
+
       error: this.$ml.get('template.dialog.news.noNews')
     }
   },
   computed: {
     ...mapGetters([
-      'getAdmin'
+      'getAdmin',
+      'getNewsContent'
     ]),
 
     newsDialog: {

@@ -20,9 +20,14 @@ public class GetListNews {
         List<News> newsList = newsService.findAll();
         List<GetNewsDTO> noSeen = new ArrayList<GetNewsDTO>();
 
-        for(News news : newsList)
+        for(News news : newsList) {
             if(news.getCreatedAt().compareTo(user.getLastchecknews()) > 0)
                 noSeen.add(new GetNewsDTO(news.getId(), news.getTitle()));
+        }
+
+        for(int i = 0, j = newsList.size(); i + noSeen.size() < 5; i++) {
+            noSeen.add(new GetNewsDTO(newsList.get(j-i-1).getId(), newsList.get(j-i-1).getTitle()));
+        }
 
         user.setLastchecknews(String.valueOf(LocalDateTime.now()));
         userService.getRepository().save(user);

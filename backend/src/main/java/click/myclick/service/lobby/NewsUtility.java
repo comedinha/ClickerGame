@@ -30,13 +30,13 @@ public class NewsUtility {
 
     public int checkNews(NewsService newsService, String lastCheckNews) {
 
+        int count = 0;
         List<News> newsList = newsService.findAll();
-        List<News> noSeen = new ArrayList<News>();
 
         for(News news : newsList)
             if(news.getCreatedAt().compareTo(lastCheckNews) > 0)
-                noSeen.add(news);
+                count++;
 
-        return noSeen.size();
+        return count;
     }
 }

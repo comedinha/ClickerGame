@@ -8,13 +8,15 @@ public class GetNewsDTO implements Serializable {
 
     private String id;
 	private String title;
+	private String content;
 	
 	public GetNewsDTO() {
 	}
 
-    public GetNewsDTO(String id, String title) {
+    public GetNewsDTO(String id, String title, String content) {
 		this.id = id;
 		this.title = title;
+		this.content = content;
     }
 
 	public String getId() {
@@ -31,5 +33,13 @@ public class GetNewsDTO implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
+	}
+
+	public String getContent() {
+		return this.content;
+	}
+
+	public void setContent(String content) {
+		this.content = content;
 	}
 }

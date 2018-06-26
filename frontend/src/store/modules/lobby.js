@@ -280,7 +280,14 @@ const getters = {
 // actions
 const actions = {
   setNewsDialog ({ commit }, event) {
-    commit('updateNewsDialog', event)
+    if (event === true) {
+      Vue.http.post('api/saveDateClickNews')
+      .then(() => {
+        commit('updateNewsDialog', event)
+      })
+    } else {
+      commit('updateNewsDialog', event)
+    }
   },
 
   setNewsAddDialog ({ commit }, event) {
@@ -291,37 +298,19 @@ const actions = {
     commit('updateNewsAddContent', content)
   },
 
-  getInfoLobby ({commit}) {
+  getInfoLobby ({ commit }) {
     return new Promise((resolve, reject) => {
-      commit('authStatus', 'loading')
-      console.log('getInfoLobby')
       Vue.http.post('api/getinfolobby')
         .then(response => {
-          console.log(response)
-          commit('authStatus', 'success')
+          commit('updateInfoLobby', response)
           resolve()
         }, errorCode => {
-          commit('authStatus', 'error')
           reject(errorCode)
         })
     })
   },
 
-  saveDate ({commit}) {
-    return new Promise((resolve, reject) => {
-      commit('authStatus', 'loading')
-      Vue.http.post('api/saveDateClickNews')
-        .then(() => {
-          commit('authStatus', 'success')
-          resolve()
-        }, errorCode => {
-          commit('authStatus', 'error')
-          reject(errorCode)
-        })
-    })
-  },
-
-  addNews ({state}, tl) {
+  addNews ({ state }, tl) {
     return new Promise((resolve, reject) => {
       let addNew = {
         title: tl,

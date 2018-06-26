@@ -14,7 +14,7 @@
         <span>{{ $ml.get('lobby.lobby.lobby') }}</span>
       </v-tooltip>
       <v-tooltip bottom>
-        <v-btn slot="activator" icon @click="saveDate" @click.stop="newsDialog = !newsDialog">
+        <v-btn slot="activator" icon @click.stop="newsDialog = !newsDialog">
           <v-badge icon overlap top color="red">
             <span slot="badge" v-if="getNewsUpdate">!</span>
             <v-icon>developer_board</v-icon>
@@ -150,10 +150,6 @@ export default {
       this.$store.dispatch('signout').then(() => {
         this.$router.push('/Signin')
       })
-    },
-
-    saveDate () {
-      this.$store.dispatch('saveDate')
     }
   }
 }

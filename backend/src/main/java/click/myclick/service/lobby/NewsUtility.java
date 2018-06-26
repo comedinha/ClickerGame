@@ -28,7 +28,7 @@ public class NewsUtility {
         }
     }
 
-    public boolean checkNews(NewsService newsService, String lastCheckNews) {
+    public int checkNews(NewsService newsService, String lastCheckNews) {
 
         List<News> newsList = newsService.findAll();
         List<News> noSeen = new ArrayList<News>();
@@ -37,11 +37,6 @@ public class NewsUtility {
             if(news.getCreatedAt().compareTo(lastCheckNews) > 0)
                 noSeen.add(news);
 
-        //return noSeen.size();
-
-        if(noSeen.size() > 0)
-            return true;
-        else
-            return false;
+        return noSeen.size();
     }
 }

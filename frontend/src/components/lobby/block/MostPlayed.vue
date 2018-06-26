@@ -4,14 +4,14 @@
       <v-toolbar dense flat>
         <v-toolbar-title>{{ $ml.get('lobby.block.mostPlayed.title') }}</v-toolbar-title>
       </v-toolbar>
-      <v-card-media class='card-image' :src="bgcolor">
+      <v-card-media class='card-image' :src="bgcolor" v-if="getMostPlayed.items">
         <v-card-text class="headline white--text">
           <el-carousel indicator-position="none" @change="changeCarousel" type="card" height="175px">
-            <el-carousel-item v-for="item in getMostPlayed" :key="item.name">
+            <el-carousel-item v-for="item in getMostPlayed.items" :key="item.name">
               <v-card height="100%">
                 <v-toolbar dense flat>
-                <v-toolbar-title>{{ item.name }}</v-toolbar-title>
-                <v-spacer />
+                  <v-toolbar-title>{{ item.name }}</v-toolbar-title>
+                  <v-spacer />
                   <v-tooltip v-if="item.creator" bottom>
                     <v-btn small icon slot="activator" @click="editGame(item)"><v-icon>settings</v-icon></v-btn>
                     <span>{{ $ml.get('lobby.lobby.edit') }}</span>
@@ -65,8 +65,10 @@ export default {
   },
   methods: {
     changeCarousel (val, oldVal) {
-      if (this.getMostPlayed[val].image) {
-        this.bgcolor = this.getMostPlayed[val].image
+      if (this.getMostPlayed.items.length !== 0) {
+        if (this.getMostPlayed.items[val].image) {
+          this.bgcolor = this.getMostPlayed.items[val].image
+        }
       }
     },
 

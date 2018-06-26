@@ -2,10 +2,7 @@ package click.myclick.dto;
 
 import click.myclick.model.Authority;
 
-import org.springframework.security.core.GrantedAuthority;
-
 import java.util.List;
-import java.util.ArrayList;
 import java.io.Serializable;
 
 public class InfoLobbyDTO implements Serializable {
@@ -14,7 +11,7 @@ public class InfoLobbyDTO implements Serializable {
 
     private String name;
 	private boolean news;
-	private List<Authority> authorities;
+	private String authorities;
 
     public InfoLobbyDTO() {
     }
@@ -35,11 +32,11 @@ public class InfoLobbyDTO implements Serializable {
 		this.news = news;
 	}
 
-	public List<Authority> getAuthorities() {
+	public String getAuthorities() {
 		return this.authorities;
 	}
 
-	public void setAuthorities(List<Authority> auth) {
-        authorities = auth;
+	public void setAuthorities(String authorities) {
+        this.authorities = authorities;
 	}
 }

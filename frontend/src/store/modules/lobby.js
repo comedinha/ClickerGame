@@ -282,9 +282,9 @@ const actions = {
   setNewsDialog ({ commit }, event) {
     if (event === true) {
       Vue.http.post('api/saveDateClickNews')
-      .then(() => {
-        commit('updateNewsDialog', event)
-      })
+        .then(() => {
+          commit('updateNewsDialog', event)
+        })
     } else {
       commit('updateNewsDialog', event)
     }
@@ -302,6 +302,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       Vue.http.post('api/getinfolobby')
         .then(response => {
+          console.log(response)
           commit('updateInfoLobby', response)
           resolve()
         }, errorCode => {

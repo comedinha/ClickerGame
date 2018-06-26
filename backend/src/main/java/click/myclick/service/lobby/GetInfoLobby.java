@@ -16,8 +16,8 @@ public class GetInfoLobby {
         NewsUtility news = new NewsUtility();
 
         User user = userService.findByUsername(username);
-        
-        dto.setAuthorities(user.getAuthorities());
+
+        dto.setAuthorities(user.getAuthorities().get(0).getAuthority());
         dto.setName(user.getName());
         dto.setNews(news.checkNews(newsService, user.getLastchecknews()));
 

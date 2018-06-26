@@ -54,6 +54,11 @@
           <v-flex slot="pageText" slot-scope="props">
             {{ $ml.with('a', pagination.page).with('t', Math.ceil(props.itemsLength / pagination.rowsPerPage)).get('lobby.block.played.pagination') }}
           </v-flex>
+          <v-flex slot="no-data">
+            <v-alert :value="true" color="error" icon="warning">
+              {{ $ml.get('error.noData') }}
+            </v-alert>
+          </v-flex>
         </v-data-iterator>
       </v-container>
     </v-card>

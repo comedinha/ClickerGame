@@ -25,15 +25,24 @@
       <v-spacer />
       <v-toolbar-title>{{ $ml.get('game.name') }}</v-toolbar-title>
       <v-spacer />
-      <v-btn v-if="getAdmin" @click="sceneApprovalDialog = !sceneApprovalDialog" small icon><v-icon>flag</v-icon></v-btn>
-      <v-btn v-if="getAdmin" @click="sceneReportDialog = !sceneReportDialog" small icon><v-icon>report_problem</v-icon></v-btn>
-      <v-btn v-if="getAdmin" @click="usersDialog = !usersDialog" small icon><v-icon>people</v-icon></v-btn>
+      <v-tooltip v-if="getAdmin" bottom>
+        <v-btn slot="activator" @click="sceneApprovalDialog = !sceneApprovalDialog" small icon><v-icon>flag</v-icon></v-btn>
+        <span>{{ $ml.get('lobby.lobby.approval') }}</span>
+      </v-tooltip>
+      <v-tooltip v-if="getAdmin" bottom>
+        <v-btn slot="activator" @click="sceneReportDialog = !sceneReportDialog" small icon><v-icon>report_problem</v-icon></v-btn>
+        <span>{{ $ml.get('lobby.lobby.reported') }}</span>
+      </v-tooltip>
+      <v-tooltip v-if="getAdmin" bottom>
+        <v-btn slot="activator" @click="usersDialog = !usersDialog" small icon><v-icon>people</v-icon></v-btn>
+        <span>{{ $ml.get('lobby.lobby.users') }}</span>
+      </v-tooltip>
       <v-menu class="hidden-sm-and-down" open-on-hover bottom offset-y>
         <v-toolbar-title slot="activator">
           {{ getUsername }} <v-icon>arrow_drop_down</v-icon>
         </v-toolbar-title>
         <v-list>
-          <v-list-tile @click.stop="informationDialog = !informationDialog">
+          <v-list-tile v-if="!getGuest" @click.stop="informationDialog = !informationDialog">
             <v-list-tile-content>{{ $ml.get('template.index.user.information') }}</v-list-tile-content>
           </v-list-tile>
           <v-list-tile @click="logout">

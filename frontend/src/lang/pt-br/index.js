@@ -7,6 +7,7 @@ export default {
   error: {
     UNK: '{e}: contacte a equipe!',
     notConnected: 'Houve um problema de conexão, tente novamente mais tarde.',
+    noData: 'Sem dados disponíveis, aguarde. Em caso de demora contacte a equipe.',
 
     A01: 'Algo de errado aconteceu com o captcha, favor tentar novamente.',
     A02: 'Endereço de email ou senha incorretos.',
@@ -123,6 +124,10 @@ export default {
       news: 'Últimas notícias',
       allScenes: 'Todos os cenários',
       lobby: 'Lobby',
+
+      approval: 'Aguardando aprovação',
+      reported: 'Denúncias',
+      users: 'Usuários',
 
       approved: 'Precisa ser avaliado pela equipe!',
       edit: 'Editar',

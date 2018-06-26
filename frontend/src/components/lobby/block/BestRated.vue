@@ -4,7 +4,10 @@
       <v-toolbar dense flat>
         <v-toolbar-title>{{ $ml.get('lobby.block.bestRated.title') }}</v-toolbar-title>
       </v-toolbar>
-      <v-card-media class='card-image' :src="bgcolor" v-if="getBestRated.items">
+      <v-alert :value="getBestRated.items.length === 0" color="error" icon="warning">
+        {{ $ml.get('error.noData') }}
+      </v-alert>
+      <v-card-media class='card-image' :src="bgcolor" v-if="getBestRated.items.length !== 0">
         <v-card-text class="headline white--text">
           <el-carousel indicator-position="none" @change="changeCarousel" type="card" height="175px">
             <el-carousel-item v-for="item in getBestRated.items" :key="item.name">

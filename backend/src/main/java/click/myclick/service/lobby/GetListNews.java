@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.ArrayList;
 
 @Service
-public class SaveDateClickNews {
+public class GetListNews {
     
     public List<GetNewsDTO> getListNews(UserService userService, NewsService newsService, String username) {
         User user = userService.findByUsername(username);

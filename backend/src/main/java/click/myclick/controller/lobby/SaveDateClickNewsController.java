@@ -2,7 +2,7 @@ package click.myclick.controller.lobby;
 
 import click.myclick.service.dao.user.UserService;
 import click.myclick.service.dao.news.NewsService;
-import click.myclick.service.lobby.SaveDateClickNews;
+import click.myclick.service.lobby.GetListNews;
 import click.myclick.dto.GetNewsDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,20 +22,20 @@ import java.util.List;
 public class SaveDateClickNewsController {
     private final UserService userService;
     private final NewsService newsService;
-    private final SaveDateClickNews saveDate;
+    private final GetListNews getListNews;
 
     @Autowired
     public SaveDateClickNewsController(final UserService userService, NewsService newsService,
-                                       final SaveDateClickNews saveDate) {
+                                       final GetListNews getListNews) {
         this.userService = userService;
         this.newsService = newsService;
-        this.saveDate = saveDate;
+        this.getListNews = getListNews;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(Authentication auth) {
 
-        List<GetNewsDTO> noSeen = saveDate.getListNews(userService, newsService, auth.getPrincipal().toString());
+        List<GetNewsDTO> noSeen = getListNews.getListNews(userService, newsService, auth.getPrincipal().toString());
 
         return new ResponseEntity<>(noSeen, HttpStatus.OK);
     }

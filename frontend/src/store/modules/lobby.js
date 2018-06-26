@@ -10,6 +10,9 @@ const state = {
 
   newsDialog: false,
   newsUpdate: 0,
+  newsContent: {
+    items: []
+  },
 
   newsAddDialog: false,
   newsAddContent: '',
@@ -61,9 +64,7 @@ const state = {
 // getters
 const getters = {
   getAdmin: state => state.role === 'ROLE_ADMIN',
-
   getGuest: state => state.role === 'ANONYMOUS',
-
   getUsername: state => state.username,
 
   getDrawer: state => state.drawer,
@@ -71,27 +72,22 @@ const getters = {
   getInformationDialog: state => state.informationDialog,
 
   getNewsDialog: state => state.newsDialog,
-
   getNewsUpdate: state => state.newsUpdate,
+  getNewsContent: state => state.newsContent,
 
   getNewsAddDialog: state => state.newsAddDialog,
-
   getNewsAddContent: state => state.newsAddContent,
 
   getSceneDetailDialog: state => state.sceneDetailDialog,
-
   getSceneDetailMessage: state => state.sceneDetailMessage,
 
   getSceneApprovalDialog: state => state.sceneApprovalDialog,
-
   getSceneApproval: state => state.sceneApproval,
 
   getSceneReportDialog: state => state.sceneReportDialog,
-
   getSceneReport: state => state.sceneReport,
 
   getUsersDialog: state => state.usersDialog,
-
   getUsers: state => state.getUsers,
 
   getMyScanes: state => state.myScanes,
@@ -214,6 +210,10 @@ const mutations = {
   },
 
   updateNewsAddDialog (state, event) {
+    if (event === false) {
+      state.newsDialog = false
+    }
+
     state.newsAddDialog = event
   },
 

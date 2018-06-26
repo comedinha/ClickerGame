@@ -16,7 +16,7 @@
       <v-tooltip bottom>
         <v-btn slot="activator" icon @click.stop="newsDialog = !newsDialog">
           <v-badge icon overlap top color="red">
-            <span slot="badge" v-if="getNewsUpdate">!</span>
+            <span slot="badge" v-if="getNewsUpdate !== 0">{{ getNewsUpdate }}</span>
             <v-icon>developer_board</v-icon>
           </v-badge>
         </v-btn>

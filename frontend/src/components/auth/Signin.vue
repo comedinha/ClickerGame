@@ -99,7 +99,7 @@ export default {
       if (!this.$v.credentials.$invalid) {
         const { username, password, captcharesponse } = this.credentials
         this.$store.dispatch('signin', { username, password, captcharesponse }).then(() => {
-          this.$router.push('/')
+          this.$router.go('/')
         }).catch(errorCode => {
           this.onExpired()
           this.load = false

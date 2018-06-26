@@ -77,12 +77,6 @@ export default {
   },
 
   methods: {
-    changeCarousel (val, oldVal) {
-      if (this.getMostPlayed[val].background) {
-        this.bgcolor = this.getMostPlayed[val].background
-      }
-    },
-
     editGame (scene) {
       this.$router.push('/SceneCreator?id=' + scene.id)
     },

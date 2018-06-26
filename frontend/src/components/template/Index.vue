@@ -62,7 +62,9 @@ import AddNews from '@/components/template/dialog/AddNews'
 
 export default {
   beforeCreate () {
-    this.$store.dispatch('getInfoLobby')
+    this.$store.dispatch('getInfoLobby').catch(() => {
+      this.logout()
+    })
   },
   components: {
     Drawer,

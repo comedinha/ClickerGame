@@ -1,9 +1,8 @@
 import Vue from 'vue'
 
 const state = {
-  role: 'ROLE_ADMIN',
-
-  username: 'Usuário',
+  role: '',
+  username: '',
 
   drawer: false,
 
@@ -16,7 +15,7 @@ const state = {
   newsAddContent: '',
 
   sceneDetailDialog: false,
-  sceneDetailMessage: 'Test',
+  sceneDetailMessage: '',
 
   sceneApprovalDialog: false,
   sceneApproval: {
@@ -292,36 +291,29 @@ const actions = {
     commit('updateNewsAddContent', content)
   },
 
-  getInfoLobby ({commit}) {
+  getInfoLobby ({ commit }) {
     return new Promise((resolve, reject) => {
-      commit('authStatus', 'loading')
-      console.log('getInfoLobby')
       Vue.http.post('api/getinfolobby')
         .then(response => {
-          console.log(response)
-          commit('authStatus', 'success')
+          commit('updateInfoLobby', response)
           resolve()
         }, errorCode => {
-          commit('authStatus', 'error')
           reject(errorCode)
         })
     })
   },
 
-  addNews ({commit, state}, tl) {
+  addNews ({state}, tl) {
     return new Promise((resolve, reject) => {
-      commit('authStatus', 'loading')
       let addNew = {
         title: tl,
         content: state.newsAddContent
       }
-      console.log(addNew)
+
       Vue.http.post('api/addNews', addNew)
         .then(() => {
-          commit('authStatus', 'success')
           resolve()
         }, errorCode => {
-          commit('authStatus', 'error')
           reject(errorCode)
         })
     })
@@ -331,15 +323,12 @@ const actions = {
     commit('updateInformationDialog', event)
   },
 
-  updateInformation ({commit}, user) {
+  updateInformation (user) {
     return new Promise((resolve, reject) => {
-      commit('authStatus', 'loading')
       Vue.http.post('api/updateInformation', user)
         .then(() => {
-          commit('authStatus', 'success')
           resolve()
         }, errorCode => {
-          commit('authStatus', 'error')
           reject(errorCode)
         })
     })
@@ -419,6 +408,14 @@ const mutations = {
 
   updateUsersDialog (state, event) {
     state.usersDialog = event
+  },
+
+  updateInfoLobby (state, response) {
+    const { body } = response
+
+    state.username = body.name
+    state.role = body.authorities
+    state.newsUpdate = body.news
   }
 }
 

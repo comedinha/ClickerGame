@@ -64,18 +64,18 @@ export default {
     ])
   },
   methods: {
+    changeCarousel (val, oldVal) {
+      if (this.getMostPlayed[val].image) {
+        this.bgcolor = this.getMostPlayed[val].image
+      }
+    },
+
     editGame (scene) {
       this.$router.push('/SceneCreator?id=' + scene.id)
     },
 
     infoGame (scene) {
       this.$store.dispatch('setSceneDetailMessage', scene)
-    },
-
-    changeCarousel (val, oldVal) {
-      if (this.getMostPlayed[val].image) {
-        this.bgcolor = this.getMostPlayed[val].image
-      }
     },
 
     continueGame (scene) {

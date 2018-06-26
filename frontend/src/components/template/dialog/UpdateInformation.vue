@@ -22,7 +22,7 @@
       <v-card-actions>
         <v-spacer />
         <v-text-field v-model="oldPassword" @keyup.enter="send" :error-messages="oldPasswordErrors" :label="$ml.get('template.dialog.updateInformation.oldPassword.title')" required @input="$v.oldPassword.$touch()" @blur="$v.oldPassword.$touch()" type="password" />
-        <v-btn flat color="primary" @click.native="send">{{ $ml.get('template.dialog.updateInformation.button') }}</v-btn>
+        <v-btn flat color="primary" :loading="load" @click.native="send">{{ $ml.get('template.dialog.updateInformation.button') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -38,7 +38,8 @@ export default {
       oldPassword: '',
       password: '',
       confirmPassword: '',
-      error: ''
+      error: '',
+      load: false
     }
   },
   validations: {
@@ -99,10 +100,22 @@ export default {
     send () {
       this.$v.$touch()
       if (!this.$v.$invalid) {
+        this.load = true
         const { name, oldPassword, password, confirmPassword } = this
         console.log(this)
         this.$store.dispatch('updateInformation', { name, oldPassword, password, confirmPassword }).then(() => {
-          this.$router.push('/')
+          this.informationDialog = false
+        }).catch(errorCode => {
+          this.load = false
+          if (errorCode.bodyText) {
+            if (this.$ml.get('error.' + errorCode.bodyText)) {
+              this.error = this.$ml.get('error.' + errorCode.bodyText)
+            } else {
+              this.error = this.$ml.with('e', errorCode.bodyText).get('error.UNK')
+            }
+          } else {
+            this.error = this.$ml.with('e', errorCode.status).get('error.UNK')
+          }
         })
       } else {
         this.error = this.$ml.get('template.dialog.updateInformation.errorRequired')

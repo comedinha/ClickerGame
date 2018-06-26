@@ -7,7 +7,7 @@
       <v-card-actions>
         <v-text-field v-model="search" append-icon="search" :label="$ml.get('lobby.block.played.search')" single-line />
       </v-card-actions>
-      <v-container fluid grid-list-sm>
+      <v-container fluid grid-list-md>
         <v-data-iterator :items="getPlayedGames.items" :search="search" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md6>
             <v-card>

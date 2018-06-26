@@ -1,5 +1,8 @@
 <template>
   <v-dialog v-model="newsAddDialog" max-width="700px">
+    <v-alert :value="true" type="error" v-if="error">
+      {{ error }}
+    </v-alert>
     <v-card v-if="getAdmin">
       <v-card-title>
         <span class="headline">{{ $ml.get('template.dialog.addNews.title') }}</span>
@@ -13,7 +16,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn @click="newsAddDialog = !newsAddDialog">{{ $ml.get('template.dialog.addNews.cancel') }}</v-btn>
-        <v-btn @click="send"> {{ $ml.get('template.dialog.addNews.add') }}</v-btn>
+        <v-btn color="primary" :loading="load" @click="send"> {{ $ml.get('template.dialog.addNews.add') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -28,7 +31,9 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      title: ''
+      title: '',
+      error: '',
+      load: false
     }
   },
   components: {
@@ -66,11 +71,18 @@ export default {
       if (!this.$v.$invalid) {
         this.load = true
         this.$store.dispatch('addNews', this.title).then(() => {
-          this.$router.push('/lobby')
-          // this.$store.dispatch('setSuccessMessage', this.$ml.get('auth.email.success'))
+          this.newsAddDialog = false
         }).catch(errorCode => {
           this.load = false
-          // set error
+          if (errorCode.bodyText) {
+            if (this.$ml.get('error.' + errorCode.bodyText)) {
+              this.error = this.$ml.get('error.' + errorCode.bodyText)
+            } else {
+              this.error = this.$ml.with('e', errorCode.bodyText).get('error.UNK')
+            }
+          } else {
+            this.error = this.$ml.with('e', errorCode.status).get('error.UNK')
+          }
         })
       }
     }

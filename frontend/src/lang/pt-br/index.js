@@ -166,6 +166,18 @@ export default {
         pagination: 'Página {a} de {t}',
         search: 'Buscar'
       }
+    },
+
+    dialog: {
+      approval: {
+        title: 'Aguardando Aprovação',
+        pagination: 'Página {a} de {t}'
+      },
+
+      report: {
+        title: 'Denunciados',
+        pagination: 'Página {a} de {t}'
+      }
     }
   },
 

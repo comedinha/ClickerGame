@@ -8,6 +8,7 @@ import org.springframework.core.convert.converter.Converter;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +28,7 @@ public class UserDTOConverter implements Converter<UserDTO, User> {
         user.setAccountNonExpired(false);
         user.setCredentialsNonExpired(false);
         user.setEnabled(false);
+        user.setLastchecknews(String.valueOf(LocalDateTime.now()));
 
         List<Authority> authorities = new ArrayList<>();
         authorities.add(Authority.ROLE_USER);

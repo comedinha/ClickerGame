@@ -295,10 +295,23 @@ const actions = {
   getInfoLobby ({commit}) {
     return new Promise((resolve, reject) => {
       commit('authStatus', 'loading')
-      console.log('getInfoLobby')
       Vue.http.post('api/getinfolobby')
         .then(response => {
           console.log(response)
+          commit('authStatus', 'success')
+          resolve()
+        }, errorCode => {
+          commit('authStatus', 'error')
+          reject(errorCode)
+        })
+    })
+  },
+
+  saveDate ({commit}) {
+    return new Promise((resolve, reject) => {
+      commit('authStatus', 'loading')
+      Vue.http.post('api/saveDateClickNews')
+        .then(() => {
           commit('authStatus', 'success')
           resolve()
         }, errorCode => {

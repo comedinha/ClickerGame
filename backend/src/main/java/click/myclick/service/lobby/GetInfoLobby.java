@@ -1,10 +1,10 @@
 package click.myclick.service.lobby;
 
+import click.myclick.service.lobby.NewsUtility;
 import click.myclick.service.dao.user.UserService;
 import click.myclick.service.dao.news.NewsService;
 import click.myclick.dto.InfoLobbyDTO;
 import click.myclick.model.User;
-import click.myclick.model.News;
 
 import org.springframework.stereotype.Service;
 
@@ -12,12 +12,14 @@ import org.springframework.stereotype.Service;
 public class GetInfoLobby {
     
     public InfoLobbyDTO getInfo(UserService userService, NewsService newsService, String username) {
-        InfoLobbyDTO dto = new InfoLobbyDTO();        
+        InfoLobbyDTO dto = new InfoLobbyDTO();
+        NewsUtility news = new NewsUtility();
 
-        dto.setAuthorities("ROLE_ADMIN");
-        dto.setName("teste");
-        dto.setNews(true);
+        User user = userService.findByUsername(username);
         
+        dto.setAuthorities(user.getAuthorities());
+        dto.setName(user.getName());
+        dto.setNews(news.checkNews(newsService, user.getLastchecknews()));
 
         return dto;
     }

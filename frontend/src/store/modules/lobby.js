@@ -280,9 +280,11 @@ const getters = {
 // actions
 const actions = {
   setNewsDialog ({ commit }, event) {
+    console.log('check')
     if (event === true) {
-      Vue.http.post('api/saveDateClickNews')
-        .then(() => {
+      Vue.http.post('api/getNews')
+        .then(resposeList => {
+          console.log(resposeList)
           commit('updateNewsDialog', event)
         })
     } else {
@@ -331,7 +333,9 @@ const actions = {
     commit('updateInformationDialog', event)
   },
 
-  updateInformation (user) {
+  updateInformation ({ commit }, user) {
+    console.log('user:')
+    console.log(user)
     return new Promise((resolve, reject) => {
       Vue.http.post('api/updateInformation', user)
         .then(() => {

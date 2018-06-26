@@ -102,7 +102,7 @@ export default {
       if (!this.$v.$invalid) {
         this.load = true
         const { name, oldPassword, password, confirmPassword } = this
-        console.log(this)
+        console.log('.vue')
         this.$store.dispatch('updateInformation', { name, oldPassword, password, confirmPassword }).then(() => {
           this.informationDialog = false
         }).catch(errorCode => {

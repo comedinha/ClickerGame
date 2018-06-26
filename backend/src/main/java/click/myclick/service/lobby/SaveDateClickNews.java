@@ -1,21 +1,32 @@
 package click.myclick.service.lobby;
 
 import click.myclick.service.dao.user.UserService;
+import click.myclick.service.dao.news.NewsService;
+import click.myclick.dto.GetNewsDTO;
 import click.myclick.model.User;
-
-import java.time.LocalDateTime;
+import click.myclick.model.News;
 
 import org.springframework.stereotype.Service;
+
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.ArrayList;
 
 @Service
 public class SaveDateClickNews {
     
-    public void saveDate(UserService service, String username) {
-        User user = service.findByUsername(username);
-        System.out.println("After find");
+    public List<GetNewsDTO> getListNews(UserService userService, NewsService newsService, String username) {
+        User user = userService.findByUsername(username);
+        List<News> newsList = newsService.findAll();
+        List<GetNewsDTO> noSeen = new ArrayList<GetNewsDTO>();
+
+        for(News news : newsList)
+            if(news.getCreatedAt().compareTo(user.getLastchecknews()) > 0)
+                noSeen.add(new GetNewsDTO(news.getId(), news.getTitle()));
+
         user.setLastchecknews(String.valueOf(LocalDateTime.now()));
-        System.out.println("set");
-        service.getRepository().save(user);
-        System.out.println("save");
+        userService.getRepository().save(user);
+
+        return noSeen;
     }
 }

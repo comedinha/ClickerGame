@@ -1,7 +1,9 @@
 package click.myclick.controller.lobby;
 
 import click.myclick.service.dao.user.UserService;
+import click.myclick.service.dao.news.NewsService;
 import click.myclick.service.lobby.SaveDateClickNews;
+import click.myclick.dto.GetNewsDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -12,25 +14,29 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
+
 @CrossOrigin(allowedHeaders = "*")
 @RestController
-@RequestMapping("/api/saveDateClickNews")
+@RequestMapping("/api/getNews")
 public class SaveDateClickNewsController {
-    private final UserService service;
+    private final UserService userService;
+    private final NewsService newsService;
     private final SaveDateClickNews saveDate;
 
     @Autowired
-    public SaveDateClickNewsController(final UserService service, final SaveDateClickNews saveDate) {
-        this.service = service;
+    public SaveDateClickNewsController(final UserService userService, NewsService newsService,
+                                       final SaveDateClickNews saveDate) {
+        this.userService = userService;
+        this.newsService = newsService;
         this.saveDate = saveDate;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(Authentication auth) {
-        System.out.println("Controller0");
-        
-        saveDate.saveDate(service, auth.getPrincipal().toString());
-        System.out.println("Controller1");
-        return new ResponseEntity<>(HttpStatus.OK);
+
+        List<GetNewsDTO> noSeen = saveDate.getListNews(userService, newsService, auth.getPrincipal().toString());
+
+        return new ResponseEntity<>(noSeen, HttpStatus.OK);
     }
 }

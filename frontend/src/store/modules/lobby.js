@@ -9,7 +9,7 @@ const state = {
   informationDialog: false,
 
   newsDialog: false,
-  newsUpdate: false,
+  newsUpdate: 0,
 
   newsAddDialog: false,
   newsAddContent: '',
@@ -19,30 +19,12 @@ const state = {
 
   sceneApprovalDialog: false,
   sceneApproval: {
-    items: [
-      {
-        id: 0,
-        name: 'Jogo',
-        creator: true,
-        approved: true,
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      }
-    ]
+    items: []
   },
 
   sceneReportDialog: false,
   sceneReport: {
-    items: [
-      {
-        id: 0,
-        name: 'Jogo',
-        creator: true,
-        approved: true,
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      }
-    ]
+    items: []
   },
 
   usersDialog: false,
@@ -55,176 +37,20 @@ const state = {
   ],
 
   myScanes: {
-    items: [
-      {
-        id: 0,
-        name: 'Jogo',
-        creator: true,
-        approved: true,
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      },
-      {
-        id: 1,
-        name: 'Jogo 2',
-        creator: true,
-        lastGame: 'amak',
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      },
-      {
-        id: 2,
-        name: 'Jogo 3',
-        creator: true,
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      },
-      {
-        id: 3,
-        name: 'Jogo 4',
-        creator: true,
-        lastGame: 'aa',
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      },
-      {
-        id: 4,
-        name: 'Jogo 5',
-        creator: true,
-        lastGame: 'msdnjadns',
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      }
-    ]
+    items: []
   },
 
   playedGames: {
-    items: [
-      {
-        id: 0,
-        name: 'Jogo',
-        creator: true,
-        lastGame: 'iasjdo',
-        smallDescription: 'Texto de descrição x',
-        description: 'Descrição do jogo completa onde é contado como foi criado o jogo em maior detalhes.',
-        totalComplete: 10,
-        totalPlayed: 25,
-        score: '4.6',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      },
-      {
-        id: 1,
-        name: 'Jogo 2',
-        lastGame: 'njndjskf',
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      },
-      {
-        id: 2,
-        name: 'Jogo 3',
-        creator: true,
-        lastGame: 'njdnsf',
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      },
-      {
-        id: 3,
-        name: 'Jogo 4',
-        lastGame: 'sadmsd',
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      },
-      {
-        id: 4,
-        name: 'Jogo 5',
-        lastGame: 'dsjnfjsdk',
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      }
-    ]
+    items: []
   },
 
-  mostPlayed: [
-    {
-      id: 0,
-      name: 'Jogo',
-      smallDescription: 'Texto de descrição x',
-      lastGame: '0',
-      image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-    },
-    {
-      id: 1,
-      name: 'Jogo 2',
-      smallDescription: 'Texto de descrição y',
-      image: 'https://www.gameogre.com/wp-content/uploads/2015/07/clickerhero1-696x392.jpg'
-    },
-    {
-      id: 2,
-      name: 'Jogo 3',
-      creator: true,
-      smallDescription: 'Texto de descrição z',
-      lastGame: '11',
-      image: 'https://i.imgur.com/ORbyF5D.jpg'
-    }
-  ],
+  mostPlayed: [],
 
-  bestRated: [
-    {
-      id: 0,
-      name: 'Jogo',
-      creator: true,
-      smallDescription: 'Texto de descrição x',
-      image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-    },
-    {
-      id: 1,
-      name: 'Jogo 2',
-      smallDescription: 'Texto de descrição y',
-      image: 'https://www.gameogre.com/wp-content/uploads/2015/07/clickerhero1-696x392.jpg'
-    },
-    {
-      id: 2,
-      name: 'Jogo 3',
-      smallDescription: 'Texto de descrição z',
-      lastGame: '1',
-      image: 'https://i.imgur.com/ORbyF5D.jpg'
-    }
-  ],
+  bestRated: [],
 
   viewAllScenes: false,
   allGames: {
-    items: [
-      {
-        id: 0,
-        name: 'Jogo',
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      },
-      {
-        id: 1,
-        name: 'Jogo 2',
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      },
-      {
-        id: 2,
-        name: 'Jogo 3',
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      },
-      {
-        id: 3,
-        name: 'Jogo 4',
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      },
-      {
-        id: 4,
-        name: 'Jogo 5',
-        smallDescription: 'Texto de descrição x',
-        image: 'https://www.geek.com/wp-content/uploads/2017/10/cookie-clicker-625x352.jpg'
-      }
-    ]
+    items: []
   }
 }
 

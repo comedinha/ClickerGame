@@ -10,10 +10,12 @@
         <v-data-iterator :items="getNewsContent.items" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md12>
             <v-card>
-              <v-system-bar dense flat>
-                <span>{{ props.item.title }}</span>
-              </v-system-bar>
-              {{ props.item.content }}
+              <v-toolbar dense flat>
+                <v-toolbar-title>{{ props.item.title }}</v-toolbar-title>
+              </v-toolbar>
+              <v-card-text>
+                <span v-html="props.item.content" />
+              </v-card-text>
             </v-card>
           </v-flex>
           <v-flex slot="pageText" slot-scope="props">
@@ -36,9 +38,7 @@ export default {
   data () {
     return {
       rowsPerPageItems: [1],
-      pagination: {},
-
-      error: this.$ml.get('template.dialog.news.noNews')
+      pagination: {}
     }
   },
   computed: {

@@ -203,9 +203,7 @@ export default {
       news: {
         title: 'Últimas Noticias',
         adminButton: 'Nova',
-        close: 'Fechar',
-
-        noNews: 'Não há noticias adicionadas no momento.'
+        close: 'Fechar'
       },
 
       updateInformation: {

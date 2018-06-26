@@ -106,16 +106,13 @@ const getters = {
 // actions
 const actions = {
   setNewsDialog ({ commit }, event) {
-    console.log('check')
     if (event === true) {
       Vue.http.post('api/getNews')
-        .then(resposeList => {
-          console.log(resposeList)
-          commit('updateNewsDialog', event)
+        .then(responseList => {
+          commit('updateNewsList', responseList)
         })
-    } else {
-      commit('updateNewsDialog', event)
     }
+    commit('updateNewsDialog', event)
   },
 
   setNewsAddDialog ({ commit }, event) {
@@ -130,7 +127,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       Vue.http.post('api/getinfolobby')
         .then(response => {
-          console.log(response)
           commit('updateInfoLobby', response)
           resolve()
         }, errorCode => {
@@ -160,8 +156,6 @@ const actions = {
   },
 
   updateInformation ({ commit }, user) {
-    console.log('user:')
-    console.log(user)
     return new Promise((resolve, reject) => {
       Vue.http.post('api/updateInformation', user)
         .then(() => {
@@ -207,6 +201,11 @@ const mutations = {
   updateNewsDialog (state, event) {
     state.newsDialog = event
     state.newsUpdate = 0
+  },
+
+  updateNewsList (state, responseList) {
+    console.log(responseList.body)
+    state.newsContent.items = responseList.body
   },
 
   updateNewsAddDialog (state, event) {

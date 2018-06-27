@@ -86,7 +86,6 @@ export default {
       }
     }
   },
-
   methods: {
     editGame (scene) {
       this.$router.push('/SceneCreator?id=' + scene.id)

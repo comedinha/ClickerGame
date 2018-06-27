@@ -34,7 +34,86 @@ const state = {
   users: [
     {
       id: 0,
-      nome: 'a',
+      name: 'a',
+      email: 'test@test.com',
+      role: 'Admin',
+      enabled: false
+    },
+    {
+      id: 0,
+      name: 'a',
+      email: 'test@test.com',
+      role: 'Admin',
+      enabled: false
+    },
+    {
+      id: 0,
+      name: 'a',
+      email: 'test@test.com',
+      role: 'Admin',
+      enabled: false
+    },
+    {
+      id: 0,
+      name: 'a',
+      email: 'test@test.com',
+      role: 'Admin',
+      enabled: false
+    },
+    {
+      id: 0,
+      name: 'a',
+      email: 'test@test.com',
+      role: 'Admin',
+      enabled: false
+    },
+    {
+      id: 0,
+      name: 'a',
+      email: 'test@test.com',
+      role: 'Admin',
+      enabled: false
+    },
+    {
+      id: 0,
+      name: 'a',
+      email: 'test@test.com',
+      role: 'Admin',
+      enabled: false
+    },
+    {
+      id: 0,
+      name: 'a',
+      email: 'test@test.com',
+      role: 'Admin',
+      enabled: false
+    },
+    {
+      id: 0,
+      name: 'a',
+      email: 'test@test.com',
+      role: 'Admin',
+      enabled: false
+    },
+    {
+      id: 0,
+      name: 'a',
+      email: 'test@test.com',
+      role: 'Admin',
+      enabled: false
+    },
+    {
+      id: 0,
+      name: 'a',
+      email: 'test@test.com',
+      role: 'Admin',
+      enabled: false
+    },
+    {
+      id: 0,
+      name: 'a',
+      email: 'test@test.com',
+      role: 'Admin',
       enabled: false
     }
   ],
@@ -88,7 +167,7 @@ const getters = {
   getSceneReport: state => state.sceneReport,
 
   getUsersDialog: state => state.usersDialog,
-  getUsers: state => state.getUsers,
+  getUsers: state => state.users,
 
   getMyScanes: state => state.myScanes,
 
@@ -193,6 +272,18 @@ const actions = {
 
   setUsersDialog ({ commit }, event) {
     commit('updateUsersDialog', event)
+  },
+
+  setApproveScene ({commit}, event) {
+    //
+  },
+
+  setResolveScene ({commit}, event) {
+    //
+  },
+
+  setDeleteScene ({commit}, event) {
+    //
   }
 }
 

@@ -5,7 +5,7 @@
         <v-toolbar-title>{{ $ml.get('lobby.block.played.title') }}</v-toolbar-title>
       </v-toolbar>
       <v-card-actions>
-        <v-text-field v-model="search" append-icon="search" :label="$ml.get('lobby.block.played.search')" single-line />
+        <v-text-field v-model="search" append-icon="search" :label="$ml.get('lobby.block.played.search')" single-line hide-details />
       </v-card-actions>
       <v-container fluid grid-list-md>
         <v-data-iterator :items="getPlayedGames.items" :search="search" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>

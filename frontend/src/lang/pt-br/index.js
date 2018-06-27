@@ -1,7 +1,10 @@
 export default {
   game: {
     name: 'My Click',
-    year: '2018'
+    year: '2018',
+
+    true: 'verdadeiro',
+    false: 'falso'
   },
 
   error: {
@@ -130,9 +133,12 @@ export default {
       users: 'Usuários',
 
       approved: 'Precisa ser avaliado pela equipe!',
+      approve: 'Aprovar',
+      conclude: 'Concluir',
+      delete: 'Deletar',
       edit: 'Editar',
       details: 'Detalhes',
-      newGame: 'Novo Jogo',
+      newScene: 'Novo Jogo',
       continue: 'Continuar',
       play: 'Jogar'
     },
@@ -182,6 +188,21 @@ export default {
       report: {
         title: 'Denunciados',
         pagination: 'Página {a} de {t}'
+      },
+
+      users: {
+        title: 'Usuários',
+        search: 'Buscar',
+
+        pagination: 'Página {a} de {t}',
+        searchError: 'O termo {s} não foi encontrado.',
+        delete: 'Você realmente deseja excluir o usuário {u}?',
+
+        name: 'Nome',
+        email: 'Email',
+        role: 'Cargo',
+        action: 'Ação',
+        enabled: 'Ativado'
       }
     }
   },

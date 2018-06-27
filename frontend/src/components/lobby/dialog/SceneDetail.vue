@@ -6,19 +6,19 @@
         <v-spacer />
         <v-tooltip v-if="getSceneDetailMessage.creator" bottom>
           <v-btn small icon slot="activator" @click="editGame(getSceneDetailMessage)"><v-icon>settings</v-icon></v-btn>
-          <span>Editar</span>
+          <span>{{ $ml.get('lobby.lobby.edit') }}</span>
         </v-tooltip>
         <v-tooltip v-if="getSceneDetailMessage.lastGame" bottom>
           <v-btn small icon slot="activator" @click="newGame(getSceneDetailMessage)"><v-icon>add_circle</v-icon></v-btn>
-          <span>Novo Jogo</span>
+          <span>{{ $ml.get('lobby.lobby.newGame') }}</span>
         </v-tooltip>
         <v-tooltip v-if="getSceneDetailMessage.lastGame" bottom>
           <v-btn small icon slot="activator" @click="continueGame(getSceneDetailMessage)"><v-icon>play_circle_filled</v-icon></v-btn>
-          <span>Continuar</span>
+          <span>{{ $ml.get('lobby.lobby.continue') }}</span>
         </v-tooltip>
         <v-tooltip v-if="!getSceneDetailMessage.lastGame" bottom>
           <v-btn small icon slot="activator" @click="newGame(getSceneDetailMessage)"><v-icon>play_circle_filled</v-icon></v-btn>
-          <span>Jogar</span>
+          <span>{{ $ml.get('lobby.lobby.play') }}</span>
         </v-tooltip>
       </v-toolbar>
       <v-container fluid grid-list-md>
@@ -99,10 +99,6 @@ export default {
   methods: {
     editGame (scene) {
       this.$router.push('/SceneCreator?id=' + scene.id)
-    },
-
-    infoGame (scene) {
-      this.$store.dispatch('setSceneDetailMessage', scene)
     },
 
     continueGame (scene) {

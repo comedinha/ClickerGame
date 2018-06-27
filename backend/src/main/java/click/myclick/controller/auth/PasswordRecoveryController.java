@@ -1,6 +1,6 @@
 package click.myclick.controller.auth;
 
-import click.myclick.dto.PasswordRecoveryDTO;
+import click.myclick.dto.auth.PasswordRecoveryDTO;
 import click.myclick.service.dao.user.UserService;
 import click.myclick.service.auth.PasswordRecovery;
 

@@ -1,6 +1,6 @@
 package click.myclick.controller.auth;
 
-import click.myclick.dto.CodeDTO;
+import click.myclick.dto.auth.CodeDTO;
 import click.myclick.service.auth.CheckEmail;
 import click.myclick.service.dao.user.UserService;
 

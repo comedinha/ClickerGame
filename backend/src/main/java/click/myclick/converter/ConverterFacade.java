@@ -1,7 +1,7 @@
 package click.myclick.converter;
 
 import click.myclick.converter.factory.ConverterFactory;
-import click.myclick.dto.UserDTO;
+import click.myclick.dto.auth.UserDTO;
 import click.myclick.model.User;
 import click.myclick.service.auth.Email;
 

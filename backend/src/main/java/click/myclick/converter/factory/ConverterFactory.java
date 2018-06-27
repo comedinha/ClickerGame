@@ -1,7 +1,7 @@
 package click.myclick.converter.factory;
 
 import click.myclick.converter.dto.UserDTOConverter;
-import click.myclick.dto.UserDTO;
+import click.myclick.dto.auth.UserDTO;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;

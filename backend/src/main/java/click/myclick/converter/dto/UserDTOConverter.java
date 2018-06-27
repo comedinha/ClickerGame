@@ -1,6 +1,6 @@
 package click.myclick.converter.dto;
 
-import click.myclick.dto.UserDTO;
+import click.myclick.dto.auth.UserDTO;
 import click.myclick.model.Authority;
 import click.myclick.model.User;
 

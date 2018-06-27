@@ -1,7 +1,7 @@
 package click.myclick.controller.auth;
 
-import click.myclick.dto.LoginDTO;
-import click.myclick.dto.TokenDTO;
+import click.myclick.dto.auth.LoginDTO;
+import click.myclick.dto.auth.TokenDTO;
 import click.myclick.captcha.ICaptchaService;
 import click.myclick.security.service.TokenService;
 import click.myclick.service.dao.user.UserService;

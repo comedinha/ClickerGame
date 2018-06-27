@@ -1,4 +1,4 @@
-package click.myclick.dto;
+package click.myclick.dto.auth;
 
 import java.io.Serializable;
 

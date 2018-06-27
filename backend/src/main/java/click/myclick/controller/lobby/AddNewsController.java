@@ -1,6 +1,6 @@
 package click.myclick.controller.lobby;
 
-import click.myclick.dto.AddNewsDTO;
+import click.myclick.dto.lobby.AddNewsDTO;
 import click.myclick.service.dao.news.NewsService;
 import click.myclick.service.lobby.NewsUtility;
 

@@ -1,6 +1,6 @@
 package click.myclick.controller.lobby;
 
-import click.myclick.dto.UserUpdateDTO;
+import click.myclick.dto.lobby.UserUpdateDTO;
 import click.myclick.service.dao.user.UserService;
 import click.myclick.service.lobby.UpdateUserInformation;
 

@@ -1,7 +1,7 @@
 package click.myclick.service.lobby;
 
 import click.myclick.service.dao.user.UserService;
-import click.myclick.dto.UserUpdateDTO;
+import click.myclick.dto.lobby.UserUpdateDTO;
 import click.myclick.model.User;
 
 import org.springframework.stereotype.Service;

@@ -2,7 +2,7 @@ package click.myclick.service.auth;
 
 import click.myclick.service.dao.user.UserService;
 import click.myclick.model.User;
-import click.myclick.dto.PasswordResetDTO;
+import click.myclick.dto.auth.PasswordResetDTO;
 
 import java.util.Random;
 

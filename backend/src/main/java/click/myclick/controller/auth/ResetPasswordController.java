@@ -1,6 +1,6 @@
 package click.myclick.controller.auth;
 
-import click.myclick.dto.PasswordResetDTO;
+import click.myclick.dto.auth.PasswordResetDTO;
 import click.myclick.service.dao.user.UserService;
 import click.myclick.service.auth.PasswordRecovery;
 import click.myclick.captcha.ICaptchaService;

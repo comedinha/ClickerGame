@@ -3,7 +3,7 @@ package click.myclick.controller.lobby;
 import click.myclick.service.dao.user.UserService;
 import click.myclick.service.dao.news.NewsService;
 import click.myclick.service.lobby.NewsUtility;
-import click.myclick.dto.GetNewsDTO;
+import click.myclick.dto.lobby.GetNewsDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

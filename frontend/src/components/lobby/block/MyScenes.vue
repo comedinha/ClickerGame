@@ -4,8 +4,9 @@
       <v-toolbar dense flat>
         <v-toolbar-title>{{ $ml.get('lobby.block.myScenes.title') }}</v-toolbar-title>
       </v-toolbar>
+      <v-progress-linear v-if="getMyScenesLoading" color="blue" indeterminate />
       <v-container fluid grid-list-md>
-        <v-data-iterator :items="getMyScanes.items" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
+        <v-data-iterator :items="getMyScenes.items" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md12>
             <v-card>
               <v-system-bar dense flat>
@@ -14,6 +15,10 @@
                 <v-tooltip v-if="!props.item.approved" bottom>
                   <v-icon slot="activator">flag</v-icon>
                   <span>{{ $ml.get('lobby.lobby.approved') }}</span>
+                </v-tooltip>
+                <v-tooltip v-if="props.item.deleted" bottom>
+                  <v-icon slot="activator">delete</v-icon>
+                  <span>{{ $ml.get('lobby.lobby.deleted') }}</span>
                 </v-tooltip>
               </v-system-bar>
               <v-card-media height="100%" :src="props.item.image">
@@ -52,7 +57,10 @@
             {{ $ml.with('a', pagination.page).with('t', Math.ceil(props.itemsLength / pagination.rowsPerPage)).get('lobby.block.myScenes.pagination') }}
           </v-flex>
           <v-flex slot="no-data">
-            <v-alert :value="true" color="error" icon="warning">
+            <v-alert :value="getMyScenesLoading" color="info" icon="sync">
+              {{ $ml.get('lobby.lobby.loading') }}
+            </v-alert>
+            <v-alert :value="!getMyScenesLoading" color="error" icon="warning">
               {{ $ml.get('error.noData') }}
             </v-alert>
           </v-flex>
@@ -77,7 +85,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getMyScanes'
+      'getMyScenes',
+      'getMyScenesLoading'
     ])
   },
 

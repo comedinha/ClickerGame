@@ -9,6 +9,7 @@ const state = {
   informationDialog: false,
 
   newsDialog: false,
+  newsLoading: true,
   newsUpdate: 0,
   newsContent: {
     items: []
@@ -21,42 +22,44 @@ const state = {
   sceneDetailMessage: '',
 
   sceneApprovalDialog: false,
+  sceneApprovalLoading: true,
   sceneApproval: {
     items: []
   },
 
   sceneReportDialog: false,
+  sceneReportLoading: true,
   sceneReport: {
     items: []
   },
 
   usersDialog: false,
-  users: [
-    {
-      id: 0,
-      nome: 'a',
-      enabled: false
-    }
-  ],
+  usersLoading: true,
+  users: [],
 
-  myScanes: {
+  myScenesLoading: true,
+  myScenes: {
     items: []
   },
 
+  playedGamesLoading: true,
   playedGames: {
     items: []
   },
 
+  mostPlayedLoading: true,
   mostPlayed: {
     items: []
   },
 
+  bestRatedLoading: true,
   bestRated: {
     items: []
   },
 
   viewAllScenes: false,
-  allGames: {
+  allScenesLoading: true,
+  allScenes: {
     items: []
   }
 }
@@ -72,6 +75,7 @@ const getters = {
   getInformationDialog: state => state.informationDialog,
 
   getNewsDialog: state => state.newsDialog,
+  getNewsLoading: state => state.newsLoading,
   getNewsUpdate: state => state.newsUpdate,
   getNewsContent: state => state.newsContent,
 
@@ -82,35 +86,45 @@ const getters = {
   getSceneDetailMessage: state => state.sceneDetailMessage,
 
   getSceneApprovalDialog: state => state.sceneApprovalDialog,
+  getSceneApprovalLoading: state => state.sceneApprovalLoading,
   getSceneApproval: state => state.sceneApproval,
 
   getSceneReportDialog: state => state.sceneReportDialog,
+  getSceneReportLoading: state => state.sceneReportLoading,
   getSceneReport: state => state.sceneReport,
 
   getUsersDialog: state => state.usersDialog,
-  getUsers: state => state.getUsers,
+  getUsersLoading: state => state.usersLoading,
+  getUsers: state => state.users,
 
-  getMyScanes: state => state.myScanes,
+  getMyScenesLoading: state => state.myScenesLoading,
+  getMyScenes: state => state.myScenes,
 
+  getPlayedGamesLoading: state => state.playedGamesLoading,
   getPlayedGames: state => state.playedGames,
 
+  getMostPlayedLoading: state => state.mostPlayedLoading,
   getMostPlayed: state => state.mostPlayed,
 
+  getBestRatedLoading: state => state.bestRatedLoading,
   getBestRated: state => state.bestRated,
 
   getViewAllScenes: state => state.viewAllScenes,
 
-  getAllGames: state => state.allGames
+  getAllScenesLoading: state => state.allScenesLoading,
+  getAllScenes: state => state.allScenes
 }
 
 // actions
 const actions = {
-  setNewsDialog ({ commit }, event) {
-    if (event === true) {
-      Vue.http.post('api/getNews')
-        .then(responseList => {
-          commit('updateNewsList', responseList)
-        })
+  setNewsDialog ({ commit, getters }, event) {
+    if (event === true && getters.getNewsLoading === true) {
+      Vue.http.post('api/getNews').then(responseList => {
+        commit('updateNewsList', responseList)
+        commit('updateNewsLoading')
+      }).catch(() => {
+        commit('updateNewsLoading')
+      })
     }
     commit('updateNewsDialog', event)
   },
@@ -135,15 +149,16 @@ const actions = {
     })
   },
 
-  addNews ({ state }, tl) {
+  addNews ({ commit, getters }, tl) {
     return new Promise((resolve, reject) => {
       let addNew = {
         title: tl,
-        content: state.newsAddContent
+        content: getters.getNewsAddContent
       }
 
       Vue.http.post('api/addNews', addNew)
         .then(() => {
+          commit('updateNewsAdd')
           resolve()
         }, errorCode => {
           reject(errorCode)
@@ -155,10 +170,11 @@ const actions = {
     commit('updateInformationDialog', event)
   },
 
-  updateInformation ({ commit }, user) {
+  setUpdateInformation ({ commit }, user) {
     return new Promise((resolve, reject) => {
       Vue.http.post('api/updateInformation', user)
         .then(() => {
+          commit('updateInformation', user.name)
           resolve()
         }, errorCode => {
           reject(errorCode)
@@ -193,6 +209,18 @@ const actions = {
 
   setUsersDialog ({ commit }, event) {
     commit('updateUsersDialog', event)
+  },
+
+  setApproveScene ({commit}, event) {
+    //
+  },
+
+  setResolveScene ({commit}, event) {
+    //
+  },
+
+  setDeleteScene ({commit}, event) {
+    //
   }
 }
 
@@ -204,8 +232,11 @@ const mutations = {
   },
 
   updateNewsList (state, responseList) {
-    console.log(responseList.body)
     state.newsContent.items = responseList.body
+  },
+
+  updateNewsLoading (state) {
+    state.newsLoading = false
   },
 
   updateNewsAddDialog (state, event) {
@@ -220,8 +251,20 @@ const mutations = {
     state.newsAddContent = content
   },
 
+  updateNewsAdd (state) {
+    state.newsAddContent = ''
+    state.newsLoading = true
+    state.newsUpdate = 1
+  },
+
   updateInformationDialog (state, event) {
     state.informationDialog = event
+  },
+
+  updateInformation (state, name) {
+    if (name !== '') {
+      state.username = name
+    }
   },
 
   updateDrawer (state, event) {
@@ -258,6 +301,11 @@ const mutations = {
     state.username = body.name
     state.role = body.authorities
     state.newsUpdate = body.news
+
+    state.bestRatedLoading = false
+    state.mostPlayedLoading = false
+    state.myScenesLoading = false
+    state.playedGamesLoading = false
   }
 }
 

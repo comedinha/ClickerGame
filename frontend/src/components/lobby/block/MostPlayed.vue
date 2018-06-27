@@ -4,7 +4,11 @@
       <v-toolbar dense flat>
         <v-toolbar-title>{{ $ml.get('lobby.block.mostPlayed.title') }}</v-toolbar-title>
       </v-toolbar>
-      <v-alert :value="getMostPlayed.items.length === 0" color="error" icon="warning">
+      <v-progress-linear v-if="getMostPlayedLoading" color="blue" indeterminate />
+      <v-alert :value="getMostPlayedLoading" color="info" icon="sync">
+        {{ $ml.get('lobby.lobby.loading') }}
+      </v-alert>
+      <v-alert :value="!getMostPlayedLoading && getMostPlayed.items.length === 0" color="error" icon="warning">
         {{ $ml.get('error.noData') }}
       </v-alert>
       <v-card-media class='card-image' :src="bgcolor" v-if="getMostPlayed.items.length !== 0">
@@ -63,7 +67,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getMostPlayed'
+      'getMostPlayed',
+      'getMostPlayedLoading'
     ])
   },
   methods: {

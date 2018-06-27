@@ -1,13 +1,16 @@
 export default {
   game: {
     name: 'My Click',
-    year: '2018'
+    year: '2018',
+
+    true: 'verdadeiro',
+    false: 'falso'
   },
 
   error: {
     UNK: '{e}: contacte a equipe!',
     notConnected: 'Houve um problema de conexão, tente novamente mais tarde.',
-    noData: 'Sem dados disponíveis, aguarde. Em caso de demora contacte a equipe.',
+    noData: 'Sem dados disponíveis. Contacte a equipe.',
 
     A01: 'Algo de errado aconteceu com o captcha, favor tentar novamente.',
     A02: 'Endereço de email ou senha incorretos.',
@@ -124,15 +127,20 @@ export default {
       news: 'Últimas notícias',
       allScenes: 'Todos os cenários',
       lobby: 'Lobby',
+      loading: 'Carregando...',
 
       approval: 'Aguardando aprovação',
+      deleted: 'Fase deletada',
       reported: 'Denúncias',
       users: 'Usuários',
 
       approved: 'Precisa ser avaliado pela equipe!',
+      approve: 'Aprovar',
+      conclude: 'Concluir',
+      delete: 'Deletar',
       edit: 'Editar',
       details: 'Detalhes',
-      newGame: 'Novo Jogo',
+      newScene: 'Novo Jogo',
       continue: 'Continuar',
       play: 'Jogar'
     },
@@ -182,6 +190,21 @@ export default {
       report: {
         title: 'Denunciados',
         pagination: 'Página {a} de {t}'
+      },
+
+      users: {
+        title: 'Usuários',
+        search: 'Buscar',
+
+        pagination: 'Página {a} de {t}',
+        searchError: 'O termo {s} não foi encontrado.',
+        delete: 'Você realmente deseja excluir o usuário {u}?',
+
+        name: 'Nome',
+        email: 'Email',
+        role: 'Cargo',
+        action: 'Ação',
+        enabled: 'Ativado'
       }
     }
   },

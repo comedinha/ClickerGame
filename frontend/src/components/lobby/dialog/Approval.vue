@@ -4,6 +4,7 @@
       <v-toolbar dense flat>
         <v-toolbar-title>{{ $ml.get('lobby.dialog.approval.title') }}</v-toolbar-title>
       </v-toolbar>
+      <v-progress-linear v-if="getSceneApprovalLoading" color="blue" indeterminate />
       <v-container fluid grid-list-md>
         <v-data-iterator :items="getSceneApproval.items" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md4>
@@ -25,6 +26,18 @@
               </v-card-media>
               <v-system-bar dense flat>
                 <v-spacer />
+                <v-tooltip v-if="props.item.approved" bottom>
+                  <v-btn small icon slot="activator" @click="approveGame(props.item)"><v-icon>check_circle</v-icon></v-btn>
+                  <span>{{ $ml.get('lobby.lobby.approve') }}</span>
+                </v-tooltip>
+                <v-tooltip v-if="props.item.reported" bottom>
+                  <v-btn small icon slot="activator" @click="resolveGame(props.item)"><v-icon>done</v-icon></v-btn>
+                  <span>{{ $ml.get('lobby.lobby.conclude') }}</span>
+                </v-tooltip>
+                <v-tooltip v-if="props.item.canDelete" bottom>
+                  <v-btn small icon slot="activator" @click="deleteGame(props.item)"><v-icon>delete</v-icon></v-btn>
+                  <span>{{ $ml.get('lobby.lobby.delete') }}</span>
+                </v-tooltip>
                 <v-tooltip v-if="props.item.creator" bottom>
                   <v-btn small icon slot="activator" @click="editGame(props.item)"><v-icon>settings</v-icon></v-btn>
                   <span>{{ $ml.get('lobby.lobby.edit') }}</span>
@@ -52,7 +65,10 @@
             {{ $ml.with('a', pagination.page).with('t', Math.ceil(props.itemsLength / pagination.rowsPerPage)).get('lobby.dialog.approval.pagination') }}
           </v-flex>
           <v-flex slot="no-data">
-            <v-alert :value="true" color="error" icon="warning">
+            <v-alert :value="getSceneApprovalLoading" color="info" icon="sync">
+              {{ $ml.get('lobby.lobby.loading') }}
+            </v-alert>
+            <v-alert :value="!getSceneApprovalLoading" color="error" icon="warning">
               {{ $ml.get('error.noData') }}
             </v-alert>
           </v-flex>
@@ -74,7 +90,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getSceneApproval'
+      'getSceneApproval',
+      'getSceneApprovalLoading'
     ]),
 
     sceneApprovalDialog: {
@@ -86,8 +103,19 @@ export default {
       }
     }
   },
-
   methods: {
+    approveGame (scene) {
+      this.$store.dispatch('setApproveScene', scene)
+    },
+
+    resolveGame (scene) {
+      this.$store.dispatch('setResolveScene', scene)
+    },
+
+    deleteGame (scene) {
+      this.$store.dispatch('setDeleteScene', scene)
+    },
+
     editGame (scene) {
       this.$router.push('/SceneCreator?id=' + scene.id)
     },

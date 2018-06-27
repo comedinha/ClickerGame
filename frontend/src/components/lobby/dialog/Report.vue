@@ -26,6 +26,18 @@
               </v-card-media>
               <v-system-bar dense flat>
                 <v-spacer />
+                <v-tooltip v-if="props.item.canApprove" bottom>
+                  <v-btn small icon slot="activator" @click="approveGame(props.item)"><v-icon>check_circle</v-icon></v-btn>
+                  <span>{{ $ml.get('lobby.lobby.approve') }}</span>
+                </v-tooltip>
+                <v-tooltip v-if="props.item.canResolve" bottom>
+                  <v-btn small icon slot="activator" @click="resolveGame(props.item)"><v-icon>done</v-icon></v-btn>
+                  <span>{{ $ml.get('lobby.lobby.conclude') }}</span>
+                </v-tooltip>
+                <v-tooltip v-if="props.item.canDelete" bottom>
+                  <v-btn small icon slot="activator" @click="deleteGame(props.item)"><v-icon>delete</v-icon></v-btn>
+                  <span>{{ $ml.get('lobby.lobby.delete') }}</span>
+                </v-tooltip>
                 <v-tooltip v-if="props.item.creator" bottom>
                   <v-btn small icon slot="activator" @click="editGame(props.item)"><v-icon>settings</v-icon></v-btn>
                   <span>{{ $ml.get('lobby.lobby.edit') }}</span>
@@ -62,6 +74,10 @@
           </v-flex>
         </v-data-iterator>
       </v-container>
+      <v-card-actions>
+        <v-spacer />
+        <v-btn @click="sceneReportDialog = !sceneReportDialog">{{ $ml.get('lobby.dialog.report.close') }}</v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -92,12 +108,24 @@ export default {
     }
   },
   methods: {
+    approveGame (scene) {
+      this.$store.dispatch('setApproveScene', scene)
+    },
+
+    resolveGame (scene) {
+      this.$store.dispatch('setResolveScene', scene)
+    },
+
+    deleteGame (scene) {
+      this.$store.dispatch('setDeleteScene', scene)
+    },
+
     editGame (scene) {
       this.$router.push('/SceneCreator?id=' + scene.id)
     },
 
     infoGame (scene) {
-      this.$store.dispatch('setSceneDetailMessage', scene)
+      this.$store.dispatch('setSceneDetailInfo', scene)
     },
 
     continueGame (scene) {

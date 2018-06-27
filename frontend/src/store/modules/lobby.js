@@ -1,8 +1,8 @@
 import Vue from 'vue'
 
 const state = {
-  role: '',
-  username: '',
+  role: 'ANONYMOUS',
+  username: 'Anônimo',
 
   drawer: false,
 
@@ -19,7 +19,7 @@ const state = {
   newsAddContent: '',
 
   sceneDetailDialog: false,
-  sceneDetailMessage: '',
+  sceneDetailInfo: {},
 
   sceneApprovalDialog: false,
   sceneApprovalLoading: true,
@@ -36,6 +36,9 @@ const state = {
   usersDialog: false,
   usersLoading: true,
   users: [],
+
+  editUserDialog: false,
+  editUserInfo: {},
 
   myScenesLoading: true,
   myScenes: {
@@ -83,7 +86,7 @@ const getters = {
   getNewsAddContent: state => state.newsAddContent,
 
   getSceneDetailDialog: state => state.sceneDetailDialog,
-  getSceneDetailMessage: state => state.sceneDetailMessage,
+  getSceneDetailInfo: state => state.sceneDetailInfo,
 
   getSceneApprovalDialog: state => state.sceneApprovalDialog,
   getSceneApprovalLoading: state => state.sceneApprovalLoading,
@@ -96,6 +99,9 @@ const getters = {
   getUsersDialog: state => state.usersDialog,
   getUsersLoading: state => state.usersLoading,
   getUsers: state => state.users,
+
+  getEditUserDialog: state => state.editUserDialog,
+  getEditUserInfo: state => state.editUserInfo,
 
   getMyScenesLoading: state => state.myScenesLoading,
   getMyScenes: state => state.myScenes,
@@ -121,7 +127,6 @@ const actions = {
     if (event === true && getters.getNewsLoading === true) {
       Vue.http.post('api/getNews').then(responseList => {
         commit('updateNewsList', responseList)
-        commit('updateNewsLoading')
       }).catch(() => {
         commit('updateNewsLoading')
       })
@@ -190,37 +195,71 @@ const actions = {
     commit('updateSceneDetailDialog', event)
   },
 
-  setSceneDetailMessage ({ commit }, message) {
-    commit('updateSceneDetailMessage', message)
-    commit('updateSceneDetailDialog', true)
+  setSceneDetailInfo ({ commit }, message) {
+    commit('updateSceneDetailInfo', message)
   },
 
   setViewAllScenes ({ commit }, event) {
+    if (event === true && getters.getAllScenesLoading === true) {
+      // Adicionar Conexão aqui
+    }
+
     commit('updateViewAllScenes', event)
   },
 
   setSceneApprovalDialog ({ commit }, event) {
+    if (event === true && getters.getSceneApprovalLoading === true) {
+      // Adicionar Conexão aqui
+    }
+
     commit('updateSceneApprovalDialog', event)
   },
 
   setSceneReportDialog ({ commit }, event) {
+    if (event === true && getters.getSceneReportLoading === true) {
+      // Adicionar Conexão aqui
+    }
+
     commit('updateSceneReportDialog', event)
   },
 
   setUsersDialog ({ commit }, event) {
+    if (event === true && getters.getUsersLoading === true) {
+      // Adicionar Conexão aqui
+    }
+
     commit('updateUsersDialog', event)
   },
 
-  setApproveScene ({commit}, event) {
-    //
+  setEditUserDialog ({commit}, event) {
+    commit('updateEditUserDialog', event)
   },
 
-  setResolveScene ({commit}, event) {
-    //
+  setEditUserInfo ({commit}, message) {
+    commit('updateEditUserInfo', message)
   },
 
-  setDeleteScene ({commit}, event) {
-    //
+  setUpdateUser ({commit}, user) {
+    // Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
+    commit('updateUser')
+  },
+
+  setApproveScene ({commit}, scene) {
+    // Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
+
+    commit('updateSceneReload')
+  },
+
+  setResolveScene ({commit}, scene) {
+    // Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
+
+    commit('updateSceneReload')
+  },
+
+  setDeleteScene ({commit}, scene) {
+    // Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
+
+    commit('updateSceneReload')
   }
 }
 
@@ -229,10 +268,15 @@ const mutations = {
   updateNewsDialog (state, event) {
     state.newsDialog = event
     state.newsUpdate = 0
+
+    if (event === false && state.newsContent.items.length === 0) {
+      state.newsLoading = true
+    }
   },
 
   updateNewsList (state, responseList) {
     state.newsContent.items = responseList.body
+    state.newsLoading = false
   },
 
   updateNewsLoading (state) {
@@ -275,8 +319,9 @@ const mutations = {
     state.sceneDetailDialog = event
   },
 
-  updateSceneDetailMessage (state, message) {
-    state.sceneDetailMessage = message
+  updateSceneDetailInfo (state, message) {
+    state.sceneDetailInfo = message
+    state.sceneDetailDialog = true
   },
 
   updateViewAllScenes (state, event) {
@@ -293,6 +338,40 @@ const mutations = {
 
   updateUsersDialog (state, event) {
     state.usersDialog = event
+  },
+
+  updateEditUserDialog (state, event) {
+    if (event === false) {
+      state.editUserInfo = {}
+    }
+
+    state.editUserDialog = event
+  },
+
+  updateEditUserInfo (state, message) {
+    let userInfo = {
+      id: message.id,
+      name: message.name,
+      email: message.email,
+      role: message.role,
+      enabled: message.enabled
+    }
+
+    state.editUserInfo = userInfo
+  },
+
+  updateUser (state) {
+    state.editUserDialog = false
+    state.usersDialog = false
+    state.usersLoading = true
+  },
+
+  updateSceneReload (state) {
+    state.sceneApprovalDialog = false
+    state.sceneApprovalLoading = true
+
+    state.sceneReportDialog = false
+    state.sceneReportLoading = false
   },
 
   updateInfoLobby (state, response) {

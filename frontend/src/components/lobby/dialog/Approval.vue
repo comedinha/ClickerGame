@@ -26,11 +26,11 @@
               </v-card-media>
               <v-system-bar dense flat>
                 <v-spacer />
-                <v-tooltip v-if="props.item.approved" bottom>
+                <v-tooltip v-if="props.item.canApprove" bottom>
                   <v-btn small icon slot="activator" @click="approveGame(props.item)"><v-icon>check_circle</v-icon></v-btn>
                   <span>{{ $ml.get('lobby.lobby.approve') }}</span>
                 </v-tooltip>
-                <v-tooltip v-if="props.item.reported" bottom>
+                <v-tooltip v-if="props.item.canResolve" bottom>
                   <v-btn small icon slot="activator" @click="resolveGame(props.item)"><v-icon>done</v-icon></v-btn>
                   <span>{{ $ml.get('lobby.lobby.conclude') }}</span>
                 </v-tooltip>
@@ -74,6 +74,10 @@
           </v-flex>
         </v-data-iterator>
       </v-container>
+      <v-card-actions>
+        <v-spacer />
+        <v-btn @click="sceneApprovalDialog = !sceneApprovalDialog">{{ $ml.get('lobby.dialog.approval.close') }}</v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -121,7 +125,7 @@ export default {
     },
 
     infoGame (scene) {
-      this.$store.dispatch('setSceneDetailMessage', scene)
+      this.$store.dispatch('setSceneDetailInfo', scene)
     },
 
     continueGame (scene) {

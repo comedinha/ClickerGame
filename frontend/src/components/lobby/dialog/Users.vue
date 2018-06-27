@@ -1,5 +1,6 @@
 <template>
   <v-dialog v-model="usersDialog" max-width="750px">
+    <EditUser />
     <v-card fluid>
       <v-toolbar dense flat>
         <v-toolbar-title>{{ $ml.get('lobby.dialog.users.title') }}</v-toolbar-title>
@@ -12,13 +13,13 @@
           <template slot="items" slot-scope="props">
             <td>{{ props.item.name }}</td>
             <td>{{ props.item.email }}</td>
-            <td>{{ props.item.role }}</td>
+            <td>{{ $ml.get('game.' + props.item.role) }}</td>
             <td>{{ $ml.get('game.' + props.item.enabled) }}</td>
             <td class="justify-center layout px-0">
-              <v-btn icon class="mx-0" @click="editItem(props.item)">
+              <v-btn icon class="mx-0" @click="editUser(props.item)">
                 <v-icon color="teal">edit</v-icon>
               </v-btn>
-              <v-btn icon class="mx-0" @click="deleteItem(props.item)">
+              <v-btn icon class="mx-0" @click="deleteUser(props.item)">
                 <v-icon color="pink">delete</v-icon>
               </v-btn>
             </td>
@@ -41,12 +42,18 @@
           </template>
         </v-data-table>
       </v-container>
+      <v-card-actions>
+        <v-spacer />
+        <v-btn @click="usersDialog = !usersDialog">{{ $ml.get('lobby.dialog.users.close') }}</v-btn>
+      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+
+import EditUser from '@/components/lobby/dialog/EditUser'
 
 export default {
   data () {
@@ -62,6 +69,9 @@ export default {
         { text: this.$ml.get('lobby.dialog.users.action'), value: 'name', sortable: false }
       ]
     }
+  },
+  components: {
+    EditUser
   },
   computed: {
     ...mapGetters([
@@ -79,13 +89,14 @@ export default {
     }
   },
   methods: {
-    editItem (item) {
-      console.log(item)
+    editUser (user) {
+      this.$store.dispatch('setEditUserDialog', true)
+      this.$store.dispatch('setEditUserInfo', user)
     },
 
-    deleteItem (item) {
-      console.log(item)
-      confirm(this.$ml.with('u', item.name).get('lobby.dialog.users.delete'))
+    deleteUser (user) {
+      console.log(user)
+      confirm(this.$ml.with('u', user.name).get('lobby.dialog.users.delete'))
     }
   }
 }

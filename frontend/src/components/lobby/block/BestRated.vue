@@ -85,7 +85,7 @@ export default {
     },
 
     infoGame (scene) {
-      this.$store.dispatch('setSceneDetailMessage', scene)
+      this.$store.dispatch('setSceneDetailInfo', scene)
     },
 
     continueGame (scene) {

@@ -19,7 +19,7 @@
                 <v-toolbar dense flat>
                   <v-toolbar-title>{{ item.name }}</v-toolbar-title>
                   <v-spacer />
-                  <v-tooltip v-if="item.creator" bottom>
+                  <v-tooltip v-if="item.canEdit" bottom>
                     <v-btn small icon slot="activator" @click="editGame(item)"><v-icon>settings</v-icon></v-btn>
                     <span>{{ $ml.get('lobby.lobby.edit') }}</span>
                   </v-tooltip>

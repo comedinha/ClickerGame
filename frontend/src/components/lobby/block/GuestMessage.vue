@@ -5,8 +5,23 @@
         <v-toolbar-title>{{ $ml.get('lobby.block.guestMessage.title') }}</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
-        Teste
+        <span v-html="$ml.get('lobby.block.guestMessage.content')" />
       </v-card-text>
+      <v-card-actions>
+        <v-btn block @click="logout">Desconectar</v-btn>
+      </v-card-actions>
     </v-card>
   </v-flex>
 </template>
+
+<script>
+export default {
+  methods: {
+    logout () {
+      this.$store.dispatch('signout').then(() => {
+        this.$router.push('/Signin')
+      })
+    }
+  }
+}
+</script>

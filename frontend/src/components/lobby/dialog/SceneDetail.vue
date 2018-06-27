@@ -4,7 +4,7 @@
       <v-toolbar dense flat>
         <v-toolbar-title>{{ getSceneDetailInfo.name }}</v-toolbar-title>
         <v-spacer />
-        <v-tooltip v-if="getSceneDetailInfo.creator" bottom>
+        <v-tooltip v-if="getSceneDetailInfo.canEdit" bottom>
           <v-btn small icon slot="activator" @click="editGame(getSceneDetailInfo)"><v-icon>settings</v-icon></v-btn>
           <span>{{ $ml.get('lobby.lobby.edit') }}</span>
         </v-tooltip>

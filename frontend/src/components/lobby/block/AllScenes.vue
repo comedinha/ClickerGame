@@ -43,7 +43,7 @@
                   <v-btn small icon slot="activator" @click="deleteGame(props.item)"><v-icon>delete</v-icon></v-btn>
                   <span>{{ $ml.get('lobby.lobby.delete') }}</span>
                 </v-tooltip>
-                <v-tooltip v-if="props.item.creator" bottom>
+                <v-tooltip v-if="props.item.canEdit" bottom>
                   <v-btn small icon slot="activator" @click="editGame(props.item)"><v-icon>settings</v-icon></v-btn>
                   <span>{{ $ml.get('lobby.lobby.edit') }}</span>
                 </v-tooltip>

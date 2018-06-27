@@ -4,8 +4,9 @@
       <v-toolbar dense flat>
         <v-toolbar-title>{{ $ml.get('lobby.dialog.report.title') }}</v-toolbar-title>
       </v-toolbar>
+      <v-progress-linear v-if="getSceneReportLoading" color="blue" indeterminate />
       <v-container fluid grid-list-md>
-        <v-data-iterator :items="getSceneReport.items" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
+        <v-data-iterator :items="getSceneReport.items" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" :loading="getSceneReportLoading" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md4>
             <v-card>
               <v-system-bar dense flat>
@@ -52,7 +53,10 @@
             {{ $ml.with('a', pagination.page).with('t', Math.ceil(props.itemsLength / pagination.rowsPerPage)).get('lobby.dialog.report.pagination') }}
           </v-flex>
           <v-flex slot="no-data">
-            <v-alert :value="true" color="error" icon="warning">
+            <v-alert :value="getSceneReportLoading" color="info" icon="sync">
+              {{ $ml.get('lobby.lobby.loading') }}
+            </v-alert>
+            <v-alert :value="!getSceneReportLoading" color="error" icon="warning">
               {{ $ml.get('error.noData') }}
             </v-alert>
           </v-flex>
@@ -74,7 +78,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getSceneReport'
+      'getSceneReport',
+      'getSceneReportLoading'
     ]),
 
     sceneReportDialog: {

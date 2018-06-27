@@ -7,6 +7,7 @@
       <v-card-actions>
         <v-text-field v-model="search" append-icon="search" :label="$ml.get('lobby.block.played.search')" single-line hide-details />
       </v-card-actions>
+      <v-progress-linear v-if="getPlayedGamesLoading" color="blue" indeterminate />
       <v-container fluid grid-list-md>
         <v-data-iterator :items="getPlayedGames.items" :search="search" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md6>
@@ -55,7 +56,10 @@
             {{ $ml.with('a', pagination.page).with('t', Math.ceil(props.itemsLength / pagination.rowsPerPage)).get('lobby.block.played.pagination') }}
           </v-flex>
           <v-flex slot="no-data">
-            <v-alert :value="true" color="error" icon="warning">
+            <v-alert :value="getPlayedGamesLoading" color="info" icon="sync">
+              {{ $ml.get('lobby.lobby.loading') }}
+            </v-alert>
+            <v-alert :value="!getPlayedGamesLoading" color="error" icon="warning">
               {{ $ml.get('error.noData') }}
             </v-alert>
           </v-flex>
@@ -78,7 +82,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getPlayedGames'
+      'getPlayedGames',
+      'getPlayedGamesLoading'
     ])
   },
   methods: {

@@ -4,13 +4,14 @@
       <v-toolbar dense flat>
         <v-toolbar-title>{{ $ml.get('lobby.block.allScenes.title') }}</v-toolbar-title>
       </v-toolbar>
+      <v-progress-linear v-if="getAllScenesLoading" color="blue" indeterminate />
       <v-card-actions>
         <v-spacer />
         <v-spacer />
         <v-text-field v-model="search" append-icon="search" :label="$ml.get('lobby.block.allScenes.search')" single-line />
       </v-card-actions>
       <v-container fluid grid-list-md>
-        <v-data-iterator :items="getAllGames.items" :search="search" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
+        <v-data-iterator :items="getAllScenes.items" :search="search" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md2>
             <v-card>
               <v-system-bar dense flat>
@@ -57,7 +58,10 @@
             {{ $ml.with('a', pagination.page).with('t', Math.ceil(props.itemsLength / pagination.rowsPerPage)).get('lobby.block.allScenes.pagination') }}
           </v-flex>
           <v-flex slot="no-data">
-            <v-alert :value="true" color="error" icon="warning">
+            <v-alert :value="getAllScenesLoading" color="info" icon="sync">
+              {{ $ml.get('lobby.lobby.loading') }}
+            </v-alert>
+            <v-alert :value="!getAllScenesLoading" color="error" icon="warning">
               {{ $ml.get('error.noData') }}
             </v-alert>
           </v-flex>
@@ -80,7 +84,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getAllGames'
+      'getAllScenes',
+      'getAllScenesLoading'
     ])
   },
   methods: {

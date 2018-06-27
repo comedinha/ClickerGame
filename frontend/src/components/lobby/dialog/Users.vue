@@ -6,6 +6,7 @@
         <v-spacer />
         <v-text-field v-model="search" append-icon="search" :label="$ml.get('lobby.dialog.users.search')" single-line hide-details />
       </v-toolbar>
+      <v-progress-linear v-if="getUsersLoading" color="blue" indeterminate />
       <v-container fluid grid-list-md>
         <v-data-table :headers="headers" :items="getUsers" :search="search" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" class="elevation-1">
           <template slot="items" slot-scope="props">
@@ -26,7 +27,10 @@
             {{ $ml.with('a', pagination.page).with('t', Math.ceil(props.itemsLength / pagination.rowsPerPage)).get('lobby.dialog.users.pagination') }}
           </template>
           <template slot="no-data">
-            <v-alert :value="true" color="error" icon="warning">
+            <v-alert :value="getUsersLoading" color="info" icon="sync">
+              {{ $ml.get('lobby.lobby.loading') }}
+            </v-alert>
+            <v-alert :value="!getUsersLoading" color="error" icon="warning">
               {{ $ml.get('error.noData') }}
             </v-alert>
           </template>
@@ -61,7 +65,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getUsers'
+      'getUsers',
+      'getUsersLoading'
     ]),
 
     usersDialog: {

@@ -6,6 +6,7 @@
         <v-spacer />
         <v-btn v-if="getAdmin" @click="newsAddDialog = !newsAddDialog">{{ $ml.get('template.dialog.news.adminButton') }}</v-btn>
       </v-card-title>
+      <v-progress-linear v-if="getNewsLoading" color="blue" indeterminate />
       <v-container fluid grid-list-md>
         <v-data-iterator :items="getNewsContent.items" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md12>
@@ -22,7 +23,10 @@
             {{ $ml.with('a', pagination.page).with('t', Math.ceil(props.itemsLength / pagination.rowsPerPage)).get('lobby.dialog.approval.pagination') }}
           </v-flex>
           <v-flex slot="no-data">
-            <v-alert :value="true" color="error" icon="warning">
+            <v-alert :value="getNewsLoading" color="info" icon="sync">
+              {{ $ml.get('lobby.lobby.loading') }}
+            </v-alert>
+            <v-alert :value="!getNewsLoading" color="error" icon="warning">
               {{ $ml.get('error.noData') }}
             </v-alert>
           </v-flex>
@@ -49,7 +53,8 @@ export default {
   computed: {
     ...mapGetters([
       'getAdmin',
-      'getNewsContent'
+      'getNewsContent',
+      'getNewsLoading'
     ]),
 
     newsDialog: {

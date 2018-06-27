@@ -4,6 +4,7 @@
       <v-toolbar dense flat>
         <v-toolbar-title>{{ $ml.get('lobby.dialog.approval.title') }}</v-toolbar-title>
       </v-toolbar>
+      <v-progress-linear v-if="getSceneApprovalLoading" color="blue" indeterminate />
       <v-container fluid grid-list-md>
         <v-data-iterator :items="getSceneApproval.items" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md4>
@@ -64,7 +65,10 @@
             {{ $ml.with('a', pagination.page).with('t', Math.ceil(props.itemsLength / pagination.rowsPerPage)).get('lobby.dialog.approval.pagination') }}
           </v-flex>
           <v-flex slot="no-data">
-            <v-alert :value="true" color="error" icon="warning">
+            <v-alert :value="getSceneApprovalLoading" color="info" icon="sync">
+              {{ $ml.get('lobby.lobby.loading') }}
+            </v-alert>
+            <v-alert :value="!getSceneApprovalLoading" color="error" icon="warning">
               {{ $ml.get('error.noData') }}
             </v-alert>
           </v-flex>
@@ -86,7 +90,8 @@ export default {
   },
   computed: {
     ...mapGetters([
-      'getSceneApproval'
+      'getSceneApproval',
+      'getSceneApprovalLoading'
     ]),
 
     sceneApprovalDialog: {

@@ -55,6 +55,21 @@ const actions = {
     })
   },
 
+  signGuest ({commit}) {
+    return new Promise((resolve, reject) => {
+      commit('authStatus', 'loading')
+      Vue.http.post('api/authGuest', {})
+        .then(resp => {
+          commit('authLogin', resp.data.token)
+          commit('authStatus', 'success')
+          resolve()
+        }, errorCode => {
+          commit('authStatus', 'error')
+          reject(errorCode)
+        })
+    })
+  },
+
   activeEmail ({commit}, user) {
     return new Promise((resolve, reject) => {
       commit('authStatus', 'loading')

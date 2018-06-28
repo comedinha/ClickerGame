@@ -2,6 +2,7 @@
   <v-app id="inspire">
     <v-navigation-drawer app right class="hidden-sm-and-down">
       <script2 async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
+      <!-- MyClick Auth -->
       <ins class="adsbygoogle"
           style="display:inline-block;width:160px;height:600px"
           data-ad-client="ca-pub-9155104656479961"

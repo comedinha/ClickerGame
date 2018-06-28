@@ -1,5 +1,5 @@
 <template>
-  <v-footer app fixed height="auto">
+  <v-footer app fixed inset height="auto">
     <v-card flat tile class="flex">
       <v-card-actions class="grey lighten-2">
         <v-menu top offset-y>

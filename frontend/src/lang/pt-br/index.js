@@ -4,7 +4,11 @@ export default {
     year: '2018',
 
     true: 'verdadeiro',
-    false: 'falso'
+    false: 'falso',
+
+    ROLE_ADMIN: 'Administrador',
+    ROLE_USER: 'Usuário',
+    ANONYMOUS: 'Anônimo'
   },
 
   error: {
@@ -161,7 +165,16 @@ export default {
       },
 
       guestMessage: {
-        title: 'Vantagens'
+        title: 'Anônimo',
+        logout: 'Desconectar',
+
+        content: `
+          <p>Por voc&ecirc; ser um usu&aacute;rio an&ocirc;nimo suas fun&ccedil;&otilde;es no game s&atilde;o limitadas,&nbsp;por exemplo voc&ecirc;&nbsp;<strong>n&atilde;o pode&nbsp;salvar seu progresso</strong> e<strong> nem</strong> <strong>criar cen&aacute;rios</strong>.</p>
+
+          <p>Isso se deve ao fato de que n&atilde;o permitimos salvar o progresso em <strong>modo offline</strong>&nbsp;e o modo an&ocirc;nimo ser apenas uma <strong>demonstra&ccedil;&atilde;o</strong>.</p>
+
+          <p>Quando voc&ecirc; se registra voc&ecirc; consegue todos esses benef&iacute;cios al&eacute;m de ajudar a comunidade a crescer.</p>
+        `
       },
 
       mostPlayed: {
@@ -184,17 +197,55 @@ export default {
     dialog: {
       approval: {
         title: 'Aguardando Aprovação',
-        pagination: 'Página {a} de {t}'
+        pagination: 'Página {a} de {t}',
+        close: 'Fechar'
+      },
+
+      editUser: {
+        title: 'Editar Usuário',
+        button: 'Editar',
+        cancel: 'Cancelar',
+
+        required: 'Campo necessário.',
+        errorRequired: 'Entre com os dados em todos os campos requeridos.',
+        name: {
+          title: 'Nome: ',
+          minLength: 'O nome deve ter no mínimo {c} caracteres.',
+          maxLength: 'O nome deve ter no máximo {c} caracteres.'
+        },
+        email: {
+          title: 'Email: ',
+          email: 'Entre com um endereço de email válido.'
+        },
+        password: {
+          title: 'Senha: ',
+          errorLimit: 'A senha deve ao menos {c} digitos.'
+        },
+        confirmPassword: {
+          title: 'Confirmação: ',
+          errorIdentical: 'A confirmação precisa ser identica a senha.'
+        }
       },
 
       report: {
         title: 'Denunciados',
-        pagination: 'Página {a} de {t}'
+        pagination: 'Página {a} de {t}',
+        close: 'Fechar'
+      },
+
+      sceneDetail: {
+        description: 'Descrição',
+        creator: 'Criador',
+        played: 'Jogaram',
+        score: 'Avaliação',
+
+        close: 'Fechar'
       },
 
       users: {
         title: 'Usuários',
         search: 'Buscar',
+        close: 'Fechar',
 
         pagination: 'Página {a} de {t}',
         searchError: 'O termo {s} não foi encontrado.',
@@ -238,6 +289,7 @@ export default {
         title: 'Atualizar Informações',
         description: 'Se algum campo for deixado em branco as informações serão mantidas.',
         button: 'Salvar',
+        close: 'Fechar',
 
         required: 'Campo necessário.',
         errorRequired: 'Entre com os dados em todos os campos requeridos.',

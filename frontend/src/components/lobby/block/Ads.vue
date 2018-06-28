@@ -5,50 +5,26 @@
         <v-toolbar-title>{{ $ml.get('lobby.block.ads.title') }}</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
-        ADS
+        <script2 async src="//pagead2.googlesyndication.com/pagead/js/adsbygoogle.js" />
+        <!-- MyClick-Guest -->
+        <ins class="adsbygoogle"
+            style="display:block"
+            data-ad-client="ca-pub-9155104656479961"
+            data-ad-slot="8903283963"
+            data-ad-format="auto" />
+        <script2>
+        (adsbygoogle = window.adsbygoogle || []).push({});
+        </script2>
       </v-card-text>
     </v-card>
   </v-flex>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
-
 export default {
   data () {
     return {
-      search: '',
-      rowsPerPageItems: [4],
-      pagination: {}
-    }
-  },
-  computed: {
-    ...mapGetters([
-      'getPlayedGames'
-    ])
-  },
-  methods: {
-    editGame (scene) {
-      this.$router.push('/SceneCreator?id=' + scene.id)
-    },
-
-    infoGame (scene) {
-      this.$store.dispatch('setSceneDetailMessage', scene)
-    },
-
-    continueGame (scene) {
-      this.$router.push('/Scene?id=' + scene.id + '&continue=' + scene.lastGame)
-    },
-
-    newGame (scene) {
-      this.$router.push('/Scene?id=' + scene.id)
     }
   }
 }
 </script>
-
-<style>
-  .transprent-text {
-    background: rgba(0, 0, 0, 0.5);
-  }
-</style>

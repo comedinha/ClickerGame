@@ -20,6 +20,7 @@
         </v-card-text>
       </v-form>
       <v-card-actions>
+        <v-btn flat @click="informationDialog = !informationDialog">{{ $ml.get('template.dialog.updateInformation.close') }}</v-btn>
         <v-spacer />
         <v-text-field v-model="oldPassword" @keyup.enter="send" :error-messages="oldPasswordErrors" :label="$ml.get('template.dialog.updateInformation.oldPassword.title')" required @input="$v.oldPassword.$touch()" @blur="$v.oldPassword.$touch()" type="password" />
         <v-btn flat color="primary" :loading="load" @click.native="send">{{ $ml.get('template.dialog.updateInformation.button') }}</v-btn>

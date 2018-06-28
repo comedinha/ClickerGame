@@ -19,7 +19,7 @@
                 <v-toolbar dense flat>
                   <v-toolbar-title>{{ item.name }}</v-toolbar-title>
                   <v-spacer />
-                  <v-tooltip v-if="item.creator" bottom>
+                  <v-tooltip v-if="item.canEdit" bottom>
                     <v-btn small icon slot="activator" @click="editGame(item)"><v-icon>settings</v-icon></v-btn>
                     <span>{{ $ml.get('lobby.lobby.edit') }}</span>
                   </v-tooltip>
@@ -81,19 +81,19 @@ export default {
     },
 
     editGame (scene) {
-      this.$router.push('/SceneCreator?id=' + scene.id)
+      this.$router.push('/Scene?createId=' + scene.id)
     },
 
     infoGame (scene) {
-      this.$store.dispatch('setSceneDetailMessage', scene)
+      this.$store.dispatch('setSceneDetailInfo', scene)
     },
 
     continueGame (scene) {
-      this.$router.push('/Scene?id=' + scene.id + '&continue=' + scene.lastGame)
+      this.$router.push('/Scene?playId=' + scene.id + '&continueId=' + scene.lastGame)
     },
 
     newGame (scene) {
-      this.$router.push('/Scene?id=' + scene.id)
+      this.$router.push('/Scene?playId=' + scene.id)
     }
   }
 }

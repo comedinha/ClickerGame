@@ -2,67 +2,67 @@
   <v-dialog v-model="sceneDetailDialog" max-width="750px">
     <v-card>
       <v-toolbar dense flat>
-        <v-toolbar-title>{{ getSceneDetailMessage.name }}</v-toolbar-title>
+        <v-toolbar-title>{{ getSceneDetailInfo.name }}</v-toolbar-title>
         <v-spacer />
-        <v-tooltip v-if="getSceneDetailMessage.creator" bottom>
-          <v-btn small icon slot="activator" @click="editGame(getSceneDetailMessage)"><v-icon>settings</v-icon></v-btn>
+        <v-tooltip v-if="getSceneDetailInfo.canEdit" bottom>
+          <v-btn small icon slot="activator" @click="editGame(getSceneDetailInfo)"><v-icon>settings</v-icon></v-btn>
           <span>{{ $ml.get('lobby.lobby.edit') }}</span>
         </v-tooltip>
-        <v-tooltip v-if="getSceneDetailMessage.lastGame" bottom>
-          <v-btn small icon slot="activator" @click="newGame(getSceneDetailMessage)"><v-icon>add_circle</v-icon></v-btn>
+        <v-tooltip v-if="getSceneDetailInfo.lastGame" bottom>
+          <v-btn small icon slot="activator" @click="newGame(getSceneDetailInfo)"><v-icon>add_circle</v-icon></v-btn>
           <span>{{ $ml.get('lobby.lobby.newGame') }}</span>
         </v-tooltip>
-        <v-tooltip v-if="getSceneDetailMessage.lastGame" bottom>
-          <v-btn small icon slot="activator" @click="continueGame(getSceneDetailMessage)"><v-icon>play_circle_filled</v-icon></v-btn>
+        <v-tooltip v-if="getSceneDetailInfo.lastGame" bottom>
+          <v-btn small icon slot="activator" @click="continueGame(getSceneDetailInfo)"><v-icon>play_circle_filled</v-icon></v-btn>
           <span>{{ $ml.get('lobby.lobby.continue') }}</span>
         </v-tooltip>
-        <v-tooltip v-if="!getSceneDetailMessage.lastGame" bottom>
-          <v-btn small icon slot="activator" @click="newGame(getSceneDetailMessage)"><v-icon>play_circle_filled</v-icon></v-btn>
+        <v-tooltip v-if="!getSceneDetailInfo.lastGame" bottom>
+          <v-btn small icon slot="activator" @click="newGame(getSceneDetailInfo)"><v-icon>play_circle_filled</v-icon></v-btn>
           <span>{{ $ml.get('lobby.lobby.play') }}</span>
         </v-tooltip>
       </v-toolbar>
       <v-container fluid grid-list-md>
         <v-layout row>
           <v-flex md7>
-            <v-card-media :src="getSceneDetailMessage.image" height="250px" contain />
+            <v-card-media :src="getSceneDetailInfo.image" height="250px" contain />
           </v-flex>
           <v-flex md5>
             <v-card>
               <v-system-bar>
-                Descrição
+                {{ $ml.get('lobby.dialog.sceneDetail.description') }}
               </v-system-bar>
               <v-card-text>
-                {{ getSceneDetailMessage.description }}
+                {{ getSceneDetailInfo.description }}
               </v-card-text>
             </v-card>
             <v-layout row>
               <v-flex md4>
                 <v-card>
                   <v-system-bar>
-                    Jogaram
+                    {{ $ml.get('lobby.dialog.sceneDetail.creator') }}
                   </v-system-bar>
                   <v-card-text>
-                    {{ getSceneDetailMessage.totalPlayed }}
+                    {{ getSceneDetailInfo.creator }}
                   </v-card-text>
                 </v-card>
               </v-flex>
               <v-flex md4>
                 <v-card>
                   <v-system-bar>
-                    Concluíram
+                    {{ $ml.get('lobby.dialog.sceneDetail.played') }}
                   </v-system-bar>
                   <v-card-text>
-                    {{ getSceneDetailMessage.totalComplete }}
+                    {{ getSceneDetailInfo.totalPlayed }}
                   </v-card-text>
                 </v-card>
               </v-flex>
               <v-flex md4>
                 <v-card>
                   <v-system-bar>
-                    Avaliação
+                    {{ $ml.get('lobby.dialog.sceneDetail.score') }}
                   </v-system-bar>
                   <v-card-text>
-                    {{ getSceneDetailMessage.score }}/5.0
+                    {{ getSceneDetailInfo.score }}/5.0
                   </v-card-text>
                 </v-card>
               </v-flex>
@@ -72,7 +72,7 @@
       </v-container>
       <v-card-actions>
         <v-spacer />
-        <v-btn @click="sceneDetailDialog = !sceneDetailDialog">Fechar</v-btn>
+        <v-btn @click="sceneDetailDialog = !sceneDetailDialog">{{ $ml.get('lobby.dialog.sceneDetail.close') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -84,7 +84,7 @@ import { mapGetters } from 'vuex'
 export default {
   computed: {
     ...mapGetters([
-      'getSceneDetailMessage'
+      'getSceneDetailInfo'
     ]),
 
     sceneDetailDialog: {
@@ -98,15 +98,15 @@ export default {
   },
   methods: {
     editGame (scene) {
-      this.$router.push('/SceneCreator?id=' + scene.id)
+      this.$router.push('/Scene?createId=' + scene.id)
     },
 
     continueGame (scene) {
-      this.$router.push('/Scene?id=' + scene.id + '&continue=' + scene.lastGame)
+      this.$router.push('/Scene?playId=' + scene.id + '&continueId=' + scene.lastGame)
     },
 
     newGame (scene) {
-      this.$router.push('/Scene?id=' + scene.id)
+      this.$router.push('/Scene?playId=' + scene.id)
     }
   }
 }

@@ -7,8 +7,8 @@
       {{ error }}
     </v-alert>
     <v-form>
-      <v-text-field prepend-icon="email" v-model="credentials.username" @keyup.enter="onSubmit" :error-messages="emailErrors" :label="$ml.get('auth.signin.email.title')" required @input="$v.credentials.username.$touch()" @blur="$v.credentials.username.$touch()" />
-      <v-text-field prepend-icon="lock" v-model="credentials.password" @keyup.enter="onSubmit" :error-messages="passwordErrors" :label="$ml.get('auth.signin.password.title')" required @input="$v.credentials.password.$touch()" @blur="$v.credentials.password.$touch()" type="password" />
+      <v-text-field prepend-icon="email" v-model="credentials.username" @keyup.enter="onSubmit(false)" :error-messages="emailErrors" :label="$ml.get('auth.signin.email.title')" required @input="$v.credentials.username.$touch()" @blur="$v.credentials.username.$touch()" />
+      <v-text-field prepend-icon="lock" v-model="credentials.password" @keyup.enter="onSubmit(false)" :error-messages="passwordErrors" :label="$ml.get('auth.signin.password.title')" required @input="$v.credentials.password.$touch()" @blur="$v.credentials.password.$touch()" type="password" />
     </v-form>
     <v-card-actions>
       <v-btn small flat color="indigo" @click.native.stop="recoveryDialog = !recoveryDialog">{{ $ml.get('auth.signin.recovery') }}</v-btn>
@@ -17,11 +17,11 @@
         <v-btn small flat color="indigo" slot="activator" icon><v-icon>security</v-icon></v-btn>
         <vue-recaptcha ref="invisibleRecaptcha" @verify="onVerify" @expired="onExpired" size="invisible" :sitekey="sitekey" badge="inline" />
       </v-tooltip>
-      <v-btn color="primary" :loading="load" @click="onSubmit">{{ $ml.get('auth.signin.button') }}</v-btn>
+      <v-btn color="primary" :loading="load" @click="onSubmit(false)">{{ $ml.get('auth.signin.button') }}</v-btn>
     </v-card-actions>
     <br />
     <v-divider />
-    <v-btn block color="success" disabled >{{ $ml.get('auth.signin.guest') }}</v-btn>
+    <v-btn block color="success" :loading="loadGuest" @click="onSubmit(true)" >{{ $ml.get('auth.signin.guest') }}</v-btn>
   </v-card-text>
 </template>
 
@@ -38,6 +38,7 @@ export default {
     return {
       sitekey: '6Lfk1FwUAAAAAMcjjT1vE-D9MLIgLaKm4_4BN44W',
       load: false,
+      loadGuest: false,
       error: '',
       credentials: {
         username: '',
@@ -120,18 +121,41 @@ export default {
       }
     },
 
-    onSubmit () {
-      this.load = true
-      if (!this.credentials.captcharesponse) {
-        this.$refs.invisibleRecaptcha.execute()
+    sendGuest () {
+      this.$store.dispatch('signGuest').then(() => {
+        this.$router.go('/')
+      }).catch(errorCode => {
+        this.onExpired()
+        this.loadGuest = false
+        if (errorCode.bodyText) {
+          if (this.$ml.get('error.' + errorCode.bodyText)) {
+            this.error = this.$ml.get('error.' + errorCode.bodyText)
+          } else {
+            this.error = this.$ml.with('e', errorCode.bodyText).get('error.UNK')
+          }
+        } else {
+          this.error = this.$ml.with('e', errorCode.status).get('error.UNK')
+        }
+      })
+    },
+
+    onSubmit (isGuest) {
+      if (!isGuest) {
+        this.load = true
       } else {
-        this.send()
+        this.loadGuest = true
       }
+
+      this.$refs.invisibleRecaptcha.execute()
     },
 
     onVerify (response) {
       this.credentials.captcharesponse = response
-      this.send()
+      if (this.load) {
+        this.send()
+      } else {
+        this.sendGuest()
+      }
     },
 
     onExpired () {

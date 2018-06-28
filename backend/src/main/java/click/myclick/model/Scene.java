@@ -12,7 +12,9 @@ public class Scene extends BaseEntity implements Serializable {
 
     private String name;
 	private String idCreator;
-    private boolean approved;
+	private boolean approved;
+	private boolean deleted;
+	private boolean complete;
     private String smallDescription;
     private String completeDescription;
 	private int totalPlayed;
@@ -48,6 +50,26 @@ public class Scene extends BaseEntity implements Serializable {
 	public void setApproved(boolean approved)
 	{
 		this.approved = approved;
+	}
+
+	public void setDeleted(boolean deleted)
+	{
+		this.deleted = deleted;
+	}
+
+	public boolean getDeleted()
+	{
+		return this.deleted;
+	}
+
+	public void setComplete(boolean complete)
+	{
+		this.complete = complete;
+	}
+
+	public boolean getComplete()
+	{
+		return this.complete;
 	}
 
 	public String getSmallDescription()

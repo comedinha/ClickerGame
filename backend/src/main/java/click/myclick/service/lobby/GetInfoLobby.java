@@ -24,11 +24,12 @@ public class GetInfoLobby {
         dto.setAuthorities(user.getAuthorities().get(0).getAuthority());
         dto.setName(user.getName());
         dto.setNews(news.checkNews(newsService, user.getLastchecknews()));
-        dto.setMyScenes(getScenes.getMyScenes(sceneService, user.getId()));
+        
+        dto.setMyScenes(getScenes.getMyScenes(sceneService, user.getId(), (user.getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))));
         dto.setPlayedGames(getScenes.getPlayedGames(sceneService, user.getId()));
-        dto.setMostPlayed(getScenes.getMostPlayed(sceneService));
-        dto.setBestRated(getScenes.getBestRated(sceneService));
-        dto.setAllGames(getScenes.getAllGames(sceneService));
+        dto.setMostPlayed(getScenes.getMostPlayed(sceneService, user.getId()));
+        dto.setBestRated(getScenes.getBestRated(sceneService, user.getId()));
+        dto.setAllGames(getScenes.getAllGames(sceneService, user.getId(), (user.getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))));
 
         return dto;
     }

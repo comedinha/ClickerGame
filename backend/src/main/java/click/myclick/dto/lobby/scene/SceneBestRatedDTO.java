@@ -13,6 +13,8 @@ public class SceneBestRatedDTO implements Serializable, Comparable<SceneBestRate
     private String smallDescription;
 	private String image;
 	private double rating;
+	private boolean canEdit;
+	private boolean lastGame;
 
 	public SceneBestRatedDTO(String id, String name, String creator, String smallDescription, String image, double rating) {
 		this.id = id;
@@ -79,6 +81,22 @@ public class SceneBestRatedDTO implements Serializable, Comparable<SceneBestRate
 	public void setRating(double rating)
 	{
 		this.rating = rating;
+	}
+
+	public boolean getCanEdit() {
+		return this.canEdit;
+	}
+
+	public void setCanEdit(boolean canEdit) {
+		this.canEdit = canEdit;
+	};
+
+	public boolean getLastGame() {
+		return this.lastGame;
+	}
+
+	public void setLastGame(boolean lastGame) {
+		this.lastGame = lastGame;
 	}
 
 	@Override

@@ -11,7 +11,13 @@ public class SceneDTO implements Serializable {
     private String name;
     private String creator;
     private String smallDescription;
-    private String image;
+	private String image;
+	
+	private boolean canApprove;
+	private boolean canResolve;
+	private boolean canDelete;
+	private boolean canEdit;
+	private boolean lastGame;
 
 	public SceneDTO(String id, String name, String creator, String smallDescription, String image) {
 		this.id = id;
@@ -67,5 +73,55 @@ public class SceneDTO implements Serializable {
 	public void setImage(String image)
 	{
 		this.image = image;
+	}
+
+	public boolean getCanApprove()
+	{
+		return this.canApprove;
+	}
+
+	public void setCanApprove(boolean canApprove)
+	{
+		this.canApprove = canApprove;
+	}
+
+	public boolean getCanResolve()
+	{
+		return this.canResolve;
+	}
+
+	public void setCanResolve(boolean canResolve)
+	{
+		this.canResolve = canResolve;
+	}
+
+	public boolean getCanDelete()
+	{
+		return this.canDelete;
+	}
+
+	public void setCanDelete(boolean canDelete)
+	{
+		this.canDelete = canDelete;
+	}
+
+	public boolean getCanEdit()
+	{
+		return this.canEdit;
+	}
+
+	public void setCanEdit(boolean canEdit)
+	{
+		this.canEdit = canEdit;
+	}
+
+	public boolean getLastGame()
+	{
+		return this.lastGame;
+	}
+
+	public void setLastGame(boolean lastGame)
+	{
+		this.lastGame = lastGame;
 	}
 }

@@ -12,6 +12,8 @@ public class SceneMostPlayedDTO implements Serializable, Comparable<SceneMostPla
     private String smallDescription;
 	private String image;
 	private int totalPlayed;
+	private boolean canEdit;
+	private boolean lastGame;
 
 	public SceneMostPlayedDTO(String id, String name, String creator, String smallDescription, String image, int totalPlayed) {
 		this.id = id;
@@ -78,6 +80,22 @@ public class SceneMostPlayedDTO implements Serializable, Comparable<SceneMostPla
 	public void setTotalPlayed(int totalPlayed)
 	{
 		this.totalPlayed = totalPlayed;
+	}
+
+	public boolean getCanEdit() {
+		return this.canEdit;
+	}
+
+	public void setCanEdit(boolean canEdit) {
+		this.canEdit = canEdit;
+	};
+
+	public boolean getLastGame() {
+		return this.lastGame;
+	}
+
+	public void setLastGame(boolean lastGame) {
+		this.lastGame = lastGame;
 	}
 
 	@Override

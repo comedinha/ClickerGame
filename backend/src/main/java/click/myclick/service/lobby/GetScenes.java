@@ -30,11 +30,23 @@ public class GetScenes {
     }
 
     public ArrayList<SceneDTO> getMostPlayed(SceneService service) {
-                
+        List<Scene> scenes = service.findAll();
+        ArrayList<SceneDTO> getMostPlayed = new ArrayList<SceneDTO>();
+        ArrayList<SceneDTO> aux = new ArrayList<SceneDTO>();
+
+
+
+        return getMostPlayed;
     }
 
     public ArrayList<SceneDTO> getBestRated(SceneService service) {
-        
+        List<Scene> scenes = service.findAll();
+        ArrayList<SceneDTO> getBestRated = new ArrayList<SceneDTO>();
+        ArrayList<SceneDTO> aux = new ArrayList<SceneDTO>();
+
+
+
+        return getBestRated;
     }
 
     public ArrayList<SceneDTO> getAllGames(SceneService service) {

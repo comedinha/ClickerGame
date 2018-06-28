@@ -8,7 +8,7 @@
         <span v-html="$ml.get('lobby.block.guestMessage.content')" />
       </v-card-text>
       <v-card-actions>
-        <v-btn block @click="logout">Desconectar</v-btn>
+        <v-btn block @click="logout">{{ $ml.get('lobby.block.guestMessage.logout') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-flex>

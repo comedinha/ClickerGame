@@ -121,7 +121,7 @@ export default {
     },
 
     editGame (scene) {
-      this.$router.push('/SceneCreator?id=' + scene.id)
+      this.$router.push('/Scene?createId=' + scene.id)
     },
 
     infoGame (scene) {
@@ -129,11 +129,11 @@ export default {
     },
 
     continueGame (scene) {
-      this.$router.push('/Scene?id=' + scene.id + '&continue=' + scene.lastGame)
+      this.$router.push('/Scene?playId=' + scene.id + '&continueId=' + scene.lastGame)
     },
 
     newGame (scene) {
-      this.$router.push('/Scene?id=' + scene.id)
+      this.$router.push('/Scene?playId=' + scene.id)
     }
   }
 }

@@ -5,7 +5,7 @@ import store from '../store'
 
 import Auth from '@/components/template/Auth'
 import Index from '@/components/template/Index'
-import Scene from '@/components/template/Scene'
+import Play from '@/components/template/Play'
 
 import Email from '@/components/auth/Email'
 import ResetPassword from '@/components/auth/ResetPassword'
@@ -14,7 +14,7 @@ import Signin from '@/components/auth/Signin'
 
 import Lobby from '@/components/lobby/Lobby'
 
-import SceneCreator from '@/components/scene/creator/SceneCreator'
+import Scene from '@/components/scene/Scene'
 
 import Test from '@/components/tests/Test'
 import Counter from '@/components/tests/Counter'
@@ -88,16 +88,16 @@ export default new Router({
     },
 
     {
-      path: '/Scene',
-      name: 'Scene',
-      redirect: 'SceneCreator',
-      component: Scene,
+      path: '/Play',
+      name: 'Play',
+      redirect: 'Scene',
+      component: Play,
       beforeEnter: ifAuthenticated,
       children: [
         {
-          path: '/SceneCreator',
-          name: 'SceneCreator',
-          component: SceneCreator
+          path: '/Scene',
+          name: 'Scene',
+          component: Scene
         }
       ]
     },

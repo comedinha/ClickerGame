@@ -5,7 +5,6 @@ import click.myclick.model.News;
 
 import java.util.List;
 
-
 public interface NewsService {
 
     News create(News object);

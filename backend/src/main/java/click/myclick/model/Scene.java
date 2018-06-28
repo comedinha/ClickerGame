@@ -20,7 +20,8 @@ public class Scene extends BaseEntity implements Serializable {
 	private int totalPlayed;
 	private int totalComplete;
     private double rating;
-    private String image;
+	private String image;
+	private int numberReports;
 
 	public String getName()
 	{
@@ -130,5 +131,15 @@ public class Scene extends BaseEntity implements Serializable {
 	public void setImage(String image)
 	{
 		this.image = image;
+	}
+
+	public int getNumberReports()
+	{
+		return this.numberReports;
+	}
+
+	public void setNumberReports(int numberReports)
+	{
+		this.numberReports = numberReports;
 	}
 }

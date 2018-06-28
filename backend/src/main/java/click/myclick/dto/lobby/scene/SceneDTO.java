@@ -19,6 +19,9 @@ public class SceneDTO implements Serializable {
 	private boolean canEdit;
 	private boolean lastGame;
 
+	public SceneDTO() {
+	}
+
 	public SceneDTO(String id, String name, String creator, String smallDescription, String image) {
 		this.id = id;
 		this.name = name;

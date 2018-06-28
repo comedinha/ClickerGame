@@ -20,8 +20,7 @@ public class GetUserDTO implements Serializable {
         this.enabled = enabled;
     }
 
-    public GetUserDTO() {
-        
+    public GetUserDTO() {        
     }
 
 	public String getId()

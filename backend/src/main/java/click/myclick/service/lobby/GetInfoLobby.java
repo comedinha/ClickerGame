@@ -4,6 +4,7 @@ import click.myclick.service.lobby.NewsUtility;
 import click.myclick.service.dao.user.UserService;
 import click.myclick.service.dao.news.NewsService;
 import click.myclick.service.dao.scene.SceneService;
+import click.myclick.service.dao.report.ReportService;
 import click.myclick.dto.lobby.InfoLobbyDTO;
 import click.myclick.dto.lobby.GetUserDTO;
 import click.myclick.model.User;
@@ -16,8 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetInfoLobby {
     
-    public InfoLobbyDTO getInfo(UserService userService, NewsService newsService, SceneService sceneService,
-                                String username) {
+    public InfoLobbyDTO getInfo(UserService userService, NewsService newsService, SceneService sceneService, ReportService reportService, String username) {
 
         InfoLobbyDTO dto = new InfoLobbyDTO();
         NewsUtility news = new NewsUtility();
@@ -37,14 +37,14 @@ public class GetInfoLobby {
 
         if(user.getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN")) {
             List<User> users = userService.findAll();
-            ArrayList<GetUserDTO> usersDTO;
+            ArrayList<GetUserDTO> usersDTO = new ArrayList<GetUserDTO>();
 
             for(User thisUser : users)
                 usersDTO.add(new GetUserDTO(thisUser.getId(), thisUser.getName(), thisUser.getUsername(), thisUser.getAuthorities().get(0).getAuthority(), thisUser.isEnabled()));
 
             dto.setAllUsers(usersDTO);
             dto.setApproval(getScenes.getApproval(sceneService));
-            dto.setReport();
+            dto.setReport(getScenes.getReport(sceneService, reportService));
         }
 
         return dto;

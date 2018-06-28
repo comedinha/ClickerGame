@@ -13,7 +13,6 @@ public class Report extends BaseEntity implements Serializable {
 	private String idUser;
 	private String idScene;
 	private String text;
-	private int numberReports;
 
 	public Report() {
 	}
@@ -46,15 +45,5 @@ public class Report extends BaseEntity implements Serializable {
 	public void setText(String text)
 	{
 		this.text = text;
-	}
-
-	public int getNumberReports()
-	{
-		return this.numberReports;
-	}
-
-	public void setNumberReports(int numberReports)
-	{
-		this.numberReports = numberReports;
 	}
 }

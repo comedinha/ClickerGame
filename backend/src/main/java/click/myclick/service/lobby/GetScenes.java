@@ -1,7 +1,9 @@
 package click.myclick.service.lobby;
 
 import click.myclick.service.dao.scene.SceneService;
+import click.myclick.service.dao.report.ReportService;
 import click.myclick.model.Scene;
+import click.myclick.model.Report;
 import click.myclick.dto.lobby.scene.*;
 
 import java.util.List;
@@ -127,28 +129,17 @@ public class GetScenes {
         return aproval;
     }
 
-    public ArrayList<SceneDTO> getReport(SceneService service, String idUser, boolean isAdmin) {
-        int i = 0;
-        List<Scene> scenes = service.findAll();
-        ArrayList<SceneDTO> allGames = new ArrayList<SceneDTO>();
+    public ArrayList<SceneDTO> getReport(SceneService sService, ReportService rService) {
+        List<Report> reports = rService.findAll();
+        ArrayList<SceneDTO> reported = new ArrayList<SceneDTO>();
 
-        for(Scene scene : scenes) {
-            if(scene.getComplete() && scene.getApproved()) {
-                allGames.add(new SceneDTO(scene.getId(), scene.getName(), scene.getIdCreator(), scene.getSmallDescription(), scene.getImage()));
-                allGames.get(i).setCanApprove(isAdmin);
-                allGames.get(i).setCanResolve(isAdmin);
-                if(isAdmin || scene.getIdCreator().equals(idUser)) {
-                    allGames.get(i).setCanDelete(true);
-                    allGames.get(i).setCanEdit(true);
-                } else {
-                    allGames.get(i).setCanDelete(false);
-                    allGames.get(i).setCanEdit(false);
-                }
-                allGames.get(i).setLastGame(false); //precisa do save pra setar;
-                i++;
-            }
+        Scene aux = new Scene();
+        for(Report report : reports) {
+            aux = sService.find(report.getIdScene());
+            
+            reported.add(new SceneDTO(aux.getId(), aux.getName(), aux.getIdCreator(), aux.getSmallDescription(), aux.getImage()));
         }
-
-        return allGames;
+        
+        return reported;
     }
 }

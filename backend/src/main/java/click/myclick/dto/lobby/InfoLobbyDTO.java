@@ -1,6 +1,9 @@
 package click.myclick.dto.lobby;
 
+import click.myclick.dto.lobby.scene.*;
+
 import java.io.Serializable;
+import java.util.ArrayList;
 
 public class InfoLobbyDTO implements Serializable {
 
@@ -10,7 +13,13 @@ public class InfoLobbyDTO implements Serializable {
 	private int news;
 	private String authorities;
 
-    public InfoLobbyDTO() {
+	private ArrayList<MySceneDTO> myScenes;
+	private ArrayList<PlayedScene> playedGames;
+	private ArrayList<SceneDTO> mostPlayed;
+	private ArrayList<SceneDTO> bestRated;
+	private ArrayList<SceneDTO> allGames;
+
+	public InfoLobbyDTO() {
     }
 
 	public String getName() {
@@ -35,5 +44,45 @@ public class InfoLobbyDTO implements Serializable {
 
 	public void setAuthorities(String authorities) {
         this.authorities = authorities;
+	}
+
+	public ArrayList<MySceneDTO> getMyScenes() {
+		return this.myScenes;
+	}
+
+	public void setMyScenes(ArrayList<MySceneDTO> myScenes) {
+		this.myScenes = myScenes;
+	}
+
+	public ArrayList<SceneDTO> getPlayedGames() {
+		return this.playedGames;
+	}
+
+	public void setPlayedGames(ArrayList<SceneDTO> playedGames) {
+		this.playedGames = playedGames;
+	}
+
+	public ArrayList<SceneDTO> getMostPlayed() {
+		return this.mostPlayed;
+	}
+
+	public void setMostPlayed(ArrayList<SceneDTO> mostPlayed) {
+		this.mostPlayed = mostPlayed;
+	}
+
+	public ArrayList<SceneDTO> getBestRated() {
+		return this.bestRated;
+	}
+
+	public void setBestRated(ArrayList<SceneDTO> bestRated) {
+		this.bestRated = bestRated;
+	}
+
+	public ArrayList<SceneDTO> getAllGames() {
+		return this.allGames;
+	}
+
+	public void setAllGames(ArrayList<SceneDTO> allGames) {
+		this.allGames = allGames;
 	}
 }

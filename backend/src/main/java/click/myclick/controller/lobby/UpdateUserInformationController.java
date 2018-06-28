@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class UpdateUserInformationController {
     private final UserService service;
     private final UpdateUserInformation updatUserInformation;
-
+    
     @Autowired
     public UpdateUserInformationController(final UserService service, 
                                            final UpdateUserInformation updatUserInformation) {

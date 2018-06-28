@@ -141,6 +141,7 @@ const actions = {
     return new Promise((resolve, reject) => {
       Vue.http.post('api/getinfolobby')
         .then(response => {
+          console.log(response)
           commit('updateInfoLobby', response)
           resolve()
         }, errorCode => {

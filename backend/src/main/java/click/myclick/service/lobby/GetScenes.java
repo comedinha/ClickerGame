@@ -106,4 +106,49 @@ public class GetScenes {
 
         return allGames;
     }
+
+    public ArrayList<SceneDTO> getApproval(SceneService service) {
+        int i = 0;
+        List<Scene> scenes = service.findAll();
+        ArrayList<SceneDTO> aproval = new ArrayList<SceneDTO>();
+
+        for(Scene scene : scenes) {
+            if(scene.getComplete() && !scene.getApproved()) {
+                aproval.add(new SceneDTO(scene.getId(), scene.getName(), scene.getIdCreator(), scene.getSmallDescription(), scene.getImage()));
+                aproval.get(i).setCanApprove(true);
+                aproval.get(i).setCanResolve(true);
+                aproval.get(i).setCanDelete(true);
+                aproval.get(i).setCanEdit(true);
+                aproval.get(i).setLastGame(false); //precisa do save pra setar;
+                i++;
+            }
+        }
+
+        return aproval;
+    }
+
+    public ArrayList<SceneDTO> getReport(SceneService service, String idUser, boolean isAdmin) {
+        int i = 0;
+        List<Scene> scenes = service.findAll();
+        ArrayList<SceneDTO> allGames = new ArrayList<SceneDTO>();
+
+        for(Scene scene : scenes) {
+            if(scene.getComplete() && scene.getApproved()) {
+                allGames.add(new SceneDTO(scene.getId(), scene.getName(), scene.getIdCreator(), scene.getSmallDescription(), scene.getImage()));
+                allGames.get(i).setCanApprove(isAdmin);
+                allGames.get(i).setCanResolve(isAdmin);
+                if(isAdmin || scene.getIdCreator().equals(idUser)) {
+                    allGames.get(i).setCanDelete(true);
+                    allGames.get(i).setCanEdit(true);
+                } else {
+                    allGames.get(i).setCanDelete(false);
+                    allGames.get(i).setCanEdit(false);
+                }
+                allGames.get(i).setLastGame(false); //precisa do save pra setar;
+                i++;
+            }
+        }
+
+        return allGames;
+    }
 }

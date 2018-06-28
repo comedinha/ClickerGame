@@ -14,7 +14,7 @@ public class InfoLobbyDTO implements Serializable {
 	private String authorities;
 
 	private ArrayList<MySceneDTO> myScenes;
-	private ArrayList<PlayedScene> playedGames;
+	private ArrayList<PlayedSceneDTO> playedGames;
 	private ArrayList<SceneDTO> mostPlayed;
 	private ArrayList<SceneDTO> bestRated;
 	private ArrayList<SceneDTO> allGames;
@@ -54,11 +54,11 @@ public class InfoLobbyDTO implements Serializable {
 		this.myScenes = myScenes;
 	}
 
-	public ArrayList<SceneDTO> getPlayedGames() {
+	public ArrayList<PlayedSceneDTO> getPlayedGames() {
 		return this.playedGames;
 	}
 
-	public void setPlayedGames(ArrayList<SceneDTO> playedGames) {
+	public void setPlayedGames(ArrayList<PlayedSceneDTO> playedGames) {
 		this.playedGames = playedGames;
 	}
 

@@ -3,7 +3,7 @@ package click.myclick.dto.lobby.scene;
 import java.io.Serializable;
 
 
-public class PlayedScene implements Serializable {
+public class PlayedSceneDTO implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
@@ -16,7 +16,7 @@ public class PlayedScene implements Serializable {
     private int totalComplete;
     private String image;
     
-    public PlayedScene() {
+    public PlayedSceneDTO() {
     }
 
     public String getName()

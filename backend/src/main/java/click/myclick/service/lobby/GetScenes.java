@@ -9,6 +9,7 @@ import java.util.List;
 import org.springframework.http.converter.support.AllEncompassingFormHttpMessageConverter;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class GetScenes {
     
@@ -29,22 +30,36 @@ public class GetScenes {
         return new ArrayList<PlayedSceneDTO>();
     }
 
-    public ArrayList<SceneDTO> getMostPlayed(SceneService service) {
+    public ArrayList<SceneMostPlayedDTO> getMostPlayed(SceneService service) {
         List<Scene> scenes = service.findAll();
-        ArrayList<SceneDTO> getMostPlayed = new ArrayList<SceneDTO>();
-        ArrayList<SceneDTO> aux = new ArrayList<SceneDTO>();
+        ArrayList<SceneMostPlayedDTO> getMostPlayed = new ArrayList<SceneMostPlayedDTO>();
+        ArrayList<SceneMostPlayedDTO> aux = new ArrayList<SceneMostPlayedDTO>();
 
-
+        for(Scene scene : scenes)
+            aux.add(new SceneMostPlayedDTO(scene.getId(), scene.getName(), scene.getIdCreator(), 
+                                          scene.getSmallDescription(), scene.getImage(), scene.getTotalplayed()));
+        
+        Collections.sort(aux);
+        
+        for(int i = 0; i < 3; i++)
+            getMostPlayed.add(aux.get(i));
 
         return getMostPlayed;
     }
 
-    public ArrayList<SceneDTO> getBestRated(SceneService service) {
+    public ArrayList<SceneBestRatedDTO> getBestRated(SceneService service) {
         List<Scene> scenes = service.findAll();
-        ArrayList<SceneDTO> getBestRated = new ArrayList<SceneDTO>();
-        ArrayList<SceneDTO> aux = new ArrayList<SceneDTO>();
+        ArrayList<SceneBestRatedDTO> getBestRated = new ArrayList<SceneBestRatedDTO>();
+        ArrayList<SceneBestRatedDTO> aux = new ArrayList<SceneBestRatedDTO>();
 
-
+        for(Scene scene : scenes)
+            aux.add(new SceneBestRatedDTO(scene.getId(), scene.getName(), scene.getIdCreator(), 
+                                          scene.getSmallDescription(), scene.getImage(), scene.getRating()));
+        
+        Collections.sort(aux);
+        
+        for(int i = 0; i < 3; i++)
+            getBestRated.add(aux.get(i));
 
         return getBestRated;
     }

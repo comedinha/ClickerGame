@@ -7,13 +7,27 @@ public class SceneDTO implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
+	private String id;
     private String name;
     private String creator;
-    private String SmallDescription;
+    private String smallDescription;
     private String image;
 
-    public SceneDTO() {
-    }
+	public SceneDTO(String id, String name, String creator, String smallDescription, String image) {
+		this.id = id;
+		this.name = name;
+		this.creator = creator;
+		this.smallDescription = smallDescription;
+		this.image = image;
+	}
+	
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getName()
 	{
@@ -37,12 +51,12 @@ public class SceneDTO implements Serializable {
 
 	public String getSmallDescription()
 	{
-		return this.SmallDescription;
+		return this.smallDescription;
 	}
 
-	public void setSmallDescription(String SmallDescription)
+	public void setSmallDescription(String smallDescription)
 	{
-		this.SmallDescription = SmallDescription;
+		this.smallDescription = smallDescription;
 	}
 
 	public String getImage()

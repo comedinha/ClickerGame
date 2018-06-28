@@ -7,14 +7,29 @@ public class MySceneDTO implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
+	private String id;
     private String name;
     private String creator;
     private boolean approved;
     private String smallDescription;
     private String image;
 
-    public MySceneDTO() {
+    public MySceneDTO(String id, String name, String creator, boolean approved, String smallDescription, String image) {
+		this.id = id;
+		this.name = name;
+		this.creator = creator;
+		this.approved = approved;
+		this.smallDescription = smallDescription;
+		this.image = image;
     }
+
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getName()
 	{

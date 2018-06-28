@@ -3,6 +3,7 @@ package click.myclick.controller.lobby;
 import click.myclick.dto.lobby.InfoLobbyDTO;
 import click.myclick.service.dao.user.UserService;
 import click.myclick.service.dao.news.NewsService;
+import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.lobby.GetInfoLobby;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,19 +21,21 @@ import org.springframework.web.bind.annotation.RestController;
 public class GetInfoLobbyController {
     private final UserService userService;
     private final NewsService newsService;
+    private final SceneService sceneService;
     private final GetInfoLobby getInfoLobby;
 
     @Autowired
     public GetInfoLobbyController(final UserService userService, final NewsService newsService, 
-                                  final GetInfoLobby getInfoLobby) {
+                                  final GetInfoLobby getInfoLobby, final SceneService sceneService) {
         this.userService = userService;
         this.newsService = newsService;
         this.getInfoLobby = getInfoLobby;
+        this.sceneService = sceneService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(Authentication auth) {
-        InfoLobbyDTO info = getInfoLobby.getInfo(userService, newsService, auth.getPrincipal().toString());
+        InfoLobbyDTO info = getInfoLobby.getInfo(userService, newsService, sceneService, auth.getPrincipal().toString());
         System.out.println("dto info:");
         System.out.println(info.getName() + " " + info.getNews() + " " + info.getAuthorities());
 

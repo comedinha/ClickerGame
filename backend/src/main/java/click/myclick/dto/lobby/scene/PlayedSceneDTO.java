@@ -7,6 +7,7 @@ public class PlayedSceneDTO implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
+	private String id;
     private String name;
     private String creator;
     private boolean approved;
@@ -16,8 +17,27 @@ public class PlayedSceneDTO implements Serializable {
     private int totalComplete;
     private String image;
     
-    public PlayedSceneDTO() {
-    }
+    public PlayedSceneDTO(String id, String name, String creator, boolean approved, String smallDescription,
+						  String description, int totalPlayed, int totalComplete, String image) {
+		
+		this.id = id;
+		this.name = name;
+		this.creator = creator;
+		this.approved = approved;
+		this.smallDescription = smallDescription;
+		this.description = description;
+		this.totalPlayed = totalPlayed;
+		this.totalComplete = totalComplete;
+		this.image = image;
+	}
+	
+	public String getId() {
+		return this.id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
     public String getName()
 	{

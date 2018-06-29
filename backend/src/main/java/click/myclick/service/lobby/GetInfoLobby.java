@@ -7,6 +7,7 @@ import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.dao.report.ReportService;
 import click.myclick.dto.lobby.InfoLobbyDTO;
 import click.myclick.dto.lobby.GetUserDTO;
+import click.myclick.dto.lobby.scene.SceneDTO;
 import click.myclick.model.User;
 
 import java.util.List;
@@ -33,7 +34,6 @@ public class GetInfoLobby {
         dto.setPlayedGames(getScenes.getPlayedGames(sceneService, user.getId()));
         dto.setMostPlayed(getScenes.getMostPlayed(sceneService, user.getId()));
         dto.setBestRated(getScenes.getBestRated(sceneService, user.getId()));
-        dto.setAllGames(getScenes.getAllGames(sceneService, user.getId(), (user.getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))));
 
         return dto;
     }
@@ -49,5 +49,24 @@ public class GetInfoLobby {
         }
 
         return users;
+    }
+
+    public ArrayList<SceneDTO> getApproval(SceneService service) {
+        
+        GetScenes getScenes = new GetScenes();
+
+        return getScenes.getApproval(service);
+    }
+
+    public ArrayList<SceneDTO> getReport(SceneService sService, ReportService rService) {
+        GetScenes getScenes = new GetScenes();
+
+        return getScenes.getReport(sService, rService);
+    }
+
+    public ArrayList<SceneDTO> getAllScenes(SceneService sService, String idUser, boolean isAdmin) {
+        GetScenes getScenes = new GetScenes();
+
+        return getScenes.getAllGames(sService, idUser, isAdmin);
     }
 }

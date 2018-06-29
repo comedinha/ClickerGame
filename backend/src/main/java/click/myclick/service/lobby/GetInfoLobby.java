@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class GetInfoLobby {
     
-    public InfoLobbyDTO getInfo(UserService userService, NewsService newsService, SceneService sceneService, ReportService reportService, String username) {
+    public InfoLobbyDTO getInfoLobby(UserService userService, NewsService newsService, SceneService sceneService, ReportService reportService, String username) {
 
         InfoLobbyDTO dto = new InfoLobbyDTO();
         NewsUtility news = new NewsUtility();
@@ -35,18 +35,19 @@ public class GetInfoLobby {
         dto.setBestRated(getScenes.getBestRated(sceneService, user.getId()));
         dto.setAllGames(getScenes.getAllGames(sceneService, user.getId(), (user.getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))));
 
-        if(user.getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN")) {
-            List<User> users = userService.findAll();
-            ArrayList<GetUserDTO> usersDTO = new ArrayList<GetUserDTO>();
+        return dto;
+    }
 
-            for(User thisUser : users)
-                usersDTO.add(new GetUserDTO(thisUser.getId(), thisUser.getName(), thisUser.getUsername(), thisUser.getAuthorities().get(0).getAuthority(), thisUser.isEnabled()));
+    public ArrayList<GetUserDTO> getAllUsers(UserService service) {
+        
+        List<User> allUsers = service.findAll();
+        ArrayList<GetUserDTO> users = new ArrayList<GetUserDTO>();
 
-            dto.setAllUsers(usersDTO);
-            dto.setApproval(getScenes.getApproval(sceneService));
-            dto.setReport(getScenes.getReport(sceneService, reportService));
+        for(User user : allUsers) {
+            users.add(new GetUserDTO(user.getId(), user.getName(), user.getUsername(), 
+                                     user.getAuthorities().get(0).getAuthority(), user.isEnabled()));
         }
 
-        return dto;
+        return users;
     }
 }

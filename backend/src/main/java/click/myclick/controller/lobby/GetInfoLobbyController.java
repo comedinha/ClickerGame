@@ -37,7 +37,7 @@ public class GetInfoLobbyController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(Authentication auth) {
-        InfoLobbyDTO info = getInfoLobby.getInfo(userService, newsService, sceneService, reportService, auth.getPrincipal().toString());
+        InfoLobbyDTO info = getInfoLobby.getInfoLobby(userService, newsService, sceneService, reportService, auth.getPrincipal().toString());
         System.out.println("dto info:");
         System.out.println(info.getName() + " " + info.getNews() + " " + info.getAuthorities());
 

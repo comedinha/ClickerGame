@@ -19,16 +19,6 @@ public class InfoLobbyDTO implements Serializable {
 	private ArrayList<SceneBestRatedDTO> bestRated;
 	private ArrayList<SceneDTO> allGames;
 
-	private ArrayList<GetUserDTO> allUsers;
-	private ArrayList<SceneDTO> approval;
-	private ArrayList<SceneDTO> report;
-
-	public InfoLobbyDTO() {
-		this.allUsers = null;
-		this.approval = null;
-		this.report = null;
-    }
-
 	public String getName() {
 		return this.name;
 	}
@@ -91,35 +81,5 @@ public class InfoLobbyDTO implements Serializable {
 
 	public void setAllGames(ArrayList<SceneDTO> allGames) {
 		this.allGames = allGames;
-	}
-
-	public ArrayList<GetUserDTO> getAllUsers()
-	{
-		return this.allUsers;
-	}
-
-	public void setAllUsers(ArrayList<GetUserDTO> allUsers)
-	{
-		this.allUsers = allUsers;
-	}
-
-	public ArrayList<SceneDTO> getApproval()
-	{
-		return this.approval;
-	}
-
-	public void setApproval(ArrayList<SceneDTO> approval)
-	{
-		this.approval = approval;
-	}
-
-	public ArrayList<SceneDTO> getReport()
-	{
-		return this.report;
-	}
-
-	public void setReport(ArrayList<SceneDTO> report)
-	{
-		this.report = report;
 	}
 }

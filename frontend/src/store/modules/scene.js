@@ -1,11 +1,13 @@
+import Vue from 'vue'
+
 const state = {
   creatorVision: true,
   editMode: true,
 
   saved: true,
   saveWarning: false,
-  currentWorld: 0,
 
+  currentWorld: 0,
   world: [
     {
       ref: 'World 0',
@@ -29,14 +31,14 @@ const state = {
               ref: 'Content 0',
               divRef: 'Div 0',
               title: 'Image Test',
-              img: 'https://media.giphy.com/media/14chvzoFjnDBGE/giphy.gif',
+              image: 'https://media.giphy.com/media/14chvzoFjnDBGE/giphy.gif',
               grids: []
             },
             {
               ref: 'Content 1',
               divRef: 'Div 1',
               title: 'Image Test 2',
-              img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png',
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png',
               grids: []
             }
           ]
@@ -50,40 +52,50 @@ const state = {
             {
               title: 'Upgrade',
               price: '100',
-              img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
             },
             {
               title: 'Upgrade',
               price: '100',
-              img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
             },
             {
               title: 'Upgrade',
               price: '100',
-              img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
             },
             {
               title: 'Upgrade',
               price: '100',
-              img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
             },
             {
               title: 'Upgrade',
               price: '100',
-              img: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
+              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
             }
           ]
         }
       ]
     }
-  ]
+  ],
+
+  currentTab: [],
+
+  addItemDialog: false,
+  newItem: false,
+  editItem: {},
+  addItem: {},
+
+  addUpgradeDialog: false,
+  addUpgrade: {}
 }
 
 // getters
 const getters = {
   getCreatorVision: state => state.creatorVision,
 
-  getEditMode: state => state.editMode,
+  getEditMode: state => state.creatorVision && state.editMode,
 
   getSaved: state => state.saved,
 
@@ -91,23 +103,29 @@ const getters = {
 
   getGridContent: state => state.world[state.currentWorld].gridContent,
 
-  getTabs: state => state.world[state.currentWorld].tabs
+  getTabs: state => state.world[state.currentWorld].tabs,
+
+  getAddItemDialog: state => state.creatorVision && state.addItemDialog,
+  getAddItem: state => state.creatorVision && state.addItem,
+
+  getAddUpgradeDialog: state => state.creatorVision && state.addUpgradeDialog,
+  getAddUpgrade: state => state.creatorVision && state.addUpgrade
 }
 
 // actions
 const actions = {
-  loadPlay ({commit}, scene) {
-    // Fazer tudo que envolve carregar o jogo
+  loadPlay ({ commit }, scene) {
+    // Comentário: Fazer tudo que envolve carregar o jogo
     commit('updateGame', false)
   },
 
-  loadCreate ({commit}, scene) {
-    // Fazer tudo que envolve carregar a criação
+  loadCreate ({ commit }, scene) {
+    // Comentário: Fazer tudo que envolve carregar a criação
     commit('updateGame', true)
   },
 
-  save ({commit}) {
-    // Fazer tanto salvar cenário quanto salvar jogo.
+  save ({ commit }) {
+    // Comentário: Fazer tanto salvar cenário quanto salvar jogo.
   },
 
   setEditMode ({ commit }, event) {
@@ -134,6 +152,38 @@ const actions = {
 
   removeGridItem ({ commit }, item) {
     commit('removeGridItem', item)
+  },
+
+  setAddItemDialog ({ commit }, event) {
+    commit('updateItemDialog', event)
+  },
+
+  setAddItemDialogTab ({ commit }, message) {
+    commit('updateItemDialogTab', message)
+  },
+
+  setAddItemDialogNewItem ({commit}, event) {
+    commit('updateItemDialogNewItem', event)
+  },
+
+  setAddItem ({ commit }, item) {
+    commit('updateAddItem', item)
+  },
+
+  setEditItem ({ commit }, item) {
+    commit('editItem', item)
+  },
+
+  addItemTab ({ commit }) {
+    commit('addItemTab')
+  },
+
+  setAddUpgradeDialog ({ commit }, event) {
+    commit('updateUpgradeDialog', event)
+  },
+
+  addUpgrade ({ commit }, item) {
+    commit('updateAddUpgrade', item)
   }
 }
 
@@ -165,7 +215,7 @@ const mutations = {
   newGridItem (state, item) {
     if (state.creatorVision === true) {
       let tabItemGrid = {
-        img: item.img
+        image: item.image
       }
 
       let newGridItem = {
@@ -173,7 +223,7 @@ const mutations = {
         y: 0,
         w: 1,
         h: 1,
-        i: 'Grid ' + state.gridCount++,
+        i: 'Grid ' + state.world[state.currentWorld].gridCount++,
         type: 'image',
         tab: item,
         ref: item.grids[(item.grids.push(tabItemGrid) - 1)]
@@ -195,7 +245,7 @@ const mutations = {
   },
 
   removeGridItem (state, item) {
-    if (state.world[state.currentWorld].creatorVision === true) {
+    if (state.creatorVision === true) {
       var indexGrid = state.world[state.currentWorld].gridContent.indexOf(item)
       if (indexGrid > -1) {
         if (item.tab) {
@@ -205,6 +255,76 @@ const mutations = {
         state.world[state.currentWorld].gridContent.splice(indexGrid, 1)
       }
     }
+  },
+
+  updateItemDialog (state, event) {
+    if (event === false) {
+      state.newItem = false
+    }
+
+    state.addItemDialog = event
+  },
+
+  updateItemDialogTab (state, message) {
+    state.currentTab = message
+  },
+
+  updateItemDialogNewItem (state, message) {
+    state.newItem = message
+  },
+
+  updateAddItem (state, item) {
+    state.addItem = item
+  },
+
+  editItem (state, item) {
+    let itemInfo = {
+      ref: item.ref,
+      divRef: item.divRef,
+
+      title: item.title,
+      image: item.image,
+      description: item.description,
+      startCount: item.startCount,
+      startPrice: item.startPrice,
+      formula: item.formula,
+      grids: item.grids
+    }
+
+    state.editItem = item
+    state.addItem = itemInfo
+  },
+
+  addItemTab (state) {
+    if (state.newItem) {
+      let newItem = {
+        ref: 'Content ' + state.currentTab.length,
+        divRef: 'Div ' + state.currentTab.length,
+
+        title: state.addItem.title,
+        image: state.addItem.image,
+        description: state.addItem.description,
+        startCount: state.addItem.startCount,
+        startPrice: state.addItem.startPrice,
+        formula: state.addItem.formula,
+        grids: []
+      }
+
+      state.currentTab.push(newItem)
+      state.currentTab = []
+    } else {
+      var indexItem = state.currentTab.indexOf(state.editItem)
+
+      Vue.set(state.currentTab, indexItem, state.addItem)
+    }
+  },
+
+  updateUpgradeDialog (state, event) {
+    state.addUpgradeDialog = event
+  },
+
+  updateAddUpgrade (state, item) {
+    state.addUpgrade = item
   }
 }
 

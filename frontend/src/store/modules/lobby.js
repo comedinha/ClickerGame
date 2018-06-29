@@ -202,7 +202,7 @@ const actions = {
 
   setViewAllScenes ({ commit }, event) {
     if (event === true && getters.getAllScenesLoading === true) {
-      // Adicionar Conexão aqui
+      // Comentário: Adicionar Conexão aqui
     }
 
     commit('updateViewAllScenes', event)
@@ -210,7 +210,7 @@ const actions = {
 
   setSceneApprovalDialog ({ commit }, event) {
     if (event === true && getters.getSceneApprovalLoading === true) {
-      // Adicionar Conexão aqui
+      // Comentário: Adicionar Conexão aqui
     }
 
     commit('updateSceneApprovalDialog', event)
@@ -218,7 +218,7 @@ const actions = {
 
   setSceneReportDialog ({ commit }, event) {
     if (event === true && getters.getSceneReportLoading === true) {
-      // Adicionar Conexão aqui
+      // Comentário: Adicionar Conexão aqui
     }
 
     commit('updateSceneReportDialog', event)
@@ -226,7 +226,7 @@ const actions = {
 
   setUsersDialog ({ commit }, event) {
     if (event === true && getters.getUsersLoading === true) {
-      // Adicionar Conexão aqui
+      // Comentário: Adicionar Conexão aqui
     }
 
     commit('updateUsersDialog', event)
@@ -241,24 +241,24 @@ const actions = {
   },
 
   setUpdateUser ({commit}, user) {
-    // Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
+    // Comentário: Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
     commit('updateUser')
   },
 
   setApproveScene ({commit}, scene) {
-    // Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
+    // Comentário: Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
 
     commit('updateSceneReload')
   },
 
   setResolveScene ({commit}, scene) {
-    // Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
+    // Comentário: Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
 
     commit('updateSceneReload')
   },
 
   setDeleteScene ({commit}, scene) {
-    // Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
+    // Comentário: Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
 
     commit('updateSceneReload')
   }
@@ -350,6 +350,7 @@ const mutations = {
   },
 
   updateEditUserInfo (state, message) {
+    // Comentário: Talvez alterar
     let userInfo = {
       id: message.id,
       name: message.name,
@@ -383,9 +384,16 @@ const mutations = {
     state.newsUpdate = body.news
 
     state.bestRatedLoading = false
+    state.bestRated.items = body.bestRated
+
     state.mostPlayedLoading = false
+    state.mostPlayed.items = body.mostPlayed
+
     state.myScenesLoading = false
+    state.myScenes.items = body.myScenes
+
     state.playedGamesLoading = false
+    state.playedGames.items = body.playedGames
   }
 }
 

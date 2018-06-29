@@ -134,11 +134,12 @@ export default {
       loading: 'Carregando...',
 
       approval: 'Aguardando aprovação',
-      deleted: 'Fase deletada',
       reported: 'Denúncias',
       users: 'Usuários',
 
-      approved: 'Precisa ser avaliado pela equipe!',
+      approved: 'Aguardando aprovação',
+      deleted: 'Fase deletada',
+      enabled: 'Não foi publicado',
       approve: 'Aprovar',
       conclude: 'Concluir',
       delete: 'Deletar',

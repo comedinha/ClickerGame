@@ -9,7 +9,7 @@
         <v-data-iterator :items="getMyScenes.items" :rows-per-page-items="rowsPerPageItems" :pagination.sync="pagination" content-tag="v-layout" row wrap>
           <v-flex slot="item" slot-scope="props" md12>
             <v-card>
-              <v-system-bar dense flat>
+              <v-system-bar>
                 <span>{{ props.item.name }}</span>
                 <v-spacer />
                 <v-tooltip v-if="!props.item.approved" bottom>
@@ -20,6 +20,10 @@
                   <v-icon slot="activator">delete</v-icon>
                   <span>{{ $ml.get('lobby.lobby.deleted') }}</span>
                 </v-tooltip>
+                <v-tooltip v-if="!props.item.enabled" bottom>
+                  <v-icon slot="activator">lock</v-icon>
+                  <span>{{ $ml.get('lobby.lobby.enabled') }}</span>
+                </v-tooltip>
               </v-system-bar>
               <v-card-media height="100%" :src="props.item.image">
                 <v-card height="105px" width="100%" class='white--text' color="transparent" flat tile>
@@ -28,20 +32,8 @@
                   </v-card-text>
                 </v-card>
               </v-card-media>
-              <v-system-bar dense flat>
+              <v-system-bar>
                 <v-spacer />
-                <v-tooltip v-if="props.item.canApprove" bottom>
-                  <v-btn small icon slot="activator" @click="approveGame(props.item)"><v-icon>check_circle</v-icon></v-btn>
-                  <span>{{ $ml.get('lobby.lobby.approve') }}</span>
-                </v-tooltip>
-                <v-tooltip v-if="props.item.canResolve" bottom>
-                  <v-btn small icon slot="activator" @click="resolveGame(props.item)"><v-icon>done</v-icon></v-btn>
-                  <span>{{ $ml.get('lobby.lobby.conclude') }}</span>
-                </v-tooltip>
-                <v-tooltip v-if="props.item.canDelete" bottom>
-                  <v-btn small icon slot="activator" @click="deleteGame(props.item)"><v-icon>delete</v-icon></v-btn>
-                  <span>{{ $ml.get('lobby.lobby.delete') }}</span>
-                </v-tooltip>
                 <v-tooltip v-if="props.item.canEdit" bottom>
                   <v-btn small icon slot="activator" @click="editGame(props.item)"><v-icon>settings</v-icon></v-btn>
                   <span>{{ $ml.get('lobby.lobby.edit') }}</span>
@@ -103,18 +95,6 @@ export default {
   },
 
   methods: {
-    approveGame (scene) {
-      this.$store.dispatch('setApproveScene', scene)
-    },
-
-    resolveGame (scene) {
-      this.$store.dispatch('setResolveScene', scene)
-    },
-
-    deleteGame (scene) {
-      this.$store.dispatch('setDeleteScene', scene)
-    },
-
     editGame (scene) {
       this.$router.push('/Scene?createId=' + scene.id)
     },

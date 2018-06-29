@@ -202,15 +202,21 @@ const actions = {
 
   setViewAllScenes ({ commit }, event) {
     if (event === true && getters.getAllScenesLoading === true) {
-      // Comentário: Adicionar Conexão aqui
+      Vue.http.post('api/getallscenes').then(responseAllScenes => {
+        console.log(responseAllScenes)
+      }).catch(() => {
+        commit('updateNewsLoading')
+      })
     }
-
-    commit('updateViewAllScenes', event)
   },
 
   setSceneApprovalDialog ({ commit }, event) {
     if (event === true && getters.getSceneApprovalLoading === true) {
-      // Comentário: Adicionar Conexão aqui
+      Vue.http.post('api/getapproval').then(responseSceneApproval => {
+        console.log(responseSceneApproval)
+      }).catch(() => {
+        commit('updateNewsLoading')
+      })
     }
 
     commit('updateSceneApprovalDialog', event)
@@ -218,7 +224,11 @@ const actions = {
 
   setSceneReportDialog ({ commit }, event) {
     if (event === true && getters.getSceneReportLoading === true) {
-      // Comentário: Adicionar Conexão aqui
+      Vue.http.post('api/getreport').then(responseSceneReport => {
+        console.log(responseSceneReport)
+      }).catch(() => {
+        commit('updateNewsLoading')
+      })
     }
 
     commit('updateSceneReportDialog', event)
@@ -226,7 +236,11 @@ const actions = {
 
   setUsersDialog ({ commit }, event) {
     if (event === true && getters.getUsersLoading === true) {
-      // Comentário: Adicionar Conexão aqui
+      Vue.http.post('api/getallusers').then(responseSceneReport => {
+        console.log(responseSceneReport)
+      }).catch(() => {
+        commit('updateNewsLoading')
+      })
     }
 
     commit('updateUsersDialog', event)

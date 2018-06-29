@@ -6,14 +6,18 @@ import click.myclick.service.dao.news.NewsService;
 import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.dao.report.ReportService;
 import click.myclick.dto.lobby.InfoLobbyDTO;
+import click.myclick.dto.lobby.GetUserDTO;
 import click.myclick.model.User;
+
+import java.util.List;
+import java.util.ArrayList;
 
 import org.springframework.stereotype.Service;
 
 @Service
 public class GetInfoLobby {
     
-    public InfoLobbyDTO getInfo(UserService userService, NewsService newsService, SceneService sceneService, ReportService reportService, String username) {
+    public InfoLobbyDTO getInfoLobby(UserService userService, NewsService newsService, SceneService sceneService, ReportService reportService, String username) {
 
         InfoLobbyDTO dto = new InfoLobbyDTO();
         NewsUtility news = new NewsUtility();
@@ -32,5 +36,18 @@ public class GetInfoLobby {
         dto.setAllGames(getScenes.getAllGames(sceneService, user.getId(), (user.getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))));
 
         return dto;
+    }
+
+    public ArrayList<GetUserDTO> getAllUsers(UserService service) {
+        
+        List<User> allUsers = service.findAll();
+        ArrayList<GetUserDTO> users = new ArrayList<GetUserDTO>();
+
+        for(User user : allUsers) {
+            users.add(new GetUserDTO(user.getId(), user.getName(), user.getUsername(), 
+                                     user.getAuthorities().get(0).getAuthority(), user.isEnabled()));
+        }
+
+        return users;
     }
 }

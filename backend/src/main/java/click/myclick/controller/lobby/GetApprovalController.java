@@ -1,10 +1,6 @@
 package click.myclick.controller.lobby;
 
-import click.myclick.dto.lobby.InfoLobbyDTO;
-import click.myclick.service.dao.user.UserService;
-import click.myclick.service.dao.news.NewsService;
 import click.myclick.service.dao.scene.SceneService;
-import click.myclick.service.dao.report.ReportService;
 import click.myclick.service.lobby.GetInfoLobby;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +17,19 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/getapproval")
 public class GetApprovalController {
 
+    private final GetInfoLobby getInfoLobby;
+    private final SceneService service;
+
     @Autowired
-    public GetApprovalController() {
+    public GetApprovalController(GetInfoLobby getInfoLobby, SceneService service) {
+        this.getInfoLobby = getInfoLobby;
+        this.service = service;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(Authentication auth) {
         
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(getInfoLobby.getApproval(service) , HttpStatus.OK);
+        
     }
 }

@@ -1,8 +1,5 @@
 package click.myclick.controller.lobby;
 
-import click.myclick.dto.lobby.InfoLobbyDTO;
-import click.myclick.service.dao.user.UserService;
-import click.myclick.service.dao.news.NewsService;
 import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.dao.report.ReportService;
 import click.myclick.service.lobby.GetInfoLobby;
@@ -21,14 +18,20 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/getreport")
 public class GetReportController {
 
+    private final SceneService sceneService;
+    private final ReportService reportService;
+    private final GetInfoLobby getInfoLobby;
+
     @Autowired
-    public GetReportController() {
-        
+    public GetReportController(SceneService sceneService, ReportService reportService, GetInfoLobby getInfoLobby) {
+        this.sceneService = sceneService;
+        this.reportService = reportService;
+        this.getInfoLobby = getInfoLobby;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(Authentication auth) {
         
-        return new ResponseEntity<>(HttpStatus.OK);
+        return new ResponseEntity<>(getInfoLobby.getReport(sceneService, reportService), HttpStatus.OK);
     }
 }

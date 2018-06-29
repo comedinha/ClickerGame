@@ -7,6 +7,7 @@ import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.dao.report.ReportService;
 import click.myclick.dto.lobby.InfoLobbyDTO;
 import click.myclick.dto.lobby.GetUserDTO;
+import click.myclick.dto.lobby.scene.SceneDTO;
 import click.myclick.model.User;
 
 import java.util.List;
@@ -49,5 +50,18 @@ public class GetInfoLobby {
         }
 
         return users;
+    }
+
+    public ArrayList<SceneDTO> getApproval(SceneService service) {
+        
+        GetScenes getScenes = new GetScenes();
+
+        return getScenes.getApproval(service);
+    }
+
+    public ArrayList<SceneDTO> getReport(SceneService sService, ReportService rService) {
+        GetScenes getScenes = new GetScenes();
+
+        return getScenes.getReport(sService, rService);
     }
 }

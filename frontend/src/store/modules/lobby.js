@@ -200,8 +200,9 @@ const actions = {
     commit('updateSceneDetailInfo', message)
   },
 
-  setViewAllScenes ({ commit }, event) {
+  setViewAllScenes ({ commit, getters }, event) {
     if (event === true && getters.getAllScenesLoading === true) {
+      console.log('ViewAllScenes')
       Vue.http.post('api/getallscenes').then(responseAllScenes => {
         console.log(responseAllScenes)
       }).catch(() => {
@@ -210,8 +211,9 @@ const actions = {
     }
   },
 
-  setSceneApprovalDialog ({ commit }, event) {
+  setSceneApprovalDialog ({ commit, getters }, event) {
     if (event === true && getters.getSceneApprovalLoading === true) {
+      console.log('Approval')
       Vue.http.post('api/getapproval').then(responseSceneApproval => {
         console.log(responseSceneApproval)
       }).catch(() => {
@@ -222,20 +224,23 @@ const actions = {
     commit('updateSceneApprovalDialog', event)
   },
 
-  setSceneReportDialog ({ commit }, event) {
+  setSceneReportDialog ({ commit, getters }, event) {
+    console.log(getters.getSceneReportLoading)
     if (event === true && getters.getSceneReportLoading === true) {
+      console.log('Report')
       Vue.http.post('api/getreport').then(responseSceneReport => {
         console.log(responseSceneReport)
       }).catch(() => {
         commit('updateNewsLoading')
       })
     }
-
+    console.log('Report')
     commit('updateSceneReportDialog', event)
   },
 
-  setUsersDialog ({ commit }, event) {
+  setUsersDialog ({ commit, getters }, event) {
     if (event === true && getters.getUsersLoading === true) {
+      console.log('ViewAllUsers')
       Vue.http.post('api/getallusers').then(responseSceneReport => {
         console.log(responseSceneReport)
       }).catch(() => {

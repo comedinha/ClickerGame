@@ -31,6 +31,7 @@ public class GetReportController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(Authentication auth) {
+        System.out.println("getReport");
         
         return new ResponseEntity<>(getInfoLobby.getReport(sceneService, reportService), HttpStatus.OK);
     }

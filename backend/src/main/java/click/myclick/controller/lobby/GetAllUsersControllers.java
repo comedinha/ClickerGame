@@ -28,6 +28,7 @@ public class GetAllUsersControllers {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(Authentication auth) {
+        System.out.println("GetAllUsers");
         
         return new ResponseEntity<>(getInfoLobby.getAllUsers(service), HttpStatus.OK);
     }

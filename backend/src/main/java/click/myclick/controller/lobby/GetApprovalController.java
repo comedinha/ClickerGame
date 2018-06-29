@@ -28,6 +28,7 @@ public class GetApprovalController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(Authentication auth) {
+        System.out.println("getApproval");
         
         return new ResponseEntity<>(getInfoLobby.getApproval(service) , HttpStatus.OK);
         

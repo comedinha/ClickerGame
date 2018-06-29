@@ -32,6 +32,7 @@ public class GetAllScenesController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(Authentication auth) {
+        System.out.println("GetAllScenes");
         User user = userService.findByUsername(auth.getPrincipal().toString());
 
         return new ResponseEntity<>(getInfoLobby.getAllScenes(service, user.getId(),

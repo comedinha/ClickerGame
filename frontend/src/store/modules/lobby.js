@@ -172,6 +172,12 @@ const actions = {
     })
   },
 
+  deleteNews ({ commit }, news) {
+    // Comentário: Configurar deletar aqui.
+    commit('updateNewsLoading', true)
+    commit('updateNewsDialog', false)
+  },
+
   setInformationDialog ({ commit }, event) {
     commit('updateInformationDialog', event)
   },
@@ -259,6 +265,11 @@ const actions = {
 
   setUpdateUser ({commit}, user) {
     // Comentário: Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
+    commit('updateUser')
+  },
+
+  deleteUser ({commit}, user) {
+    // Comentário: faz aqui funcionar e eu vejo o que faltar
     commit('updateUser')
   }
 }
@@ -410,8 +421,6 @@ const mutations = {
     }
 
     state.editUserInfo = userInfo
-    state.editUserDialog = false
-    state.usersLoading = true
   },
 
   updateUser (state) {

@@ -13,6 +13,8 @@
             <v-card>
               <v-toolbar dense flat>
                 <v-toolbar-title>{{ props.item.title }}</v-toolbar-title>
+                <v-spacer />
+                <v-btn small icon v-if="getAdmin" @click="deleteNews(props.item)"><v-icon>delete</v-icon></v-btn>
               </v-toolbar>
               <v-card-text>
                 <span v-html="props.item.content" />
@@ -73,6 +75,11 @@ export default {
       set (value) {
         this.$store.dispatch('setNewsAddDialog', value)
       }
+    }
+  },
+  methods: {
+    deleteNews (news) {
+      this.$store.dispatch('deleteNews', news)
     }
   }
 }

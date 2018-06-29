@@ -9,11 +9,14 @@
       </v-alert>
       <v-form>
         <v-card-text>
-          <v-text-field prepend-icon="person" v-model="editUserInfo.name" :error-messages="nameErrors" :label="$ml.get('lobby.dialog.editUser.name.title')" required @input="$v.editUserInfo.name.$touch()" @blur="$v.editUserInfo.name.$touch()" />
+          <v-card-actions>
+            <v-text-field prepend-icon="person" v-model="editUserInfo.name" :error-messages="nameErrors" :label="$ml.get('lobby.dialog.editUser.name.title')" required @input="$v.editUserInfo.name.$touch()" @blur="$v.editUserInfo.name.$touch()" />
+            <v-select :items="roles" item-text="text" item-value="id" v-model="editUserInfo.role" overflow :label="$ml.get('lobby.dialog.editUser.select')" />
+          </v-card-actions>
           <v-text-field prepend-icon="email" v-model="editUserInfo.email" :error-messages="emailErrors" :label="$ml.get('lobby.dialog.editUser.email.title')" required @input="$v.editUserInfo.email.$touch()" @blur="$v.editUserInfo.email.$touch()" />
           <v-card-actions>
-            <v-select :items="roles" item-text="text" item-value="id" v-model="editUserInfo.role" overflow label="Select" />
-            <v-checkbox label="Enabled" v-model="editUserInfo.enabled" />
+            <v-checkbox :label="$ml.get('lobby.dialog.editUser.allowApproval')" v-model="editUserInfo.needApproval" />
+            <v-checkbox :label="$ml.get('lobby.dialog.editUser.enabled')" v-model="editUserInfo.enabled" />
           </v-card-actions>
           <v-card-actions>
             <v-text-field prepend-icon="lock" v-model="password" :error-messages="passwordErrors" :label="$ml.get('lobby.dialog.editUser.password.title')" @input="$v.password.$touch()" @blur="$v.password.$touch()" type="password" />

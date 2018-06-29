@@ -262,24 +262,6 @@ const actions = {
   setUpdateUser ({commit}, user) {
     // Comentário: Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
     commit('updateUser')
-  },
-
-  setApproveScene ({commit}, scene) {
-    // Comentário: Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
-
-    commit('updateSceneReload')
-  },
-
-  setResolveScene ({commit}, scene) {
-    // Comentário: Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
-
-    commit('updateSceneReload')
-  },
-
-  setDeleteScene ({commit}, scene) {
-    // Comentário: Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
-
-    commit('updateSceneReload')
   }
 }
 
@@ -385,14 +367,6 @@ const mutations = {
     state.editUserDialog = false
     state.usersDialog = false
     state.usersLoading = true
-  },
-
-  updateSceneReload (state) {
-    state.sceneApprovalDialog = false
-    state.sceneApprovalLoading = true
-
-    state.sceneReportDialog = false
-    state.sceneReportLoading = false
   },
 
   updateInfoLobby (state, response) {

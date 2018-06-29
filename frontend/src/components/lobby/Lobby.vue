@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-sm fixed>
+  <v-container fluid grid-list-sm fixed wrap>
     <div v-if="!getViewAllScenes">
       <Approval v-if="getSceneApprovalDialog" />
       <Report v-if="getSceneReportDialog" />

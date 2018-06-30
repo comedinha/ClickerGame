@@ -187,7 +187,7 @@ export default {
       },
 
       played: {
-        title: 'Cenários que você jogou',
+        title: 'Cenários recentes',
         pagination: 'Página {a} de {t}',
         search: 'Buscar'
       }

@@ -275,7 +275,12 @@ const actions = {
   },
 
   deleteUser ({commit}, user) {
-    // Comentário: faz aqui funcionar e eu vejo o que faltar
+    Vue.http.post('api/deleteuser', user).then(response => {
+      commit('updateUser', response)
+    }).catch(() => {
+      commit('updateUsersLoading', false)
+    })
+    commit('updateUser')
     commit('updateUser')
   }
 }

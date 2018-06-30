@@ -31,7 +31,7 @@ public class UpdateUserController {
     public ResponseEntity<?> update(@RequestBody final AdminUserUpdateDTO dto, Authentication auth) {
         
         if(!service.findByUsername(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
-            return new ResponseEntity<>("C04", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("C03", HttpStatus.BAD_REQUEST);
         
         final int code = updatUserInformation.adminUpdate(service, dto);
         

@@ -1,8 +1,7 @@
 package click.myclick.controller.lobby;
 
-import click.myclick.dto.lobby.UserUpdateDTO;
 import click.myclick.service.dao.user.UserService;
-import click.myclick.service.lobby.UpdateUserInformation;
+import click.myclick.dto.lobby.DeleteUserDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -19,25 +18,22 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/api/deleteuser")
 public class DeleteUserController {
     private final UserService service;
-    private final UpdateUserInformation updatUserInformation;
     
     @Autowired
-    public DeleteUserController(final UserService service, 
-                                           final UpdateUserInformation updatUserInformation) {
+    public DeleteUserController(final UserService service) {
         this.service = service;
-        this.updatUserInformation = updatUserInformation;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> emailCheck(@RequestBody final UserUpdateDTO dto, Authentication auth) {
-        final int code = updatUserInformation.update(service, dto, auth.getPrincipal().toString());
-        
-        if(code == 0)
-            return new ResponseEntity<>(HttpStatus.OK);
-        else
-            if(code == 1)
-                return new ResponseEntity<>("A04", HttpStatus.BAD_REQUEST);
-            else
-                return new ResponseEntity<>("C02", HttpStatus.BAD_REQUEST);
+    public ResponseEntity<?> emailCheck(@RequestBody final DeleteUserDTO dto, Authentication auth) {
+
+        if(!service.findByUsername(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
+            return new ResponseEntity<>("C03", HttpStatus.BAD_REQUEST);
+
+        try {
+            return new ResponseEntity<>(service.delete(dto.getId()), HttpStatus.OK);
+        } catch(Exception e) {
+            return new ResponseEntity<>("C02", HttpStatus.OK);
+        }
     }
 }

@@ -26,7 +26,8 @@ export default {
     B03: 'O endereço de email já está cadastrado.',
 
     C01: 'Algum erro inesperado aconteceu, se persistir contacte a equipe.',
-    C02: 'Ocorreu um erro ao criar o usuário.'
+    C02: 'Ocorreu um erro ao criar o usuário.',
+    C03: 'Acesso não autorizado'
   },
 
   auth: {

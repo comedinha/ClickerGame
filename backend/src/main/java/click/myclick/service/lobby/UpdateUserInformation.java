@@ -66,7 +66,7 @@ public class UpdateUserInformation {
                 user.setPassword(passwordEncoder.encode(dto.getPassword()));
             }
 
-            user.setEnabled(dto.getEnable());
+            user.setEnabled(dto.getEnabled());
 
             List<Authority> authorities = new ArrayList<>();
             if(dto.getRole().equals("ROLE_USER")) {

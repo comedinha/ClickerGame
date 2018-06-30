@@ -3,40 +3,46 @@ package click.myclick.controller.lobby.get;
 import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.dao.user.UserService;
 import click.myclick.service.lobby.GetInfoLobby;
+import click.myclick.dto.lobby.DeleteUserDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(allowedHeaders = "*")
 @RestController
-@RequestMapping("/api/getapproval")
-public class GetApprovalController {
+@RequestMapping("/api/getScenesUser")
+public class GetScenesUser {
 
     private final GetInfoLobby getInfoLobby;
-    private final SceneService service;
-    private final UserService uService;
+    private final SceneService sceneService;
+    private final UserService userService;
 
     @Autowired
-    public GetApprovalController(GetInfoLobby getInfoLobby, SceneService service, UserService uService) {
+    public GetScenesUser(GetInfoLobby getInfoLobby, SceneService sceneService, UserService userService) {
         this.getInfoLobby = getInfoLobby;
-        this.service = service;
-        this.uService = uService;
+        this.sceneService = sceneService;
+        this.userService = userService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> getInfo(Authentication auth) {
+    public ResponseEntity<?> getInfo(@RequestBody final DeleteUserDTO dto, Authentication auth) {
         System.out.println("getApproval");
 
-        if(!uService.findByUsername(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
+        if(!userService.findByUsername(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
             return new ResponseEntity<>("C03", HttpStatus.BAD_REQUEST);
         
-        return new ResponseEntity<>(getInfoLobby.getApproval(service) , HttpStatus.OK);
+        try {
+            return new ResponseEntity<>(getInfoLobby.getScenesUser(sceneService, dto.getId()), HttpStatus.OK);
+        } catch(Exception e) {
+            return new ResponseEntity<>("C01", HttpStatus.BAD_REQUEST);
+        }
         
     }
 }

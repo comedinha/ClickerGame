@@ -142,4 +142,23 @@ public class GetScenes {
         
         return reported;
     }
+
+    public ArrayList<SceneDTO> getScenesUser(SceneService service, String id) {
+        int i = 0;
+        List<Scene> scenes = service.findAll();
+        ArrayList<SceneDTO> scenesUser = new ArrayList<SceneDTO>();
+
+        for(Scene scene : scenes) {
+            if(scene.getIdCreator().equals(id)) {
+                scenesUser.add(new SceneDTO(scene.getId(), scene.getName(), scene.getIdCreator(), scene.getSmallDescription(), scene.getImage()));
+                scenesUser.get(i).setCanApprove(true);
+                scenesUser.get(i).setCanResolve(true);
+                scenesUser.get(i).setCanDelete(true);
+                scenesUser.get(i).setCanEdit(true);
+                i++;
+            }
+        }
+
+        return scenesUser;
+    }
 }

@@ -1,9 +1,8 @@
-package click.myclick.controller.lobby;
+package click.myclick.controller.lobby.get;
 
 import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.dao.user.UserService;
 import click.myclick.service.lobby.GetInfoLobby;
-import click.myclick.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -16,26 +15,28 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(allowedHeaders = "*")
 @RestController
-@RequestMapping("/api/getallscenes")
-public class GetAllScenesController {
+@RequestMapping("/api/getapproval")
+public class GetApprovalController {
 
     private final GetInfoLobby getInfoLobby;
     private final SceneService service;
-    private final UserService userService;
+    private final UserService uService;
 
     @Autowired
-    public GetAllScenesController(GetInfoLobby getInfoLobby, SceneService service, UserService userService) {
+    public GetApprovalController(GetInfoLobby getInfoLobby, SceneService service, UserService uService) {
         this.getInfoLobby = getInfoLobby;
         this.service = service;
-        this.userService = userService;
+        this.uService = uService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(Authentication auth) {
-        System.out.println("GetAllScenes");
-        User user = userService.findByUsername(auth.getPrincipal().toString());
+        System.out.println("getApproval");
 
-        return new ResponseEntity<>(getInfoLobby.getAllScenes(service, user.getId(),
-                                    user.getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN")), HttpStatus.OK);
+        if(!uService.find(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
+            return new ResponseEntity<>("C04", HttpStatus.BAD_REQUEST);
+        
+        return new ResponseEntity<>(getInfoLobby.getApproval(service) , HttpStatus.OK);
+        
     }
 }

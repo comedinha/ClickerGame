@@ -1,7 +1,9 @@
-package click.myclick.controller.lobby;
+package click.myclick.controller.lobby.get;
 
+import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.dao.user.UserService;
 import click.myclick.service.lobby.GetInfoLobby;
+import click.myclick.model.User;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -14,22 +16,26 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(allowedHeaders = "*")
 @RestController
-@RequestMapping("/api/getallusers")
-public class GetAllUsersControllers {
+@RequestMapping("/api/getallscenes")
+public class GetAllScenesController {
 
     private final GetInfoLobby getInfoLobby;
-    private final UserService service;
+    private final SceneService service;
+    private final UserService userService;
 
     @Autowired
-    public GetAllUsersControllers(GetInfoLobby getInfoLobby, UserService service) {
+    public GetAllScenesController(GetInfoLobby getInfoLobby, SceneService service, UserService userService) {
         this.getInfoLobby = getInfoLobby;
         this.service = service;
+        this.userService = userService;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(Authentication auth) {
-        System.out.println("GetAllUsers");
-        
-        return new ResponseEntity<>(getInfoLobby.getAllUsers(service), HttpStatus.OK);
+        System.out.println("GetAllScenes");
+        User user = userService.findByUsername(auth.getPrincipal().toString());
+
+        return new ResponseEntity<>(getInfoLobby.getAllScenes(service, user.getId(),
+                                    user.getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN")), HttpStatus.OK);
     }
 }

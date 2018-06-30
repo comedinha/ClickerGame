@@ -1,6 +1,6 @@
-package click.myclick.controller.lobby;
+package click.myclick.controller.lobby.get;
 
-import click.myclick.service.dao.scene.SceneService;
+import click.myclick.service.dao.user.UserService;
 import click.myclick.service.lobby.GetInfoLobby;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,23 +14,25 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(allowedHeaders = "*")
 @RestController
-@RequestMapping("/api/getapproval")
-public class GetApprovalController {
+@RequestMapping("/api/getallusers")
+public class GetAllUsersControllers {
 
     private final GetInfoLobby getInfoLobby;
-    private final SceneService service;
+    private final UserService service;
 
     @Autowired
-    public GetApprovalController(GetInfoLobby getInfoLobby, SceneService service) {
+    public GetAllUsersControllers(GetInfoLobby getInfoLobby, UserService service) {
         this.getInfoLobby = getInfoLobby;
         this.service = service;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(Authentication auth) {
-        System.out.println("getApproval");
+        System.out.println("GetAllUsers");
+
+        if(!service.find(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
+            return new ResponseEntity<>("C04", HttpStatus.BAD_REQUEST);
         
-        return new ResponseEntity<>(getInfoLobby.getApproval(service) , HttpStatus.OK);
-        
+        return new ResponseEntity<>(getInfoLobby.getAllUsers(service), HttpStatus.OK);
     }
 }

@@ -1,5 +1,8 @@
-package click.myclick.controller.lobby;
+package click.myclick.controller.lobby.get;
 
+import click.myclick.dto.lobby.InfoLobbyDTO;
+import click.myclick.service.dao.user.UserService;
+import click.myclick.service.dao.news.NewsService;
 import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.dao.report.ReportService;
 import click.myclick.service.lobby.GetInfoLobby;
@@ -15,24 +18,29 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(allowedHeaders = "*")
 @RestController
-@RequestMapping("/api/getreport")
-public class GetReportController {
-
+@RequestMapping("/api/getinfolobby")
+public class GetInfoLobbyController {
+    private final UserService userService;
+    private final NewsService newsService;
     private final SceneService sceneService;
     private final ReportService reportService;
     private final GetInfoLobby getInfoLobby;
 
     @Autowired
-    public GetReportController(SceneService sceneService, ReportService reportService, GetInfoLobby getInfoLobby) {
+    public GetInfoLobbyController(final UserService userService, final NewsService newsService, final GetInfoLobby getInfoLobby, final SceneService sceneService, ReportService reportService) {
+        this.userService = userService;
+        this.newsService = newsService;
+        this.getInfoLobby = getInfoLobby;
         this.sceneService = sceneService;
         this.reportService = reportService;
-        this.getInfoLobby = getInfoLobby;
     }
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(Authentication auth) {
-        System.out.println("getReport");
-        
-        return new ResponseEntity<>(getInfoLobby.getReport(sceneService, reportService), HttpStatus.OK);
+        InfoLobbyDTO info = getInfoLobby.getInfoLobby(userService, newsService, sceneService, reportService, auth.getPrincipal().toString());
+        System.out.println("dto info:");
+        System.out.println(info.getName() + " " + info.getNews() + " " + info.getAuthorities());
+
+        return new ResponseEntity<>(info, HttpStatus.OK);
     }
 }

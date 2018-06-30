@@ -9,7 +9,6 @@ import click.myclick.model.Authority;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.core.Authentication;
 
 import java.util.List;
 import java.util.ArrayList;

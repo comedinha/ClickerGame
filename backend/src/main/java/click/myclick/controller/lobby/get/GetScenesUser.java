@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(allowedHeaders = "*")
 @RestController
-@RequestMapping("/api/getapproval")
+@RequestMapping("/api/getScenesUser")
 public class GetScenesUser {
 
     private final GetInfoLobby getInfoLobby;

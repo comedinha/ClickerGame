@@ -269,6 +269,7 @@ const actions = {
   },
 
   setUpdateUser ({commit}, user) {
+    console.log(user)
     Vue.http.post('api/updateuser', user).then(response => {
       commit('updateUser', response)
     }).catch(() => {

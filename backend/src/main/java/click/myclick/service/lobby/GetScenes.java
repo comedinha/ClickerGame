@@ -55,7 +55,7 @@ public class GetScenes {
         
         Collections.sort(aux);
         
-        for(i = 0; i < 3 && i < aux.size(); i++)
+        for(i = 0; i < 5 && i < aux.size(); i++)
             getMostPlayed.add(aux.get(i));
 
         return getMostPlayed;
@@ -78,7 +78,7 @@ public class GetScenes {
 
         Collections.sort(aux);
         
-        for(i = 0; i < 3 && i < aux.size(); i++)
+        for(i = 0; i < 5 && i < aux.size(); i++)
             getBestRated.add(aux.get(i));
 
         return getBestRated;

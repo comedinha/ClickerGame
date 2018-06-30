@@ -56,7 +56,6 @@ const actions = {
   },
 
   signGuest ({commit}) {
-    // Comentário: Login guest
     return new Promise((resolve, reject) => {
       commit('authStatus', 'loading')
       Vue.http.post('api/authGuest', {})

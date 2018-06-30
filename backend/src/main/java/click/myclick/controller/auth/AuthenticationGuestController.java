@@ -1,8 +1,6 @@
 package click.myclick.controller.auth;
 
-import click.myclick.dto.auth.LoginDTO;
 import click.myclick.dto.auth.TokenDTO;
-import click.myclick.captcha.ICaptchaService;
 import click.myclick.security.service.TokenService;
 import click.myclick.service.dao.user.UserService;
 import click.myclick.service.auth.CheckEmail;
@@ -10,26 +8,21 @@ import click.myclick.service.auth.CheckEmail;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth")
-public class AuthenticationController {
+@RequestMapping("/api/authGuest")
+public class AuthenticationGuestController {
 
     @Autowired
     private final TokenService tokenService;
-
-    @Autowired
-    private ICaptchaService captchaService;
-
     private final UserService service;
     private final CheckEmail checkEmail;
 
     @Autowired
-    public AuthenticationController(final TokenService tokenService, final UserService service, 
+    public AuthenticationGuestController(final TokenService tokenService, final UserService service, 
                                     final CheckEmail checkEmail) {
         this.tokenService = tokenService;
         this.service = service;
@@ -37,15 +30,9 @@ public class AuthenticationController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> authenticate(@RequestBody final LoginDTO dto) throws Exception {
+    public ResponseEntity<?> authenticate() throws Exception {
 
-        final String responseCaptcha = dto.getCaptcharesponse();
-
-        if(!captchaService.processResponse(responseCaptcha)) {
-            return new ResponseEntity<>("A01", HttpStatus.BAD_REQUEST);
-        }
-
-        final int code = checkEmail.isEnable(service, dto.getUsername());
+        final int code = checkEmail.isEnable(service, "test@test.com");
 
         if(code == 2) {
             return new ResponseEntity<>("A02", HttpStatus.BAD_REQUEST);
@@ -55,7 +42,7 @@ public class AuthenticationController {
             }
         }
 
-        final String token = tokenService.getToken(dto.getUsername(), dto.getPassword());
+        final String token = tokenService.getToken("test@test.com", "test");
 
         if (token != null) {
             final TokenDTO response = new TokenDTO();

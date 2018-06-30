@@ -9,7 +9,6 @@ import click.myclick.model.Authority;
 import org.springframework.stereotype.Service;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.security.core.Authentication;
 
 import java.util.List;
 import java.util.ArrayList;
@@ -70,7 +69,17 @@ public class UpdateUserInformation {
             user.setEnabled(dto.getEnable());
 
             List<Authority> authorities = new ArrayList<>();
-            authorities.add(Authority.ROLE_USER);
+            if(dto.getRole().equals("ROLE_USER")) {
+                authorities.add(Authority.ROLE_USER);
+            } else {
+                if(dto.getRole().equals("ROLE_ADMIN")) {
+                    authorities.add(Authority.ROLE_ADMIN);
+                } else {
+                    if(dto.getRole().equals("ANONYMOUS")) {
+                        authorities.add(Authority.ANONYMOUS);
+                    }
+                }
+            }
             user.setAuthorities(authorities);
 
             service.getRepository().save(user);

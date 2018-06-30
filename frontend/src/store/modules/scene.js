@@ -7,6 +7,15 @@ const state = {
   saved: true,
   saveWarning: false,
 
+  editConfigDialog: false,
+  config: {
+    name: '',
+    smallDescription: '',
+    completeDescription: '',
+    image: ''
+  },
+  oldConfig: {},
+
   currentWorld: 0,
   world: [
     {
@@ -101,6 +110,11 @@ const getters = {
 
   getSaveWarning: state => state.saveWarning,
 
+  getEditConfigDialog: state => state.editConfigDialog,
+  getConfig: state => state.config,
+
+  getWorld: state => state.world,
+
   getGridContent: state => state.world[state.currentWorld].gridContent,
 
   getTabs: state => state.world[state.currentWorld].tabs,
@@ -124,8 +138,14 @@ const actions = {
     commit('updateGame', true)
   },
 
-  save ({ commit }) {
+  savePlay ({ commit }) {
     // Comentário: Fazer tanto salvar cenário quanto salvar jogo.
+  },
+
+  saveScene ({ commit, getters }) {
+    // Comentário: Utilizar getters.getConfig (const talves seja útil para dividir) e getters.getWorld (const aqui não...)
+    console.log(getters.getConfig)
+    console.log(getters.getWorld)
   },
 
   setEditMode ({ commit }, event) {
@@ -136,6 +156,18 @@ const actions = {
     return new Promise((resolve) => {
       commit('backToLobby', resolve)
     })
+  },
+
+  setEditConfigDialog ({ commit }, event) {
+    commit('updateEditConfigDialog', event)
+  },
+
+  setConfig ({ commit }, message) {
+    commit('updateConfig', message)
+  },
+
+  saveConfig ({ commit }) {
+    commit('saveConfig')
   },
 
   newGridItem ({ commit }, item) {
@@ -210,6 +242,34 @@ const mutations = {
     } else {
       resolve()
     }
+  },
+
+  updateEditConfigDialog (state, event) {
+    if (event === false) {
+      if (state.config !== state.oldConfig) {
+        state.config = state.oldConfig
+      }
+    } else {
+      let old = {
+        name: state.config.name,
+        smallDescription: state.config.smallDescription,
+        completeDescription: state.config.completeDescription,
+        image: state.config.image
+      }
+
+      state.oldConfig = old
+    }
+
+    state.editConfigDialog = event
+  },
+
+  updateConfig (state, message) {
+    state.config = message
+  },
+
+  saveConfig (state) {
+    state.config = state.config
+    state.editConfigDialog = false
   },
 
   newGridItem (state, item) {

@@ -411,13 +411,13 @@ const mutations = {
   },
 
   updateEditUserInfo (state, message) {
-    // Comentário: Talvez alterar
     let userInfo = {
       id: message.id,
       name: message.name,
       email: message.email,
       role: message.role,
-      enabled: message.enabled
+      enabled: message.enabled,
+      needApproval: message.needApproval
     }
 
     state.editUserInfo = userInfo

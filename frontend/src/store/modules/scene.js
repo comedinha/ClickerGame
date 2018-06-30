@@ -226,7 +226,9 @@ const actions = {
 const mutations = {
   updateDefault (state) {
     let firstGridButton = {
-      ref: 'Button ' + state.world[state.currentWorld].gridButtons.length
+      style: {
+        'border-radius': '100%'
+      }
     }
     state.world[state.currentWorld].gridButtons.push(firstGridButton)
 
@@ -243,7 +245,10 @@ const mutations = {
     state.world[state.currentWorld].gridContent.push(firstButton)
 
     let firstGridInformation = {
-      ref: 'Information ' + state.world[state.currentWorld].gridInformation.length
+      text: `
+        <center>{tc}</center>
+        <center>{ts} por segundo</center>
+      `
     }
     state.world[state.currentWorld].gridInformation.push(firstGridInformation)
 
@@ -255,7 +260,7 @@ const mutations = {
       h: 2,
       i: 'Grid ' + state.world[state.currentWorld].gridCount++,
       type: 'information',
-      ref: state.world[state.currentWorld].gridButtons[indexInformation]
+      ref: state.world[state.currentWorld].gridInformation[indexInformation]
     }
     state.world[state.currentWorld].gridContent.push(firstInfomation)
   },
@@ -325,7 +330,7 @@ const mutations = {
         h: 1,
         i: 'Grid ' + state.world[state.currentWorld].gridCount++,
         type: 'image',
-        tab: item,
+        itemGrid: item.grids,
         ref: item.grids[(item.grids.push(tabItemGrid) - 1)]
       }
 
@@ -349,9 +354,15 @@ const mutations = {
     if (state.creatorVision === true) {
       var indexGrid = state.world[state.currentWorld].gridContent.indexOf(item)
       if (indexGrid > -1) {
-        if (item.tab) {
-          var indexItem = item.tab.grids.indexOf(state.world[state.currentWorld].gridContent[indexGrid].ref)
-          item.tab.grids.splice(indexItem, 1)
+        if (item.itemGrid) {
+          var indexItem = item.itemGrid.indexOf(state.world[state.currentWorld].gridContent[indexGrid].ref)
+          item.itemGrid.splice(indexItem, 1)
+        } else if (item.type === 'button') {
+          var indexButton = state.world[state.currentWorld].gridButtons.indexOf(state.world[state.currentWorld].gridContent[indexGrid].ref)
+          state.world[state.currentWorld].gridButtons.splice(indexButton, 1)
+        } else if (item.type === 'information') {
+          var indexInformation = state.world[state.currentWorld].gridInformation.indexOf(state.world[state.currentWorld].gridContent[indexGrid].ref)
+          state.world[state.currentWorld].gridInformation.splice(indexInformation, 1)
         }
         state.world[state.currentWorld].gridContent.splice(indexGrid, 1)
       }

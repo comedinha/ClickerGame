@@ -2,7 +2,7 @@
   <div height="100%" src="https://i.ytimg.com/vi/Xy_7tq7xn6I/maxresdefault.jpg">
     <grid-layout class="scroll-y" v-bind:style="styleGrid" :layout="gridContent" @layout-updated="updateGridContent" :col-num="22" :row-height="30" :is-draggable="getEditMode" :is-resizable="getEditMode" :vertical-compact="false" :margin="[10, 10]" :use-css-transforms="true">
       <grid-item v-for="item in gridContent" :key="item.i" :x="item.x" :y="item.y" :w="item.w" :h="item.h" :i="item.i">
-        <v-card v-if="item.type === 'button'" ripple fab height="100%" v-bind:style="styleButton">
+        <v-card v-if="item.type === 'button'" ripple fab height="100%" v-bind:style="item.ref.style">
           <v-card-actions>
             <v-spacer />
             <v-btn small icon v-if="getEditMode" @click="removeGridItem(item)"><v-icon>settings</v-icon></v-btn>
@@ -15,6 +15,7 @@
           </v-card-actions>
         </v-card>
         <v-card v-if="item.type === 'information'" fab height="100%">
+          <v-card-text v-html="item.ref.text" />
           <v-card-actions>
             <v-spacer />
             <v-btn small icon v-if="getEditMode" @click="removeGridItem(item)"><v-icon>settings</v-icon></v-btn>
@@ -35,9 +36,6 @@ export default {
       styleGrid: {
         'height': '84vh',
         'max-height': '84vh'
-      },
-      styleButton: {
-        'border-radius': '100%'
       }
     }
   },

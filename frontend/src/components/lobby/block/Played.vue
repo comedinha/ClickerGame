@@ -38,23 +38,23 @@
               <v-system-bar>
                 <v-spacer />
                 <v-tooltip v-if="props.item.canEdit" bottom>
-                  <v-btn small icon slot="activator" @click="editGame(props.item)"><v-icon>settings</v-icon></v-btn>
+                  <v-btn small class="mx-0" icon slot="activator" @click="editGame(props.item)"><v-icon>settings</v-icon></v-btn>
                   <span>{{ $ml.get('lobby.lobby.edit') }}</span>
                 </v-tooltip>
                 <v-tooltip bottom>
-                  <v-btn small icon slot="activator" @click="infoGame(props.item)"><v-icon>info</v-icon></v-btn>
+                  <v-btn small class="mx-0" icon slot="activator" @click="infoGame(props.item)"><v-icon>info</v-icon></v-btn>
                   <span>{{ $ml.get('lobby.lobby.details') }}</span>
                 </v-tooltip>
                 <v-tooltip v-if="props.item.lastGame" bottom>
-                  <v-btn small icon slot="activator" @click="newGame(props.item)"><v-icon>add_circle</v-icon></v-btn>
+                  <v-btn small class="mx-0" icon slot="activator" @click="newGame(props.item)"><v-icon>add_circle</v-icon></v-btn>
                   <span>{{ $ml.get('lobby.lobby.newGame') }}</span>
                 </v-tooltip>
                 <v-tooltip v-if="props.item.lastGame" bottom>
-                  <v-btn small icon slot="activator" @click="continueGame(props.item)"><v-icon>play_circle_filled</v-icon></v-btn>
+                  <v-btn small class="mx-0" icon slot="activator" @click="continueGame(props.item)"><v-icon>play_circle_filled</v-icon></v-btn>
                   <span>{{ $ml.get('lobby.lobby.continue') }}</span>
                 </v-tooltip>
                 <v-tooltip v-if="!props.item.lastGame" bottom>
-                  <v-btn small icon slot="activator" @click="newGame(props.item)"><v-icon>play_circle_filled</v-icon></v-btn>
+                  <v-btn small class="mx-0" icon slot="activator" @click="newGame(props.item)"><v-icon>play_circle_filled</v-icon></v-btn>
                   <span>{{ $ml.get('lobby.lobby.play') }}</span>
                 </v-tooltip>
               </v-system-bar>

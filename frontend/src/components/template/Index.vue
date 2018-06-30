@@ -6,15 +6,15 @@
     <Drawer v-if="drawer" />
     <v-toolbar dense>
       <v-tooltip v-if="!viewAllScenes" bottom>
-        <v-btn slot="activator" @click="viewAllScenes = !viewAllScenes" icon><v-icon>view_module</v-icon></v-btn>
+        <v-btn class="mx-0" slot="activator" @click="viewAllScenes = !viewAllScenes" icon><v-icon>view_module</v-icon></v-btn>
         <span>{{ $ml.get('lobby.lobby.allScenes') }}</span>
       </v-tooltip>
       <v-tooltip v-if="viewAllScenes" bottom>
-        <v-btn slot="activator" @click="viewAllScenes = !viewAllScenes" icon><v-icon>view_array</v-icon></v-btn>
+        <v-btn class="mx-0" slot="activator" @click="viewAllScenes = !viewAllScenes" icon><v-icon>view_array</v-icon></v-btn>
         <span>{{ $ml.get('lobby.lobby.lobby') }}</span>
       </v-tooltip>
       <v-tooltip bottom>
-        <v-btn slot="activator" icon @click.stop="newsDialog = !newsDialog">
+        <v-btn class="mx-0" slot="activator" icon @click.stop="newsDialog = !newsDialog">
           <v-badge icon overlap top color="red">
             <span slot="badge" v-if="getNewsUpdate !== 0">{{ getNewsUpdate }}</span>
             <v-icon>developer_board</v-icon>
@@ -26,7 +26,7 @@
       <v-toolbar-title>{{ $ml.get('game.name') }}</v-toolbar-title>
       <v-spacer />
       <v-tooltip v-if="getAdmin" bottom>
-        <v-btn slot="activator" @click="sceneApprovalDialog = !sceneApprovalDialog" small icon>
+        <v-btn class="mx-0" slot="activator" @click="sceneApprovalDialog = !sceneApprovalDialog" small icon>
           <v-badge icon overlap top color="red">
             <span slot="badge" v-if="getSceneApprovalNumber !== 0">{{ getSceneApprovalNumber }}</span>
             <v-icon>flag</v-icon>
@@ -35,7 +35,7 @@
         <span>{{ $ml.get('lobby.lobby.approval') }}</span>
       </v-tooltip>
       <v-tooltip v-if="getAdmin" bottom>
-        <v-btn slot="activator" @click="sceneReportDialog = !sceneReportDialog" small icon>
+        <v-btn class="mx-0" slot="activator" @click="sceneReportDialog = !sceneReportDialog" small icon>
           <v-badge icon overlap top color="red">
             <span slot="badge" v-if="getSceneReportNumber !== 0">{{ getSceneReportNumber }}</span>
             <v-icon>report_problem</v-icon>
@@ -44,7 +44,7 @@
         <span>{{ $ml.get('lobby.lobby.reported') }}</span>
       </v-tooltip>
       <v-tooltip v-if="getAdmin" bottom>
-        <v-btn slot="activator" @click="usersDialog = !usersDialog" small icon><v-icon>people</v-icon></v-btn>
+        <v-btn class="mx-0" slot="activator" @click="usersDialog = !usersDialog" small icon><v-icon>people</v-icon></v-btn>
         <span>{{ $ml.get('lobby.lobby.users') }}</span>
       </v-tooltip>
       <v-menu class="hidden-sm-and-down" open-on-hover bottom offset-y>

@@ -17,6 +17,7 @@ const state = {
   oldConfig: {},
 
   currentWorld: 0,
+  worldCount: 1,
   world: [
     {
       ref: 'World 0',
@@ -58,26 +59,6 @@ const state = {
           refItem: 'Item 1',
           title: 'Upgrades',
           items: [
-            {
-              title: 'Upgrade',
-              price: '100',
-              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
-            },
-            {
-              title: 'Upgrade',
-              price: '100',
-              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
-            },
-            {
-              title: 'Upgrade',
-              price: '100',
-              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
-            },
-            {
-              title: 'Upgrade',
-              price: '100',
-              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
-            },
             {
               title: 'Upgrade',
               price: '100',

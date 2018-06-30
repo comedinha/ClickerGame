@@ -14,8 +14,12 @@
             <td>{{ props.item.name }}</td>
             <td>{{ props.item.email }}</td>
             <td>{{ $ml.get('game.' + props.item.role) }}</td>
-            <td>{{ $ml.get('game.' + props.item.enabled) }}</td>
+            <td v-if="props.item.enabled"><v-icon>done</v-icon></td>
+            <td v-if="!props.item.enabled"><v-icon>clear</v-icon></td>
             <td class="justify-center layout px-0">
+              <v-btn icon class="mx-0" @click="viewScenes(props.item)">
+                <v-icon color="blue">view_array</v-icon>
+              </v-btn>
               <v-btn icon class="mx-0" @click="editUser(props.item)">
                 <v-icon color="teal">edit</v-icon>
               </v-btn>
@@ -89,8 +93,11 @@ export default {
     }
   },
   methods: {
+    viewScenes (user) {
+      this.$store.dispatch('viewUserScenes', user)
+    },
+
     editUser (user) {
-      this.$store.dispatch('setEditUserDialog', true)
       this.$store.dispatch('setEditUserInfo', user)
     },
 

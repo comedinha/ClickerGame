@@ -258,7 +258,7 @@ export default {
         email: 'Email',
         role: 'Cargo',
         action: 'Ação',
-        enabled: 'Ativado'
+        enabled: 'Ativo'
       }
     }
   },

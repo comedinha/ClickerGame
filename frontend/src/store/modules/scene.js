@@ -34,6 +34,7 @@ const state = {
           refTab: 'Tab 0',
           refItem: 'Item 0',
           title: 'Items',
+          itemsCount: 2,
           items: [
             {
               ref: 'Content 0',
@@ -408,8 +409,8 @@ const mutations = {
   addItemTab (state) {
     if (state.newItem) {
       let newItem = {
-        ref: 'Content ' + state.currentTab.length,
-        divRef: 'Div ' + state.currentTab.length,
+        ref: 'Content ' + state.currentTab.itemsCount++,
+        divRef: 'Div ' + state.currentTab.itemsCount++,
 
         title: state.addItem.title,
         image: state.addItem.image,
@@ -420,12 +421,12 @@ const mutations = {
         grids: []
       }
 
-      state.currentTab.push(newItem)
+      state.currentTab.items.push(newItem)
       state.currentTab = []
     } else {
-      var indexItem = state.currentTab.indexOf(state.editItem)
+      var indexItem = state.currentTab.items.indexOf(state.editItem)
 
-      Vue.set(state.currentTab, indexItem, state.addItem)
+      Vue.set(state.currentTab.items, indexItem, state.addItem)
     }
     state.addItemDialog = false
   },

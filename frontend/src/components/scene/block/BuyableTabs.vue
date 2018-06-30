@@ -5,7 +5,7 @@
     </v-tab>
     <v-tab-item class="scroll-y" style="max-height: 82vh" v-for="tab in getTabs" :key="tab.refItem">
       <v-card-actions v-if="getEditMode">
-        <v-btn block @click="addItem(tab.items)">+</v-btn>
+        <v-btn block @click="addItem(tab)">+</v-btn>
       </v-card-actions>
       <v-card-actions v-if="!getEditMode && tab.type === 'item'">
         <v-spacer />
@@ -27,10 +27,10 @@
                 <v-btn icon @click="newGridItem(item)">
                   <v-icon>grid_on</v-icon>
                 </v-btn>
-                <v-btn icon @click="editItem(tab.items, item)">
+                <v-btn icon @click="editItem(tab, item)">
                   <v-icon>settings</v-icon>
                 </v-btn>
-                <v-btn icon @click="deleteItem(tab.items, item)">
+                <v-btn icon @click="deleteItem(tab, item)">
                   <v-icon>delete</v-icon>
                 </v-btn>
               </v-card>

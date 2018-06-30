@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(allowedHeaders = "*")
 @RestController
-@RequestMapping("/api/getScenesUser")
+@RequestMapping("/api/getscenesuser")
 public class GetScenesUser {
 
     private final GetInfoLobby getInfoLobby;
@@ -33,7 +33,7 @@ public class GetScenesUser {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getInfo(@RequestBody final DeleteUserDTO dto, Authentication auth) {
-        System.out.println("getApproval");
+        System.out.println("GetScenesUser");
 
         if(!userService.findByUsername(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
             return new ResponseEntity<>("C03", HttpStatus.BAD_REQUEST);

@@ -11,7 +11,7 @@ public class DeleteUserDTO implements Serializable {
     private String name;
     private String email;
     private String role;
-    private boolean enable;
+    private boolean enabled;
 
     public DeleteUserDTO() {
     }
@@ -52,13 +52,13 @@ public class DeleteUserDTO implements Serializable {
 		this.role = role;
     }
     
-    public boolean getEnable()
+    public boolean getEnabled()
 	{
-		return this.enable;
+		return this.enabled;
 	}
 
-	public void setEnable(boolean enable)
+	public void setEnabled(boolean enabled)
 	{
-		this.enable = enable;
+		this.enabled = enabled;
 	}
 }

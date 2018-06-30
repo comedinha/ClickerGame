@@ -280,14 +280,13 @@ const actions = {
   },
 
   viewUserScenes ({ commit }, message) {
+    console.log('viewUserScenes')
     commit('updateUserSelectedName', message.name)
-    // Comentário: Adicionar conexão aqui.
-
-    // Quando true trocar por response
-    commit('updateUserScene', [])
-
-    // Quando false esse
-    commit('updateUserSceneLoading', false)
+    Vue.http.post('api/getscenesuser', message).then(response => {
+      commit('updateUserScene', response)
+    }).catch(() => {
+      commit('updateUserSceneLoading', false)
+    })
   },
 
   setEditUserDialog ({ commit }, event) {
@@ -469,7 +468,7 @@ const mutations = {
     state.userSceneDialog = true
     state.userSceneLoading = false
 
-    state.userScene.items = message
+    state.userScene.items = message.body
   },
 
   updateEditUserDialog (state, event) {

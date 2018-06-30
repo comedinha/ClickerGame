@@ -36,7 +36,7 @@ public class GetReportController {
     public ResponseEntity<?> getInfo(Authentication auth) {
         System.out.println("getReport");
 
-        if(!uService.find(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
+        if(!uService.findByUsername(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
             return new ResponseEntity<>("C04", HttpStatus.BAD_REQUEST);
         
         return new ResponseEntity<>(getInfoLobby.getReport(sceneService, reportService), HttpStatus.OK);

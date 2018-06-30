@@ -280,7 +280,6 @@ const actions = {
   },
 
   viewUserScenes ({ commit }, message) {
-    console.log('viewUserScenes')
     commit('updateUserSelectedName', message.name)
     Vue.http.post('api/getscenesuser', message).then(response => {
       commit('updateUserScene', response)

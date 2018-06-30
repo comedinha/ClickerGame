@@ -1,6 +1,5 @@
 <template>
   <v-dialog v-model="usersDialog" max-width="750px">
-    <EditUser />
     <v-card fluid>
       <v-toolbar dense flat>
         <v-toolbar-title>{{ $ml.get('lobby.dialog.users.title') }}</v-toolbar-title>
@@ -57,8 +56,6 @@
 <script>
 import { mapGetters } from 'vuex'
 
-import EditUser from '@/components/lobby/dialog/EditUser'
-
 export default {
   data () {
     return {
@@ -73,9 +70,6 @@ export default {
         { text: this.$ml.get('lobby.dialog.users.action'), value: 'name', sortable: false }
       ]
     }
-  },
-  components: {
-    EditUser
   },
   computed: {
     ...mapGetters([

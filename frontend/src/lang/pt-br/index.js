@@ -201,7 +201,7 @@ export default {
       },
 
       editUser: {
-        title: 'Editar usuário',
+        title: 'Editar {u}',
         button: 'Editar',
         cancel: 'Cancelar',
 
@@ -259,6 +259,12 @@ export default {
         role: 'Cargo',
         action: 'Ação',
         enabled: 'Ativo'
+      },
+
+      userScene: {
+        title: 'Cenários de {u}',
+        pagination: 'Página {a} de {t}',
+        close: 'Fechar'
       }
     }
   },

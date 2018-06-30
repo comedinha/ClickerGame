@@ -5,6 +5,8 @@
       <Report v-if="getSceneReportDialog" />
       <SceneDetail v-if="getSceneDetailDialog" />
       <Users v-if="getUsersDialog" />
+      <EditUser v-if="getEditUserDialog" />
+      <UserScene v-if="getUserSceneDialog" />
       <v-layout row wrap>
         <MyScenes v-if="!getGuest" />
         <GuestMessage v-if="getGuest" />
@@ -38,9 +40,11 @@ import GuestMessage from '@/components/lobby/block/GuestMessage'
 import AllScenes from '@/components/lobby/block/AllScenes'
 
 import Approval from '@/components/lobby/dialog/Approval'
+import EditUser from '@/components/lobby/dialog/EditUser'
 import Report from '@/components/lobby/dialog/Report'
 import SceneDetail from '@/components/lobby/dialog/SceneDetail'
 import Users from '@/components/lobby/dialog/Users'
+import UserScene from '@/components/lobby/dialog/UserScene'
 
 export default {
   components: {
@@ -55,9 +59,11 @@ export default {
     AllScenes,
 
     Approval,
+    EditUser,
     Report,
     SceneDetail,
-    Users
+    Users,
+    UserScene
   },
   computed: {
     ...mapGetters([
@@ -66,7 +72,9 @@ export default {
       'getViewAllScenes',
       'getSceneApprovalDialog',
       'getSceneReportDialog',
-      'getUsersDialog'
+      'getUsersDialog',
+      'getUserSceneDialog',
+      'getEditUserDialog'
     ])
   }
 }

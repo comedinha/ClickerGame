@@ -38,6 +38,13 @@ const state = {
   usersDialog: false,
   usersLoading: true,
   users: [],
+  userSelectedName: '',
+
+  userSceneLoading: true,
+  userSceneDialog: false,
+  userScene: {
+    items: []
+  },
 
   editUserDialog: false,
   editUserInfo: {},
@@ -103,6 +110,11 @@ const getters = {
   getUsersDialog: state => state.usersDialog,
   getUsersLoading: state => state.usersLoading,
   getUsers: state => state.users,
+  getUserSelectedName: state => state.userSelectedName,
+
+  getUserSceneLoading: state => state.userSceneLoading,
+  getUserSceneDialog: state => state.userSceneDialog,
+  getUserScene: state => state.userScene,
 
   getEditUserDialog: state => state.editUserDialog,
   getEditUserInfo: state => state.editUserInfo,
@@ -263,16 +275,31 @@ const actions = {
     commit('updateUsersDialog', event)
   },
 
-  setEditUserDialog ({commit}, event) {
+  setUserSceneDialog ({ commit }, event) {
+    commit('updateUserSceneDialog', event)
+  },
+
+  viewUserScenes ({ commit }, message) {
+    commit('updateUserSelectedName', message.name)
+    // Comentário: Adicionar conexão aqui.
+
+    // Quando true trocar por response
+    commit('updateUserScene', [])
+
+    // Quando false esse
+    commit('updateUserSceneLoading', false)
+  },
+
+  setEditUserDialog ({ commit }, event) {
     commit('updateEditUserDialog', event)
   },
 
-  setEditUserInfo ({commit}, message) {
+  setEditUserInfo ({ commit }, message) {
+    commit('updateUserSelectedName', message.name)
     commit('updateEditUserInfo', message)
   },
 
-  setUpdateUser ({commit}, user) {
-    console.log(user)
+  setUpdateUser ({ commit }, user) {
     Vue.http.post('api/updateuser', user).then(response => {
       commit('updateUser', response)
     }).catch(() => {
@@ -281,7 +308,7 @@ const actions = {
     commit('updateUser')
   },
 
-  deleteUser ({commit}, user) {
+  deleteUser ({ commit }, user) {
     Vue.http.post('api/deleteuser', user).then(response => {
       commit('updateUser', response)
     }).catch(() => {
@@ -418,6 +445,31 @@ const mutations = {
 
   updateUsersLoading (state, event) {
     state.usersLoading = event
+  },
+
+  updateUserSelectedName (state, message) {
+    state.userSelectedName = message
+  },
+
+  updateUserSceneDialog (state, event) {
+    if (event === false) {
+      state.userScene = []
+      state.userSceneLoading = true
+      state.userSelectedName = ''
+    }
+
+    state.userSceneDialog = event
+  },
+
+  updateUserSceneLoading (state, event) {
+    state.userSceneLoading = event
+  },
+
+  updateUserScene (state, message) {
+    state.userSceneDialog = true
+    state.userSceneLoading = false
+
+    state.userScene.items = message
   },
 
   updateEditUserDialog (state, event) {

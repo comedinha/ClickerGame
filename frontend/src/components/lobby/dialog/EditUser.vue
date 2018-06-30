@@ -2,7 +2,7 @@
   <v-dialog v-model="editUserDialog" max-width="500px">
     <v-card>
       <v-card-title>
-        <span class="headline">{{ $ml.get('lobby.dialog.editUser.title') }}</span>
+        <span class="headline">{{ $ml.with('u', getUserSelectedName).get('lobby.dialog.editUser.title') }}</span>
       </v-card-title>
       <v-alert :value="true" type="error" v-if="error">
         {{ error }}
@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { required, minLength, maxLength, email, sameAs } from 'vuelidate/lib/validators'
 
 export default {
@@ -79,6 +80,10 @@ export default {
     }
   },
   computed: {
+    ...mapGetters([
+      'getUserSelectedName'
+    ]),
+
     nameErrors () {
       const errors = []
       if (!this.$v.editUserInfo.name.$dirty) return errors

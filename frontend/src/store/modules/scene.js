@@ -21,13 +21,12 @@ const state = {
     {
       ref: 'World 0',
 
-      clickButton: 1,
-      infoScreen: 1,
-      gridCount: 2,
-      gridContent: [
-        {x: 9, y: 4, w: 5, h: 5, i: 'Grid 0', type: 'button', ref: 'Button 0'},
-        {x: 9, y: 0, w: 5, h: 2, i: 'Grid 1', type: 'information', ref: 'Information 0'}
-      ],
+      gridCount: 0,
+      gridContent: [],
+
+      gridButtons: [],
+
+      gridInformation: [],
 
       tabs: [
         {
@@ -138,6 +137,10 @@ const actions = {
     commit('updateGame', true)
   },
 
+  loadDefault ({ commit }) {
+    commit('updateDefault')
+  },
+
   savePlay ({ commit }) {
     // Comentário: Fazer tanto salvar cenário quanto salvar jogo.
   },
@@ -221,6 +224,42 @@ const actions = {
 
 // mutations
 const mutations = {
+  updateDefault (state) {
+    let firstGridButton = {
+      ref: 'Button ' + state.world[state.currentWorld].gridButtons.length
+    }
+    state.world[state.currentWorld].gridButtons.push(firstGridButton)
+
+    const indexButton = state.world[state.currentWorld].gridButtons.indexOf(firstGridButton)
+    let firstButton = {
+      x: 9,
+      y: 4,
+      w: 5,
+      h: 5,
+      i: 'Grid ' + state.world[state.currentWorld].gridCount++,
+      type: 'button',
+      ref: state.world[state.currentWorld].gridButtons[indexButton]
+    }
+    state.world[state.currentWorld].gridContent.push(firstButton)
+
+    let firstGridInformation = {
+      ref: 'Information ' + state.world[state.currentWorld].gridInformation.length
+    }
+    state.world[state.currentWorld].gridInformation.push(firstGridInformation)
+
+    const indexInformation = state.world[state.currentWorld].gridInformation.indexOf(firstGridInformation)
+    let firstInfomation = {
+      x: 9,
+      y: 0,
+      w: 5,
+      h: 2,
+      i: 'Grid ' + state.world[state.currentWorld].gridCount++,
+      type: 'information',
+      ref: state.world[state.currentWorld].gridButtons[indexInformation]
+    }
+    state.world[state.currentWorld].gridContent.push(firstInfomation)
+  },
+
   updateGame (state, event) {
     state.editMode = event
     state.creatorVision = event
@@ -245,22 +284,24 @@ const mutations = {
   },
 
   updateEditConfigDialog (state, event) {
-    if (event === false) {
-      if (state.config !== state.oldConfig) {
-        state.config = state.oldConfig
-      }
-    } else {
-      let old = {
-        name: state.config.name,
-        smallDescription: state.config.smallDescription,
-        completeDescription: state.config.completeDescription,
-        image: state.config.image
+    if (state.creatorVision === true) {
+      if (event === false) {
+        if (state.config !== state.oldConfig) {
+          state.config = state.oldConfig
+        }
+      } else {
+        let old = {
+          name: state.config.name,
+          smallDescription: state.config.smallDescription,
+          completeDescription: state.config.completeDescription,
+          image: state.config.image
+        }
+
+        state.oldConfig = old
       }
 
-      state.oldConfig = old
+      state.editConfigDialog = event
     }
-
-    state.editConfigDialog = event
   },
 
   updateConfig (state, message) {
@@ -268,7 +309,6 @@ const mutations = {
   },
 
   saveConfig (state) {
-    state.config = state.config
     state.editConfigDialog = false
   },
 
@@ -288,6 +328,7 @@ const mutations = {
         tab: item,
         ref: item.grids[(item.grids.push(tabItemGrid) - 1)]
       }
+
       state.world[state.currentWorld].gridContent.push(newGridItem)
     }
   },

@@ -44,6 +44,8 @@ export default {
           this.$store.dispatch('loadCreate', { createId }).catch(() => {
             this.$router.go('/')
           })
+        } else {
+          this.$store.dispatch('loadDefault')
         }
       }
     }

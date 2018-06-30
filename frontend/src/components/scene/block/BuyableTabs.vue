@@ -7,7 +7,7 @@
       <v-card-actions v-if="getEditMode">
         <v-btn block @click="addItem(tab.items)">+</v-btn>
       </v-card-actions>
-      <v-card-actions v-if="!getEditMode">
+      <v-card-actions v-if="!getEditMode && tab.type === 'item'">
         <v-spacer />
         <v-btn>1x</v-btn>
       </v-card-actions>
@@ -41,7 +41,8 @@
         <v-flex v-for="item in tab.items" :key="item.ref" md3>
           <v-card>
             <img height="50" width="100" :src="item.image" />
-            <v-btn>{{ item.price }}</v-btn>
+            <v-btn v-if="!getEditMode">{{ item.price }}</v-btn>
+            <v-btn v-if="getEditMode">Editar</v-btn>
           </v-card>
         </v-flex>
         </v-layout>

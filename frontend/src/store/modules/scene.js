@@ -12,6 +12,9 @@ const state = {
     name: '',
     smallDescription: '',
     completeDescription: '',
+    globalCoin: true,
+    coinName: '',
+    coinSymbol: '',
     image: ''
   },
   oldConfig: {},
@@ -21,6 +24,9 @@ const state = {
   world: [
     {
       ref: 'World 0',
+      name: 'World',
+      coinName: '',
+      coinSymbol: '',
 
       gridCount: 0,
       gridContent: [],
@@ -29,44 +35,8 @@ const state = {
 
       gridInformation: [],
 
-      tabs: [
-        {
-          type: 'item',
-          refTab: 'Tab 0',
-          refItem: 'Item 0',
-          title: 'Items',
-          itemsCount: 2,
-          items: [
-            {
-              ref: 'Content 0',
-              divRef: 'Div 0',
-              title: 'Image Test',
-              image: 'https://media.giphy.com/media/14chvzoFjnDBGE/giphy.gif',
-              grids: []
-            },
-            {
-              ref: 'Content 1',
-              divRef: 'Div 1',
-              title: 'Image Test 2',
-              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png',
-              grids: []
-            }
-          ]
-        },
-        {
-          type: 'upgrade',
-          refTab: 'Tab 1',
-          refItem: 'Item 1',
-          title: 'Upgrades',
-          items: [
-            {
-              title: 'Upgrade',
-              price: '100',
-              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
-            }
-          ]
-        }
-      ]
+      tabCount: 0,
+      tabs: []
     }
   ],
 
@@ -179,16 +149,20 @@ const actions = {
     commit('updateItemDialogNewItem', event)
   },
 
-  setAddItem ({ commit }, message) {
-    commit('updateAddItem', message)
+  addItemTab ({ commit }) {
+    commit('addItemTab')
   },
 
-  setEditItem ({ commit }, message) {
+  addItem ({ commit }, message) {
+    commit('addItem', message)
+  },
+
+  editItem ({ commit }, message) {
     commit('editItem', message)
   },
 
-  addItemTab ({ commit }) {
-    commit('addItemTab')
+  deleteItem ({ commit }, message) {
+    commit('deleteItem', message)
   },
 
   setAddUpgradeDialog ({ commit }, event) {
@@ -203,6 +177,52 @@ const actions = {
 // mutations
 const mutations = {
   updateDefault (state) {
+    let tabItem = {
+      type: 'item',
+      refTab: 'Tab ' + state.world[state.currentWorld].tabCount,
+      refItem: 'Item ' + state.world[state.currentWorld].tabCount++,
+      title: 'Items',
+      itemsCount: 0,
+      items: []
+    }
+    state.world[state.currentWorld].tabs.push(tabItem)
+
+    const indexTabItem = state.world[state.currentWorld].tabs.indexOf(tabItem)
+    let firstItem = {
+      ref: 'Content ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount,
+      divRef: 'Div ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount++,
+      title: 'Image Test',
+      image: 'https://media.giphy.com/media/14chvzoFjnDBGE/giphy.gif',
+      grids: []
+    }
+    state.world[state.currentWorld].tabs[indexTabItem].items.push(firstItem)
+
+    let secondItem = {
+      ref: 'Content ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount,
+      divRef: 'Div ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount++,
+      title: 'Image Test 2',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png',
+      grids: []
+    }
+    state.world[state.currentWorld].tabs[indexTabItem].items.push(secondItem)
+
+    let tabUpgrade = {
+      type: 'upgrade',
+      refTab: 'Tab ' + state.world[state.currentWorld].tabCount,
+      refItem: 'Item ' + state.world[state.currentWorld].tabCount++,
+      title: 'Upgrades',
+      items: []
+    }
+    state.world[state.currentWorld].tabs.push(tabUpgrade)
+
+    const indexTabUpgrade = state.world[state.currentWorld].tabs.indexOf(tabUpgrade)
+    let firstUpgrade = {
+      title: 'Upgrade',
+      price: '100',
+      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
+    }
+    state.world[state.currentWorld].tabs[indexTabUpgrade].items.push(firstUpgrade)
+
     let firstGridButton = {
       style: {
         'border-radius': '100%'
@@ -277,6 +297,8 @@ const mutations = {
           name: state.config.name,
           smallDescription: state.config.smallDescription,
           completeDescription: state.config.completeDescription,
+          coinName: state.config.coinName,
+          coinSymbol: state.config.coinSymbol,
           image: state.config.image
         }
 
@@ -308,7 +330,7 @@ const mutations = {
         h: 1,
         i: 'Grid ' + state.world[state.currentWorld].gridCount++,
         type: 'image',
-        itemGrid: item.grids,
+        item: item,
         ref: item.grids[(item.grids.push(tabItemGrid) - 1)]
       }
 
@@ -332,9 +354,9 @@ const mutations = {
     if (state.creatorVision === true) {
       var indexGrid = state.world[state.currentWorld].gridContent.indexOf(item)
       if (indexGrid > -1) {
-        if (item.itemGrid) {
-          var indexItem = item.itemGrid.indexOf(state.world[state.currentWorld].gridContent[indexGrid].ref)
-          item.itemGrid.splice(indexItem, 1)
+        if (item.item.grids) {
+          var indexItem = item.item.grids.indexOf(state.world[state.currentWorld].gridContent[indexGrid].ref)
+          item.item.grids.splice(indexItem, 1)
         } else if (item.type === 'button') {
           var indexButton = state.world[state.currentWorld].gridButtons.indexOf(state.world[state.currentWorld].gridContent[indexGrid].ref)
           state.world[state.currentWorld].gridButtons.splice(indexButton, 1)
@@ -359,7 +381,7 @@ const mutations = {
     state.newItem = message
   },
 
-  updateAddItem (state, message) {
+  addItem (state, message) {
     const { tab } = message
 
     state.currentTab = tab
@@ -387,10 +409,26 @@ const mutations = {
     state.addItem = itemInfo
   },
 
+  deleteItem (state, message) {
+    // Comentário: Falta deletar upgrade se tiver...
+    const { tab, item } = message
+
+    var result = state.world[state.currentWorld].gridContent.find(gridItem => gridItem.item === item)
+    while (result) {
+      const indexGrid = state.world[state.currentWorld].gridContent.indexOf(result)
+      state.world[state.currentWorld].gridContent.splice(indexGrid, 1)
+
+      result = state.world[state.currentWorld].gridContent.find(gridItem => gridItem.item === item)
+    }
+
+    const indexItem = tab.items.indexOf(item)
+    tab.items.splice(indexItem, 1)
+  },
+
   addItemTab (state) {
     if (state.newItem) {
       let newItem = {
-        ref: 'Content ' + state.currentTab.itemsCount++,
+        ref: 'Content ' + state.currentTab.itemsCount,
         divRef: 'Div ' + state.currentTab.itemsCount++,
 
         title: state.addItem.title,

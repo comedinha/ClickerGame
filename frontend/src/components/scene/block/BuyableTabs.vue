@@ -85,16 +85,16 @@ export default {
     addItem (tab) {
       this.$store.dispatch('setAddItemDialog', !this.getAddItemDialog)
       this.$store.dispatch('setAddItemDialogNewItem', true)
-      this.$store.dispatch('setAddItem', { tab })
+      this.$store.dispatch('addItem', { tab })
     },
 
     editItem (tab, item) {
       this.$store.dispatch('setAddItemDialog', !this.getAddItemDialog)
-      this.$store.dispatch('setEditItem', { tab, item })
+      this.$store.dispatch('editItem', { tab, item })
     },
 
     deleteItem (tab, item) {
-      this.$store.dispatch('deleteAddItem', { tab, item })
+      this.$store.dispatch('deleteItem', { tab, item })
     }
   }
 }

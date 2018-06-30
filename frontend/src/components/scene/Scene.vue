@@ -1,7 +1,8 @@
 <template>
   <v-container fluid grid-list-sm fixed>
-    <AddItem v-if="getCreatorVision" />
-    <AddUpgrade />
+    <EditConfig v-if="getCreatorVision && getEditConfigDialog" />
+    <AddItem v-if="getCreatorVision && getAddItemDialog" />
+    <AddUpgrade v-if="getCreatorVision && getAddUpgradeDialog" />
     <v-layout row wrap>
       <v-flex md8>
         <v-card height="90vh">
@@ -25,6 +26,7 @@ import BuyableTabs from '@/components/scene/block/BuyableTabs'
 
 import AddItem from '@/components/scene/creator/dialog/AddItem'
 import AddUpgrade from '@/components/scene/creator/dialog/AddUpgrade'
+import EditConfig from '@/components/scene/creator/dialog/EditConfig'
 
 export default {
   beforeCreate () {
@@ -52,7 +54,10 @@ export default {
   computed: {
     ...mapGetters([
       'getGuest',
-      'getCreatorVision'
+      'getCreatorVision',
+      'getAddItemDialog',
+      'getAddUpgradeDialog',
+      'getEditConfigDialog'
     ])
   },
   components: {
@@ -61,7 +66,8 @@ export default {
     BuyableTabs,
 
     AddItem,
-    AddUpgrade
+    AddUpgrade,
+    EditConfig
   }
 }
 </script>

@@ -128,7 +128,7 @@ const actions = {
       Vue.http.post('api/getNews').then(responseList => {
         commit('updateNewsList', responseList)
       }).catch(() => {
-        commit('updateNewsLoading')
+        commit('updateNewsLoading', false)
       })
     }
     commit('updateNewsDialog', event)
@@ -172,6 +172,12 @@ const actions = {
     })
   },
 
+  deleteNews ({ commit }, news) {
+    // Comentário: Configurar deletar aqui.
+    commit('updateNewsLoading', true)
+    commit('updateNewsDialog', false)
+  },
+
   setInformationDialog ({ commit }, event) {
     commit('updateInformationDialog', event)
   },
@@ -198,26 +204,27 @@ const actions = {
 
   setSceneDetailInfo ({ commit }, message) {
     commit('updateSceneDetailInfo', message)
+    commit('updateSceneDetailDialog', true)
   },
 
   setViewAllScenes ({ commit, getters }, event) {
     if (event === true && getters.getAllScenesLoading === true) {
-      console.log('ViewAllScenes')
-      Vue.http.post('api/getallscenes').then(responseAllScenes => {
-        console.log(responseAllScenes)
+      Vue.http.post('api/getallscenes').then(response => {
+        commit('updateAllScenes', response)
       }).catch(() => {
-        commit('updateNewsLoading')
+        commit('updateAllScenesLoading', false)
       })
     }
+
+    commit('updateViewAllScenes', event)
   },
 
   setSceneApprovalDialog ({ commit, getters }, event) {
     if (event === true && getters.getSceneApprovalLoading === true) {
-      console.log('Approval')
-      Vue.http.post('api/getapproval').then(responseSceneApproval => {
-        console.log(responseSceneApproval)
+      Vue.http.post('api/getapproval').then(response => {
+        commit('updateSceneApproval', response)
       }).catch(() => {
-        commit('updateNewsLoading')
+        commit('updateSceneApprovalLoading', false)
       })
     }
 
@@ -225,26 +232,23 @@ const actions = {
   },
 
   setSceneReportDialog ({ commit, getters }, event) {
-    console.log(getters.getSceneReportLoading)
     if (event === true && getters.getSceneReportLoading === true) {
-      console.log('Report')
-      Vue.http.post('api/getreport').then(responseSceneReport => {
-        console.log(responseSceneReport)
+      Vue.http.post('api/getreport').then(response => {
+        commit('updateSceneReport', response)
       }).catch(() => {
-        commit('updateNewsLoading')
+        commit('updateSceneReportLoading', false)
       })
     }
-    console.log('Report')
+
     commit('updateSceneReportDialog', event)
   },
 
   setUsersDialog ({ commit, getters }, event) {
     if (event === true && getters.getUsersLoading === true) {
-      console.log('ViewAllUsers')
-      Vue.http.post('api/getallusers').then(responseSceneReport => {
-        console.log(responseSceneReport)
+      Vue.http.post('api/getallusers').then(response => {
+        commit('updateUsers', response)
       }).catch(() => {
-        commit('updateNewsLoading')
+        commit('updateUsersLoading', false)
       })
     }
 
@@ -262,18 +266,23 @@ const actions = {
   setUpdateUser ({commit}, user) {
     // Comentário: Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
     commit('updateUser')
+  },
+
+  deleteUser ({commit}, user) {
+    // Comentário: faz aqui funcionar e eu vejo o que faltar
+    commit('updateUser')
   }
 }
 
 // mutations
 const mutations = {
   updateNewsDialog (state, event) {
-    state.newsDialog = event
-    state.newsUpdate = 0
-
     if (event === false && state.newsContent.items.length === 0) {
       state.newsLoading = true
     }
+
+    state.newsDialog = event
+    state.newsUpdate = 0
   },
 
   updateNewsList (state, responseList) {
@@ -281,8 +290,8 @@ const mutations = {
     state.newsLoading = false
   },
 
-  updateNewsLoading (state) {
-    state.newsLoading = false
+  updateNewsLoading (state, event) {
+    state.newsLoading = event
   },
 
   updateNewsAddDialog (state, event) {
@@ -323,23 +332,74 @@ const mutations = {
 
   updateSceneDetailInfo (state, message) {
     state.sceneDetailInfo = message
-    state.sceneDetailDialog = true
   },
 
   updateViewAllScenes (state, event) {
+    if (event === false && state.allScenes.items.length === 0) {
+      state.allScenesLoading = true
+    }
+
     state.viewAllScenes = event
   },
 
+  updateAllScenes (state, message) {
+    state.allScenes.items = message.body
+    state.allScenesLoading = false
+  },
+
+  updateAllScenesLoading (state, event) {
+    state.allScenesLoading = event
+  },
+
   updateSceneApprovalDialog (state, event) {
+    if (event === false && state.sceneApproval.items.length === 0) {
+      state.sceneApprovalLoading = true
+    }
+
     state.sceneApprovalDialog = event
   },
 
+  updateSceneApproval (state, message) {
+    state.sceneApproval.items = message.body
+    state.sceneApprovalLoading = false
+  },
+
+  updateSceneApprovalLoading (state, event) {
+    state.sceneApprovalLoading = event
+  },
+
   updateSceneReportDialog (state, event) {
+    if (event === false && state.sceneReport.length === 0) {
+      state.sceneReportLoading = true
+    }
+
     state.sceneReportDialog = event
   },
 
+  updateSceneReport (state, message) {
+    state.sceneReport.items = message.body
+    state.sceneReportLoading = false
+  },
+
+  updateSceneReportLoading (state, event) {
+    state.sceneReportLoading = event
+  },
+
   updateUsersDialog (state, event) {
+    if (event === false && state.users.length === 0) {
+      state.usersLoading = true
+    }
+
     state.usersDialog = event
+  },
+
+  updateUsers (state, message) {
+    state.users = message.body
+    state.usersLoading = false
+  },
+
+  updateUsersLoading (state, event) {
+    state.usersLoading = event
   },
 
   updateEditUserDialog (state, event) {
@@ -351,13 +411,13 @@ const mutations = {
   },
 
   updateEditUserInfo (state, message) {
-    // Comentário: Talvez alterar
     let userInfo = {
       id: message.id,
       name: message.name,
       email: message.email,
       role: message.role,
-      enabled: message.enabled
+      enabled: message.enabled,
+      needApproval: message.needApproval
     }
 
     state.editUserInfo = userInfo

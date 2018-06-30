@@ -95,8 +95,7 @@ export default {
     },
 
     deleteUser (user) {
-      console.log(user)
-      confirm(this.$ml.with('u', user.name).get('lobby.dialog.users.delete'))
+      confirm(this.$ml.with('u', user.name).get('lobby.dialog.users.delete')) && this.$store.dispatch('deleteUser', user)
     }
   }
 }

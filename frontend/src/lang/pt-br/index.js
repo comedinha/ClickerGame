@@ -14,7 +14,7 @@ export default {
   error: {
     UNK: '{e}: contacte a equipe!',
     notConnected: 'Houve um problema de conexão, tente novamente mais tarde.',
-    noData: 'Sem dados disponíveis. Contacte a equipe.',
+    noData: 'Sem dados disponíveis.',
 
     A01: 'Algo de errado aconteceu com o captcha, favor tentar novamente.',
     A02: 'Endereço de email ou senha incorretos.',
@@ -140,9 +140,6 @@ export default {
       approved: 'Aguardando aprovação',
       deleted: 'Fase deletada',
       enabled: 'Não foi publicado',
-      approve: 'Aprovar',
-      conclude: 'Concluir',
-      delete: 'Deletar',
       edit: 'Editar',
       details: 'Detalhes',
       newScene: 'Novo Jogo',
@@ -206,6 +203,10 @@ export default {
         title: 'Editar Usuário',
         button: 'Editar',
         cancel: 'Cancelar',
+
+        select: 'Selecione',
+        enabled: 'Ativo',
+        allowApproval: 'Permitir publicar',
 
         required: 'Campo necessário.',
         errorRequired: 'Entre com os dados em todos os campos requeridos.',

@@ -13,7 +13,7 @@ public class AdminUserUpdateDTO implements Serializable {
     private String password;
     private String ConfirmPassword;
     private String role;
-    private boolean enable;
+    private boolean enabled;
 
     public AdminUserUpdateDTO() {
     }
@@ -70,13 +70,13 @@ public class AdminUserUpdateDTO implements Serializable {
 		this.role = role;
     }
     
-    public boolean getEnable()
+    public boolean getEnabled()
 	{
-		return this.enable;
+		return this.enabled;
 	}
 
-	public void setEnable(boolean enable)
+	public void setEnabled(boolean enable)
 	{
-		this.enable = enable;
+		this.enabled = enable;
 	}
 }

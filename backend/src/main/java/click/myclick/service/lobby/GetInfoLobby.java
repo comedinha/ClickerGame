@@ -71,4 +71,10 @@ public class GetInfoLobby {
 
         return getScenes.getAllGames(sService, idUser, isAdmin);
     }
+
+    public ArrayList<SceneDTO> getScenesUser(SceneService service, String id) {
+        GetScenes getScenes = new GetScenes();
+
+        return getScenes.getScenesUser(service, id);
+    }
 }

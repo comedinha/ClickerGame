@@ -10,13 +10,20 @@ public class InfoLobbyDTO implements Serializable {
     private static final long serialVersionUID = -4159366809929151486L;
 
     private String name;
-	private int news;
 	private String authorities;
+	private int news;
+	private int numApproval;
+	private int numReport;
 
 	private ArrayList<MySceneDTO> myScenes;
 	private ArrayList<PlayedSceneDTO> playedGames;
 	private ArrayList<SceneMostPlayedDTO> mostPlayed;
 	private ArrayList<SceneBestRatedDTO> bestRated;
+
+	public InfoLobbyDTO() {
+		numApproval = 0;
+		numReport = 0;
+	}
 
 	public String getName() {
 		return this.name;
@@ -72,5 +79,21 @@ public class InfoLobbyDTO implements Serializable {
 
 	public void setBestRated(ArrayList<SceneBestRatedDTO> bestRated) {
 		this.bestRated = bestRated;
+	}
+
+	public int getNumApproval() {
+		return this.numApproval;
+	}
+
+	public void setNumApproval(int numApproval) {
+		this.numApproval = numApproval;
+	}
+
+	public int getNumReport() {
+		return this.numReport;
+	}
+
+	public void setNumReport(int numReport) {
+		this.numReport = numReport;
 	}
 }

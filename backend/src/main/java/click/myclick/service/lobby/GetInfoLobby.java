@@ -29,6 +29,8 @@ public class GetInfoLobby {
         dto.setAuthorities(user.getAuthorities().get(0).getAuthority());
         dto.setName(user.getName());
         dto.setNews(news.checkNews(newsService, user.getLastchecknews()));
+        dto.setNumApproval(getScenes.getApproval(sceneService).size());
+        dto.setNumReport(getScenes.getReport(sceneService, reportService).size());
         
         dto.setMyScenes(getScenes.getMyScenes(sceneService, user.getId(), (user.getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))));
         dto.setPlayedGames(getScenes.getPlayedGames(sceneService, user.getId()));

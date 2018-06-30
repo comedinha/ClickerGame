@@ -173,7 +173,12 @@ const actions = {
   },
 
   deleteNews ({ commit }, news) {
-    // Comentário: Configurar deletar aqui.
+    Vue.http.post('api/deletenews', news).then(response => {
+      commit('updateUser', response)
+    }).catch(() => {
+      commit('updateUsersLoading', false)
+    })
+
     commit('updateNewsLoading', true)
     commit('updateNewsDialog', false)
   },
@@ -264,8 +269,6 @@ const actions = {
   },
 
   setUpdateUser ({commit}, user) {
-    console.log('teste user:')
-    console.log(user)
     Vue.http.post('api/updateuser', user).then(response => {
       commit('updateUser', response)
     }).catch(() => {

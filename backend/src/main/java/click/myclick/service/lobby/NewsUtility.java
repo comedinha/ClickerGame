@@ -46,6 +46,7 @@ public class NewsUtility {
     }
 
     public List<GetNewsDTO> getListNews(UserService userService, NewsService newsService, String username) {
+        
         User user = userService.findByUsername(username);
         List<News> newsList = newsService.findAll();
         List<GetNewsDTO> noSeen = new ArrayList<GetNewsDTO>();
@@ -58,5 +59,19 @@ public class NewsUtility {
         userService.getRepository().save(user);
 
         return noSeen;
+    }
+
+    public int deleteNews(NewsService newsService, AddNewsDTO dto) {
+        
+        List<News> newsList = newsService.findAll();
+
+        for(News news : newsList) {
+            if(news.getTitle().equals(dto.getTitle()) && news.getContent().equals(dto.getContent())) {
+                newsService.delete(news.getId());
+                return 0;
+            }
+        }
+
+        return 1;
     }
 }

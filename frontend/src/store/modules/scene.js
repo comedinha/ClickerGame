@@ -17,6 +17,7 @@ const state = {
   oldConfig: {},
 
   currentWorld: 0,
+  worldCount: 1,
   world: [
     {
       ref: 'World 0',
@@ -34,6 +35,7 @@ const state = {
           refTab: 'Tab 0',
           refItem: 'Item 0',
           title: 'Items',
+          itemsCount: 2,
           items: [
             {
               ref: 'Content 0',
@@ -57,26 +59,6 @@ const state = {
           refItem: 'Item 1',
           title: 'Upgrades',
           items: [
-            {
-              title: 'Upgrade',
-              price: '100',
-              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
-            },
-            {
-              title: 'Upgrade',
-              price: '100',
-              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
-            },
-            {
-              title: 'Upgrade',
-              price: '100',
-              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
-            },
-            {
-              title: 'Upgrade',
-              price: '100',
-              image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
-            },
             {
               title: 'Upgrade',
               price: '100',
@@ -408,8 +390,8 @@ const mutations = {
   addItemTab (state) {
     if (state.newItem) {
       let newItem = {
-        ref: 'Content ' + state.currentTab.length,
-        divRef: 'Div ' + state.currentTab.length,
+        ref: 'Content ' + state.currentTab.itemsCount++,
+        divRef: 'Div ' + state.currentTab.itemsCount++,
 
         title: state.addItem.title,
         image: state.addItem.image,
@@ -420,12 +402,12 @@ const mutations = {
         grids: []
       }
 
-      state.currentTab.push(newItem)
+      state.currentTab.items.push(newItem)
       state.currentTab = []
     } else {
-      var indexItem = state.currentTab.indexOf(state.editItem)
+      var indexItem = state.currentTab.items.indexOf(state.editItem)
 
-      Vue.set(state.currentTab, indexItem, state.addItem)
+      Vue.set(state.currentTab.items, indexItem, state.addItem)
     }
     state.addItemDialog = false
   },

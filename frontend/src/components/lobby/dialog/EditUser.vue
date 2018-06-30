@@ -16,7 +16,7 @@
           <v-text-field prepend-icon="email" v-model="editUserInfo.email" :error-messages="emailErrors" :label="$ml.get('lobby.dialog.editUser.email.title')" required @input="$v.editUserInfo.email.$touch()" @blur="$v.editUserInfo.email.$touch()" />
           <v-card-actions>
             <v-checkbox :label="$ml.get('lobby.dialog.editUser.allowApproval')" v-model="editUserInfo.needApproval" />
-            <v-checkbox :label="$ml.get('lobby.dialog.editUser.enabled')" v-model="editUserInfo.enable" />
+            <v-checkbox :label="$ml.get('lobby.dialog.editUser.enabled')" v-model="editUserInfo.enabled" />
           </v-card-actions>
           <v-card-actions>
             <v-text-field prepend-icon="lock" v-model="password" :error-messages="passwordErrors" :label="$ml.get('lobby.dialog.editUser.password.title')" @input="$v.password.$touch()" @blur="$v.password.$touch()" type="password" />
@@ -133,9 +133,9 @@ export default {
       this.$v.$touch()
       if (!this.$v.$invalid) {
         this.load = true
-        const {id, name, email, role, enable} = this.editUserInfo
+        const {id, name, email, role, enabled} = this.editUserInfo
         const { password, confirmPassword } = this
-        this.$store.dispatch('setUpdateUser', { id, name, email, role, enable, password, confirmPassword }).then(() => {
+        this.$store.dispatch('setUpdateUser', { id, name, email, role, enabled, password, confirmPassword }).then(() => {
           this.informationDialog = false
         }).catch(errorCode => {
           this.load = false

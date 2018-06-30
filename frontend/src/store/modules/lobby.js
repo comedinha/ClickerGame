@@ -429,6 +429,8 @@ const mutations = {
   },
 
   updateEditUserInfo (state, message) {
+    state.editUserDialog = true
+
     let userInfo = {
       id: message.id,
       name: message.name,

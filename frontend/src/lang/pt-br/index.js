@@ -26,14 +26,14 @@ export default {
     B03: 'O endereço de email já está cadastrado.',
 
     C01: 'Algum erro inesperado aconteceu, se persistir contacte a equipe.',
-    C02: 'Ocorreu um erro ao criar o usuário.',
+    C02: 'Ocorreu um erro ao efetuar o registro do jogador.',
     C03: 'Acesso não autorizado'
   },
 
   auth: {
     email: {
       button: 'Ativar',
-      success: 'O endereço de email foi ativo.',
+      success: 'O endereço de email esta ativo.',
 
       required: 'Campo necessário.',
       errorRequired: 'Entre com os dados em todos os campos requeridos.',
@@ -44,22 +44,22 @@ export default {
 
       username: {
         title: 'Email: ',
-        validEmail: 'Digite um endereço de email válido.'
+        validEmail: 'Entre com um endereço de email válido.'
       }
     },
 
     resetPassword: {
-      button: 'Trocar Senha',
+      button: 'Editar Senha',
 
       required: 'Campo necessário.',
       errorRequired: 'Entre com os dados em todos os campos requeridos.',
       password: {
         title: 'Senha: ',
-        errorLimit: 'A senha deve ao menos {c} digitos.'
+        errorLimit: 'A senha deve possuir ao menos {c} digitos.'
       },
       confirmPassword: {
         title: 'Confirmação: ',
-        errorIdentical: 'A confirmação precisa ser identica a senha.'
+        errorIdentical: 'A confirmação precisa ser idêntica a senha.'
       }
     },
 
@@ -73,11 +73,11 @@ export default {
       errorRequired: 'Entre com os dados em todos os campos requeridos.',
       email: {
         title: 'Email: ',
-        validEmail: 'Digite um endereço de email válido.'
+        validEmail: 'Entre com um endereço de email válido.'
       },
       password: {
         title: 'Senha: ',
-        errorLimit: 'A senha deve ao menos {c} digitos.'
+        errorLimit: 'A senha deve possuir ao menos {c} digitos.'
       }
     },
 
@@ -85,36 +85,36 @@ export default {
       title: 'Cadastrar',
       description: 'Descrição do Cadastro',
       button: 'Registrar',
-      success: 'Se o endereço de email estiver correto nós lhe enviamos instruções para a ativação da conta.',
+      success: 'Ok, Nós lhe enviaremos instruções para a ativação da conta.',
 
       required: 'Campo necessário.',
       errorRequired: 'Entre com os dados em todos os campos requeridos.',
       username: {
         title: 'Email: ',
-        validEmail: 'Digite um endereço de email válido.',
+        validEmail: 'Entre com um endereço de email válido.',
 
         existEmail: 'O endereço de email já esta cadastrado.'
       },
       name: {
         title: 'Nome: ',
-        minLength: 'O nome deve ter no mínimo {c} caracteres.',
-        maxLength: 'O nome deve ter no máximo {c} caracteres.'
+        minLength: 'O nome deve possuir no mínimo {c} caracteres.',
+        maxLength: 'O nome deve possuir no máximo {c} caracteres.'
       },
       password: {
         title: 'Senha: ',
-        errorLimit: 'A senha deve ao menos {c} digitos.'
+        errorLimit: 'A senha deve possuir ao menos {c} digitos.'
       },
       confirmPassword: {
         title: 'Confirmação: ',
-        errorIdentical: 'A confirmação precisa ser identica a senha.'
+        errorIdentical: 'A confirmação precisa ser idêntica a senha.'
       }
     },
 
     dialog: {
       recovery: {
         text: 'Recuperar Senha',
-        description: 'Digite seu endereço de email e enviaremos instruções de recuperação.',
-        confirm: 'Se o endereço de email for correto nós enviamos as intruções.',
+        description: 'Entre com seu endereço de email e enviaremos as instruções de recuperação.',
+        confirm: 'Ok, nós lhe enviaremos as intruções.',
         button: 'Recuperar',
         cancel: 'Cancelar',
 
@@ -122,7 +122,7 @@ export default {
         errorRequired: 'Entre com os dados em todos os campos requeridos.',
 
         email: 'Email: ',
-        validEmail: 'Digite um endereço de email válido.'
+        validEmail: 'Entre com um endereço de email válido.'
       }
     }
   },
@@ -160,7 +160,7 @@ export default {
       },
 
       bestRated: {
-        title: 'Cenários melhores avaliados'
+        title: 'Melhor avaliados'
       },
 
       guestMessage: {
@@ -177,7 +177,7 @@ export default {
       },
 
       mostPlayed: {
-        title: 'Cenários mais jogados'
+        title: 'Mais jogados'
       },
 
       myScenes: {
@@ -195,13 +195,13 @@ export default {
 
     dialog: {
       approval: {
-        title: 'Aguardando Aprovação',
+        title: 'Aguardando aprovação',
         pagination: 'Página {a} de {t}',
         close: 'Fechar'
       },
 
       editUser: {
-        title: 'Editar Usuário',
+        title: 'Editar usuário',
         button: 'Editar',
         cancel: 'Cancelar',
 
@@ -213,8 +213,8 @@ export default {
         errorRequired: 'Entre com os dados em todos os campos requeridos.',
         name: {
           title: 'Nome: ',
-          minLength: 'O nome deve ter no mínimo {c} caracteres.',
-          maxLength: 'O nome deve ter no máximo {c} caracteres.'
+          minLength: 'O nome deve possuir no mínimo {c} caracteres.',
+          maxLength: 'O nome deve possuir no máximo {c} caracteres.'
         },
         email: {
           title: 'Email: ',
@@ -222,11 +222,11 @@ export default {
         },
         password: {
           title: 'Senha: ',
-          errorLimit: 'A senha deve ao menos {c} digitos.'
+          errorLimit: 'A senha deve possuir ao menos {c} digitos.'
         },
         confirmPassword: {
           title: 'Confirmação: ',
-          errorIdentical: 'A confirmação precisa ser identica a senha.'
+          errorIdentical: 'A confirmação precisa ser idêntica a senha.'
         }
       },
 
@@ -266,7 +266,7 @@ export default {
   template: {
     index: {
       user: {
-        information: 'Mudar Informações',
+        information: 'Editar informações',
         logout: 'Desconectar'
       }
     },
@@ -290,7 +290,7 @@ export default {
 
       updateInformation: {
         title: 'Atualizar Informações',
-        description: 'Se algum campo for deixado em branco as informações serão mantidas.',
+        description: 'Os campos em branco terão suas informações mantidas.',
         button: 'Salvar',
         close: 'Fechar',
 
@@ -298,16 +298,16 @@ export default {
         errorRequired: 'Entre com os dados em todos os campos requeridos.',
         name: {
           title: 'Nome: ',
-          minLength: 'O nome deve ter no mínimo {c} caracteres.',
-          maxLength: 'O nome deve ter no máximo {c} caracteres.'
+          minLength: 'O nome deve possuir no mínimo {c} caracteres.',
+          maxLength: 'O nome deve possuir no máximo {c} caracteres.'
         },
         password: {
           title: 'Senha: ',
-          errorLimit: 'A senha deve ao menos {c} digitos.'
+          errorLimit: 'A senha deve possuir ao menos {c} digitos.'
         },
         confirmPassword: {
           title: 'Confirmação: ',
-          errorIdentical: 'A confirmação precisa ser identica a senha.'
+          errorIdentical: 'A confirmação precisa ser idêntica a senha.'
         },
         oldPassword: {
           title: 'Senha atual: '

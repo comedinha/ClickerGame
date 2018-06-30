@@ -27,7 +27,7 @@
                   <v-icon>help</v-icon>
                 </v-card-actions>
                 <v-card-actions>
-                  <v-text-field v-model="config.completeDescription" label="Description" required />
+                  <v-text-field v-model="config.completeDescription" label="Description" multi-line required />
                   <v-icon>help</v-icon>
                 </v-card-actions>
               </v-card-text>

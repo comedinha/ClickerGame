@@ -26,11 +26,21 @@
       <v-toolbar-title>{{ $ml.get('game.name') }}</v-toolbar-title>
       <v-spacer />
       <v-tooltip v-if="getAdmin" bottom>
-        <v-btn slot="activator" @click="sceneApprovalDialog = !sceneApprovalDialog" small icon><v-icon>flag</v-icon></v-btn>
+        <v-btn slot="activator" @click="sceneApprovalDialog = !sceneApprovalDialog" small icon>
+          <v-badge icon overlap top color="red">
+            <span slot="badge" v-if="getSceneApprovalNumber !== 0">{{ getSceneApprovalNumber }}</span>
+            <v-icon>flag</v-icon>
+          </v-badge>
+        </v-btn>
         <span>{{ $ml.get('lobby.lobby.approval') }}</span>
       </v-tooltip>
       <v-tooltip v-if="getAdmin" bottom>
-        <v-btn slot="activator" @click="sceneReportDialog = !sceneReportDialog" small icon><v-icon>report_problem</v-icon></v-btn>
+        <v-btn slot="activator" @click="sceneReportDialog = !sceneReportDialog" small icon>
+          <v-badge icon overlap top color="red">
+            <span slot="badge" v-if="getSceneReportNumber !== 0">{{ getSceneReportNumber }}</span>
+            <v-icon>report_problem</v-icon>
+          </v-badge>
+        </v-btn>
         <span>{{ $ml.get('lobby.lobby.reported') }}</span>
       </v-tooltip>
       <v-tooltip v-if="getAdmin" bottom>
@@ -88,7 +98,9 @@ export default {
       'getGuest',
       'getNewsUpdate',
       'getUsername',
-      'getNewsAddDialog'
+      'getNewsAddDialog',
+      'getSceneApprovalNumber',
+      'getSceneReportNumber'
     ]),
 
     newsDialog: {

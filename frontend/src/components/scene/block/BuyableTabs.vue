@@ -30,6 +30,9 @@
                 <v-btn icon @click="editItem(tab.items, item)">
                   <v-icon>settings</v-icon>
                 </v-btn>
+                <v-btn icon @click="deleteItem(tab.items, item)">
+                  <v-icon>delete</v-icon>
+                </v-btn>
               </v-card>
             </v-list-tile-action>
           </v-list-tile>
@@ -42,7 +45,14 @@
           <v-card>
             <img height="50" width="100" :src="item.image" />
             <v-btn v-if="!getEditMode">{{ item.price }}</v-btn>
-            <v-btn v-if="getEditMode">Editar</v-btn>
+            <v-card-actions v-if="getEditMode">
+              <v-btn icon>
+                <v-icon>settings</v-icon>
+              </v-btn>
+              <v-btn icon>
+                <v-icon>delete</v-icon>
+              </v-btn>
+            </v-card-actions>
           </v-card>
         </v-flex>
         </v-layout>
@@ -74,15 +84,17 @@ export default {
 
     addItem (tab) {
       this.$store.dispatch('setAddItemDialog', !this.getAddItemDialog)
-      this.$store.dispatch('setAddItemDialogTab', tab)
       this.$store.dispatch('setAddItemDialogNewItem', true)
-      this.$store.dispatch('setAddItem', [])
+      this.$store.dispatch('setAddItem', { tab })
     },
 
     editItem (tab, item) {
       this.$store.dispatch('setAddItemDialog', !this.getAddItemDialog)
-      this.$store.dispatch('setAddItemDialogTab', tab)
-      this.$store.dispatch('setEditItem', item)
+      this.$store.dispatch('setEditItem', { tab, item })
+    },
+
+    deleteItem (tab, item) {
+      this.$store.dispatch('deleteAddItem', { tab, item })
     }
   }
 }

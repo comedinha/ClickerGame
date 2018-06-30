@@ -193,20 +193,16 @@ const actions = {
     commit('updateItemDialog', event)
   },
 
-  setAddItemDialogTab ({ commit }, message) {
-    commit('updateItemDialogTab', message)
-  },
-
   setAddItemDialogNewItem ({commit}, event) {
     commit('updateItemDialogNewItem', event)
   },
 
-  setAddItem ({ commit }, item) {
-    commit('updateAddItem', item)
+  setAddItem ({ commit }, message) {
+    commit('updateAddItem', message)
   },
 
-  setEditItem ({ commit }, item) {
-    commit('editItem', item)
+  setEditItem ({ commit }, message) {
+    commit('editItem', message)
   },
 
   addItemTab ({ commit }) {
@@ -377,19 +373,21 @@ const mutations = {
     state.addItemDialog = event
   },
 
-  updateItemDialogTab (state, message) {
-    state.currentTab = message
-  },
-
   updateItemDialogNewItem (state, message) {
     state.newItem = message
   },
 
-  updateAddItem (state, item) {
-    state.addItem = item
+  updateAddItem (state, message) {
+    const { tab } = message
+
+    state.currentTab = tab
+    state.addItem = []
   },
 
-  editItem (state, item) {
+  editItem (state, message) {
+    const { tab, item } = message
+    state.currentTab = tab
+
     let itemInfo = {
       ref: item.ref,
       divRef: item.divRef,
@@ -429,6 +427,7 @@ const mutations = {
 
       Vue.set(state.currentTab, indexItem, state.addItem)
     }
+    state.addItemDialog = false
   },
 
   updateUpgradeDialog (state, event) {

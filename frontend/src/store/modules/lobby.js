@@ -21,12 +21,14 @@ const state = {
   sceneDetailDialog: false,
   sceneDetailInfo: {},
 
+  sceneApprovalNumber: 0,
   sceneApprovalDialog: false,
   sceneApprovalLoading: true,
   sceneApproval: {
     items: []
   },
 
+  sceneReportNumber: 0,
   sceneReportDialog: false,
   sceneReportLoading: true,
   sceneReport: {
@@ -88,10 +90,12 @@ const getters = {
   getSceneDetailDialog: state => state.sceneDetailDialog,
   getSceneDetailInfo: state => state.sceneDetailInfo,
 
+  getSceneApprovalNumber: state => state.sceneApprovalNumber,
   getSceneApprovalDialog: state => state.sceneApprovalDialog,
   getSceneApprovalLoading: state => state.sceneApprovalLoading,
   getSceneApproval: state => state.sceneApproval,
 
+  getSceneReportNumber: state => state.sceneReportNumber,
   getSceneReportDialog: state => state.sceneReportDialog,
   getSceneReportLoading: state => state.sceneReportLoading,
   getSceneReport: state => state.sceneReport,
@@ -146,7 +150,6 @@ const actions = {
     return new Promise((resolve, reject) => {
       Vue.http.post('api/getinfolobby')
         .then(response => {
-          console.log(response)
           commit('updateInfoLobby', response)
           resolve()
         }, errorCode => {
@@ -450,6 +453,9 @@ const mutations = {
     state.username = body.name
     state.role = body.authorities
     state.newsUpdate = body.news
+
+    state.sceneApprovalNumber = body.numApproval
+    state.sceneReportNumber = body.numReport
 
     state.bestRatedLoading = false
     state.bestRated.items = body.bestRated

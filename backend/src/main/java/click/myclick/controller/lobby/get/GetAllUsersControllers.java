@@ -31,7 +31,7 @@ public class GetAllUsersControllers {
         System.out.println("GetAllUsers");
 
         if(!service.findByUsername(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
-            return new ResponseEntity<>("C04", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("C03", HttpStatus.BAD_REQUEST);
         
         return new ResponseEntity<>(getInfoLobby.getAllUsers(service), HttpStatus.OK);
     }

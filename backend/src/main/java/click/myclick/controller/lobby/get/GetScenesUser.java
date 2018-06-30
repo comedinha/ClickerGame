@@ -36,12 +36,12 @@ public class GetScenesUser {
         System.out.println("getApproval");
 
         if(!userService.findByUsername(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
-            return new ResponseEntity<>("C04", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("C03", HttpStatus.BAD_REQUEST);
         
         try {
             return new ResponseEntity<>(getInfoLobby.getScenesUser(sceneService, dto.getId()), HttpStatus.OK);
         } catch(Exception e) {
-            return new ResponseEntity<>("C03", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("C01", HttpStatus.BAD_REQUEST);
         }
         
     }

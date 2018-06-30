@@ -34,7 +34,7 @@ public class GetApprovalController {
         System.out.println("getApproval");
 
         if(!uService.findByUsername(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
-            return new ResponseEntity<>("C04", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("C03", HttpStatus.BAD_REQUEST);
         
         return new ResponseEntity<>(getInfoLobby.getApproval(service) , HttpStatus.OK);
         

@@ -28,9 +28,9 @@ public class UpdateUserController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> emailCheck(@RequestBody final AdminUserUpdateDTO dto, Authentication auth) {
+    public ResponseEntity<?> update(@RequestBody final AdminUserUpdateDTO dto, Authentication auth) {
         
-        if(!service.find(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
+        if(!service.findByUsername(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
             return new ResponseEntity<>("C04", HttpStatus.BAD_REQUEST);
         
         final int code = updatUserInformation.adminUpdate(service, dto);

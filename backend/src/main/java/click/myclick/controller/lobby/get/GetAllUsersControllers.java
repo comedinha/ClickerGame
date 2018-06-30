@@ -30,7 +30,7 @@ public class GetAllUsersControllers {
     public ResponseEntity<?> getInfo(Authentication auth) {
         System.out.println("GetAllUsers");
 
-        if(!service.find(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
+        if(!service.findByUsername(auth.getPrincipal().toString()).getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))
             return new ResponseEntity<>("C04", HttpStatus.BAD_REQUEST);
         
         return new ResponseEntity<>(getInfoLobby.getAllUsers(service), HttpStatus.OK);

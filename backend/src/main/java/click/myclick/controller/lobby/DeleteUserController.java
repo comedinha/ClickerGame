@@ -16,7 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(allowedHeaders = "*")
 @RestController
-@RequestMapping("/api/updateuser")
+@RequestMapping("/api/deleteuser")
 public class DeleteUserController {
     private final UserService service;
     private final UpdateUserInformation updatUserInformation;

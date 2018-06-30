@@ -264,7 +264,13 @@ const actions = {
   },
 
   setUpdateUser ({commit}, user) {
-    // Comentário: Luiz faz o resto mas quando tiver ok deixa essa parte dentro do then
+    console.log('teste user:')
+    console.log(user)
+    Vue.http.post('api/updateuser', user).then(response => {
+      commit('updateUser', response)
+    }).catch(() => {
+      commit('updateUsersLoading', false)
+    })
     commit('updateUser')
   },
 

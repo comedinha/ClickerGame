@@ -30,6 +30,16 @@
                   <v-text-field v-model="config.completeDescription" label="Description" multi-line required />
                   <v-icon>help</v-icon>
                 </v-card-actions>
+                <v-card-actions>
+                  <v-card-actions>
+                    <v-text-field v-model="config.coinName" label="Coin" required />
+                    <v-icon>help</v-icon>
+                  </v-card-actions>
+                  <v-card-actions>
+                    <v-text-field v-model="config.coinSymbol" label="CoinSymbol" required />
+                    <v-icon>help</v-icon>
+                  </v-card-actions>
+                </v-card-actions>
               </v-card-text>
             </v-card>
           </v-flex>

@@ -40,6 +40,10 @@ const state = {
     }
   ],
 
+  itemGridDialog: false,
+  itemGrid: [],
+  oldItemGrid: [],
+
   currentTab: [],
 
   addItemDialog: false,
@@ -69,6 +73,9 @@ const getters = {
   getGridContent: state => state.world[state.currentWorld].gridContent,
 
   getTabs: state => state.world[state.currentWorld].tabs,
+
+  getItemGridDialog: state => state.itemGridDialog,
+  getItemGrid: state => state.itemGrid,
 
   getAddItemDialog: state => state.creatorVision && state.addItemDialog,
   getAddItem: state => state.creatorVision && state.addItem,
@@ -135,6 +142,14 @@ const actions = {
 
   changeGridItem ({ commit }, item) {
     commit('changeGridItem', item)
+  },
+
+  setItemGridDialog ({ commit }, event) {
+    commit('updateItemGridDialog', event)
+  },
+
+  setItemGrid ({ commit }, message) {
+    commit('updateItemGrid', message)
   },
 
   removeGridItem ({ commit }, item) {
@@ -320,6 +335,7 @@ const mutations = {
   newGridItem (state, item) {
     if (state.creatorVision === true) {
       let tabItemGrid = {
+        useItemImage: true,
         image: item.image
       }
 
@@ -329,7 +345,7 @@ const mutations = {
         w: 1,
         h: 1,
         i: 'Grid ' + state.world[state.currentWorld].gridCount++,
-        type: 'image',
+        type: 'item',
         item: item,
         ref: item.grids[(item.grids.push(tabItemGrid) - 1)]
       }
@@ -346,15 +362,26 @@ const mutations = {
 
   changeGridItem (state, item) {
     if (state.creatorVision === true) {
-      console.log(state, item)
+      if (item.type === 'item') {
+        state.itemGridDialog = true
+        state.itemGrid = item.ref
+      }
     }
+  },
+
+  updateItemGridDialog (state, event) {
+    state.itemGridDialog = event
+  },
+
+  updateItemGrid (state, message) {
+    state.itemGrid = message
   },
 
   removeGridItem (state, item) {
     if (state.creatorVision === true) {
       var indexGrid = state.world[state.currentWorld].gridContent.indexOf(item)
       if (indexGrid > -1) {
-        if (item.item.grids) {
+        if (item.type === 'item') {
           var indexItem = item.item.grids.indexOf(state.world[state.currentWorld].gridContent[indexGrid].ref)
           item.item.grids.splice(indexItem, 1)
         } else if (item.type === 'button') {

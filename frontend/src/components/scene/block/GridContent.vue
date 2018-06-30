@@ -5,20 +5,50 @@
         <v-card v-if="item.type === 'button'" ripple fab height="100%" v-bind:style="item.ref.style">
           <v-card-actions>
             <v-spacer />
-            <v-btn small icon v-if="getEditMode" @click="removeGridItem(item)"><v-icon>settings</v-icon></v-btn>
+            <v-menu offset-y v-if="getEditMode">
+              <v-btn small icon slot="activator"><v-icon>settings</v-icon></v-btn>
+              <v-list>
+                <v-list-tile @click="changeGridItem(item)">
+                  <v-list-tile-title>Editar</v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile @click="removeGridItem(item)">
+                  <v-list-tile-title>Remover</v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
           </v-card-actions>
         </v-card>
-        <v-card color="transparent" flat tile v-if="item.type === 'image'" fab height="100%" :img="item.ref.image">
+        <v-card color="transparent" flat tile v-if="item.type === 'item'" fab height="100%" :img="item.ref.image">
           <v-card-actions>
             <v-spacer />
-            <v-btn small icon v-if="getEditMode" @click="removeGridItem(item)"><v-icon>settings</v-icon></v-btn>
+            <v-menu offset-y v-if="getEditMode">
+              <v-btn small icon slot="activator"><v-icon>settings</v-icon></v-btn>
+              <v-list>
+                <v-list-tile @click="changeGridItem(item)">
+                  <v-list-tile-title>Editar</v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile @click="removeGridItem(item)">
+                  <v-list-tile-title>Remover</v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
           </v-card-actions>
         </v-card>
         <v-card v-if="item.type === 'information'" fab height="100%">
           <v-card-text v-html="item.ref.text" />
           <v-card-actions>
             <v-spacer />
-            <v-btn small icon v-if="getEditMode" @click="removeGridItem(item)"><v-icon>settings</v-icon></v-btn>
+            <v-menu offset-y v-if="getEditMode">
+              <v-btn small icon slot="activator"><v-icon>settings</v-icon></v-btn>
+              <v-list>
+                <v-list-tile @click="changeGridItem(item)">
+                  <v-list-tile-title>Editar</v-list-tile-title>
+                </v-list-tile>
+                <v-list-tile @click="removeGridItem(item)">
+                  <v-list-tile-title>Remover</v-list-tile-title>
+                </v-list-tile>
+              </v-list>
+            </v-menu>
           </v-card-actions>
         </v-card>
       </grid-item>

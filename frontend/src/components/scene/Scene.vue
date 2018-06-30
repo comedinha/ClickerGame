@@ -1,8 +1,9 @@
 <template>
   <v-container fluid grid-list-sm fixed>
-    <EditConfig v-if="getCreatorVision && getEditConfigDialog" />
-    <AddItem v-if="getCreatorVision && getAddItemDialog" />
-    <AddUpgrade v-if="getCreatorVision && getAddUpgradeDialog" />
+    <Config v-if="getCreatorVision && getEditConfigDialog" />
+    <Item v-if="getCreatorVision && getAddItemDialog" />
+    <ItemGrid v-if="getCreatorVision && getItemGridDialog" />
+    <Upgrade v-if="getCreatorVision && getAddUpgradeDialog" />
     <v-layout row wrap>
       <v-flex md8>
         <v-card height="90vh">
@@ -24,9 +25,10 @@ import Toolbar from '@/components/scene/block/Toolbar'
 import GridContent from '@/components/scene/block/GridContent'
 import BuyableTabs from '@/components/scene/block/BuyableTabs'
 
-import AddItem from '@/components/scene/creator/dialog/AddItem'
-import AddUpgrade from '@/components/scene/creator/dialog/AddUpgrade'
-import EditConfig from '@/components/scene/creator/dialog/EditConfig'
+import Config from '@/components/scene/creator/dialog/Config'
+import Item from '@/components/scene/creator/dialog/Item'
+import ItemGrid from '@/components/scene/creator/dialog/ItemGrid'
+import Upgrade from '@/components/scene/creator/dialog/Upgrade'
 
 export default {
   beforeCreate () {
@@ -59,7 +61,8 @@ export default {
       'getCreatorVision',
       'getAddItemDialog',
       'getAddUpgradeDialog',
-      'getEditConfigDialog'
+      'getEditConfigDialog',
+      'getItemGridDialog'
     ])
   },
   components: {
@@ -67,9 +70,10 @@ export default {
     GridContent,
     BuyableTabs,
 
-    AddItem,
-    AddUpgrade,
-    EditConfig
+    Item,
+    ItemGrid,
+    Upgrade,
+    Config
   }
 }
 </script>

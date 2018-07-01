@@ -251,7 +251,7 @@ export default {
         close: 'Fechar',
 
         pagination: 'Página {a} de {t}',
-        searchError: 'O termo {s} não foi encontrado.',
+        searchError: 'Este jogador não foi encontrado.',
         delete: 'Você realmente deseja excluir o usuário {u}?',
 
         name: 'Nome',

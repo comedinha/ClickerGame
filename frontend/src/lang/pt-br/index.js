@@ -290,12 +290,30 @@ export default {
 
         scene: 'Cenário',
         editConfig: 'Editar Configurações',
-        save: 'Salvar'
+        layout: 'Editar Visual',
+        coin: 'Editar Moedas',
+        save: 'Salvar',
+        approval: 'Aprovar',
+        resolve: 'Resolver',
+        publish: 'Publicar',
+        delete: 'Deletar'
       }
     },
 
     creator: {
       dialog: {
+        coins: {
+          title: 'Moedas',
+          close: 'Fechar',
+
+          pagination: 'Página {a} de {t}',
+          delete: 'Você realmente deseja excluir a moeda {c}?',
+
+          name: 'Nome',
+          symbol: 'Símbolo',
+          action: 'Ação'
+        },
+
         config: {
           title: 'Editar Configurações',
 
@@ -322,14 +340,21 @@ export default {
             help: 'Descrição que irá aparecer em detalhes'
           },
 
-          coinName: {
-            title: 'Nome da Moeda',
-            help: 'Nome que a moeda do cenário irá ter'
+          close: 'Fechar',
+          save: 'Salvar'
+        },
+
+        editCoin: {
+          title: 'Editar Moeda',
+
+          name: {
+            title: 'Nome',
+            help: 'Nome da Moeda'
           },
 
-          coinSymbol: {
-            title: 'Símbolo da Moeda',
-            help: 'Símbolo que a moeda irá ter'
+          symbol: {
+            title: 'Símbolo',
+            help: 'Símbolo da moeda'
           },
 
           close: 'Fechar',

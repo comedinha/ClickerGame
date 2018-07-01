@@ -67,7 +67,7 @@ export default {
         { text: this.$ml.get('lobby.dialog.users.email'), value: 'email' },
         { text: this.$ml.get('lobby.dialog.users.role'), value: 'role' },
         { text: this.$ml.get('lobby.dialog.users.enabled'), value: 'enabled' },
-        { text: this.$ml.get('lobby.dialog.users.action'), value: 'name', sortable: false }
+        { text: this.$ml.get('lobby.dialog.users.action'), sortable: false }
       ]
     }
   },

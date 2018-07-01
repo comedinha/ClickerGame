@@ -1,6 +1,8 @@
 <template>
   <v-container fluid grid-list-sm fixed>
+    <Coins v-if="getCreatorVision && getCoinsDialog" />
     <Config v-if="getCreatorVision && getEditConfigDialog" />
+    <EditCoin v-if="getCreatorVision && getEditCoinDialog" />
     <Item v-if="getCreatorVision && getAddItemDialog" />
     <ItemGrid v-if="getCreatorVision && getItemGridDialog" />
     <Upgrade v-if="getCreatorVision && getAddUpgradeDialog" />
@@ -26,7 +28,9 @@ import Toolbar from '@/components/scene/block/Toolbar'
 import GridContent from '@/components/scene/block/GridContent'
 import BuyableTabs from '@/components/scene/block/BuyableTabs'
 
+import Coins from '@/components/scene/creator/dialog/Coins'
 import Config from '@/components/scene/creator/dialog/Config'
+import EditCoin from '@/components/scene/creator/dialog/EditCoin'
 import InformationGrid from '@/components/scene/creator/dialog/InformationGrid'
 import Item from '@/components/scene/creator/dialog/Item'
 import ItemGrid from '@/components/scene/creator/dialog/ItemGrid'
@@ -65,7 +69,9 @@ export default {
       'getAddUpgradeDialog',
       'getEditConfigDialog',
       'getItemGridDialog',
-      'getInformationGridDialog'
+      'getInformationGridDialog',
+      'getCoinsDialog',
+      'getEditCoinDialog'
     ])
   },
   components: {
@@ -77,7 +83,9 @@ export default {
     Item,
     ItemGrid,
     Upgrade,
-    Config
+    Config,
+    Coins,
+    EditCoin
   }
 }
 </script>

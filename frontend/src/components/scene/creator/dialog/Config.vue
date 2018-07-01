@@ -42,22 +42,6 @@
                     <span>{{ $ml.get('scene.creator.dialog.config.completeDescription.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
-                <v-card-actions>
-                  <v-card-actions>
-                    <v-text-field v-model="config.coinName" :label="$ml.get('scene.creator.dialog.config.coinName.title')" required />
-                  <v-tooltip bottom>
-                    <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.config.coinName.help') }}</span>
-                  </v-tooltip>
-                  </v-card-actions>
-                  <v-card-actions>
-                    <v-text-field v-model="config.coinSymbol" :label="$ml.get('scene.creator.dialog.config.coinSymbol.title')" required />
-                  <v-tooltip bottom>
-                    <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.config.coinSymbol.help') }}</span>
-                  </v-tooltip>
-                  </v-card-actions>
-                </v-card-actions>
               </v-card-text>
             </v-card>
           </v-flex>

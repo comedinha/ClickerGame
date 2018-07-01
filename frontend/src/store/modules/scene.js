@@ -11,6 +11,13 @@ const state = {
   config: {},
   oldConfig: {},
 
+  coinsDialog: false,
+  coins: [],
+
+  editCoinDialog: false,
+  editCoin: [],
+  oldCoin: [],
+
   currentWorld: 0,
   worldCount: 0,
   world: [],
@@ -51,6 +58,12 @@ const getters = {
 
   getEditConfigDialog: state => state.editConfigDialog,
   getConfig: state => state.config,
+
+  getCoinsDialog: state => state.coinsDialog,
+  getCoins: state => state.coins,
+
+  getEditCoinDialog: state => state.editCoinDialog,
+  getEditCoin: state => state.editCoin,
 
   getWorld: state => state.world,
 
@@ -117,6 +130,26 @@ const actions = {
 
   saveConfig ({ commit }) {
     commit('saveConfig')
+  },
+
+  setCoinsDialog ({ commit }, event) {
+    commit('updateCoinsDialog', event)
+  },
+
+  editCoin ({ commit }, message) {
+    commit('updateCoin', message)
+  },
+
+  saveCoin ({ commit }) {
+    commit('saveCoin')
+  },
+
+  setEditCoinDialog ({ commit }, event) {
+    commit('updateEditCoinDialog', event)
+  },
+
+  setEditCoin ({ commit }, message) {
+    commit('updateEditCoin', message)
   },
 
   updateGridContent ({ commit }, event) {
@@ -203,9 +236,6 @@ const mutations = {
       name: '',
       smallDescription: '',
       completeDescription: '',
-      globalCoin: true,
-      coinName: '',
-      coinSymbol: '',
       image: ''
     }
     state.config = firstConfig
@@ -214,8 +244,6 @@ const mutations = {
     let firstWorld = {
       ref: 'World ' + state.worldCount++,
       name: 'World',
-      coinName: '',
-      coinSymbol: '',
 
       gridCount: 0,
       gridContent: [],
@@ -226,6 +254,15 @@ const mutations = {
       tabs: []
     }
     state.world.push(firstWorld)
+
+    const indexWorld = state.world.indexOf(firstWorld)
+    let firstCoin = {
+      name: 'Money',
+      symbol: '$',
+      worlds: [ state.world[indexWorld] ],
+      used: 0
+    }
+    state.coins.push(firstCoin)
 
     let tabItem = {
       type: 'item',
@@ -347,8 +384,6 @@ const mutations = {
           name: state.config.name,
           smallDescription: state.config.smallDescription,
           completeDescription: state.config.completeDescription,
-          coinName: state.config.coinName,
-          coinSymbol: state.config.coinSymbol,
           image: state.config.image
         }
 
@@ -365,6 +400,40 @@ const mutations = {
 
   saveConfig (state) {
     state.editConfigDialog = false
+  },
+
+  updateCoinsDialog (state, event) {
+    state.coinsDialog = event
+  },
+
+  updateCoin (state, event) {
+    state.oldCoin = event
+
+    let old = {
+      name: event.name,
+      symbol: event.symbol,
+      worlds: event.worlds,
+      used: event.used
+    }
+
+    state.editCoin = old
+    state.editCoinDialog = true
+  },
+
+  saveCoin (state) {
+    const indexCoin = state.coins.indexOf(state.oldCoin)
+    state.coins[indexCoin] = state.editCoin
+
+    state.editCoinDialog = false
+    state.coinsDialog = false
+  },
+
+  updateEditCoinDialog (state, event) {
+    state.editCoinDialog = event
+  },
+
+  updateEditCoin (state, message) {
+    state.editCoin = message
   },
 
   newGridItem (state, item) {

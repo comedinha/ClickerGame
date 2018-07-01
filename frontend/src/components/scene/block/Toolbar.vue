@@ -11,8 +11,26 @@
         <v-list-tile @click="editConfigDialog = !editConfigDialog">
           <v-list-tile-title>{{ $ml.get('scene.block.toolbar.editConfig') }}</v-list-tile-title>
         </v-list-tile>
+        <v-list-tile @click="layoutDialog = !layoutDialog">
+          <v-list-tile-title>{{ $ml.get('scene.block.toolbar.layout') }}</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile @click="coinsDialog = !coinsDialog">
+          <v-list-tile-title>{{ $ml.get('scene.block.toolbar.coin') }}</v-list-tile-title>
+        </v-list-tile>
         <v-list-tile @click="saveScene">
           <v-list-tile-title>{{ $ml.get('scene.block.toolbar.save') }}</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-title>{{ $ml.get('scene.block.toolbar.publish') }}</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-title>{{ $ml.get('scene.block.toolbar.delete') }}</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-title>{{ $ml.get('scene.block.toolbar.approval') }}</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile>
+          <v-list-tile-title>{{ $ml.get('scene.block.toolbar.resolve') }}</v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-menu>
@@ -37,12 +55,30 @@ export default {
       }
     },
 
+    layoutDialog: {
+      get () {
+        return this.$store.getters.getLayoutDialog
+      },
+      set (value) {
+        this.$store.dispatch('setLayoutDialog', value)
+      }
+    },
+
     editConfigDialog: {
       get () {
         return this.$store.getters.getEditConfigDialog
       },
       set (value) {
         this.$store.dispatch('setEditConfigDialog', value)
+      }
+    },
+
+    coinsDialog: {
+      get () {
+        return this.$store.getters.getCoinsDialog
+      },
+      set (value) {
+        this.$store.dispatch('setCoinsDialog', value)
       }
     }
   },

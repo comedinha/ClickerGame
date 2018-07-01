@@ -111,8 +111,17 @@ const actions = {
   saveScene ({ commit, getters }) {
     console.log('saveScene')
     // Comentário: Utilizar getters.getConfig (const talves seja útil para dividir) e getters.getWorld (const aqui não...)
-    console.log(getters.getConfig)
-    console.log(getters.getWorld)
+    let saveScene = {
+      config: getters.getConfig,
+      world: getters.getWorld
+    }
+    console.log(saveScene)
+
+    Vue.http.post('api/saveScene', saveScene).then(response => {
+      commit('updateAllScenes', response)
+    }).catch(() => {
+      commit('updateAllScenesLoading', false)
+    })
   },
 
   setEditMode ({ commit }, event) {

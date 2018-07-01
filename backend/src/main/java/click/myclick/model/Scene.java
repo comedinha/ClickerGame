@@ -22,6 +22,7 @@ public class Scene extends BaseEntity implements Serializable {
     private double rating;
 	private String image;
 	private int numberReports;
+	private String json;
 
 	public String getName()
 	{
@@ -141,5 +142,13 @@ public class Scene extends BaseEntity implements Serializable {
 	public void setNumberReports(int numberReports)
 	{
 		this.numberReports = numberReports;
+	}
+
+	public String getJson() {
+		return this.json;
+	}
+
+	public void setJson(String json) {
+		this.json = json;
 	}
 }

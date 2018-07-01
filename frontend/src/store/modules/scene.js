@@ -80,24 +80,29 @@ const getters = {
 // actions
 const actions = {
   loadPlay ({ commit }, scene) {
+    console.log('loadPlay')
     // Comentário: Fazer tudo que envolve carregar o jogo
     commit('updateGame', false)
   },
 
   loadCreate ({ commit }, scene) {
+    console.log('loadCreate')
     // Comentário: Fazer tudo que envolve carregar a criação
     commit('updateGame', true)
   },
 
   loadDefault ({ commit }) {
+    console.log('loadDeafault')
     commit('updateDefault')
   },
 
   savePlay ({ commit }) {
+    console.log('savePlay')
     // Comentário: Fazer tanto salvar cenário quanto salvar jogo.
   },
 
   saveScene ({ commit, getters }) {
+    console.log('saveScene')
     // Comentário: Utilizar getters.getConfig (const talves seja útil para dividir) e getters.getWorld (const aqui não...)
     console.log(getters.getConfig)
     console.log(getters.getWorld)

@@ -1,8 +1,11 @@
 package click.myclick.converter;
 
-import click.myclick.converter.factory.ConverterFactory;
+import click.myclick.converter.factory.ConverterUserFactory;
+import click.myclick.converter.factory.ConverterSceneFactory;
 import click.myclick.dto.auth.UserDTO;
 import click.myclick.model.User;
+import click.myclick.model.Scene;
+import click.myclick.dto.scene.SaveSceneDTO;
 import click.myclick.service.auth.Email;
 
 import java.util.Random;
@@ -14,7 +17,9 @@ import org.springframework.stereotype.Component;
 public class ConverterFacade {
 
     @Autowired
-    private ConverterFactory converterFactory;
+    private ConverterUserFactory converterUserFactory;
+    @Autowired
+    private ConverterSceneFactory converterSceneFactory;
 
     public User convert(final UserDTO dto) {
         Email email = new Email();
@@ -25,11 +30,14 @@ public class ConverterFacade {
         "http://localhost:8080/#/email?email=" + dto.getUsername() + "&token=" + token;
         email.send(dto.getUsername(), token, title, msg);
 
-        User user = (User) converterFactory.getConverter(dto.getClass()).convert(dto);
+        User user = (User) converterUserFactory.getConverter(dto.getClass()).convert(dto);
 
         user.setTokenEmail(token);
 
         return user;
     }
 
+    public Scene convert(final SaveSceneDTO dto) {
+        return converterSceneFactory.getConverter(dto.getClass()).convert(dto);
+    }
 }

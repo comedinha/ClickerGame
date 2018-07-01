@@ -2,7 +2,8 @@ package click.myclick.controller.scene;
 
 import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.dao.user.UserService;
-import click.myclick.dto.scene.saveSceneDTO;
+import click.myclick.converter.ConverterFacade;
+import click.myclick.dto.scene.SaveSceneDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -21,16 +22,20 @@ public class SaveSceneController {
     
     private final SceneService sceneService;
     private final UserService userService;
+    private final ConverterFacade converterFacade;
 
     @Autowired
-    public SaveSceneController(final SceneService sceneService, final UserService userService) {
+    public SaveSceneController(final SceneService sceneService, final UserService userService, final ConverterFacade converterFacade) {
         this.sceneService = sceneService;
         this.userService = userService;
+        this.converterFacade = converterFacade;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> save(@RequestBody final saveSceneDTO dto, Authentication auth) {
+    public ResponseEntity<?> save(@RequestBody final SaveSceneDTO dto, Authentication auth) {
 
-        return new ResponseEntity<>(HttpStatus.OK);
+        dto.setId(userService.findByUsername(auth.getPrincipal().toString()).getId());
+
+        return new ResponseEntity<>(sceneService.create(converterFacade.convert(dto)), HttpStatus.OK);
     }
 }

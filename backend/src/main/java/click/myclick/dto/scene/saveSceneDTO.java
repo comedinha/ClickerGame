@@ -3,16 +3,26 @@ package click.myclick.dto.scene;
 import java.io.Serializable;
 
 
-public class saveSceneDTO implements Serializable {
+public class SaveSceneDTO implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
+	private String id;
     private String name;
     private String smallDescription;
     private String completeDescription;
     private String image;
     private String json;
 
+	public String getId()
+	{
+		return this.id;
+	}
+
+	public void setId(String id)
+	{
+		this.id = id;
+    }
     public String getName()
 	{
 		return this.name;

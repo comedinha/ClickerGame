@@ -10,12 +10,11 @@ import java.util.Map;
 
 
 @Component
-public class ConverterFactory {
+public class ConverterUserFactory {
 
     private Map<Object, UserDTOConverter> converters;
 
-    public ConverterFactory() {
-
+    public ConverterUserFactory() {
     }
 
     @PostConstruct

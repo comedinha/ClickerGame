@@ -8,37 +8,32 @@ const state = {
   saveWarning: false,
 
   editConfigDialog: false,
-  config: {
-    name: '',
-    smallDescription: '',
-    completeDescription: '',
-    globalCoin: true,
-    coinName: '',
-    coinSymbol: '',
-    image: ''
-  },
+  config: {},
   oldConfig: {},
 
+  coinsDialog: false,
+  coins: [],
+
+  editCoinDialog: false,
+  editCoin: [],
+  oldCoin: [],
+
   currentWorld: 0,
-  worldCount: 1,
-  world: [
-    {
-      ref: 'World 0',
-      name: 'World',
-      coinName: '',
-      coinSymbol: '',
+  worldCount: 0,
+  world: [],
 
-      gridCount: 0,
-      gridContent: [],
+  itemGridDialog: false,
+  newItemGrid: false,
+  newItemGridItem: [],
+  itemGridRef: [],
+  itemGrid: [],
+  oldItemGrid: [],
 
-      gridButtons: [],
-
-      gridInformation: [],
-
-      tabCount: 0,
-      tabs: []
-    }
-  ],
+  informationGridDialog: false,
+  newInformationDialog: false,
+  informationGridRef: [],
+  oldInformationGrid: '',
+  informationGrid: '',
 
   currentTab: [],
 
@@ -64,11 +59,23 @@ const getters = {
   getEditConfigDialog: state => state.editConfigDialog,
   getConfig: state => state.config,
 
+  getCoinsDialog: state => state.coinsDialog,
+  getCoins: state => state.coins,
+
+  getEditCoinDialog: state => state.editCoinDialog,
+  getEditCoin: state => state.editCoin,
+
   getWorld: state => state.world,
 
   getGridContent: state => state.world[state.currentWorld].gridContent,
 
   getTabs: state => state.world[state.currentWorld].tabs,
+
+  getItemGridDialog: state => state.itemGridDialog,
+  getItemGrid: state => state.itemGrid,
+
+  getInformationGridDialog: state => state.informationGridDialog,
+  getInformationGrid: state => state.informationGrid,
 
   getAddItemDialog: state => state.creatorVision && state.addItemDialog,
   getAddItem: state => state.creatorVision && state.addItem,
@@ -130,8 +137,24 @@ const actions = {
     commit('saveConfig')
   },
 
-  newGridItem ({ commit }, item) {
-    commit('newGridItem', item)
+  setCoinsDialog ({ commit }, event) {
+    commit('updateCoinsDialog', event)
+  },
+
+  editCoin ({ commit }, message) {
+    commit('updateCoin', message)
+  },
+
+  saveCoin ({ commit }) {
+    commit('saveCoin')
+  },
+
+  setEditCoinDialog ({ commit }, event) {
+    commit('updateEditCoinDialog', event)
+  },
+
+  setEditCoin ({ commit }, message) {
+    commit('updateEditCoin', message)
   },
 
   updateGridContent ({ commit }, event) {
@@ -142,8 +165,40 @@ const actions = {
     commit('changeGridItem', item)
   },
 
+  newGridItem ({ commit }, item) {
+    commit('newGridItem', item)
+  },
+
+  setItemGridDialog ({ commit }, event) {
+    commit('updateItemGridDialog', event)
+  },
+
+  setItemGrid ({ commit }, message) {
+    commit('updateItemGrid', message)
+  },
+
+  setItemGridValue ({ commit }) {
+    commit('updateItemGridValue')
+  },
+
+  itemGrid ({ commit }) {
+    commit('itemGrid')
+  },
+
   removeGridItem ({ commit }, item) {
     commit('removeGridItem', item)
+  },
+
+  setInformationGridDialog ({ commit }, event) {
+    commit('updateInformationGridDialog', event)
+  },
+
+  setInformationGrid ({ commit }, message) {
+    commit('updateInformationGrid', message)
+  },
+
+  informationGrid ({ commit }) {
+    commit('informationGrid')
   },
 
   setAddItemDialog ({ commit }, event) {
@@ -182,6 +237,38 @@ const actions = {
 // mutations
 const mutations = {
   updateDefault (state) {
+    let firstConfig = {
+      name: '',
+      smallDescription: '',
+      completeDescription: '',
+      image: ''
+    }
+    state.config = firstConfig
+
+    state.currentWorld = 0
+    let firstWorld = {
+      ref: 'World ' + state.worldCount++,
+      name: 'World',
+
+      gridCount: 0,
+      gridContent: [],
+      gridButtons: [],
+      gridInformation: [],
+
+      tabCount: 0,
+      tabs: []
+    }
+    state.world.push(firstWorld)
+
+    const indexWorld = state.world.indexOf(firstWorld)
+    let firstCoin = {
+      name: 'Money',
+      symbol: '$',
+      worlds: [ state.world[indexWorld] ],
+      used: 0
+    }
+    state.coins.push(firstCoin)
+
     let tabItem = {
       type: 'item',
       refTab: 'Tab ' + state.world[state.currentWorld].tabCount,
@@ -302,8 +389,6 @@ const mutations = {
           name: state.config.name,
           smallDescription: state.config.smallDescription,
           completeDescription: state.config.completeDescription,
-          coinName: state.config.coinName,
-          coinSymbol: state.config.coinSymbol,
           image: state.config.image
         }
 
@@ -322,25 +407,51 @@ const mutations = {
     state.editConfigDialog = false
   },
 
-  newGridItem (state, item) {
-    if (state.creatorVision === true) {
-      let tabItemGrid = {
-        image: item.image
-      }
+  updateCoinsDialog (state, event) {
+    state.coinsDialog = event
+  },
 
-      let newGridItem = {
-        x: 0,
-        y: 0,
-        w: 1,
-        h: 1,
-        i: 'Grid ' + state.world[state.currentWorld].gridCount++,
-        type: 'image',
-        item: item,
-        ref: item.grids[(item.grids.push(tabItemGrid) - 1)]
-      }
+  updateCoin (state, event) {
+    state.oldCoin = event
 
-      state.world[state.currentWorld].gridContent.push(newGridItem)
+    let old = {
+      name: event.name,
+      symbol: event.symbol,
+      worlds: event.worlds,
+      used: event.used
     }
+
+    state.editCoin = old
+    state.editCoinDialog = true
+  },
+
+  saveCoin (state) {
+    const indexCoin = state.coins.indexOf(state.oldCoin)
+    state.coins[indexCoin] = state.editCoin
+
+    state.editCoinDialog = false
+    state.coinsDialog = false
+  },
+
+  updateEditCoinDialog (state, event) {
+    state.editCoinDialog = event
+  },
+
+  updateEditCoin (state, message) {
+    state.editCoin = message
+  },
+
+  newGridItem (state, item) {
+    state.itemGridDialog = true
+    state.itemGridRef = item
+    state.newItemGrid = true
+
+    let itemDefault = {
+      image: item.image,
+      useItemImage: true,
+      showWhen: 0
+    }
+    state.itemGrid = itemDefault
   },
 
   updateGridContent (state, event) {
@@ -351,7 +462,79 @@ const mutations = {
 
   changeGridItem (state, item) {
     if (state.creatorVision === true) {
-      console.log(state, item)
+      if (item.type === 'item') {
+        state.itemGridDialog = true
+        state.itemGridRef = item.item
+        state.oldItemGrid = item.ref
+        state.newItemGridItem = item
+        state.newItemGrid = false
+
+        let newItem = {
+          image: item.ref.image,
+          useItemImage: item.ref.useItemImage,
+          showWhen: item.ref.showWhen
+        }
+        state.itemGrid = newItem
+      } else if (item.type === 'information') {
+        state.informationGridDialog = true
+        state.informationGridRef = item
+        state.oldInformationGrid = item.ref
+
+        let newInformation = {
+          text: item.ref.text
+        }
+        state.informationGrid = newInformation
+      }
+    }
+  },
+
+  updateItemGridDialog (state, event) {
+    if (event === false) {
+      state.itemGridRef = []
+      state.itemGrid = []
+      state.newItemGrid = false
+    }
+
+    state.itemGridDialog = event
+  },
+
+  updateItemGrid (state, message) {
+    state.itemGrid = message
+  },
+
+  updateItemGridValue (state) {
+    if (state.itemGrid.useItemImage === true) {
+      state.itemGrid.image = state.itemGridRef.image
+    }
+  },
+
+  itemGrid (state) {
+    if (state.creatorVision === true) {
+      if (state.newItemGrid === true) {
+        let newGridItem = {
+          x: 0,
+          y: 0,
+          w: 1,
+          h: 1,
+          i: 'Grid ' + state.world[state.currentWorld].gridCount++,
+          type: 'item',
+          item: state.itemGridRef,
+          ref: state.itemGridRef.grids[(state.itemGridRef.grids.push(state.itemGrid) - 1)]
+        }
+
+        state.world[state.currentWorld].gridContent.push(newGridItem)
+      } else {
+        const indexGrid = state.itemGridRef.grids.indexOf(state.oldItemGrid)
+        state.itemGridRef.grids[indexGrid] = state.itemGrid
+
+        state.newItemGridItem.ref = state.itemGridRef.grids[indexGrid]
+        console.log(state.world)
+      }
+
+      state.itemGridDialog = false
+      state.itemGrid = []
+      state.oldItemGrid = []
+      state.itemGridRef = []
     }
   },
 
@@ -359,7 +542,7 @@ const mutations = {
     if (state.creatorVision === true) {
       var indexGrid = state.world[state.currentWorld].gridContent.indexOf(item)
       if (indexGrid > -1) {
-        if (item.item.grids) {
+        if (item.type === 'item') {
           var indexItem = item.item.grids.indexOf(state.world[state.currentWorld].gridContent[indexGrid].ref)
           item.item.grids.splice(indexItem, 1)
         } else if (item.type === 'button') {
@@ -372,6 +555,34 @@ const mutations = {
         state.world[state.currentWorld].gridContent.splice(indexGrid, 1)
       }
     }
+  },
+
+  updateInformationGridDialog (state, event) {
+    if (event === false) {
+      state.informationGrid = []
+      state.oldInformationGrid = []
+    }
+
+    state.informationGridDialog = event
+  },
+
+  updateInformationGrid (state, message) {
+    state.informationGrid = message
+  },
+
+  informationGrid (state) {
+    if (state.newInformationDialog === true) {
+      // Comentário: Adicionar novo dialog.
+    } else {
+      const indexInformation = state.world[state.currentWorld].gridInformation.indexOf(state.informationGridRef.ref)
+      state.world[state.currentWorld].gridInformation[indexInformation] = state.informationGrid
+
+      state.informationGridRef.ref = state.world[state.currentWorld].gridInformation[indexInformation]
+    }
+
+    state.informationGridDialog = false
+    state.informationGrid = []
+    state.oldInformationGrid = []
   },
 
   updateItemDialog (state, event) {
@@ -404,6 +615,8 @@ const mutations = {
       title: item.title,
       image: item.image,
       description: item.description,
+      countPerSecond: item.countPerSecond,
+      perSecond: item.perSecond,
       startCount: item.startCount,
       startPrice: item.startPrice,
       formula: item.formula,
@@ -439,6 +652,8 @@ const mutations = {
         title: state.addItem.title,
         image: state.addItem.image,
         description: state.addItem.description,
+        countPerSecond: state.addItem.countPerSecond,
+        perSecond: state.addItem.perSecond,
         startCount: state.addItem.startCount,
         startPrice: state.addItem.startPrice,
         formula: state.addItem.formula,

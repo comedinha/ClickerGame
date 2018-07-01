@@ -32,7 +32,7 @@ const ifAuthenticated = (to, from, next) => {
     next()
     return
   }
-  next('Signin')
+  next('/Signin')
 }
 
 Vue.use(Router)

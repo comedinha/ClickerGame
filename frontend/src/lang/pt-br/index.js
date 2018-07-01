@@ -143,7 +143,7 @@ export default {
       enabled: 'Não foi publicado',
       edit: 'Editar',
       details: 'Detalhes',
-      newScene: 'Novo Jogo',
+      newGame: 'Novo Jogo',
       continue: 'Continuar',
       play: 'Jogar'
     },
@@ -265,6 +265,194 @@ export default {
         title: 'Cenários de {u}',
         pagination: 'Página {a} de {t}',
         close: 'Fechar'
+      }
+    }
+  },
+
+  scene: {
+    block: {
+      buyableTabs: {
+        addGrid: 'Adicionar ao Grid',
+        settings: 'Configurações',
+        delete: 'Deletar'
+      },
+
+      gridContent: {
+        edit: 'Editar',
+        remove: 'Remover'
+      },
+
+      toolbar: {
+        backLobby: 'Voltar ao Lobby',
+        information: 'Informações',
+        userVision: 'Visão do usuário',
+        creatorVision: 'Visão do Criador',
+
+        scene: 'Cenário',
+        editConfig: 'Editar Configurações',
+        layout: 'Editar Visual',
+        coin: 'Editar Moedas',
+        save: 'Salvar',
+        approval: 'Aprovar',
+        resolve: 'Resolver',
+        publish: 'Publicar',
+        delete: 'Deletar'
+      }
+    },
+
+    creator: {
+      dialog: {
+        coins: {
+          title: 'Moedas',
+          close: 'Fechar',
+
+          pagination: 'Página {a} de {t}',
+          delete: 'Você realmente deseja excluir a moeda {c}?',
+
+          name: 'Nome',
+          symbol: 'Símbolo',
+          action: 'Ação'
+        },
+
+        config: {
+          title: 'Editar Configurações',
+
+          required: 'Campo necessário.',
+          errorRequired: 'Entre com os dados em todos os campos requeridos.',
+
+          thumbnail: {
+            title: 'Thumbnail',
+            help: 'Imagem que irá aparecer no Lobby'
+          },
+
+          name: {
+            title: 'Nome',
+            help: 'Nome do jogo'
+          },
+
+          smallDescription: {
+            title: 'Pequena Descrição',
+            help: 'Descrição que irá aparecer no Lobby'
+          },
+
+          completeDescription: {
+            title: 'Descrição',
+            help: 'Descrição que irá aparecer em detalhes'
+          },
+
+          close: 'Fechar',
+          save: 'Salvar'
+        },
+
+        editCoin: {
+          title: 'Editar Moeda',
+
+          name: {
+            title: 'Nome',
+            help: 'Nome da Moeda'
+          },
+
+          symbol: {
+            title: 'Símbolo',
+            help: 'Símbolo da moeda'
+          },
+
+          close: 'Fechar',
+          save: 'Salvar'
+        },
+
+        informationGrid: {
+          title: 'Grid de informação',
+          help: `
+            Este editor fica as informações do nível
+            <br />
+            Tags:
+            <br/> {tc}: Dinheiro Atual
+            <br/> {ts}: Dinheiro por segundo
+            <br/> {cn}: Nome da moeda
+            <br/> {cs}: Símbolo da moeda
+          `,
+
+          close: 'Fechar',
+          save: 'Salvar'
+        },
+
+        item: {
+          title: 'Adicionar Item',
+          advanced: 'Avançado',
+
+          image: {
+            title: 'Imagem',
+            help: 'Imagem do item'
+          },
+
+          itemTitle: {
+            title: 'Título',
+            help: 'Título do Item'
+          },
+
+          description: {
+            title: 'Descrição',
+            help: 'Descrição do Item'
+          },
+
+          countPerSecond: {
+            title: 'Qnt /s',
+            help: 'Quantidade que o player irá receber por segundo'
+          },
+
+          perSecond: {
+            title: 'Segundo',
+            help: 'A cada quantos segundos irá o player irá receber'
+          },
+
+          startCount: {
+            title: 'Quantidade',
+            help: 'Quantidade desse item que o jogador irá começar'
+          },
+
+          startPrice: {
+            title: 'Preço Inicial',
+            help: 'Preço inicial do item'
+          },
+
+          formula: {
+            title: 'Formula',
+            // Comentário: Corrigir depois de feito.
+            help: `
+              Formula para comprar o item
+            `
+          },
+
+          close: 'Fechar',
+          save: 'Salvar'
+        },
+
+        itemGrid: {
+          title: 'Grid de Item',
+
+          image: {
+            title: 'Imagem',
+            help: 'Imagem que irá aparecer no grid'
+          },
+
+          useItemImage: {
+            title: 'Usar imagem do item',
+            help: 'Usar imagem do próprio item no grid'
+          },
+
+          showWhen: {
+            title: 'Aparecer quando atingir {v} compras',
+            help: 'Quando o item irá aparecer para o jogador'
+          },
+
+          close: 'Fechar',
+          save: 'Salvar'
+        },
+
+        upgrade: {
+
+        }
       }
     }
   },

@@ -1,8 +1,12 @@
 <template>
   <v-container fluid grid-list-sm fixed>
-    <EditConfig v-if="getCreatorVision && getEditConfigDialog" />
-    <AddItem v-if="getCreatorVision && getAddItemDialog" />
-    <AddUpgrade v-if="getCreatorVision && getAddUpgradeDialog" />
+    <Coins v-if="getCreatorVision && getCoinsDialog" />
+    <Config v-if="getCreatorVision && getEditConfigDialog" />
+    <EditCoin v-if="getCreatorVision && getEditCoinDialog" />
+    <Item v-if="getCreatorVision && getAddItemDialog" />
+    <ItemGrid v-if="getCreatorVision && getItemGridDialog" />
+    <Upgrade v-if="getCreatorVision && getAddUpgradeDialog" />
+    <InformationGrid v-if="getCreatorVision && getInformationGridDialog" />
     <v-layout row wrap>
       <v-flex md8>
         <v-card height="90vh">
@@ -24,9 +28,13 @@ import Toolbar from '@/components/scene/block/Toolbar'
 import GridContent from '@/components/scene/block/GridContent'
 import BuyableTabs from '@/components/scene/block/BuyableTabs'
 
-import AddItem from '@/components/scene/creator/dialog/AddItem'
-import AddUpgrade from '@/components/scene/creator/dialog/AddUpgrade'
-import EditConfig from '@/components/scene/creator/dialog/EditConfig'
+import Coins from '@/components/scene/creator/dialog/Coins'
+import Config from '@/components/scene/creator/dialog/Config'
+import EditCoin from '@/components/scene/creator/dialog/EditCoin'
+import InformationGrid from '@/components/scene/creator/dialog/InformationGrid'
+import Item from '@/components/scene/creator/dialog/Item'
+import ItemGrid from '@/components/scene/creator/dialog/ItemGrid'
+import Upgrade from '@/components/scene/creator/dialog/Upgrade'
 
 export default {
   beforeCreate () {
@@ -59,7 +67,11 @@ export default {
       'getCreatorVision',
       'getAddItemDialog',
       'getAddUpgradeDialog',
-      'getEditConfigDialog'
+      'getEditConfigDialog',
+      'getItemGridDialog',
+      'getInformationGridDialog',
+      'getCoinsDialog',
+      'getEditCoinDialog'
     ])
   },
   components: {
@@ -67,9 +79,13 @@ export default {
     GridContent,
     BuyableTabs,
 
-    AddItem,
-    AddUpgrade,
-    EditConfig
+    InformationGrid,
+    Item,
+    ItemGrid,
+    Upgrade,
+    Config,
+    Coins,
+    EditCoin
   }
 }
 </script>

@@ -5,16 +5,20 @@
     <EditCoin v-if="getCreatorVision && getEditCoinDialog" />
     <Item v-if="getCreatorVision && getAddItemDialog" />
     <ItemGrid v-if="getCreatorVision && getItemGridDialog" />
+    <Layout v-if="getCreatorVision && getLayoutDialog" />
     <Upgrade v-if="getCreatorVision && getAddUpgradeDialog" />
     <InformationGrid v-if="getCreatorVision && getInformationGridDialog" />
     <v-layout row wrap>
+      <v-flex v-if="getTabLeft" md4>
+        <BuyableTabs />
+      </v-flex>
       <v-flex md8>
         <v-card height="90vh">
           <Toolbar />
           <GridContent />
         </v-card>
       </v-flex>
-      <v-flex md4>
+      <v-flex v-if="!getTabLeft" md4>
         <BuyableTabs />
       </v-flex>
     </v-layout>
@@ -34,6 +38,7 @@ import EditCoin from '@/components/scene/creator/dialog/EditCoin'
 import InformationGrid from '@/components/scene/creator/dialog/InformationGrid'
 import Item from '@/components/scene/creator/dialog/Item'
 import ItemGrid from '@/components/scene/creator/dialog/ItemGrid'
+import Layout from '@/components/scene/creator/dialog/Layout'
 import Upgrade from '@/components/scene/creator/dialog/Upgrade'
 
 export default {
@@ -71,7 +76,9 @@ export default {
       'getItemGridDialog',
       'getInformationGridDialog',
       'getCoinsDialog',
-      'getEditCoinDialog'
+      'getEditCoinDialog',
+      'getLayoutDialog',
+      'getTabLeft'
     ])
   },
   components: {
@@ -85,7 +92,8 @@ export default {
     Upgrade,
     Config,
     Coins,
-    EditCoin
+    EditCoin,
+    Layout
   }
 }
 </script>

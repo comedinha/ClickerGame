@@ -19,11 +19,11 @@
             <v-card>
               <v-card-text>
                 <v-card-actions>
-                  <v-text-field v-model="itemGrid.useItemImage" label="Use itemImage" required />
+                  <v-checkbox label="Usar imagem do item" v-model="itemGrid.useItemImage" @change="setItemGrid" />
                   <v-icon>help</v-icon>
                 </v-card-actions>
                 <v-card-actions>
-                  <v-text-field v-model="itemGrid.description" label="Description" />
+                  <v-text-field v-model="itemGrid.showWhen" :label="'Aparecer quando atingir ' + itemGrid.showWhen +' compras'" />
                   <v-icon>help</v-icon>
                 </v-card-actions>
               </v-card-text>
@@ -34,7 +34,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn @click="itemGridDialog = !itemGridDialog">Fechar</v-btn>
-        <v-btn color="primary" @click="updateItemGrid">Salvar</v-btn>
+        <v-btn color="primary" @click="addItemGrid">Salvar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -62,8 +62,12 @@ export default {
     }
   },
   methods: {
-    updateItemGrid () {
-      this.$store.dispatch('updateItemGrid')
+    setItemGrid () {
+      this.$store.dispatch('setItemGridValue')
+    },
+
+    addItemGrid () {
+      this.$store.dispatch('addItemGrid')
     }
   }
 }

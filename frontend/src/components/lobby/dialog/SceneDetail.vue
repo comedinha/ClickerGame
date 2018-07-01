@@ -5,19 +5,19 @@
         <v-toolbar-title>{{ getSceneDetailInfo.name }}</v-toolbar-title>
         <v-spacer />
         <v-tooltip v-if="getSceneDetailInfo.canEdit" bottom>
-          <v-btn small icon slot="activator" @click="editGame(getSceneDetailInfo)"><v-icon>settings</v-icon></v-btn>
+          <v-btn small class="mx-0" icon slot="activator" @click="editGame(getSceneDetailInfo)"><v-icon>settings</v-icon></v-btn>
           <span>{{ $ml.get('lobby.lobby.edit') }}</span>
         </v-tooltip>
         <v-tooltip v-if="getSceneDetailInfo.lastGame" bottom>
-          <v-btn small icon slot="activator" @click="newGame(getSceneDetailInfo)"><v-icon>add_circle</v-icon></v-btn>
+          <v-btn small class="mx-0" icon slot="activator" @click="newGame(getSceneDetailInfo)"><v-icon>add_circle</v-icon></v-btn>
           <span>{{ $ml.get('lobby.lobby.newGame') }}</span>
         </v-tooltip>
         <v-tooltip v-if="getSceneDetailInfo.lastGame" bottom>
-          <v-btn small icon slot="activator" @click="continueGame(getSceneDetailInfo)"><v-icon>play_circle_filled</v-icon></v-btn>
+          <v-btn small class="mx-0" icon slot="activator" @click="continueGame(getSceneDetailInfo)"><v-icon>play_circle_filled</v-icon></v-btn>
           <span>{{ $ml.get('lobby.lobby.continue') }}</span>
         </v-tooltip>
         <v-tooltip v-if="!getSceneDetailInfo.lastGame" bottom>
-          <v-btn small icon slot="activator" @click="newGame(getSceneDetailInfo)"><v-icon>play_circle_filled</v-icon></v-btn>
+          <v-btn small class="mx-0" icon slot="activator" @click="newGame(getSceneDetailInfo)"><v-icon>play_circle_filled</v-icon></v-btn>
           <span>{{ $ml.get('lobby.lobby.play') }}</span>
         </v-tooltip>
       </v-toolbar>

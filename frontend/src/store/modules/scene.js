@@ -41,6 +41,9 @@ const state = {
   ],
 
   itemGridDialog: false,
+  newItemGrid: false,
+  newItemGridItem: [],
+  itemGridRef: [],
   itemGrid: [],
   oldItemGrid: [],
 
@@ -132,10 +135,6 @@ const actions = {
     commit('saveConfig')
   },
 
-  newGridItem ({ commit }, item) {
-    commit('newGridItem', item)
-  },
-
   updateGridContent ({ commit }, event) {
     commit('updateGridContent', event)
   },
@@ -144,12 +143,24 @@ const actions = {
     commit('changeGridItem', item)
   },
 
+  newGridItem ({ commit }, item) {
+    commit('newGridItem', item)
+  },
+
   setItemGridDialog ({ commit }, event) {
     commit('updateItemGridDialog', event)
   },
 
   setItemGrid ({ commit }, message) {
     commit('updateItemGrid', message)
+  },
+
+  setItemGridValue ({ commit }) {
+    commit('updateItemGridValue')
+  },
+
+  addItemGrid ({ commit }) {
+    commit('addItemGrid')
   },
 
   removeGridItem ({ commit }, item) {
@@ -333,25 +344,16 @@ const mutations = {
   },
 
   newGridItem (state, item) {
-    if (state.creatorVision === true) {
-      let tabItemGrid = {
-        useItemImage: true,
-        image: item.image
-      }
+    state.itemGridDialog = true
+    state.itemGridRef = item
+    state.newItemGrid = true
 
-      let newGridItem = {
-        x: 0,
-        y: 0,
-        w: 1,
-        h: 1,
-        i: 'Grid ' + state.world[state.currentWorld].gridCount++,
-        type: 'item',
-        item: item,
-        ref: item.grids[(item.grids.push(tabItemGrid) - 1)]
-      }
-
-      state.world[state.currentWorld].gridContent.push(newGridItem)
+    let itemDefault = {
+      image: item.image,
+      useItemImage: true,
+      showWhen: 0
     }
+    state.itemGrid = itemDefault
   },
 
   updateGridContent (state, event) {
@@ -364,17 +366,68 @@ const mutations = {
     if (state.creatorVision === true) {
       if (item.type === 'item') {
         state.itemGridDialog = true
-        state.itemGrid = item.ref
+        state.itemGridRef = item.item
+        state.oldItemGrid = item.ref
+        state.newItemGridItem = item
+        state.newItemGrid = false
+
+        let newItem = {
+          image: item.ref.image,
+          useItemImage: item.ref.useItemImage,
+          showWhen: item.ref.showWhen
+        }
+        state.itemGrid = newItem
       }
     }
   },
 
   updateItemGridDialog (state, event) {
+    if (event === false) {
+      state.itemGridRef = []
+      state.itemGrid = []
+      state.newItemGrid = false
+    }
+
     state.itemGridDialog = event
   },
 
   updateItemGrid (state, message) {
     state.itemGrid = message
+  },
+
+  updateItemGridValue (state) {
+    if (state.itemGrid.useItemImage === true) {
+      state.itemGrid.image = state.itemGridRef.image
+    }
+  },
+
+  addItemGrid (state) {
+    if (state.creatorVision === true) {
+      if (state.newItemGrid === true) {
+        let newGridItem = {
+          x: 0,
+          y: 0,
+          w: 1,
+          h: 1,
+          i: 'Grid ' + state.world[state.currentWorld].gridCount++,
+          type: 'item',
+          item: state.itemGridRef,
+          ref: state.itemGridRef.grids[(state.itemGridRef.grids.push(state.itemGrid) - 1)]
+        }
+
+        state.world[state.currentWorld].gridContent.push(newGridItem)
+      } else {
+        const indexGrid = state.itemGridRef.grids.indexOf(state.oldItemGrid)
+        state.itemGridRef.grids[indexGrid] = state.itemGrid
+
+        state.newItemGridItem.ref = state.itemGridRef.grids[indexGrid]
+      }
+
+      state.itemGridDialog = false
+      state.itemGrid = []
+      state.oldItemGrid = []
+      state.itemGridRef = []
+    }
   },
 
   removeGridItem (state, item) {

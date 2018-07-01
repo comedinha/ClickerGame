@@ -8,37 +8,12 @@ const state = {
   saveWarning: false,
 
   editConfigDialog: false,
-  config: {
-    name: '',
-    smallDescription: '',
-    completeDescription: '',
-    globalCoin: true,
-    coinName: '',
-    coinSymbol: '',
-    image: ''
-  },
+  config: {},
   oldConfig: {},
 
   currentWorld: 0,
-  worldCount: 1,
-  world: [
-    {
-      ref: 'World 0',
-      name: 'World',
-      coinName: '',
-      coinSymbol: '',
-
-      gridCount: 0,
-      gridContent: [],
-
-      gridButtons: [],
-
-      gridInformation: [],
-
-      tabCount: 0,
-      tabs: []
-    }
-  ],
+  worldCount: 0,
+  world: [],
 
   itemGridDialog: false,
   newItemGrid: false,
@@ -159,8 +134,8 @@ const actions = {
     commit('updateItemGridValue')
   },
 
-  addItemGrid ({ commit }) {
-    commit('addItemGrid')
+  itemGrid ({ commit }) {
+    commit('itemGrid')
   },
 
   removeGridItem ({ commit }, item) {
@@ -203,6 +178,34 @@ const actions = {
 // mutations
 const mutations = {
   updateDefault (state) {
+    let firstConfig = {
+      name: '',
+      smallDescription: '',
+      completeDescription: '',
+      globalCoin: true,
+      coinName: '',
+      coinSymbol: '',
+      image: ''
+    }
+    state.config = firstConfig
+
+    state.currentWorld = 0
+    let firstWorld = {
+      ref: 'World ' + state.worldCount++,
+      name: 'World',
+      coinName: '',
+      coinSymbol: '',
+
+      gridCount: 0,
+      gridContent: [],
+      gridButtons: [],
+      gridInformation: [],
+
+      tabCount: 0,
+      tabs: []
+    }
+    state.world.push(firstWorld)
+
     let tabItem = {
       type: 'item',
       refTab: 'Tab ' + state.world[state.currentWorld].tabCount,
@@ -401,7 +404,7 @@ const mutations = {
     }
   },
 
-  addItemGrid (state) {
+  itemGrid (state) {
     if (state.creatorVision === true) {
       if (state.newItemGrid === true) {
         let newGridItem = {
@@ -421,6 +424,7 @@ const mutations = {
         state.itemGridRef.grids[indexGrid] = state.itemGrid
 
         state.newItemGridItem.ref = state.itemGridRef.grids[indexGrid]
+        console.log(state.world)
       }
 
       state.itemGridDialog = false

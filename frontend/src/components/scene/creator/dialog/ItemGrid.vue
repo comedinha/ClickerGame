@@ -34,7 +34,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn @click="itemGridDialog = !itemGridDialog">Fechar</v-btn>
-        <v-btn color="primary" @click="addItemGrid">Salvar</v-btn>
+        <v-btn color="primary" @click="itemGridUpdate">Salvar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -66,8 +66,8 @@ export default {
       this.$store.dispatch('setItemGridValue')
     },
 
-    addItemGrid () {
-      this.$store.dispatch('addItemGrid')
+    itemGridUpdate () {
+      this.$store.dispatch('itemGrid')
     }
   }
 }

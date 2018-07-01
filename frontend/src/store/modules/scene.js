@@ -112,7 +112,10 @@ const actions = {
     console.log('saveScene')
     // Comentário: Utilizar getters.getConfig (const talves seja útil para dividir) e getters.getWorld (const aqui não...)
     let saveScene = {
-      config: getters.getConfig,
+      name: getters.getConfig,
+      smallDescription: getters.getConfig.smallDescription,
+      completeDescription: getters.getConfig.completeDescription,
+      image: getters.getConfig.image,
       world: getters.getWorld
     }
     console.log(saveScene)

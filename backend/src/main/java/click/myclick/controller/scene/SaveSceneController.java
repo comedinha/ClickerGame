@@ -2,7 +2,7 @@ package click.myclick.controller.scene;
 
 import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.dao.user.UserService;
-import click.myclick.model.Scene;
+import click.myclick.dto.scene.saveSceneDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -29,7 +29,7 @@ public class SaveSceneController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> save(@RequestBody final String json, Authentication auth) {
+    public ResponseEntity<?> save(@RequestBody final saveSceneDTO dto, Authentication auth) {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

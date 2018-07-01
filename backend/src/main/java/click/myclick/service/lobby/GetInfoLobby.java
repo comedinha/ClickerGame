@@ -33,9 +33,9 @@ public class GetInfoLobby {
         dto.setNumReport(getScenes.getReport(sceneService, reportService).size());
         
         dto.setMyScenes(getScenes.getMyScenes(sceneService, user.getId(), (user.getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))));
-        dto.setPlayedGames(getScenes.getPlayedGames(sceneService, user.getId()));
-        dto.setMostPlayed(getScenes.getMostPlayed(sceneService, user.getId()));
-        dto.setBestRated(getScenes.getBestRated(sceneService, user.getId()));
+        dto.setPlayedGames(getScenes.getPlayedGames(sceneService, user.getId(), (user.getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))));
+        dto.setMostPlayed(getScenes.getMostPlayed(sceneService, user.getId(), (user.getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))));
+        dto.setBestRated(getScenes.getBestRated(sceneService, user.getId(), (user.getAuthorities().get(0).getAuthority().equals("ROLE_ADMIN"))));
 
         return dto;
     }

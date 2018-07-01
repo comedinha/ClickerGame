@@ -2,7 +2,6 @@ package click.myclick.dto.scene;
 
 import java.io.Serializable;
 
-
 public class SaveSceneDTO implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
@@ -12,7 +11,7 @@ public class SaveSceneDTO implements Serializable {
     private String smallDescription;
     private String completeDescription;
     private String image;
-    private String json;
+    private String worlds;
 
 	public String getId()
 	{
@@ -63,13 +62,11 @@ public class SaveSceneDTO implements Serializable {
 		this.image = image;
     }
     
-    public String getJson()
-	{
-		return this.json;
+    public String getWorlds() {
+		return this.worlds;
 	}
 
-	public void setJson(String json)
-	{
-		this.json = json;
+	public void setWorlds(String worlds) {
+		this.worlds = worlds;
 	}
 }

@@ -112,15 +112,17 @@ const actions = {
     console.log('saveScene')
     // Comentário: Utilizar getters.getConfig (const talves seja útil para dividir) e getters.getWorld (const aqui não...)
     let saveScene = {
-      name: getters.getConfig,
+      name: getters.getConfig.name,
       smallDescription: getters.getConfig.smallDescription,
       completeDescription: getters.getConfig.completeDescription,
       image: getters.getConfig.image,
-      world: getters.getWorld
+      worlds: getters.getWorld
     }
     console.log(saveScene)
 
     Vue.http.post('api/saveScene', saveScene).then(response => {
+      console.log('response')
+      console.log(response)
       commit('updateAllScenes', response)
     }).catch(() => {
       commit('updateAllScenesLoading', false)

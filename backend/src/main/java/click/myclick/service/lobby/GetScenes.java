@@ -33,12 +33,12 @@ public class GetScenes {
         return myScenes;
     }
 
-    public ArrayList<PlayedSceneDTO> getPlayedGames(SceneService service, String id) {
+    public ArrayList<PlayedSceneDTO> getPlayedGames(SceneService service, String id, boolean isAdmin) {
         //precisa implementar o Save...
         return new ArrayList<PlayedSceneDTO>();
     }
 
-    public ArrayList<SceneMostPlayedDTO> getMostPlayed(SceneService service, String idUser) {
+    public ArrayList<SceneMostPlayedDTO> getMostPlayed(SceneService service, String idUser, boolean isAdmin) {
         int i = 0;
         List<Scene> scenes = service.findAll();
         ArrayList<SceneMostPlayedDTO> getMostPlayed = new ArrayList<SceneMostPlayedDTO>();
@@ -47,7 +47,7 @@ public class GetScenes {
         for(Scene scene : scenes) {
             if(scene.getComplete() && scene.getApproved()) {
                 aux.add(new SceneMostPlayedDTO(scene.getId(), scene.getName(), scene.getIdCreator(), scene.getSmallDescription(), scene.getImage(), scene.getTotalplayed()));
-                aux.get(i).setCanEdit(scene.getIdCreator().equals(idUser));
+                aux.get(i).setCanEdit((isAdmin || scene.getIdCreator().equals(idUser))? true : false);
                 aux.get(i).setLastGame(false); //precisa do save pra setar;
                 i++;
             }
@@ -61,7 +61,7 @@ public class GetScenes {
         return getMostPlayed;
     }
 
-    public ArrayList<SceneBestRatedDTO> getBestRated(SceneService service, String idUser) {
+    public ArrayList<SceneBestRatedDTO> getBestRated(SceneService service, String idUser, boolean isAdmin) {
         int i = 0;
         List<Scene> scenes = service.findAll();
         ArrayList<SceneBestRatedDTO> getBestRated = new ArrayList<SceneBestRatedDTO>();
@@ -70,7 +70,7 @@ public class GetScenes {
         for(Scene scene : scenes) {
             if(scene.getComplete() && scene.getApproved()) {
                 aux.add(new SceneBestRatedDTO(scene.getId(), scene.getName(), scene.getIdCreator(), scene.getSmallDescription(), scene.getImage(), scene.getRating()));
-                aux.get(i).setCanEdit(scene.getIdCreator().equals(idUser));
+                aux.get(i).setCanEdit((isAdmin || scene.getIdCreator().equals(idUser))? true : false);
                 aux.get(i).setLastGame(false); //precisa do save pra setar;
                 i++;
             }

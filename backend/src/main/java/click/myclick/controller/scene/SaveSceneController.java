@@ -32,10 +32,19 @@ public class SaveSceneController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> save(@RequestBody final SaveSceneDTO dto, Authentication auth) {
+    public ResponseEntity<?> save(@RequestBody final String dto, Authentication auth) {
+        System.out.println(dto);
+        System.out.printf("\n\nJson:\n\n\n%s\n\n\n", dto);
+        /*dto.setId(userService.findByUsername(auth.getPrincipal().toString()).getId());
 
-        dto.setId(userService.findByUsername(auth.getPrincipal().toString()).getId());
+        try {
+            System.out.println("Saving...");
+            return new ResponseEntity<>(sceneService.create(converterFacade.convert(dto)), HttpStatus.OK);
+        } catch(Exception e) {
+            System.out.println("Error Save Scene");
+            return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }*/
 
-        return new ResponseEntity<>(sceneService.create(converterFacade.convert(dto)), HttpStatus.OK);
+        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

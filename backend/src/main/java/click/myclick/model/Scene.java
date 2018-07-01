@@ -3,7 +3,7 @@ package click.myclick.model;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
-
+import java.util.ArrayList;
 
 @Document
 public class Scene extends BaseEntity implements Serializable {
@@ -22,7 +22,7 @@ public class Scene extends BaseEntity implements Serializable {
     private double rating;
 	private String image;
 	private int numberReports;
-	private String json;
+	private String worlds;
 
 	public String getName()
 	{
@@ -144,11 +144,11 @@ public class Scene extends BaseEntity implements Serializable {
 		this.numberReports = numberReports;
 	}
 
-	public String getJson() {
-		return this.json;
+	public String getWorlds() {
+		return this.worlds;
 	}
 
-	public void setJson(String json) {
-		this.json = json;
+	public void setWorlds(String worlds) {
+		this.worlds = worlds;
 	}
 }

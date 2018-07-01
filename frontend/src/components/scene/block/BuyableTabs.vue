@@ -1,5 +1,5 @@
 <template>
-  <v-tabs v-model="active" fixed-tabs>
+  <v-tabs :style="{'background-color': getTabLayout.backgroundColor}" v-model="active" fixed-tabs>
     <v-tab v-for="tab in getTabs" :key="tab.refTab" ripple>
       {{ tab.title }}
     </v-tab>
@@ -89,8 +89,22 @@ export default {
     ...mapGetters([
       'getEditMode',
       'getTabs',
-      'getAddItemDialog'
+      'getAddItemDialog',
+      'getTabLayout'
     ])
+  },
+  watch: {
+    getTabLayout: {
+      handler: function (val, oldVal) {
+        if (val.backgroundColor) {
+          this.$vuetify.theme = {
+            ...this.$vuetify.theme,
+            getTabLayout: val.backgroundColor
+          }
+        }
+      },
+      immediate: true
+    }
   },
   methods: {
     newGridItem (item) {

@@ -22,6 +22,10 @@ const state = {
   worldCount: 0,
   world: [],
 
+  layoutDialog: false,
+  editLayout: {},
+  oldLayout: {},
+
   itemGridDialog: false,
   newItemGrid: false,
   newItemGridItem: [],
@@ -70,6 +74,56 @@ const getters = {
   getGridContent: state => state.world[state.currentWorld].gridContent,
 
   getTabs: state => state.world[state.currentWorld].tabs,
+
+  getLayoutDialog: state => state.layoutDialog,
+  getEditLayout: state => state.editLayout,
+
+  getTabLeft: state => state.world[state.currentWorld].layout.tab.left,
+  getTabLayout: state => {
+    let layout = {}
+
+    console.log(state.world[state.currentWorld].layout.tab)
+    if (state.world[state.currentWorld].layout.tab.backgroundColor.hex) {
+      layout['backgroundColor'] = state.world[state.currentWorld].layout.tab.backgroundColor.hex
+    }
+    if (state.world[state.currentWorld].layout.tab.textColor.hex) {
+      layout['background-color'] = state.world[state.currentWorld].layout.tab.textColor.hex
+    }
+    console.log(layout)
+
+    return layout
+  },
+
+  getGridLayout: state => {
+    let layout = {
+      'height': '84vh',
+      'max-height': '84vh'
+    }
+
+    if (state.world[state.currentWorld].layout.grid.backgroundColor.hex) {
+      layout['background-color'] = state.world[state.currentWorld].layout.grid.backgroundColor.hex
+    }
+    if (state.world[state.currentWorld].layout.grid.backgroundImage) {
+      layout['background-image'] = 'url(' + state.world[state.currentWorld].layout.grid.backgroundImage + ')'
+      layout['background-position'] = 'center'
+      layout['background-size'] = 'cover'
+    }
+
+    return layout
+  },
+
+  getToolbarLayout: state => {
+    let layout = {}
+
+    if (state.world[state.currentWorld].layout.toolbar.backgroundColor.hex) {
+      layout['background-color'] = state.world[state.currentWorld].layout.toolbar.backgroundColor.hex
+    }
+    if (state.world[state.currentWorld].layout.toolbar.textColor.hex) {
+      layout['background-color'] = state.world[state.currentWorld].layout.toolbar.textColor.hex
+    }
+
+    return layout
+  },
 
   getItemGridDialog: state => state.itemGridDialog,
   getItemGrid: state => state.itemGrid,
@@ -150,6 +204,18 @@ const actions = {
 
   setEditCoin ({ commit }, message) {
     commit('updateEditCoin', message)
+  },
+
+  setLayoutDialog ({ commit }, event) {
+    commit('updateLayoutDialog', event)
+  },
+
+  setEditLayout ({ commit }, message) {
+    commit('updateEditLayout', message)
+  },
+
+  saveLayout ({ commit }) {
+    commit('saveLayout')
   },
 
   updateGridContent ({ commit }, event) {
@@ -244,6 +310,22 @@ const mutations = {
     let firstWorld = {
       ref: 'World ' + state.worldCount++,
       name: 'World',
+
+      layout: {
+        tab: {
+          left: false,
+          backgroundColor: {},
+          textColor: {}
+        },
+        grid: {
+          backgroundColor: {},
+          backgroundImage: ''
+        },
+        toolbar: {
+          backgroundColor: {},
+          textColor: {}
+        }
+      },
 
       gridCount: 0,
       gridContent: [],
@@ -436,6 +518,24 @@ const mutations = {
     state.editCoin = message
   },
 
+  updateLayoutDialog (state, event) {
+    if (event === true) {
+      state.editLayout = JSON.parse(JSON.stringify(state.world[state.currentWorld].layout))
+    }
+
+    state.layoutDialog = event
+  },
+
+  updateEditLayout (state, message) {
+    state.editLayout = message
+  },
+
+  saveLayout (state) {
+    state.world[state.currentWorld].layout = state.editLayout
+    state.editLayout = {}
+    state.layoutDialog = false
+  },
+
   newGridItem (state, item) {
     state.itemGridDialog = true
     state.itemGridRef = item
@@ -523,7 +623,6 @@ const mutations = {
         state.itemGridRef.grids[indexGrid] = state.itemGrid
 
         state.newItemGridItem.ref = state.itemGridRef.grids[indexGrid]
-        console.log(state.world)
       }
 
       state.itemGridDialog = false

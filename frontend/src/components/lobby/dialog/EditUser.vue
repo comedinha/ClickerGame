@@ -10,10 +10,10 @@
       <v-form>
         <v-card-text>
           <v-card-actions>
-            <v-text-field prepend-icon="person" v-model="editUserInfo.name" :error-messages="nameErrors" :label="$ml.get('lobby.dialog.editUser.name.title')" required @input="$v.editUserInfo.name.$touch()" @blur="$v.editUserInfo.name.$touch()" />
+            <v-text-field prepend-icon="person" v-model="editUserInfo.name" :error-messages="nameErrors" :label="$ml.get('lobby.dialog.editUser.name.title')" @input="$v.editUserInfo.name.$touch()" @blur="$v.editUserInfo.name.$touch()" />
             <v-select :items="roles" item-text="text" item-value="id" v-model="editUserInfo.role" overflow :label="$ml.get('lobby.dialog.editUser.select')" />
           </v-card-actions>
-          <v-text-field prepend-icon="email" v-model="editUserInfo.email" :error-messages="emailErrors" :label="$ml.get('lobby.dialog.editUser.email.title')" required @input="$v.editUserInfo.email.$touch()" @blur="$v.editUserInfo.email.$touch()" />
+          <v-text-field prepend-icon="email" v-model="editUserInfo.email" :error-messages="emailErrors" :label="$ml.get('lobby.dialog.editUser.email.title')" @input="$v.editUserInfo.email.$touch()" @blur="$v.editUserInfo.email.$touch()" />
           <v-card-actions>
             <v-checkbox :label="$ml.get('lobby.dialog.editUser.allowApproval')" v-model="editUserInfo.needApproval" />
             <v-checkbox :label="$ml.get('lobby.dialog.editUser.enabled')" v-model="editUserInfo.enabled" />
@@ -35,7 +35,7 @@
 
 <script>
 import { mapGetters } from 'vuex'
-import { required, minLength, maxLength, email, sameAs } from 'vuelidate/lib/validators'
+import { minLength, maxLength, email, sameAs } from 'vuelidate/lib/validators'
 
 export default {
   data () {
@@ -63,12 +63,10 @@ export default {
   validations: {
     editUserInfo: {
       name: {
-        required,
         minLength: minLength(4),
         maxLength: maxLength(16)
       },
       email: {
-        required,
         email
       }
     },
@@ -87,8 +85,7 @@ export default {
     nameErrors () {
       const errors = []
       if (!this.$v.editUserInfo.name.$dirty) return errors
-      !this.$v.editUserInfo.name.required && errors.push(this.$ml.get('lobby.dialog.editUser.required'))
-      !this.$v.editUserInfo.name.minLength && errors.push(this.$ml.with('c', this.$v.editUserInfo.name.$params.minLength.min).get('lobby.dialog.editUser.mame.minLength'))
+      !this.$v.editUserInfo.name.minLength && errors.push(this.$ml.with('c', this.$v.editUserInfo.name.$params.minLength.min).get('lobby.dialog.editUser.name.minLength'))
       !this.$v.editUserInfo.name.maxLength && errors.push(this.$ml.with('c', this.$v.editUserInfo.name.$params.maxLength.max).get('lobby.dialog.editUser.name.maxLength'))
       return errors
     },
@@ -96,7 +93,6 @@ export default {
     emailErrors () {
       const errors = []
       if (!this.$v.editUserInfo.email.$dirty) return errors
-      !this.$v.editUserInfo.email.required && errors.push(this.$ml.get('lobby.dialog.editUser.required'))
       !this.$v.editUserInfo.email.email && errors.push(this.$ml.get('lobby.dialog.editUser.email.email'))
       return errors
     },

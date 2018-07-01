@@ -1,6 +1,6 @@
 <template>
   <div height="100%" src="https://i.ytimg.com/vi/Xy_7tq7xn6I/maxresdefault.jpg">
-    <grid-layout class="scroll-y" v-bind:style="styleGrid" :layout="gridContent" @layout-updated="updateGridContent" :col-num="22" :row-height="30" :is-draggable="getEditMode" :is-resizable="getEditMode" :vertical-compact="false" :margin="[10, 10]" :use-css-transforms="true">
+    <grid-layout class="scroll-y" v-bind:style="getGridLayout" :layout="gridContent" @layout-updated="updateGridContent" :col-num="22" :row-height="30" :is-draggable="getEditMode" :is-resizable="getEditMode" :vertical-compact="false" :margin="[10, 10]" :use-css-transforms="true">
       <grid-item v-for="item in gridContent" :key="item.i" :x="item.x" :y="item.y" :w="item.w" :h="item.h" :i="item.i">
         <v-card v-if="item.type === 'button'" ripple fab height="100%" v-bind:style="item.ref.style">
           <v-card-actions>
@@ -61,21 +61,14 @@ import { mapGetters } from 'vuex'
 import {GridLayout, GridItem} from 'vue-grid-layout'
 
 export default {
-  data () {
-    return {
-      styleGrid: {
-        'height': '84vh',
-        'max-height': '84vh'
-      }
-    }
-  },
   components: {
     GridLayout,
     GridItem
   },
   computed: {
     ...mapGetters([
-      'getEditMode'
+      'getEditMode',
+      'getGridLayout'
     ]),
 
     gridContent: {

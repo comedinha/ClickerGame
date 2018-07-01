@@ -22,6 +22,12 @@ const state = {
   itemGrid: [],
   oldItemGrid: [],
 
+  informationGridDialog: false,
+  newInformationDialog: false,
+  informationGridRef: [],
+  oldInformationGrid: '',
+  informationGrid: '',
+
   currentTab: [],
 
   addItemDialog: false,
@@ -54,6 +60,9 @@ const getters = {
 
   getItemGridDialog: state => state.itemGridDialog,
   getItemGrid: state => state.itemGrid,
+
+  getInformationGridDialog: state => state.informationGridDialog,
+  getInformationGrid: state => state.informationGrid,
 
   getAddItemDialog: state => state.creatorVision && state.addItemDialog,
   getAddItem: state => state.creatorVision && state.addItem,
@@ -140,6 +149,18 @@ const actions = {
 
   removeGridItem ({ commit }, item) {
     commit('removeGridItem', item)
+  },
+
+  setInformationGridDialog ({ commit }, event) {
+    commit('updateInformationGridDialog', event)
+  },
+
+  setInformationGrid ({ commit }, message) {
+    commit('updateInformationGrid', message)
+  },
+
+  informationGrid ({ commit }) {
+    commit('informationGrid')
   },
 
   setAddItemDialog ({ commit }, event) {
@@ -380,6 +401,15 @@ const mutations = {
           showWhen: item.ref.showWhen
         }
         state.itemGrid = newItem
+      } else if (item.type === 'information') {
+        state.informationGridDialog = true
+        state.informationGridRef = item
+        state.oldInformationGrid = item.ref
+
+        let newInformation = {
+          text: item.ref.text
+        }
+        state.informationGrid = newInformation
       }
     }
   },
@@ -453,6 +483,34 @@ const mutations = {
     }
   },
 
+  updateInformationGridDialog (state, event) {
+    if (event === false) {
+      state.informationGrid = []
+      state.oldInformationGrid = []
+    }
+
+    state.informationGridDialog = event
+  },
+
+  updateInformationGrid (state, message) {
+    state.informationGrid = message
+  },
+
+  informationGrid (state) {
+    if (state.newInformationDialog === true) {
+      // Comentário: Adicionar novo dialog.
+    } else {
+      const indexInformation = state.world[state.currentWorld].gridInformation.indexOf(state.informationGridRef.ref)
+      state.world[state.currentWorld].gridInformation[indexInformation] = state.informationGrid
+
+      state.informationGridRef.ref = state.world[state.currentWorld].gridInformation[indexInformation]
+    }
+
+    state.informationGridDialog = false
+    state.informationGrid = []
+    state.oldInformationGrid = []
+  },
+
   updateItemDialog (state, event) {
     if (event === false) {
       state.newItem = false
@@ -483,6 +541,8 @@ const mutations = {
       title: item.title,
       image: item.image,
       description: item.description,
+      countPerSecond: item.countPerSecond,
+      perSecond: item.perSecond,
       startCount: item.startCount,
       startPrice: item.startPrice,
       formula: item.formula,
@@ -518,6 +578,8 @@ const mutations = {
         title: state.addItem.title,
         image: state.addItem.image,
         description: state.addItem.description,
+        countPerSecond: state.addItem.countPerSecond,
+        perSecond: state.addItem.perSecond,
         startCount: state.addItem.startCount,
         startPrice: state.addItem.startPrice,
         formula: state.addItem.formula,

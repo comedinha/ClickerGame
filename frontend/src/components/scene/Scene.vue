@@ -4,6 +4,7 @@
     <Item v-if="getCreatorVision && getAddItemDialog" />
     <ItemGrid v-if="getCreatorVision && getItemGridDialog" />
     <Upgrade v-if="getCreatorVision && getAddUpgradeDialog" />
+    <InformationGrid v-if="getCreatorVision && getInformationGridDialog" />
     <v-layout row wrap>
       <v-flex md8>
         <v-card height="90vh">
@@ -26,6 +27,7 @@ import GridContent from '@/components/scene/block/GridContent'
 import BuyableTabs from '@/components/scene/block/BuyableTabs'
 
 import Config from '@/components/scene/creator/dialog/Config'
+import InformationGrid from '@/components/scene/creator/dialog/InformationGrid'
 import Item from '@/components/scene/creator/dialog/Item'
 import ItemGrid from '@/components/scene/creator/dialog/ItemGrid'
 import Upgrade from '@/components/scene/creator/dialog/Upgrade'
@@ -62,7 +64,8 @@ export default {
       'getAddItemDialog',
       'getAddUpgradeDialog',
       'getEditConfigDialog',
-      'getItemGridDialog'
+      'getItemGridDialog',
+      'getInformationGridDialog'
     ])
   },
   components: {
@@ -70,6 +73,7 @@ export default {
     GridContent,
     BuyableTabs,
 
+    InformationGrid,
     Item,
     ItemGrid,
     Upgrade,

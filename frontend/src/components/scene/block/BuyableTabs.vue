@@ -24,15 +24,24 @@
             </v-list-tile-content>
             <v-list-tile-action>
               <v-card flat v-if="getEditMode">
-                <v-btn icon @click="newGridItem(item)">
-                  <v-icon>grid_on</v-icon>
-                </v-btn>
-                <v-btn icon @click="editItem(tab, item)">
-                  <v-icon>settings</v-icon>
-                </v-btn>
-                <v-btn icon @click="deleteItem(tab, item)">
-                  <v-icon>delete</v-icon>
-                </v-btn>
+                <v-tooltip bottom>
+                  <v-btn icon slot="activator" @click="newGridItem(item)">
+                    <v-icon>grid_on</v-icon>
+                  </v-btn>
+                  <span>{{ $ml.get('scene.block.buyableTabs.addGrid') }}</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <v-btn icon slot="activator" @click="editItem(tab, item)">
+                    <v-icon>settings</v-icon>
+                  </v-btn>
+                  <span>{{ $ml.get('scene.block.buyableTabs.settings') }}</span>
+                </v-tooltip>
+                <v-tooltip bottom>
+                  <v-btn icon slot="activator" @click="deleteItem(tab, item)">
+                    <v-icon>delete</v-icon>
+                  </v-btn>
+                  <span>{{ $ml.get('scene.block.buyableTabs.delete') }}</span>
+                </v-tooltip>
               </v-card>
             </v-list-tile-action>
           </v-list-tile>
@@ -46,12 +55,18 @@
             <img height="50" width="100" :src="item.image" />
             <v-btn v-if="!getEditMode">{{ item.price }}</v-btn>
             <v-card-actions v-if="getEditMode">
-              <v-btn icon>
-                <v-icon>settings</v-icon>
-              </v-btn>
-              <v-btn icon>
-                <v-icon>delete</v-icon>
-              </v-btn>
+              <v-tooltip bottom>
+                <v-btn icon slot="activator">
+                  <v-icon>settings</v-icon>
+                </v-btn>
+                <span>{{ $ml.get('scene.block.buyableTabs.settings') }}</span>
+              </v-tooltip>
+              <v-tooltip bottom>
+                <v-btn icon slot="activator">
+                  <v-icon>delete</v-icon>
+                </v-btn>
+                <span>{{ $ml.get('scene.block.buyableTabs.delete') }}</span>
+              </v-tooltip>
             </v-card-actions>
           </v-card>
         </v-flex>

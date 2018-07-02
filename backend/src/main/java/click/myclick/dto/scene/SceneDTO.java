@@ -9,6 +9,7 @@ public class SceneDTO implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
+	private String id;
 	private String idCreator;
     private String name;
     private String smallDescription;
@@ -16,6 +17,16 @@ public class SceneDTO implements Serializable {
     private String image;
 	private List<World> worlds;
 	private List<Coin> coins;
+
+	public String getId()
+	{
+		return this.id;
+	}
+
+	public void setId(String id)
+	{
+		this.id = id;
+	}
 
 	public String getIdCreator()
 	{

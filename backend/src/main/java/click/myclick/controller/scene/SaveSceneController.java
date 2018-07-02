@@ -18,14 +18,14 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/saveScene")
-public class SceneController {
+public class SaveSceneController {
     
     private final SceneService sceneService;
     private final UserService userService;
     private final ConverterFacade converterFacade;
 
     @Autowired
-    public SceneController(final SceneService sceneService, final UserService userService, final ConverterFacade converterFacade) {
+    public SaveSceneController(final SceneService sceneService, final UserService userService, final ConverterFacade converterFacade) {
         this.sceneService = sceneService;
         this.userService = userService;
         this.converterFacade = converterFacade;
@@ -38,7 +38,7 @@ public class SceneController {
         
         try {
             System.out.println("Saving...");
-            return new ResponseEntity<>(sceneService.create(converterFacade.convert(dto)), HttpStatus.OK);
+            return new ResponseEntity<>(sceneService.create(converterFacade.convert(dto)).getId(), HttpStatus.OK);
         } catch(Exception e) {
             System.out.println("Error Save Scene");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);

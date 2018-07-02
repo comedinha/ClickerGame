@@ -3,21 +3,32 @@ package click.myclick.dto.scene.lists.world;
 import click.myclick.dto.scene.lists.world.gridbutton.Style;
 
 import java.io.Serializable;
-import java.util.List;
 
 public class GridButton implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
-    private List<Style> style;
+	private String ref;
+    private Style style;
 
-	public List<Style> getStyle()
+	public String getRef()
+	{
+		return this.ref;
+	}
+
+	public void setRef(String ref)
+	{
+		this.ref = ref;
+	}
+
+	public Style getStyle()
 	{
 		return this.style;
 	}
 
-	public void setStyle(List<Style> style)
+	public void setStyle(Style style)
 	{
 		this.style = style;
 	}
+
 }

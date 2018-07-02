@@ -13,15 +13,17 @@ public class World implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
-    private String name;
-    private String ref;
-    private int tabCount;
-    private int gridCount;
     private List<GridButton> gridButtons;
+	private int gridButtonsCount;
     private List<GridContent> gridContent;
+	private int gridCount;
     private List<GridInformation> gridInformation;
-	private List<Tabs> tabs;
+	private int gridInformationCount;
 	private Layout layout;
+    private String name;
+	private String ref;
+    private int tabCount;
+	private List<Tabs> tabs;
 
 	public String getName()
 	{
@@ -63,6 +65,36 @@ public class World implements Serializable {
 		this.gridCount = gridCount;
 	}
 
+	public int getGridButtonsCount()
+	{
+		return this.gridButtonsCount;
+	}
+
+	public void setGridButtonsCount(int gridButtonsCount)
+	{
+		this.gridButtonsCount = gridButtonsCount;
+	}
+
+	public int getGridInformationCount()
+	{
+		return this.gridInformationCount;
+	}
+
+	public void setGridInformationCount(int gridInformationCount)
+	{
+		this.gridInformationCount = gridInformationCount;
+	}
+
+	public Layout getLayout()
+	{
+		return this.layout;
+	}
+
+	public void setLayout(Layout layout)
+	{
+		this.layout = layout;
+	}
+
 	public List<GridButton> getGridButtons()
 	{
 		return this.gridButtons;
@@ -101,15 +133,5 @@ public class World implements Serializable {
 	public void setTabs(List<Tabs> tabs)
 	{
 		this.tabs = tabs;
-	}
-
-	public Layout getLayout()
-	{
-		return this.layout;
-	}
-
-	public void setLayout(Layout layout)
-	{
-		this.layout = layout;
 	}
 }

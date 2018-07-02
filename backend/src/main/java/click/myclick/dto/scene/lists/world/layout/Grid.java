@@ -29,7 +29,5 @@ public class Grid implements Serializable {
 	public void setBackgroundimage(String backgroundImage)
 	{
 		this.backgroundImage = backgroundImage;
-	}
-
-    
+	}    
 }

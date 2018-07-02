@@ -1,5 +1,7 @@
 package click.myclick.dto.scene.lists;
 
+import click.myclick.dto.scene.lists.coin.Worlds;
+
 import java.io.Serializable;
 import java.util.List;
 
@@ -10,7 +12,7 @@ public class Coin implements Serializable {
     private String name;
     private String symbol;
     private int used;
-    private List<World> worlds;
+    private List<Worlds> worlds;
 
 	public String getName()
 	{
@@ -42,12 +44,12 @@ public class Coin implements Serializable {
 		this.used = used;
 	}
 
-	public List<World> getWorlds()
+	public List<Worlds> getWorlds()
 	{
 		return this.worlds;
 	}
 
-	public void setWorlds(List<World> worlds)
+	public void setWorlds(List<Worlds> worlds)
 	{
 		this.worlds = worlds;
 	}

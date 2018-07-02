@@ -6,6 +6,17 @@
     <v-btn small v-if="editMode" @click="editMode = !editMode">{{ $ml.get('scene.block.toolbar.userVision') }}</v-btn>
     <v-btn small v-if="getCreatorVision && !editMode" @click="editMode = !editMode">{{ $ml.get('scene.block.toolbar.creatorVision') }}</v-btn>
     <v-menu offset-y v-if="editMode">
+      <v-btn small slot="activator">Grid</v-btn>
+      <v-list>
+        <v-list-tile @click="editConfigDialog = !editConfigDialog">
+          <v-list-tile-title>Adicinar Botão</v-list-tile-title>
+        </v-list-tile>
+        <v-list-tile @click="layoutDialog = !layoutDialog">
+          <v-list-tile-title>Adicionar Informação</v-list-tile-title>
+        </v-list-tile>
+      </v-list>
+    </v-menu>
+    <v-menu offset-y v-if="editMode">
       <v-btn small slot="activator">{{ $ml.get('scene.block.toolbar.scene') }}</v-btn>
       <v-list>
         <v-list-tile @click="editConfigDialog = !editConfigDialog">
@@ -20,16 +31,16 @@
         <v-list-tile @click="saveScene">
           <v-list-tile-title>{{ $ml.get('scene.block.toolbar.save') }}</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile>
+        <v-list-tile v-if="hasSceneId && !isPublished">
           <v-list-tile-title>{{ $ml.get('scene.block.toolbar.publish') }}</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile>
+        <v-list-tile v-if="hasSceneId">
           <v-list-tile-title>{{ $ml.get('scene.block.toolbar.delete') }}</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile>
+        <v-list-tile v-if="canApprove">
           <v-list-tile-title>{{ $ml.get('scene.block.toolbar.approval') }}</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile>
+        <v-list-tile v-if="canResolve">
           <v-list-tile-title>{{ $ml.get('scene.block.toolbar.resolve') }}</v-list-tile-title>
         </v-list-tile>
       </v-list>
@@ -79,7 +90,11 @@ export default {
   computed: {
     ...mapGetters([
       'getCreatorVision',
-      'getToolbarLayout'
+      'getToolbarLayout',
+      'hasSceneId',
+      'isPublished',
+      'canApprove',
+      'canResolve'
     ]),
 
     editMode: {

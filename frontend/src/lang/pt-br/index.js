@@ -341,7 +341,7 @@ export default {
           },
 
           close: 'Fechar',
-          save: 'Salvar'
+          edit: 'Editar'
         },
 
         editCoin: {

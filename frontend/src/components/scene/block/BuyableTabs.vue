@@ -25,7 +25,7 @@
             <v-list-tile-action>
               <v-card flat v-if="getEditMode">
                 <v-tooltip bottom>
-                  <v-btn icon slot="activator" @click="newGridItem(item)">
+                  <v-btn icon slot="activator" @click="newGridItem(tab, item)">
                     <v-icon>grid_on</v-icon>
                   </v-btn>
                   <span>{{ $ml.get('scene.block.buyableTabs.addGrid') }}</span>
@@ -146,8 +146,8 @@ export default {
     }
   },
   methods: {
-    newGridItem (item) {
-      this.$store.dispatch('newGridItem', item)
+    newGridItem (tab, item) {
+      this.$store.dispatch('newGridItem', { tab, item })
     },
 
     addItem (tab) {

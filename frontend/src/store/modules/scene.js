@@ -28,22 +28,19 @@ const state = {
 
   itemGridDialog: false,
   newItemGrid: false,
-  newItemGridItem: [],
-  itemGridRef: [],
+  itemGridTab: [],
+  itemGridItem: [],
   itemGrid: [],
-  oldItemGrid: [],
 
   informationGridDialog: false,
   newInformationDialog: false,
   informationGridRef: [],
-  oldInformationGrid: '',
   informationGrid: '',
 
   currentTab: [],
 
   addItemDialog: false,
   newItem: false,
-  editItem: {},
   addItem: {},
 
   addUpgradeDialog: false,
@@ -69,7 +66,7 @@ const getters = {
   getEditCoinDialog: state => state.editCoinDialog,
   getEditCoin: state => state.editCoin,
 
-  getWorld: state => state.world,
+  getCurrentWorld: state => state.world[state.currentWorld],
 
   getGridContent: state => state.world[state.currentWorld].gridContent,
 
@@ -258,8 +255,8 @@ const actions = {
     commit('changeGridItem', item)
   },
 
-  newGridItem ({ commit }, item) {
-    commit('newGridItem', item)
+  newGridItem ({ commit }, message) {
+    commit('newGridItem', message)
   },
 
   setItemGridDialog ({ commit }, event) {
@@ -330,146 +327,148 @@ const actions = {
 // mutations
 const mutations = {
   updateDefault (state) {
-    let firstConfig = {
-      name: '',
-      smallDescription: '',
-      completeDescription: '',
-      image: ''
-    }
-    state.config = firstConfig
-
-    state.currentWorld = 0
-    let firstWorld = {
-      ref: 'World ' + state.worldCount++,
-      name: 'World',
-
-      layout: {
-        tab: {
-          left: false,
-          backgroundColor: {},
-          textColor: {},
-          btnColor: {},
-          btnTextColor: {}
-        },
-        grid: {
-          backgroundColor: {},
-          backgroundImage: ''
-        },
-        toolbar: {
-          backgroundColor: {},
-          btnColor: {},
-          btnTextColor: {}
-        }
-      },
-
-      gridCount: 0,
-      gridContent: [],
-
-      gridButtonsCount: 0,
-      gridButtons: [],
-
-      gridInformationCount: 0,
-      gridInformation: [],
-
-      tabCount: 0,
-      tabs: []
-    }
-    state.world.push(firstWorld)
-
-    let firstCoin = {
-      name: 'Money',
-      symbol: '$',
-      worlds: [ { ref: firstWorld.ref } ],
-      used: 0
-    }
-    state.coins.push(firstCoin)
-
-    let tabItem = {
-      type: 'item',
-      refTab: 'Tab ' + state.world[state.currentWorld].tabCount,
-      refItem: 'Item ' + state.world[state.currentWorld].tabCount++,
-      title: 'Items',
-      itemsCount: 0,
-      items: []
-    }
-    state.world[state.currentWorld].tabs.push(tabItem)
-
-    const indexTabItem = state.world[state.currentWorld].tabs.indexOf(tabItem)
-    let firstItem = {
-      ref: 'Content ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount,
-      divRef: 'Div ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount++,
-      title: 'Image Test',
-      image: 'https://media.giphy.com/media/14chvzoFjnDBGE/giphy.gif',
-      gridsCount: 0,
-      grids: []
-    }
-    state.world[state.currentWorld].tabs[indexTabItem].items.push(firstItem)
-
-    let secondItem = {
-      ref: 'Content ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount,
-      divRef: 'Div ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount++,
-      title: 'Image Test 2',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png',
-      gridsCount: 0,
-      grids: []
-    }
-    state.world[state.currentWorld].tabs[indexTabItem].items.push(secondItem)
-
-    let tabUpgrade = {
-      type: 'upgrade',
-      refTab: 'Tab ' + state.world[state.currentWorld].tabCount,
-      refItem: 'Item ' + state.world[state.currentWorld].tabCount++,
-      title: 'Upgrades',
-      items: []
-    }
-    state.world[state.currentWorld].tabs.push(tabUpgrade)
-
-    const indexTabUpgrade = state.world[state.currentWorld].tabs.indexOf(tabUpgrade)
-    let firstUpgrade = {
-      title: 'Upgrade',
-      price: '100',
-      image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
-    }
-    state.world[state.currentWorld].tabs[indexTabUpgrade].items.push(firstUpgrade)
-
-    let firstGridButton = {
-      ref: 'Button ' + state.world[state.currentWorld].gridButtonsCount++,
-      style: {
-        'borderRadius': '100%'
+    if (state.creatorVision === true) {
+      let firstConfig = {
+        name: '',
+        smallDescription: '',
+        completeDescription: '',
+        image: ''
       }
-    }
-    state.world[state.currentWorld].gridButtons.push(firstGridButton)
+      state.config = firstConfig
 
-    let firstButton = {
-      x: 9,
-      y: 4,
-      w: 5,
-      h: 5,
-      i: 'Grid ' + state.world[state.currentWorld].gridCount++,
-      type: 'button',
-      ref: firstGridButton.ref
-    }
-    state.world[state.currentWorld].gridContent.push(firstButton)
+      state.currentWorld = 0
+      let firstWorld = {
+        ref: 'World ' + state.worldCount++,
+        name: 'World',
 
-    let firstGridInformation = {
-      ref: 'Information ' + state.world[state.currentWorld].gridInformationCount++,
-      text: `
-        <center>{tc}</center>
-        <center>{ts} por segundo</center>
-      `
-    }
-    state.world[state.currentWorld].gridInformation.push(firstGridInformation)
+        layout: {
+          tab: {
+            left: false,
+            backgroundColor: {},
+            textColor: {},
+            btnColor: {},
+            btnTextColor: {}
+          },
+          grid: {
+            backgroundColor: {},
+            backgroundImage: ''
+          },
+          toolbar: {
+            backgroundColor: {},
+            btnColor: {},
+            btnTextColor: {}
+          }
+        },
 
-    let firstInfomation = {
-      x: 9,
-      y: 0,
-      w: 5,
-      h: 2,
-      i: 'Grid ' + state.world[state.currentWorld].gridCount++,
-      type: 'information',
-      ref: firstGridInformation.ref
+        gridCount: 0,
+        gridContent: [],
+
+        gridButtonsCount: 0,
+        gridButtons: [],
+
+        gridInformationCount: 0,
+        gridInformation: [],
+
+        tabCount: 0,
+        tabs: []
+      }
+      state.world.push(firstWorld)
+
+      let firstCoin = {
+        name: 'Money',
+        symbol: '$',
+        worlds: [ { ref: firstWorld.ref } ],
+        used: 0
+      }
+      state.coins.push(firstCoin)
+
+      let tabItem = {
+        type: 'item',
+        refTab: 'Tab ' + state.world[state.currentWorld].tabCount,
+        refItem: 'Item ' + state.world[state.currentWorld].tabCount++,
+        title: 'Items',
+        itemsCount: 0,
+        items: []
+      }
+      state.world[state.currentWorld].tabs.push(tabItem)
+
+      const indexTabItem = state.world[state.currentWorld].tabs.indexOf(tabItem)
+      let firstItem = {
+        ref: 'Content ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount,
+        divRef: 'Div ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount++,
+        title: 'Image Test',
+        image: 'https://media.giphy.com/media/14chvzoFjnDBGE/giphy.gif',
+        gridsCount: 0,
+        grids: []
+      }
+      state.world[state.currentWorld].tabs[indexTabItem].items.push(firstItem)
+
+      let secondItem = {
+        ref: 'Content ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount,
+        divRef: 'Div ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount++,
+        title: 'Image Test 2',
+        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png',
+        gridsCount: 0,
+        grids: []
+      }
+      state.world[state.currentWorld].tabs[indexTabItem].items.push(secondItem)
+
+      let tabUpgrade = {
+        type: 'upgrade',
+        refTab: 'Tab ' + state.world[state.currentWorld].tabCount,
+        refItem: 'Item ' + state.world[state.currentWorld].tabCount++,
+        title: 'Upgrades',
+        items: []
+      }
+      state.world[state.currentWorld].tabs.push(tabUpgrade)
+
+      const indexTabUpgrade = state.world[state.currentWorld].tabs.indexOf(tabUpgrade)
+      let firstUpgrade = {
+        title: 'Upgrade',
+        price: '100',
+        image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
+      }
+      state.world[state.currentWorld].tabs[indexTabUpgrade].items.push(firstUpgrade)
+
+      let firstGridButton = {
+        ref: 'Button ' + state.world[state.currentWorld].gridButtonsCount++,
+        style: {
+          'borderRadius': '100%'
+        }
+      }
+      state.world[state.currentWorld].gridButtons.push(firstGridButton)
+
+      let firstButton = {
+        x: 9,
+        y: 4,
+        w: 5,
+        h: 5,
+        i: 'Grid ' + state.world[state.currentWorld].gridCount++,
+        type: 'button',
+        ref: firstGridButton.ref
+      }
+      state.world[state.currentWorld].gridContent.push(firstButton)
+
+      let firstGridInformation = {
+        ref: 'Information ' + state.world[state.currentWorld].gridInformationCount++,
+        text: `
+          <center>{tc}</center>
+          <center>{ts} por segundo</center>
+        `
+      }
+      state.world[state.currentWorld].gridInformation.push(firstGridInformation)
+
+      let firstInfomation = {
+        x: 9,
+        y: 0,
+        w: 5,
+        h: 2,
+        i: 'Grid ' + state.world[state.currentWorld].gridCount++,
+        type: 'information',
+        ref: firstGridInformation.ref
+      }
+      state.world[state.currentWorld].gridContent.push(firstInfomation)
     }
-    state.world[state.currentWorld].gridContent.push(firstInfomation)
   },
 
   updateGame (state, event) {
@@ -517,76 +516,94 @@ const mutations = {
   },
 
   updateConfig (state, message) {
-    state.config = message
+    if (state.creatorVision === true) {
+      state.config = message
+    }
   },
 
   saveConfig (state) {
-    state.editConfigDialog = false
+    if (state.creatorVision === true) {
+      state.editConfigDialog = false
+    }
   },
 
   updateCoinsDialog (state, event) {
-    state.coinsDialog = event
+    if (state.creatorVision === true) {
+      state.coinsDialog = event
+    }
   },
 
   updateCoin (state, event) {
-    state.oldCoin = event
+    if (state.creatorVision === true) {
+      state.oldCoin = event
 
-    let old = {
-      name: event.name,
-      symbol: event.symbol,
-      worlds: event.worlds,
-      used: event.used
+      state.editCoin = JSON.parse(JSON.stringify(event))
+      state.editCoinDialog = true
     }
-
-    state.editCoin = old
-    state.editCoinDialog = true
   },
 
   saveCoin (state) {
-    const indexCoin = state.coins.indexOf(state.oldCoin)
-    state.coins[indexCoin] = state.editCoin
+    if (state.creatorVision === true) {
+      const indexCoin = state.coins.indexOf(state.oldCoin)
+      state.coins[indexCoin] = state.editCoin
 
-    state.editCoinDialog = false
-    state.coinsDialog = false
+      state.editCoinDialog = false
+      state.coinsDialog = false
+    }
   },
 
   updateEditCoinDialog (state, event) {
-    state.editCoinDialog = event
+    if (state.creatorVision === true) {
+      state.editCoinDialog = event
+    }
   },
 
   updateEditCoin (state, message) {
-    state.editCoin = message
+    if (state.creatorVision === true) {
+      state.editCoin = message
+    }
   },
 
   updateLayoutDialog (state, event) {
-    if (event === true) {
-      state.editLayout = JSON.parse(JSON.stringify(state.world[state.currentWorld].layout))
-    }
+    if (state.creatorVision === true) {
+      if (event === true) {
+        state.editLayout = JSON.parse(JSON.stringify(state.world[state.currentWorld].layout))
+      }
 
-    state.layoutDialog = event
+      state.layoutDialog = event
+    }
   },
 
   updateEditLayout (state, message) {
-    state.editLayout = message
+    if (state.creatorVision === true) {
+      state.editLayout = message
+    }
   },
 
   saveLayout (state) {
-    state.world[state.currentWorld].layout = state.editLayout
-    state.editLayout = {}
-    state.layoutDialog = false
+    if (state.creatorVision === true) {
+      state.world[state.currentWorld].layout = state.editLayout
+      state.editLayout = {}
+      state.layoutDialog = false
+    }
   },
 
-  newGridItem (state, item) {
-    state.itemGridDialog = true
-    state.itemGridRef = item
-    state.newItemGrid = true
+  newGridItem (state, message) {
+    if (state.creatorVision === true) {
+      const {tab, item} = message
 
-    let itemDefault = {
-      image: item.image,
-      useItemImage: true,
-      showWhen: 0
+      state.itemGridDialog = true
+      state.itemGridTab = tab
+      state.itemGridItem = item
+      state.newItemGrid = true
+
+      let itemDefault = {
+        image: item.image,
+        useItemImage: true,
+        showWhen: 0
+      }
+      state.itemGrid = itemDefault
     }
-    state.itemGrid = itemDefault
   },
 
   updateGridContent (state, event) {
@@ -599,53 +616,69 @@ const mutations = {
     if (state.creatorVision === true) {
       if (item.type === 'item') {
         state.itemGridDialog = true
-        state.itemGridRef = item.item
-        state.oldItemGrid = item.ref
-        state.newItemGridItem = item
         state.newItemGrid = false
 
-        let newItem = {
-          image: item.ref.image,
-          useItemImage: item.ref.useItemImage,
-          showWhen: item.ref.showWhen
-        }
-        state.itemGrid = newItem
+        let resultTab = state.world[state.currentWorld].tabs.filter(obj => {
+          return obj.refTab === item.tab
+        })
+        state.itemGridTab = resultTab[0]
+
+        let indexOfTab = state.world[state.currentWorld].tabs.indexOf(resultTab[0])
+        let resultItem = state.world[state.currentWorld].tabs[indexOfTab].items.filter(obj => {
+          return obj.ref === item.item
+        })
+        state.itemGridItem = resultItem[0]
+
+        let indexOfItem = state.world[state.currentWorld].tabs[indexOfTab].items.indexOf(resultItem[0])
+        let result = state.world[state.currentWorld].tabs[indexOfTab].items[indexOfItem].grids.filter(obj => {
+          return obj.ref === item.ref
+        })
+
+        state.itemGrid = JSON.parse(JSON.stringify(result[0]))
       } else if (item.type === 'information') {
         state.informationGridDialog = true
-        state.informationGridRef = item
-        state.oldInformationGrid = item.ref
 
-        let newInformation = {
-          text: item.ref.text
-        }
-        state.informationGrid = newInformation
+        var result = state.world[state.currentWorld].gridInformation.filter(obj => {
+          return obj.ref === item.ref
+        })
+        state.informationGrid = JSON.parse(JSON.stringify(result[0]))
       }
     }
   },
 
   updateItemGridDialog (state, event) {
-    if (event === false) {
-      state.itemGridRef = []
-      state.itemGrid = []
-      state.newItemGrid = false
-    }
+    if (state.creatorVision === true) {
+      if (event === false) {
+        state.itemGridTab = []
+        state.itemGridItem = []
+        state.itemGrid = []
+        state.newItemGrid = false
+      }
 
-    state.itemGridDialog = event
+      state.itemGridDialog = event
+    }
   },
 
   updateItemGrid (state, message) {
-    state.itemGrid = message
+    if (state.creatorVision === true) {
+      state.itemGrid = message
+    }
   },
 
   updateItemGridValue (state) {
-    if (state.itemGrid.useItemImage === true) {
-      state.itemGrid.image = state.itemGridRef.image
+    if (state.creatorVision === true) {
+      if (state.itemGrid.useItemImage === true) {
+        state.itemGrid.image = state.itemGridItem.image
+      }
     }
   },
 
   itemGrid (state) {
     if (state.creatorVision === true) {
       if (state.newItemGrid === true) {
+        state.itemGrid.ref = 'Ref ' + state.itemGridItem.gridsCount++
+        state.itemGridItem.grids.push(state.itemGrid)
+
         let newGridItem = {
           x: 0,
           y: 0,
@@ -653,22 +686,25 @@ const mutations = {
           h: 1,
           i: 'Grid ' + state.world[state.currentWorld].gridCount++,
           type: 'item',
-          item: state.itemGridRef,
-          ref: state.itemGridRef.grids[(state.itemGridRef.grids.push(state.itemGrid) - 1)]
+          tab: state.itemGridTab.refTab,
+          item: state.itemGridItem.ref,
+          ref: state.itemGrid.ref
         }
 
         state.world[state.currentWorld].gridContent.push(newGridItem)
       } else {
-        const indexGrid = state.itemGridRef.grids.indexOf(state.oldItemGrid)
-        state.itemGridRef.grids[indexGrid] = state.itemGrid
+        let result = state.itemGridItem.grids.filter(obj => {
+          return obj.ref === state.itemGrid.ref
+        })
 
-        state.newItemGridItem.ref = state.itemGridRef.grids[indexGrid]
+        const indexGrid = state.itemGridItem.grids.indexOf(result[0])
+        state.itemGridItem.grids[indexGrid] = state.itemGrid
       }
 
       state.itemGridDialog = false
       state.itemGrid = []
-      state.oldItemGrid = []
-      state.itemGridRef = []
+      state.itemGridTab = []
+      state.itemGridItem = []
     }
   },
 
@@ -677,139 +713,162 @@ const mutations = {
       var indexGrid = state.world[state.currentWorld].gridContent.indexOf(item)
       if (indexGrid > -1) {
         if (item.type === 'item') {
-          var indexItem = item.item.grids.indexOf(state.world[state.currentWorld].gridContent[indexGrid].ref)
-          item.item.grids.splice(indexItem, 1)
+          let resultTab = state.world[state.currentWorld].tabs.filter(obj => {
+            return obj.refTab === item.tab
+          })
+
+          let indexOfTab = state.world[state.currentWorld].tabs.indexOf(resultTab[0])
+          let resultItem = state.world[state.currentWorld].tabs[indexOfTab].items.filter(obj => {
+            return obj.ref === item.item
+          })
+
+          let indexOfItem = state.world[state.currentWorld].tabs[indexOfTab].items.indexOf(resultItem[0])
+          let result = state.world[state.currentWorld].tabs[indexOfTab].items[indexOfItem].grids.filter(obj => {
+            return obj.ref === item.ref
+          })
+
+          var indexItem = state.world[state.currentWorld].tabs[indexOfTab].items[indexOfItem].grids.indexOf(result[0])
+          state.world[state.currentWorld].tabs[indexOfTab].items[indexOfItem].grids.splice(indexItem, 1)
         } else if (item.type === 'button') {
-          var indexButton = state.world[state.currentWorld].gridButtons.indexOf(state.world[state.currentWorld].gridContent[indexGrid].ref)
+          let result = state.world[state.currentWorld].gridButtons.filter(obj => {
+            return obj.ref === item.ref
+          })
+
+          var indexButton = state.world[state.currentWorld].gridButtons.indexOf(result)
           state.world[state.currentWorld].gridButtons.splice(indexButton, 1)
         } else if (item.type === 'information') {
-          var indexInformation = state.world[state.currentWorld].gridInformation.indexOf(state.world[state.currentWorld].gridContent[indexGrid].ref)
+          let result = state.world[state.currentWorld].gridInformation.filter(obj => {
+            return obj.ref === item.ref
+          })
+
+          var indexInformation = state.world[state.currentWorld].gridInformation.indexOf(result)
           state.world[state.currentWorld].gridInformation.splice(indexInformation, 1)
         }
+
         state.world[state.currentWorld].gridContent.splice(indexGrid, 1)
       }
     }
   },
 
   updateInformationGridDialog (state, event) {
-    if (event === false) {
-      state.informationGrid = []
-      state.oldInformationGrid = []
-    }
+    if (state.creatorVision === true) {
+      if (event === false) {
+        state.informationGrid = []
+      }
 
-    state.informationGridDialog = event
+      state.informationGridDialog = event
+    }
   },
 
   updateInformationGrid (state, message) {
-    state.informationGrid = message
+    if (state.creatorVision === true) {
+      state.informationGrid = message
+    }
   },
 
   informationGrid (state) {
-    if (state.newInformationDialog === true) {
-      // Comentário: Adicionar novo dialog.
-    } else {
-      const indexInformation = state.world[state.currentWorld].gridInformation.indexOf(state.informationGridRef.ref)
-      state.world[state.currentWorld].gridInformation[indexInformation] = state.informationGrid
+    if (state.creatorVision === true) {
+      if (state.newInformationDialog === true) {
+        // Comentário: Adicionar novo dialog.
+      } else {
+        const indexInformation = state.world[state.currentWorld].gridInformation.indexOf(state.informationGridRef.ref)
+        state.world[state.currentWorld].gridInformation[indexInformation] = state.informationGrid
 
-      state.informationGridRef.ref = state.world[state.currentWorld].gridInformation[indexInformation]
+        state.informationGridRef.ref = state.world[state.currentWorld].gridInformation[indexInformation]
+      }
+
+      state.informationGridDialog = false
+      state.informationGrid = []
     }
-
-    state.informationGridDialog = false
-    state.informationGrid = []
-    state.oldInformationGrid = []
   },
 
   updateItemDialog (state, event) {
-    if (event === false) {
-      state.newItem = false
-    }
+    if (state.creatorVision === true) {
+      if (event === false) {
+        state.newItem = false
+      }
 
-    state.addItemDialog = event
+      state.addItemDialog = event
+    }
   },
 
   updateItemDialogNewItem (state, message) {
-    state.newItem = message
+    if (state.creatorVision === true) {
+      state.newItem = message
+    }
   },
 
   addItem (state, message) {
-    const { tab } = message
+    if (state.creatorVision === true) {
+      const { tab } = message
 
-    state.currentTab = tab
-    state.addItem = []
+      state.currentTab = tab
+      state.addItem = {}
+    }
   },
 
   editItem (state, message) {
-    const { tab, item } = message
-    state.currentTab = tab
+    if (state.creatorVision === true) {
+      const { tab, item } = message
+      state.currentTab = tab
 
-    let itemInfo = {
-      ref: item.ref,
-      divRef: item.divRef,
-
-      title: item.title,
-      image: item.image,
-      description: item.description,
-      countPerSecond: item.countPerSecond,
-      perSecond: item.perSecond,
-      startCount: item.startCount,
-      startPrice: item.startPrice,
-      formula: item.formula,
-      grids: item.grids
+      state.addItem = JSON.parse(JSON.stringify(item))
     }
-
-    state.editItem = item
-    state.addItem = itemInfo
   },
 
   deleteItem (state, message) {
-    // Comentário: Falta deletar upgrade se tiver...
-    const { tab, item } = message
+    if (state.creatorVision === true) {
+      // Comentário: Falta deletar upgrade se tiver...
+      const { tab, item } = message
 
-    var result = state.world[state.currentWorld].gridContent.find(gridItem => gridItem.item === item)
-    while (result) {
-      const indexGrid = state.world[state.currentWorld].gridContent.indexOf(result)
-      state.world[state.currentWorld].gridContent.splice(indexGrid, 1)
+      var result = state.world[state.currentWorld].gridContent.find(gridItem => gridItem.item === item.ref)
+      while (result) {
+        const indexGrid = state.world[state.currentWorld].gridContent.indexOf(result)
+        state.world[state.currentWorld].gridContent.splice(indexGrid, 1)
 
-      result = state.world[state.currentWorld].gridContent.find(gridItem => gridItem.item === item)
+        result = state.world[state.currentWorld].gridContent.find(gridItem => gridItem.item === item.ref)
+      }
+
+      const indexItem = tab.items.indexOf(item)
+      tab.items.splice(indexItem, 1)
     }
-
-    const indexItem = tab.items.indexOf(item)
-    tab.items.splice(indexItem, 1)
   },
 
   addItemTab (state) {
-    if (state.newItem) {
-      let newItem = {
-        ref: 'Content ' + state.currentTab.itemsCount,
-        divRef: 'Div ' + state.currentTab.itemsCount++,
+    if (state.creatorVision === true) {
+      if (state.newItem) {
+        let count = state.currentTab.itemsCount++
+        state.addItem.ref = 'Content ' + count
+        state.addItem.divRef = 'Div ' + count
+        state.addItem.grids = []
 
-        title: state.addItem.title,
-        image: state.addItem.image,
-        description: state.addItem.description,
-        countPerSecond: state.addItem.countPerSecond,
-        perSecond: state.addItem.perSecond,
-        startCount: state.addItem.startCount,
-        startPrice: state.addItem.startPrice,
-        formula: state.addItem.formula,
-        grids: []
+        state.currentTab.items.push(state.addItem)
+      } else {
+        let result = state.currentTab.items.filter(obj => {
+          return obj.ref === state.addItem.ref
+        })
+
+        let indexItem = state.currentTab.items.indexOf(result[0])
+        Vue.set(state.currentTab.items, indexItem, state.addItem)
       }
 
-      state.currentTab.items.push(newItem)
-      state.currentTab = []
-    } else {
-      var indexItem = state.currentTab.items.indexOf(state.editItem)
-
-      Vue.set(state.currentTab.items, indexItem, state.addItem)
+      state.addItem = {}
+      state.currentTab = {}
+      state.newItem = false
+      state.addItemDialog = false
     }
-    state.addItemDialog = false
   },
 
   updateUpgradeDialog (state, event) {
-    state.addUpgradeDialog = event
+    if (state.creatorVision === true) {
+      state.addUpgradeDialog = event
+    }
   },
 
   updateAddUpgrade (state, item) {
-    state.addUpgrade = item
+    if (state.creatorVision === true) {
+      state.addUpgrade = item
+    }
   }
 }
 

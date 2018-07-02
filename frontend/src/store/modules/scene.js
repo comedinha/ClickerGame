@@ -451,8 +451,11 @@ const mutations = {
       let firstGridInformation = {
         ref: 'Information ' + state.world[state.currentWorld].gridInformationCount++,
         text: `
-          <center>{tc}</center>
-          <center>{ts} por segundo</center>
+          <div style="text-align:center">
+            {tc}
+            <br />
+            {ts} por segundo
+          </div>
         `
       }
       state.world[state.currentWorld].gridInformation.push(firstGridInformation)
@@ -500,14 +503,7 @@ const mutations = {
           state.config = state.oldConfig
         }
       } else {
-        let old = {
-          name: state.config.name,
-          smallDescription: state.config.smallDescription,
-          completeDescription: state.config.completeDescription,
-          image: state.config.image
-        }
-
-        state.oldConfig = old
+        state.oldConfig = JSON.parse(JSON.stringify(state.config))
       }
 
       state.editConfigDialog = event
@@ -637,7 +633,7 @@ const mutations = {
       } else if (item.type === 'information') {
         state.informationGridDialog = true
 
-        var result = state.world[state.currentWorld].gridInformation.filter(obj => {
+        let result = state.world[state.currentWorld].gridInformation.filter(obj => {
           return obj.ref === item.ref
         })
         state.informationGrid = JSON.parse(JSON.stringify(result[0]))
@@ -770,10 +766,14 @@ const mutations = {
       if (state.newInformationDialog === true) {
         // Comentário: Adicionar novo dialog.
       } else {
-        const indexInformation = state.world[state.currentWorld].gridInformation.indexOf(state.informationGridRef.ref)
-        state.world[state.currentWorld].gridInformation[indexInformation] = state.informationGrid
+        let result = state.world[state.currentWorld].gridInformation.filter(obj => {
+          return obj.ref === state.informationGrid.ref
+        })
+        console.log(result)
+        console.log(state.informationGrid)
 
-        state.informationGridRef.ref = state.world[state.currentWorld].gridInformation[indexInformation]
+        let indexOfInformation = state.world[state.currentWorld].gridInformation.indexOf(result[0])
+        Vue.set(state.world[state.currentWorld].gridInformation, indexOfInformation, state.informationGrid)
       }
 
       state.informationGridDialog = false

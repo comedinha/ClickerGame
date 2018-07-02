@@ -80,7 +80,7 @@ export default {
   },
   methods: {
     viewItemRef (item) {
-      let result = {}
+      let result = []
       if (item.type === 'button') {
         result = this.getCurrentWorld.gridButtons.filter(obj => {
           return obj.ref === item.ref

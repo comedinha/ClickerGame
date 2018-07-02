@@ -44,7 +44,6 @@ export default {
   watch: {
     getToolbarLayout: {
       handler: function (val, oldVal) {
-        console.log(val)
         if (val.backgroundColor) {
           let i = 0
 

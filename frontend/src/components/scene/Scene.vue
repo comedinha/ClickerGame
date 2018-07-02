@@ -15,11 +15,11 @@
       <v-flex md8>
         <v-card height="90vh">
           <Toolbar />
-          <GridContent />
+          <Grid />
         </v-card>
       </v-flex>
       <v-flex v-if="!getTabLeft" md4>
-        <BuyableTabs />
+        <Tabs />
       </v-flex>
     </v-layout>
   </v-container>
@@ -29,8 +29,8 @@
 import { mapGetters } from 'vuex'
 
 import Toolbar from '@/components/scene/block/Toolbar'
-import GridContent from '@/components/scene/block/GridContent'
-import BuyableTabs from '@/components/scene/block/BuyableTabs'
+import Grid from '@/components/scene/block/Grid'
+import Tabs from '@/components/scene/block/Tabs'
 
 import Coins from '@/components/scene/creator/dialog/Coins'
 import Config from '@/components/scene/creator/dialog/Config'
@@ -64,7 +64,7 @@ export default {
     }
   },
   beforeDestroy () {
-    this.$store.dispatch('save')
+    // Comentário: Criar save automático.
   },
   computed: {
     ...mapGetters([
@@ -83,8 +83,8 @@ export default {
   },
   components: {
     Toolbar,
-    GridContent,
-    BuyableTabs,
+    Grid,
+    Tabs,
 
     InformationGrid,
     Item,

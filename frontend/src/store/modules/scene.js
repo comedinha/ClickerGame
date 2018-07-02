@@ -364,7 +364,11 @@ const mutations = {
 
       gridCount: 0,
       gridContent: [],
+
+      gridButtonsCount: 0,
       gridButtons: [],
+
+      gridInformationCount: 0,
       gridInformation: [],
 
       tabCount: 0,
@@ -372,11 +376,10 @@ const mutations = {
     }
     state.world.push(firstWorld)
 
-    const indexWorld = state.world.indexOf(firstWorld)
     let firstCoin = {
       name: 'Money',
       symbol: '$',
-      worlds: [ state.world[indexWorld] ],
+      worlds: [ { ref: firstWorld.ref } ],
       used: 0
     }
     state.coins.push(firstCoin)
@@ -397,6 +400,7 @@ const mutations = {
       divRef: 'Div ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount++,
       title: 'Image Test',
       image: 'https://media.giphy.com/media/14chvzoFjnDBGE/giphy.gif',
+      gridsCount: 0,
       grids: []
     }
     state.world[state.currentWorld].tabs[indexTabItem].items.push(firstItem)
@@ -406,6 +410,7 @@ const mutations = {
       divRef: 'Div ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount++,
       title: 'Image Test 2',
       image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png',
+      gridsCount: 0,
       grids: []
     }
     state.world[state.currentWorld].tabs[indexTabItem].items.push(secondItem)
@@ -428,13 +433,13 @@ const mutations = {
     state.world[state.currentWorld].tabs[indexTabUpgrade].items.push(firstUpgrade)
 
     let firstGridButton = {
+      ref: 'Button ' + state.world[state.currentWorld].gridButtonsCount++,
       style: {
-        'border-radius': '100%'
+        'borderRadius': '100%'
       }
     }
     state.world[state.currentWorld].gridButtons.push(firstGridButton)
 
-    const indexButton = state.world[state.currentWorld].gridButtons.indexOf(firstGridButton)
     let firstButton = {
       x: 9,
       y: 4,
@@ -442,11 +447,12 @@ const mutations = {
       h: 5,
       i: 'Grid ' + state.world[state.currentWorld].gridCount++,
       type: 'button',
-      ref: state.world[state.currentWorld].gridButtons[indexButton]
+      ref: firstGridButton.ref
     }
     state.world[state.currentWorld].gridContent.push(firstButton)
 
     let firstGridInformation = {
+      ref: 'Information ' + state.world[state.currentWorld].gridInformationCount++,
       text: `
         <center>{tc}</center>
         <center>{ts} por segundo</center>
@@ -454,7 +460,6 @@ const mutations = {
     }
     state.world[state.currentWorld].gridInformation.push(firstGridInformation)
 
-    const indexInformation = state.world[state.currentWorld].gridInformation.indexOf(firstGridInformation)
     let firstInfomation = {
       x: 9,
       y: 0,
@@ -462,7 +467,7 @@ const mutations = {
       h: 2,
       i: 'Grid ' + state.world[state.currentWorld].gridCount++,
       type: 'information',
-      ref: state.world[state.currentWorld].gridInformation[indexInformation]
+      ref: firstGridInformation.ref
     }
     state.world[state.currentWorld].gridContent.push(firstInfomation)
   },

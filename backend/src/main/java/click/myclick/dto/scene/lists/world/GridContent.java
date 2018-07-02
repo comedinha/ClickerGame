@@ -8,21 +8,23 @@ public class GridContent implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
-    private Ref ref;
-    private String i;
     private int h;
+	private String i;
+	private boolean moved;
+	private String ref;
+	private String type;
     private int w;
     private int x;
     private int y;
 
-	public Ref getRef()
+	public int getH()
 	{
-		return this.ref;
+		return this.h;
 	}
 
-	public void setRef(Ref ref)
+	public void setH(int h)
 	{
-		this.ref = ref;
+		this.h = h;
 	}
 
 	public String getI()
@@ -35,14 +37,34 @@ public class GridContent implements Serializable {
 		this.i = i;
 	}
 
-	public int getH()
+	public boolean getMoved()
 	{
-		return this.h;
+		return this.moved;
 	}
 
-	public void setH(int h)
+	public void setMoved(boolean moved)
 	{
-		this.h = h;
+		this.moved = moved;
+	}
+
+	public String getRef()
+	{
+		return this.ref;
+	}
+
+	public void setRef(String ref)
+	{
+		this.ref = ref;
+	}
+
+	public String getType()
+	{
+		return this.type;
+	}
+
+	public void setType(String type)
+	{
+		this.type = type;
 	}
 
 	public int getW()
@@ -75,5 +97,4 @@ public class GridContent implements Serializable {
 		this.y = y;
 	}
 
-    
 }

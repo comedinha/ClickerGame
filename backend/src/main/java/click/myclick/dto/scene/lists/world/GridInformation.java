@@ -6,7 +6,18 @@ public class GridInformation implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
-    String text;
+	private String ref;
+    private String text;
+
+	public String getRef()
+	{
+		return this.ref;
+	}
+
+	public void setRef(String ref)
+	{
+		this.ref = ref;
+	}
 
 	public String getText()
 	{

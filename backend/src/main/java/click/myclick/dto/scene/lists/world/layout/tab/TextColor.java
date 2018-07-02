@@ -4,10 +4,10 @@ import click.myclick.dto.scene.lists.world.layout.grid.backgroundColor.*;
 
 import java.io.Serializable;
 
-public class BackgroundColor implements Serializable {
+public class TextColor implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
-    
+
     private int a;
     private String hex;
     private Hsl hsl;

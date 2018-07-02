@@ -1,6 +1,8 @@
 package click.myclick.dto.scene.lists.world.layout;
 
-import click.myclick.dto.scene.lists.world.layout.toolbar.*;
+import click.myclick.dto.scene.lists.world.layout.tab.BackgroundColor;
+import click.myclick.dto.scene.lists.world.layout.tab.BtnColor;
+import click.myclick.dto.scene.lists.world.layout.tab.BtnTextColor;
 
 import java.io.Serializable;
 

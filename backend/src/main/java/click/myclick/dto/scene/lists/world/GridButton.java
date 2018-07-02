@@ -8,7 +8,18 @@ public class GridButton implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
+	private String ref;
     private Style style;
+
+	public String getRef()
+	{
+		return this.ref;
+	}
+
+	public void setRef(String ref)
+	{
+		this.ref = ref;
+	}
 
 	public Style getStyle()
 	{
@@ -19,4 +30,5 @@ public class GridButton implements Serializable {
 	{
 		this.style = style;
 	}
+
 }

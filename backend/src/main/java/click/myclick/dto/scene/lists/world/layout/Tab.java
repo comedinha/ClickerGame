@@ -9,8 +9,10 @@ public class Tab implements Serializable {
     private static final long serialVersionUID = -4159366809929151486L;
     
     private BackgroundColor backgroundColor;
-    private BtnColor btnColor;
+	private BtnColor btnColor;
     private BtnTextColor btnTextColor;
+	private boolean left;
+	private TextColor textColor;
 
 	public BackgroundColor getBackgroundcolor()
 	{
@@ -40,5 +42,25 @@ public class Tab implements Serializable {
 	public void setBtntextcolor(BtnTextColor btnTextColor)
 	{
 		this.btnTextColor = btnTextColor;
+	}
+
+	public boolean getLeft()
+	{
+		return this.left;
+	}
+
+	public void setLeft(boolean left)
+	{
+		this.left = left;
+	}
+
+	public TextColor getTextcolor()
+	{
+		return this.textColor;
+	}
+
+	public void setTextcolor(TextColor textColor)
+	{
+		this.textColor = textColor;
 	}
 }

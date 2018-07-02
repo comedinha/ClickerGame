@@ -5,7 +5,7 @@ import click.myclick.converter.factory.ConverterSceneFactory;
 import click.myclick.dto.auth.UserDTO;
 import click.myclick.model.User;
 import click.myclick.model.Scene;
-import click.myclick.dto.scene.SaveSceneDTO;
+import click.myclick.dto.scene.SceneDTO;
 import click.myclick.service.auth.Email;
 
 import java.util.Random;
@@ -37,7 +37,7 @@ public class ConverterFacade {
         return user;
     }
 
-    public Scene convert(final SaveSceneDTO dto) {
+    public Scene convert(final SceneDTO dto) {
         return converterSceneFactory.getConverter(dto.getClass()).convert(dto);
     }
 }

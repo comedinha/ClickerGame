@@ -51,5 +51,4 @@ public class Coin implements Serializable {
 	{
 		this.worlds = worlds;
 	}
-
 }

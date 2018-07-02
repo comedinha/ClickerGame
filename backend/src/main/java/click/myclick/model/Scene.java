@@ -2,8 +2,11 @@ package click.myclick.model;
 
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import click.myclick.dto.scene.lists.World;
+import click.myclick.dto.scene.lists.Coin;
+
 import java.io.Serializable;
-import java.util.ArrayList;
+import java.util.List;
 
 @Document
 public class Scene extends BaseEntity implements Serializable {
@@ -22,6 +25,8 @@ public class Scene extends BaseEntity implements Serializable {
     private double rating;
 	private String image;
 	private int numberReports;
+	private List<World> worlds;
+	private List<Coin> coins;
 
 	public String getName()
 	{
@@ -141,5 +146,25 @@ public class Scene extends BaseEntity implements Serializable {
 	public void setNumberReports(int numberReports)
 	{
 		this.numberReports = numberReports;
+	}
+
+	public List<World> getWorlds()
+	{
+		return this.worlds;
+	}
+
+	public void setWorlds(List<World> worlds)
+	{
+		this.worlds = worlds;
+	}
+
+	public List<Coin> getCoins()
+	{
+		return this.coins;
+	}
+
+	public void setCoins(List<Coin> coins)
+	{
+		this.coins = coins;
 	}
 }

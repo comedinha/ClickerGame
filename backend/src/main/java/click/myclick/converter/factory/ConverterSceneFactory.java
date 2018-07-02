@@ -1,7 +1,7 @@
 package click.myclick.converter.factory;
 
 import click.myclick.converter.dto.SceneDTOConverter;
-import click.myclick.dto.scene.SaveSceneDTO;
+import click.myclick.dto.scene.SceneDTO;
 import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
@@ -20,7 +20,7 @@ public class ConverterSceneFactory {
     @PostConstruct
     public void init() {
         converters = new HashMap<>();
-        converters.put(SaveSceneDTO.class, new SceneDTOConverter());
+        converters.put(SceneDTO.class, new SceneDTOConverter());
     }
 
 	public SceneDTOConverter getConverter(Object type) {

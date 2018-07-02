@@ -3,7 +3,7 @@ package click.myclick.controller.scene;
 import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.dao.user.UserService;
 import click.myclick.converter.ConverterFacade;
-import click.myclick.dto.scene.SaveSceneDTO;
+import click.myclick.dto.scene.SceneDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,32 +18,30 @@ import org.springframework.web.bind.annotation.RestController;
 @CrossOrigin(allowedHeaders = "*")
 @RestController
 @RequestMapping("/api/saveScene")
-public class SaveSceneController {
+public class SceneController {
     
     private final SceneService sceneService;
     private final UserService userService;
     private final ConverterFacade converterFacade;
 
     @Autowired
-    public SaveSceneController(final SceneService sceneService, final UserService userService, final ConverterFacade converterFacade) {
+    public SceneController(final SceneService sceneService, final UserService userService, final ConverterFacade converterFacade) {
         this.sceneService = sceneService;
         this.userService = userService;
         this.converterFacade = converterFacade;
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> save(@RequestBody final SaveSceneDTO dto, Authentication auth) {
+    public ResponseEntity<?> save(@RequestBody final SceneDTO dto, Authentication auth) {
 
         dto.setIdCreator(userService.findByUsername(auth.getPrincipal().toString()).getId());
         
-        /*
         try {
             System.out.println("Saving...");
             return new ResponseEntity<>(sceneService.create(converterFacade.convert(dto)), HttpStatus.OK);
         } catch(Exception e) {
             System.out.println("Error Save Scene");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-        }*/
-        return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
+        }
     }
 }

@@ -4,6 +4,7 @@ import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.dao.user.UserService;
 import click.myclick.converter.ConverterFacade;
 import click.myclick.dto.scene.SaveSceneDTO;
+import click.myclick.dto.scene.Txt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -32,11 +33,11 @@ public class SaveSceneController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> save(@RequestBody final String dto, Authentication auth) {
-        System.out.println(dto);
-        System.out.printf("\n\nJson:\n\n\n%s\n\n\n", dto);
-        /*dto.setId(userService.findByUsername(auth.getPrincipal().toString()).getId());
+    public ResponseEntity<?> save(@RequestBody final SaveSceneDTO dto, Authentication auth) {
 
+        dto.setIdCreator(userService.findByUsername(auth.getPrincipal().toString()).getId());
+        
+        /*
         try {
             System.out.println("Saving...");
             return new ResponseEntity<>(sceneService.create(converterFacade.convert(dto)), HttpStatus.OK);
@@ -44,7 +45,6 @@ public class SaveSceneController {
             System.out.println("Error Save Scene");
             return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
         }*/
-
         return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
     }
 }

@@ -11,7 +11,7 @@ public class SceneDTOConverter implements Converter<SaveSceneDTO, Scene> {
     public Scene convert(final SaveSceneDTO dto) {
         final Scene scene = new Scene();
 
-        scene.setIdCreator(dto.getId());
+        scene.setIdCreator(dto.getIdCreator());
         scene.setName(dto.getName());
         scene.setApproved(false);
         scene.setDeleted(false);
@@ -23,7 +23,7 @@ public class SceneDTOConverter implements Converter<SaveSceneDTO, Scene> {
         scene.setRating(0);
         scene.setImage(dto.getImage());
         scene.setNumberReports(0);
-        scene.setWorlds(dto.getWorlds());
+        //scene.setWorlds(dto.getWorlds());
 
         return scene;
     }

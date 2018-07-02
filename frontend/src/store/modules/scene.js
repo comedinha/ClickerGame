@@ -170,7 +170,8 @@ const actions = {
       smallDescription: getters.getConfig.smallDescription,
       completeDescription: getters.getConfig.completeDescription,
       image: getters.getConfig.image,
-      worlds: getters.getWorld
+      worlds: getters.getWorld,
+      coins: getters.getCoins
     }
     console.log(saveScene)
 

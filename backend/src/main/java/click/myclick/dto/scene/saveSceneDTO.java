@@ -1,26 +1,30 @@
 package click.myclick.dto.scene;
 
+import click.myclick.dto.scene.lists.*;
+
 import java.io.Serializable;
+import java.util.List;
 
 public class SaveSceneDTO implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
-	private String id;
+	private String idCreator;
     private String name;
     private String smallDescription;
     private String completeDescription;
     private String image;
-    private String worlds;
+	private List<World> worlds;
+	private List<Coin> coins;
 
-	public String getId()
+	public String getIdCreator()
 	{
-		return this.id;
+		return this.idCreator;
 	}
 
-	public void setId(String id)
+	public void setIdCreator(String idCreator)
 	{
-		this.id = id;
+		this.idCreator = idCreator;
     }
     public String getName()
 	{
@@ -61,12 +65,4 @@ public class SaveSceneDTO implements Serializable {
 	{
 		this.image = image;
     }
-    
-    public String getWorlds() {
-		return this.worlds;
-	}
-
-	public void setWorlds(String worlds) {
-		this.worlds = worlds;
-	}
 }

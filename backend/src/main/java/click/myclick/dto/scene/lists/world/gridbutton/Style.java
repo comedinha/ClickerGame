@@ -6,15 +6,15 @@ public class Style implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
-    private String border_radius;
+    private String borderRadius;
 
-	public String getBorder_radius()
+	public String getBorderRadius()
 	{
-		return this.border_radius;
+		return this.borderRadius;
 	}
 
-	public void setBorder_radius(String border_radius)
+	public void setBorderRadius(String borderRadius)
 	{
-		this.border_radius = border_radius;
+		this.borderRadius = borderRadius;
     }
 }

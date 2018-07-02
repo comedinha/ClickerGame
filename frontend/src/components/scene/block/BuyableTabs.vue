@@ -1,5 +1,5 @@
 <template>
-  <v-tabs :style="{'background-color': getTabLayout.backgroundColor}" v-model="active" fixed-tabs>
+  <v-tabs :style="'.tabs__container'" v-model="active" fixed-tabs>
     <v-tab v-for="tab in getTabs" :key="tab.refTab" ripple>
       {{ tab.title }}
     </v-tab>
@@ -82,7 +82,11 @@ import { mapGetters } from 'vuex'
 export default {
   data () {
     return {
-      active: 0
+      active: 0,
+      '.tabs__container': {
+        'background-color': '#AAAAAA',
+        'border-color': '#9e9e9e'
+      }
     }
   },
   computed: {
@@ -97,9 +101,44 @@ export default {
     getTabLayout: {
       handler: function (val, oldVal) {
         if (val.backgroundColor) {
-          this.$vuetify.theme = {
-            ...this.$vuetify.theme,
-            getTabLayout: val.backgroundColor
+          let i = 0
+          let container = document.querySelectorAll('.tabs__container')
+          for (i = 0; i < container.length; i++) {
+            container[i].style.backgroundColor = val.backgroundColor
+            container[i].style.borderColor = val.backgroundColor
+          }
+
+          let content = document.querySelectorAll('.tabs__content')
+          for (i = 0; i < content.length; i++) {
+            content[i].style.backgroundColor = val.backgroundColor
+            content[i].style.borderColor = val.backgroundColor
+          }
+        }
+
+        if (val.textColor) {
+          let i = 0
+          let tabsBar = document.querySelectorAll('.tabs__bar .tabs__div')
+          for (i = 0; i < tabsBar.length; i++) {
+            tabsBar[i].style.color = val.textColor
+          }
+        }
+
+        if (val.btnColor) {
+          let i = 0
+
+          let btn = document.querySelectorAll('.tabs__content .btn__content')
+          for (i = 0; i < btn.length; i++) {
+            btn[i].style.backgroundColor = val.btnColor
+            btn[i].style.borderColor = val.btnColor
+          }
+        }
+
+        if (val.btnTextColor) {
+          let i = 0
+
+          let btn = document.querySelectorAll('.tabs__content .btn__content')
+          for (i = 0; i < btn.length; i++) {
+            btn[i].style.color = val.btnTextColor
           }
         }
       },

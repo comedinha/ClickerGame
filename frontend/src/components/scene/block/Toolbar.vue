@@ -41,9 +41,46 @@
 import { mapGetters } from 'vuex'
 
 export default {
+  watch: {
+    getToolbarLayout: {
+      handler: function (val, oldVal) {
+        console.log(val)
+        if (val.backgroundColor) {
+          let i = 0
+
+          let content = document.querySelectorAll('.toolbar__content')
+          for (i = 0; i < content.length; i++) {
+            content[i].style.backgroundColor = val.backgroundColor
+            content[i].style.borderColor = val.backgroundColor
+          }
+        }
+
+        if (val.btnColor) {
+          let i = 0
+
+          let btn = document.querySelectorAll('.toolbar__content .btn__content')
+          for (i = 0; i < btn.length; i++) {
+            btn[i].style.backgroundColor = val.btnColor
+            btn[i].style.borderColor = val.btnColor
+          }
+        }
+
+        if (val.btnTextColor) {
+          let i = 0
+
+          let btn = document.querySelectorAll('.toolbar__content .btn__content')
+          for (i = 0; i < btn.length; i++) {
+            btn[i].style.color = val.btnTextColor
+          }
+        }
+      },
+      immediate: true
+    }
+  },
   computed: {
     ...mapGetters([
-      'getCreatorVision'
+      'getCreatorVision',
+      'getToolbarLayout'
     ]),
 
     editMode: {

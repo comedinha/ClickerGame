@@ -82,14 +82,21 @@ const getters = {
   getTabLayout: state => {
     let layout = {}
 
-    console.log(state.world[state.currentWorld].layout.tab)
     if (state.world[state.currentWorld].layout.tab.backgroundColor.hex) {
       layout['backgroundColor'] = state.world[state.currentWorld].layout.tab.backgroundColor.hex
     }
+
     if (state.world[state.currentWorld].layout.tab.textColor.hex) {
-      layout['background-color'] = state.world[state.currentWorld].layout.tab.textColor.hex
+      layout['textColor'] = state.world[state.currentWorld].layout.tab.textColor.hex
     }
-    console.log(layout)
+
+    if (state.world[state.currentWorld].layout.tab.btnColor.hex) {
+      layout['btnColor'] = state.world[state.currentWorld].layout.tab.btnColor.hex
+    }
+
+    if (state.world[state.currentWorld].layout.tab.btnTextColor.hex) {
+      layout['btnTextColor'] = state.world[state.currentWorld].layout.tab.btnTextColor.hex
+    }
 
     return layout
   },
@@ -116,10 +123,15 @@ const getters = {
     let layout = {}
 
     if (state.world[state.currentWorld].layout.toolbar.backgroundColor.hex) {
-      layout['background-color'] = state.world[state.currentWorld].layout.toolbar.backgroundColor.hex
+      layout['backgroundColor'] = state.world[state.currentWorld].layout.toolbar.backgroundColor.hex
     }
-    if (state.world[state.currentWorld].layout.toolbar.textColor.hex) {
-      layout['background-color'] = state.world[state.currentWorld].layout.toolbar.textColor.hex
+
+    if (state.world[state.currentWorld].layout.toolbar.btnColor.hex) {
+      layout['btnColor'] = state.world[state.currentWorld].layout.toolbar.btnColor.hex
+    }
+
+    if (state.world[state.currentWorld].layout.toolbar.btnTextColor.hex) {
+      layout['btnTextColor'] = state.world[state.currentWorld].layout.toolbar.btnTextColor.hex
     }
 
     return layout
@@ -335,7 +347,9 @@ const mutations = {
         tab: {
           left: false,
           backgroundColor: {},
-          textColor: {}
+          textColor: {},
+          btnColor: {},
+          btnTextColor: {}
         },
         grid: {
           backgroundColor: {},
@@ -343,7 +357,8 @@ const mutations = {
         },
         toolbar: {
           backgroundColor: {},
-          textColor: {}
+          btnColor: {},
+          btnTextColor: {}
         }
       },
 

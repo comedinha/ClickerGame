@@ -128,6 +128,9 @@ export default {
 
     saveScene () {
       this.$store.dispatch('saveScene')
+      /* this.$store.dispatch('saveScene').then(id => {
+        this.$router.push('?createId=' + )
+      }) */
     }
   }
 }

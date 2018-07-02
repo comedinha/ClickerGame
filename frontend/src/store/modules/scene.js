@@ -188,7 +188,6 @@ const actions = {
     console.log(saveScene)
 
     Vue.http.post('api/saveScene', saveScene).then(response => {
-      console.log('response')
       console.log(response)
       commit('updateAllScenes', response)
     }).catch(() => {

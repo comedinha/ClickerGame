@@ -1,30 +1,29 @@
-package click.myclick.dto.scene.lists.world;
+package click.myclick.dto.scene.lists.world.gridcontent;
 
-import click.myclick.dto.scene.lists.world.tabs.Item;
+import click.myclick.dto.scene.lists.world.gridbutton.Style;
 
 import java.io.Serializable;
-import java.util.List;
 
-public class Tabs implements Serializable {
+public class Ref implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
-    private List<Item> items;
+    private Style style;
     private int itemsCount;
     private String refItem;
     private String refTab;
     private String title;
     private String type;
 
-	public List<Item> getItems()
+	public Style getStyle()
 	{
-		return this.items;
+		return this.style;
 	}
 
-	public void setItems(List<Item> items)
+	public void setStyle(Style style)
 	{
-		this.items = items;
-	}
+		this.style = style;
+	}	
 
 	public int getItemsCount()
 	{
@@ -75,4 +74,5 @@ public class Tabs implements Serializable {
 	{
 		this.type = type;
 	}
+
 }

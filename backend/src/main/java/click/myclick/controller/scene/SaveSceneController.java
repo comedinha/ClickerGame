@@ -4,7 +4,6 @@ import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.dao.user.UserService;
 import click.myclick.converter.ConverterFacade;
 import click.myclick.dto.scene.SaveSceneDTO;
-import click.myclick.dto.scene.Txt;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

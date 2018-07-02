@@ -1,6 +1,10 @@
 package click.myclick.dto.scene.lists;
 
-import click.myclick.dto.scene.lists.world;
+import click.myclick.dto.scene.lists.world.GridButton;
+import click.myclick.dto.scene.lists.world.GridContent;
+import click.myclick.dto.scene.lists.world.GridInformation;
+import click.myclick.dto.scene.lists.world.Tabs;
+import click.myclick.dto.scene.lists.world.Layout;
 
 import java.io.Serializable;
 import java.util.List;
@@ -17,7 +21,7 @@ public class World implements Serializable {
     private List<GridContent> gridContent;
     private List<GridInformation> gridInformation;
 	private List<Tabs> tabs;
-	private List<Layout> layout;
+	private Layout layout;
 
 	public String getName()
 	{
@@ -99,4 +103,13 @@ public class World implements Serializable {
 		this.tabs = tabs;
 	}
 
+	public Layout getLayout()
+	{
+		return this.layout;
+	}
+
+	public void setLayout(Layout layout)
+	{
+		this.layout = layout;
+	}
 }

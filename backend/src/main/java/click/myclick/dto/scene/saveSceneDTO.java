@@ -64,5 +64,25 @@ public class SaveSceneDTO implements Serializable {
 	public void setImage(String image)
 	{
 		this.image = image;
-    }
+	}
+	
+	public List<World> getWorlds()
+	{
+		return this.worlds;
+	}
+
+	public void setWorlds(List<World> worlds)
+	{
+		this.worlds = worlds;
+	}
+
+	public List<Coin> getCoins()
+	{
+		return this.coins;
+	}
+
+	public void setCoins(List<Coin> coins)
+	{
+		this.coins = coins;
+	}
 }

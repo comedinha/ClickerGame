@@ -6,6 +6,5 @@ import java.util.List;
 public class Layout implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
-
     
 }

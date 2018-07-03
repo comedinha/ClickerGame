@@ -64,6 +64,8 @@ const state = {
 // getters
 const getters = {
   hasSceneId: state => !!state.sceneId,
+  getSceneId: state => state.sceneId,
+
   isPublished: state => state.creatorVision && state.isPublished,
   canApprove: state => state.creatorVision && state.canApprove,
   canResolve: state => state.creatorVision && state.canResolve,
@@ -243,6 +245,7 @@ const actions = {
     if (getters.getConfig.name !== '') {
       console.log('saveScene')
       let saveScene = {
+        id: getters.getSceneId,
         name: getters.getConfig.name,
         smallDescription: getters.getConfig.smallDescription,
         completeDescription: getters.getConfig.completeDescription,
@@ -489,8 +492,8 @@ const mutations = {
 
       let firstCoin = {
         ref: 'Ref ' + state.coinsCount++,
-        name: 'Money',
-        symbol: '$',
+        name: 'Dinheiro',
+        symbol: 'R$',
         worlds: [ { ref: firstWorld.ref } ],
         used: 0
       }
@@ -513,7 +516,7 @@ const mutations = {
         title: 'Image Test',
         image: 'https://media.giphy.com/media/14chvzoFjnDBGE/giphy.gif',
         description: 'Descrição de teste',
-        countPerSecond: 100,
+        countPerSecond: 1,
         coin: {
           ref: state.coins[0].ref
         },
@@ -537,7 +540,7 @@ const mutations = {
         },
         startCount: 0,
         basePrice: 5,
-        formula: '{tb} * {bp}',
+        formula: '100 + ({tb} * {bp})',
         gridsCount: 0,
         grids: []
       }

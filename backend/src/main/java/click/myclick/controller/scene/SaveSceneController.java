@@ -41,7 +41,7 @@ public class SaveSceneController {
             sceneService.getRepository().save(converterFacade.convertSave(dto, scene));
             return new ResponseEntity<>(dto.getId(), HttpStatus.OK);
         } else {
-            dto.setIdCreator(userService.findByUsername(auth.getPrincipal().toString()).getId());            
+            dto.setIdCreator(userService.findByUsername(auth.getPrincipal().toString()).getId());        
             try {
                 System.out.println("Saving...");
                 return new ResponseEntity<>(sceneService.create(converterFacade.convert(dto)).getId(), HttpStatus.OK);

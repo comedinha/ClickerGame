@@ -232,7 +232,10 @@ const actions = {
   loadCreate ({ commit }, scene) {
     commit('clearScene')
     console.log('loadCreate')
-    // Comentário: Fazer tudo que envolve carregar a criação
+
+    Vue.http.post('api/loadScene', scene.createId).then(response => {
+      console.log(response)
+    })
 
     commit('updateSceneId', scene.createId)
     commit('updateGame', true)

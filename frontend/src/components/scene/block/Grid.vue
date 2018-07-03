@@ -72,7 +72,8 @@ export default {
       'getCurrentWorld',
       'getCreatorVision',
       'getCoins',
-      'getPlayCoins'
+      'getPlayCoins',
+      'getPlayAutomaticValue'
     ]),
 
     gridContent: {
@@ -136,6 +137,7 @@ export default {
           .replace(/{cn}/g, coinsResult[0].name)
           .replace(/{cs}/g, coinsResult[0].symbol)
           .replace(/{tc}/g, playerResult[0].count)
+          .replace(/{ts}/g, this.getPlayAutomaticValue)
       }
 
       return newItemText

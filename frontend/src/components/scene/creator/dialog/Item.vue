@@ -46,7 +46,7 @@
                     </v-tooltip>
                   </v-card-actions>
                   <v-card-actions>
-                    <v-text-field v-model="addItem.perSecond" :label="$ml.get('scene.creator.dialog.item.coin.title')" required />
+                    <v-select :items="getCoins" item-text="name" item-value="ref" v-model="addItem.coin" :label="$ml.get('scene.creator.dialog.item.coin.title')" required />
                     <v-tooltip bottom>
                       <v-icon slot="activator">help</v-icon>
                       <span>{{ $ml.get('scene.creator.dialog.item.coin.help') }}</span>
@@ -62,10 +62,10 @@
                     </v-tooltip>
                   </v-card-actions>
                   <v-card-actions>
-                    <v-text-field v-model="addItem.startPrice" :label="$ml.get('scene.creator.dialog.item.startPrice.title')" required />
+                    <v-text-field v-model="addItem.basePrice" :label="$ml.get('scene.creator.dialog.item.basePrice.title')" required />
                     <v-tooltip bottom>
                       <v-icon slot="activator">help</v-icon>
-                      <span>{{ $ml.get('scene.creator.dialog.item.startPrice.help') }}</span>
+                      <span>{{ $ml.get('scene.creator.dialog.item.basePrice.help') }}</span>
                     </v-tooltip>
                   </v-card-actions>
                 </v-card-actions>
@@ -91,8 +91,14 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   computed: {
+    ...mapGetters([
+      'getCoins'
+    ]),
+
     addItem: {
       get () {
         return this.$store.getters.getAddItem

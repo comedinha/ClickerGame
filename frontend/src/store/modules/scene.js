@@ -54,7 +54,9 @@ const state = {
   addUpgrade: {},
 
   playId: '',
-  play: {}
+  play: {},
+  playAutomatic: [],
+  playAutomaticValue: 0
 }
 
 // getters
@@ -164,12 +166,16 @@ const getters = {
   getAddUpgradeDialog: state => state.creatorVision && state.addUpgradeDialog,
   getAddUpgrade: state => state.creatorVision && state.addUpgrade,
 
-  getPlayCoins: state => state.play.coins
+  getPlayCoins: state => state.play.coins,
+  getPlayBuyedItems: state => state.play.buyedItems,
+
+  getPlayAutomaticValue: state => state.playAutomaticValue
 }
 
 // actions
 const actions = {
-  loadPlay ({ commit }, scene) {
+  loadPlay ({ dispatch, commit }, scene) {
+    commit('clearScene')
     // Comentário: Fazer tudo que envolve carregar o jogo
     console.log('loadPlay')
 
@@ -177,24 +183,28 @@ const actions = {
     if (scene.saveId) {
       commit('updateSceneId', scene.saveId)
     } else {
-      // updateDefault Só para testar...
+      // Comentário: sceneDefault Só para testar...
       commit('sceneDefault')
 
       commit('playDefault')
     }
 
+    dispatch('loadAutomatic')
     commit('updateGame', false)
   },
 
   loadCreate ({ commit }, scene) {
-    console.log(scene.createId)
+    commit('clearScene')
     console.log('loadCreate')
     // Comentário: Fazer tudo que envolve carregar a criação
+
     commit('updateSceneId', scene.createId)
     commit('updateGame', true)
   },
 
   loadDefault ({ commit }) {
+    commit('clearScene')
+
     console.log('loadDeafault')
     commit('sceneDefault')
   },
@@ -224,6 +234,13 @@ const actions = {
     } else {
       commit('updateEditConfigDialog', true)
     }
+  },
+
+  async loadAutomatic ({ dispatch, commit }) {
+    commit('updateAutomatic')
+    setTimeout(() => {
+      dispatch('loadAutomatic')
+    }, 1000)
   },
 
   setEditMode ({ commit }, event) {
@@ -358,11 +375,25 @@ const actions = {
 
   addClick ({ commit }, item) {
     commit('updateClick', item)
+  },
+
+  buyTabItem ({ commit }, message) {
+    commit('updateBuyTabItem', message)
   }
 }
 
 // mutations
 const mutations = {
+  clearScene (state) {
+    state.config = {}
+    state.currentWorld = 0
+    state.world = []
+    state.coins = []
+    state.play = {}
+    state.sceneId = ''
+    state.playId = ''
+  },
+
   sceneDefault (state) {
     if (state.creatorVision === true) {
       let firstConfig = {
@@ -436,6 +467,14 @@ const mutations = {
         divRef: 'Div ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount++,
         title: 'Image Test',
         image: 'https://media.giphy.com/media/14chvzoFjnDBGE/giphy.gif',
+        description: 'Descrição de teste',
+        countPerSecond: 1,
+        coin: {
+          ref: state.coins[0].ref
+        },
+        startCount: 0,
+        basePrice: 1,
+        formula: '',
         gridsCount: 0,
         grids: []
       }
@@ -446,6 +485,14 @@ const mutations = {
         divRef: 'Div ' + state.world[state.currentWorld].tabs[indexTabItem].itemsCount++,
         title: 'Image Test 2',
         image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png',
+        description: 'Descrição de teste',
+        countPerSecond: 1,
+        coin: {
+          ref: state.coins[0].ref
+        },
+        startCount: 0,
+        basePrice: 1,
+        formula: '',
         gridsCount: 0,
         grids: []
       }
@@ -525,7 +572,8 @@ const mutations = {
   playDefault (state) {
     let firstPlay = {
       clickCount: 0,
-      coins: []
+      coins: [],
+      buyedItems: []
     }
     state.play = firstPlay
 
@@ -976,6 +1024,55 @@ const mutations = {
 
       let indexOfCoin = state.play.coins.indexOf(actualCoin[0])
       state.play.coins[indexOfCoin].count++
+    }
+  },
+
+  updateBuyTabItem (state, message) {
+    // Comentário: Verificar valor atual e remover valor.
+
+    const { tab, item } = message
+    if (state.creatorVision === false) {
+      let getBuyed = state.play.buyedItems.filter(obj => {
+        return obj.ref === item.ref
+      })
+
+      if (!getBuyed[0]) {
+        let newBuy = {
+          ref: item.ref,
+          count: 1
+        }
+
+        state.play.buyedItems.push(newBuy)
+      } else {
+        getBuyed[0].count++
+      }
+
+      let automatic = {
+        tab: tab.refTab,
+        item: item.ref
+      }
+      state.playAutomatic.push(automatic)
+    }
+  },
+
+  updateAutomatic (state) {
+    state.playAutomaticValue = 0
+    for (let i = 0; i < state.playAutomatic.length; i++) {
+      let resultTab = state.world[state.currentWorld].tabs.filter(obj => {
+        return obj.refTab === state.playAutomatic[i].tab
+      })
+
+      let indexOfTab = state.world[state.currentWorld].tabs.indexOf(resultTab[0])
+      let resultItem = state.world[state.currentWorld].tabs[indexOfTab].items.filter(obj => {
+        return obj.ref === state.playAutomatic[i].item
+      })
+
+      let getCoin = state.play.coins.filter(obj => {
+        return obj.ref === resultItem[0].coin.ref
+      })
+
+      getCoin[0].count += resultItem[0].countPerSecond
+      state.playAutomaticValue += resultItem[0].countPerSecond
     }
   }
 }

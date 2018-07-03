@@ -14,13 +14,17 @@
       <v-list v-if="tab.type === 'item'" two-line>
         <template v-for="item in tab.items">
           <v-divider :key="item.divRef" />
-          <v-list-tile :key="item.ref" avatar>
+          <v-list-tile :key="item.ref" avatar @click.native="buyItem(tab, item)">
             <v-list-tile-avatar v-if="item.image">
               <img :src="item.image" />
             </v-list-tile-avatar>
             <v-list-tile-content>
-              <v-list-tile-title>{{ item.title }}</v-list-tile-title>
-              <v-list-title-subtitle v-if="item.subtitle">{{ item.subtitle }}</v-list-title-subtitle>
+              <v-tooltip bottom v-if="item.description">
+                <v-list-tile-title slot="activator">{{ item.title }}</v-list-tile-title>
+                <span>{{ item.description }}</span>
+              </v-tooltip>
+              <v-list-tile-title v-if="!item.description">{{ item.title }}</v-list-tile-title>
+              <v-list-tile-sub-title v-if="!getCreatorVision">{{ calculePrice(item) }}</v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action>
               <v-card flat v-if="getEditMode">
@@ -43,6 +47,8 @@
                   <span>{{ $ml.get('scene.block.buyableTabs.delete') }}</span>
                 </v-tooltip>
               </v-card>
+              <span v-if="getCreatorVision && !getEditMode">Price</span>
+              <span v-if="!getCreatorVision">{{ totalBuyed(item) }}</span>
             </v-list-tile-action>
           </v-list-tile>
         </template>
@@ -91,10 +97,12 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'getCreatorVision',
       'getEditMode',
       'getTabs',
       'getAddItemDialog',
-      'getTabLayout'
+      'getTabLayout',
+      'getPlayBuyedItems'
     ])
   },
   watch: {
@@ -146,6 +154,27 @@ export default {
     }
   },
   methods: {
+    buyItem (tab, item) {
+      this.$store.dispatch('buyTabItem', { tab, item })
+    },
+
+    calculePrice (item) {
+      return 1
+    },
+
+    totalBuyed (item) {
+      let total = 0
+      let getBuyed = this.getPlayBuyedItems.filter(obj => {
+        return obj.ref === item.ref
+      })
+
+      if (getBuyed[0]) {
+        total = getBuyed[0].count
+      }
+
+      return total
+    },
+
     newGridItem (tab, item) {
       this.$store.dispatch('newGridItem', { tab, item })
     },

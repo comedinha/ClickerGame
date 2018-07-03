@@ -411,9 +411,9 @@ export default {
             help: 'Quantidade desse item que o jogador irá começar'
           },
 
-          startPrice: {
-            title: 'Preço Inicial',
-            help: 'Preço inicial do item'
+          basePrice: {
+            title: 'Preço base',
+            help: 'Preço base do item'
           },
 
           formula: {

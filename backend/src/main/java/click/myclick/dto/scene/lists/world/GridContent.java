@@ -13,7 +13,7 @@ public class GridContent implements Serializable {
 	private String type;
     private int w;
     private int x;
-    private int y;
+	private int y;
 
 	public int getH()
 	{

@@ -12,7 +12,13 @@ public class Toolbar implements Serializable {
     
     private BackgroundColor backgroundColor;
     private BtnColor btnColor;
-    private BtnTextColor btnTextColor;
+	private BtnTextColor btnTextColor;
+	
+	public Toolbar() {
+		this.backgroundColor = null;
+		this.btnColor = null;
+		this.btnTextColor = null;
+	}
 
 	public BackgroundColor getBackgroundcolor()
 	{

@@ -25,6 +25,10 @@ public class Item implements Serializable {
 	private String tab;
 	private String type;
 
+	public Item() {
+		this.grids = null;
+	}
+
 	public String getBaseprice()
 	{
 		return this.basePrice;

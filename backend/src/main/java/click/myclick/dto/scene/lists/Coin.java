@@ -13,7 +13,11 @@ public class Coin implements Serializable {
 	private String ref;
     private String symbol;
     private int used;
-    private List<Worlds> worlds;
+	private List<Worlds> worlds;
+	
+	public Coin() {
+		this.worlds = null;
+	}
 
 	public String getName()
 	{

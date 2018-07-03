@@ -14,7 +14,13 @@ public class BtnColor implements Serializable {
     private Hsv hsv;
     private int oldHue;
     private Rgba rgba;
-    private String source;
+	private String source;
+	
+	public BtnColor() {
+		this.hsl = null;
+		this.hsv = null;
+		this.rgba = null;
+	}
 
 	public int getA()
 	{

@@ -9,7 +9,11 @@ public class Style implements Serializable {
     private static final long serialVersionUID = -4159366809929151486L;
 
 	private BackgroundColor backgroundColor;
-    private String borderRadius;
+	private String borderRadius;
+	
+	public Style() {
+		this.backgroundColor = null;
+	}
 
 	public BackgroundColor getBackgroundcolor()
 	{

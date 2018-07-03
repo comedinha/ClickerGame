@@ -13,6 +13,12 @@ public class GridButton implements Serializable {
 	private String ref;
 	private Style style;
 
+	public GridButton() {
+		this.coin = null;
+		this.ref = null;
+		this.style = null;
+	}
+
 	public int getClickValue()
 	{
 		return this.clickValue;

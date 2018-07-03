@@ -25,6 +25,14 @@ public class World implements Serializable {
     private int tabCount;
 	private List<Tabs> tabs;
 
+	public World() {
+		this.gridButtons = null;
+		this.gridContent = null;
+		this.gridInformation = null;
+		this.layout = null;
+		this.tabs = null;
+	}
+
 	public String getName()
 	{
 		return this.name;

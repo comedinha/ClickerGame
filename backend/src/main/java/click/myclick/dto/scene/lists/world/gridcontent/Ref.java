@@ -13,7 +13,11 @@ public class Ref implements Serializable {
     private String refItem;
     private String refTab;
     private String title;
-    private String type;
+	private String type;
+	
+	public Ref() {
+		this.style = null;
+	}
 
 	public Style getStyle()
 	{

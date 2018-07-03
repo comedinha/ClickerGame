@@ -12,7 +12,13 @@ public class Layout implements Serializable {
     
     private Grid grid;
     private Tab tab;
-    private Toolbar toolbar;
+	private Toolbar toolbar;
+	
+	public Layout() {
+		this.grid = null;
+		this.tab = null;
+		this.toolbar = null;
+	}
 
 	public Grid getGrid()
 	{

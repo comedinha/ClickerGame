@@ -14,7 +14,11 @@ public class Tabs implements Serializable {
     private String refItem;
     private String refTab;
     private String title;
-    private String type;
+	private String type;
+	
+	public Tabs() {
+		this.items = null;
+	}
 
 	public List<Item> getItems()
 	{

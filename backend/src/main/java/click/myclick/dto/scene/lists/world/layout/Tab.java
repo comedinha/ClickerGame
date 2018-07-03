@@ -14,6 +14,13 @@ public class Tab implements Serializable {
 	private boolean left;
 	private TextColor textColor;
 
+	public Tab() {
+		this.backgroundColor = null;
+		this.btnColor = null;
+		this.btnTextColor = null;
+		this.textColor = null;
+	}
+
 	public BackgroundColor getBackgroundcolor()
 	{
 		return this.backgroundColor;

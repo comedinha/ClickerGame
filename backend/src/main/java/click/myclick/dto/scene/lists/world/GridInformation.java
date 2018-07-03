@@ -14,6 +14,10 @@ public class GridInformation implements Serializable {
 	private Style style;
 	private String text;
 
+	public GridInformation() {
+		this.coin = null;
+	}
+
 	public Coin getCoin()
 	{
 		return this.coin;

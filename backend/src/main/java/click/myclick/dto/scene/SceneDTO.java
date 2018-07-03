@@ -19,6 +19,10 @@ public class SceneDTO implements Serializable {
 	private List<Coin> coins;
 	private int coinsCount;
 
+	public SceneDTO() {
+		this.id = null;
+	}
+
 	public String getId()
 	{
 		return this.id;

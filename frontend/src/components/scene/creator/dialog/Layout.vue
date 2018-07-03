@@ -140,7 +140,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn @click="layoutDialog = !layoutDialog">{{ $ml.get('scene.creator.dialog.config.close') }}</v-btn>
-        <v-btn color="primary" @click="saveLayout">{{ $ml.get('scene.creator.dialog.config.save') }}</v-btn>
+        <v-btn color="primary" @click="saveLayout">Salvar</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

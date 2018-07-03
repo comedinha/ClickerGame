@@ -14,7 +14,7 @@
       <v-list v-if="tab.type === 'item'" two-line>
         <template v-for="item in tab.items">
           <v-divider :key="item.divRef" />
-          <v-list-tile :key="item.ref" avatar @click.native="buyItem(tab, item)">
+          <v-list-tile :key="item.ref" :disabled="canBuy(item)" avatar @click.native="buyItem(tab, item)">
             <v-list-tile-avatar v-if="item.image">
               <img :src="item.image" />
             </v-list-tile-avatar>
@@ -24,7 +24,7 @@
                 <span>{{ item.description }}</span>
               </v-tooltip>
               <v-list-tile-title v-if="!item.description">{{ item.title }}</v-list-tile-title>
-              <v-list-tile-sub-title v-if="!getCreatorVision">{{ calculePrice(item) }}</v-list-tile-sub-title>
+              <v-list-tile-sub-title v-if="!getEditMode">{{ calculePrice(item) }}</v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action>
               <v-card flat v-if="getEditMode">
@@ -47,8 +47,7 @@
                   <span>{{ $ml.get('scene.block.buyableTabs.delete') }}</span>
                 </v-tooltip>
               </v-card>
-              <span v-if="getCreatorVision && !getEditMode">Price</span>
-              <span v-if="!getCreatorVision">{{ totalBuyed(item) }}</span>
+              <span v-if="!getEditMode">{{ totalBuyed(item) }}</span>
             </v-list-tile-action>
           </v-list-tile>
         </template>
@@ -83,6 +82,7 @@
 </template>
 
 <script>
+import * as math from 'mathjs'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -102,7 +102,8 @@ export default {
       'getTabs',
       'getAddItemDialog',
       'getTabLayout',
-      'getPlayBuyedItems'
+      'getPlayBuyedItems',
+      'getPlayCoins'
     ])
   },
   watch: {
@@ -155,24 +156,57 @@ export default {
   },
   methods: {
     buyItem (tab, item) {
-      this.$store.dispatch('buyTabItem', { tab, item })
+      if (this.getCreatorVision === false) {
+        this.$store.dispatch('buyTabItem', { tab, item })
+      }
     },
 
     calculePrice (item) {
-      return 1
+      if (this.getCreatorVision === false) {
+        let totalBuyed = 0
+        let formula = item.formula
+        let getBuyed = this.getPlayBuyedItems.filter(obj => {
+          return obj.ref === item.ref
+        })
+
+        if (getBuyed[0]) {
+          totalBuyed = getBuyed[0].count
+        }
+
+        formula = formula
+          .replace(/{tb}/g, totalBuyed)
+          .replace(/{bp}/g, item.basePrice)
+
+        return math.eval(formula)
+      }
+      return 'Price'
+    },
+
+    canBuy (item) {
+      if (this.getCreatorVision === false) {
+        let getCoin = this.getPlayCoins.filter(obj => {
+          return obj.ref === item.coin.ref
+        })
+
+        return !!(getCoin[0].count < this.calculePrice(item))
+      }
     },
 
     totalBuyed (item) {
-      let total = 0
-      let getBuyed = this.getPlayBuyedItems.filter(obj => {
-        return obj.ref === item.ref
-      })
+      if (this.getCreatorVision === false) {
+        let total = 0
+        let getBuyed = this.getPlayBuyedItems.filter(obj => {
+          return obj.ref === item.ref
+        })
 
-      if (getBuyed[0]) {
-        total = getBuyed[0].count
+        if (getBuyed[0]) {
+          total = getBuyed[0].count
+        }
+
+        return total
       }
 
-      return total
+      return 'Total Comprado'
     },
 
     newGridItem (tab, item) {

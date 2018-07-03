@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import * as math from 'mathjs'
 
 const state = {
   sceneId: '',
@@ -474,7 +475,7 @@ const mutations = {
         },
         startCount: 0,
         basePrice: 1,
-        formula: '',
+        formula: '{tb} * {bp}',
         gridsCount: 0,
         grids: []
       }
@@ -491,8 +492,8 @@ const mutations = {
           ref: state.coins[0].ref
         },
         startCount: 0,
-        basePrice: 1,
-        formula: '',
+        basePrice: 5,
+        formula: '{tb} * {bp}',
         gridsCount: 0,
         grids: []
       }
@@ -1024,23 +1025,46 @@ const mutations = {
   },
 
   updateBuyTabItem (state, message) {
-    // Comentário: Verificar valor atual e remover valor.
-
     const { tab, item } = message
     if (state.creatorVision === false) {
+      let formula = item.formula
+      let totalBuy = 1
+
       let getBuyed = state.play.buyedItems.filter(obj => {
         return obj.ref === item.ref
       })
 
-      if (!getBuyed[0]) {
-        let newBuy = {
-          ref: item.ref,
-          count: 1
-        }
+      let getCoin = state.play.coins.filter(obj => {
+        return obj.ref === item.coin.ref
+      })
 
-        state.play.buyedItems.push(newBuy)
+      if (!getBuyed[0]) {
+        formula = formula
+          .replace(/{tb}/g, totalBuy)
+          .replace(/{bp}/g, item.basePrice)
+
+        if (getCoin[0].count >= math.eval(formula)) {
+          let newBuy = {
+            ref: item.ref,
+            count: totalBuy
+          }
+
+          state.play.buyedItems.push(newBuy)
+
+          let indexOfCoin = state.play.coins.indexOf(getCoin[0])
+          state.play.coins[indexOfCoin].count -= math.eval(formula)
+        }
       } else {
-        getBuyed[0].count++
+        formula = formula
+          .replace(/{tb}/g, getBuyed[0].count)
+          .replace(/{bp}/g, item.basePrice)
+
+        if (getCoin[0].count >= math.eval(formula)) {
+          getBuyed[0].count += totalBuy
+
+          let indexOfCoin = state.play.coins.indexOf(getCoin[0])
+          state.play.coins[indexOfCoin].count -= math.eval(formula)
+        }
       }
 
       let automatic = {

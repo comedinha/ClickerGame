@@ -10,7 +10,7 @@
     <InformationGrid v-if="getCreatorVision && getInformationGridDialog" />
     <v-layout row wrap>
       <v-flex v-if="getTabLeft" md4>
-        <BuyableTabs />
+        <Tabs />
       </v-flex>
       <v-flex md8>
         <v-card height="90vh">

@@ -2,10 +2,10 @@
   <div height="100%" src="https://i.ytimg.com/vi/Xy_7tq7xn6I/maxresdefault.jpg">
     <grid-layout class="scroll-y" v-bind:style="getGridLayout" :layout="gridContent" @layout-updated="updateGridContent" :col-num="22" :row-height="30" :is-draggable="getEditMode" :is-resizable="getEditMode" :vertical-compact="false" :margin="[10, 10]" :use-css-transforms="true">
       <grid-item v-for="item in gridContent" :key="item.i" :x="item.x" :y="item.y" :w="item.w" :h="item.h" :i="item.i">
-        <v-card v-if="item.type === 'button'" ripple fab height="100%" v-bind:style="viewItemRef(item).style">
-          <v-card-actions>
+        <v-card v-if="item.type === 'button'" ripple fab height="100%" v-bind:style="viewItemRef(item).style" @click.native="clickButton(item)">
+          <v-card-actions v-if="getEditMode">
             <v-spacer />
-            <v-menu offset-y v-if="getEditMode">
+            <v-menu offset-y>
               <v-btn small icon slot="activator"><v-icon>settings</v-icon></v-btn>
               <v-list>
                 <v-list-tile @click="changeGridItem(item)">
@@ -19,9 +19,9 @@
           </v-card-actions>
         </v-card>
         <v-card color="transparent" flat tile v-if="item.type === 'item'" fab height="100%" :img="viewItemRef(item).image">
-          <v-card-actions>
+          <v-card-actions v-if="getEditMode">
             <v-spacer />
-            <v-menu offset-y v-if="getEditMode">
+            <v-menu offset-y>
               <v-btn small icon slot="activator"><v-icon>settings</v-icon></v-btn>
               <v-list>
                 <v-list-tile @click="changeGridItem(item)">
@@ -34,11 +34,11 @@
             </v-menu>
           </v-card-actions>
         </v-card>
-        <v-card v-if="item.type === 'information'" fab height="100%">
-          <v-card-text v-html="viewItemRef(item).text" />
-          <v-card-actions>
+        <v-card v-if="item.type === 'information'" fab height="100%" v-bind:style="viewInformationStyle(item)">
+          <v-card-text v-html="updateInformationText(item)" />
+          <v-card-actions v-if="getEditMode">
             <v-spacer />
-            <v-menu offset-y v-if="getEditMode">
+            <v-menu offset-y>
               <v-btn small icon slot="activator"><v-icon>settings</v-icon></v-btn>
               <v-list>
                 <v-list-tile @click="changeGridItem(item)">
@@ -69,7 +69,10 @@ export default {
     ...mapGetters([
       'getEditMode',
       'getGridLayout',
-      'getCurrentWorld'
+      'getCurrentWorld',
+      'getCreatorVision',
+      'getCoins',
+      'getPlayCoins'
     ]),
 
     gridContent: {
@@ -106,6 +109,42 @@ export default {
       }
 
       return result[0]
+    },
+
+    viewInformationStyle (item) {
+      let newItem = this.viewItemRef(item)
+      let newStyle = {
+        'background-color': newItem.style.backgroundColor.hex
+      }
+
+      return newStyle
+    },
+
+    updateInformationText (item) {
+      let newItem = this.viewItemRef(item)
+      var newItemText = newItem.text
+      if (!this.getCreatorVision) {
+        let coinsResult = this.getCoins.filter(obj => {
+          return obj.ref === newItem.coin.ref
+        })
+
+        let playerResult = this.getPlayCoins.filter(obj => {
+          return obj.ref === coinsResult[0].ref
+        })
+
+        newItemText = newItemText
+          .replace(/{cn}/g, coinsResult[0].name)
+          .replace(/{cs}/g, coinsResult[0].symbol)
+          .replace(/{tc}/g, playerResult[0].count)
+      }
+
+      return newItemText
+    },
+
+    clickButton (item) {
+      if (!this.getCreatorVision) {
+        this.$store.dispatch('addClick', item)
+      }
     },
 
     updateGridContent (newLayout) {

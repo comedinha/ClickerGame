@@ -2,6 +2,7 @@ import Vue from 'vue'
 
 const state = {
   sceneId: '',
+  sceneLoading: true,
   creatorVision: true,
   editMode: true,
 
@@ -52,7 +53,8 @@ const state = {
   addUpgradeDialog: false,
   addUpgrade: {},
 
-  playId: ''
+  playId: '',
+  play: {}
 }
 
 // getters
@@ -61,6 +63,8 @@ const getters = {
   isPublished: state => state.creatorVision && state.isPublished,
   canApprove: state => state.creatorVision && state.canApprove,
   canResolve: state => state.creatorVision && state.canResolve,
+
+  getSceneLoading: state => state.sceneLoading,
 
   getCreatorVision: state => state.creatorVision,
 
@@ -158,26 +162,41 @@ const getters = {
   getAddItem: state => state.creatorVision && state.addItem,
 
   getAddUpgradeDialog: state => state.creatorVision && state.addUpgradeDialog,
-  getAddUpgrade: state => state.creatorVision && state.addUpgrade
+  getAddUpgrade: state => state.creatorVision && state.addUpgrade,
+
+  getPlayCoins: state => state.play.coins
 }
 
 // actions
 const actions = {
   loadPlay ({ commit }, scene) {
-    console.log('loadPlay')
     // Comentário: Fazer tudo que envolve carregar o jogo
+    console.log('loadPlay')
+
+    commit('updateSceneId', scene.playId)
+    if (scene.saveId) {
+      commit('updateSceneId', scene.saveId)
+    } else {
+      // updateDefault Só para testar...
+      commit('sceneDefault')
+
+      commit('playDefault')
+    }
+
     commit('updateGame', false)
   },
 
   loadCreate ({ commit }, scene) {
+    console.log(scene.createId)
     console.log('loadCreate')
     // Comentário: Fazer tudo que envolve carregar a criação
+    commit('updateSceneId', scene.createId)
     commit('updateGame', true)
   },
 
   loadDefault ({ commit }) {
     console.log('loadDeafault')
-    commit('updateDefault')
+    commit('sceneDefault')
   },
 
   savePlay ({ commit }) {
@@ -201,10 +220,7 @@ const actions = {
       console.log(saveScene)
 
       Vue.http.post('api/saveScene', saveScene).then(response => {
-        console.log(response)
         commit('updateAllScenes', response)
-      }).catch(() => {
-        commit('updateAllScenesLoading', false)
       })
     } else {
       commit('updateEditConfigDialog', true)
@@ -339,12 +355,16 @@ const actions = {
 
   addUpgrade ({ commit }, item) {
     commit('updateAddUpgrade', item)
+  },
+
+  addClick ({ commit }, item) {
+    commit('updateClick', item)
   }
 }
 
 // mutations
 const mutations = {
-  updateDefault (state) {
+  sceneDefault (state) {
     if (state.creatorVision === true) {
       let firstConfig = {
         name: '',
@@ -452,7 +472,11 @@ const mutations = {
       let firstGridButton = {
         ref: 'Button ' + state.world[state.currentWorld].gridButtonsCount++,
         style: {
-          'borderRadius': '100%'
+          backgroundColor: {},
+          borderRadius: '100%'
+        },
+        coin: {
+          ref: state.coins[0].ref
         }
       }
       state.world[state.currentWorld].gridButtons.push(firstGridButton)
@@ -472,11 +496,17 @@ const mutations = {
         ref: 'Information ' + state.world[state.currentWorld].gridInformationCount++,
         text: `
           <div style="text-align:center">
-            {tc}
+            {cs} {tc}
             <br />
             {ts} por segundo
           </div>
-        `
+        `,
+        style: {
+          backgroundColor: {}
+        },
+        coin: {
+          ref: state.coins[0].ref
+        }
       }
       state.world[state.currentWorld].gridInformation.push(firstGridInformation)
 
@@ -493,9 +523,38 @@ const mutations = {
     }
   },
 
+  playDefault (state) {
+    let firstPlay = {
+      clickCount: 0,
+      coins: []
+    }
+    state.play = firstPlay
+
+    for (let i = 0; i < state.coins.length; i++) {
+      let firstCoins = {
+        ref: state.coins[i].ref,
+        count: 0
+      }
+
+      state.play.coins.push(firstCoins)
+    }
+  },
+
   updateGame (state, event) {
     state.editMode = event
     state.creatorVision = event
+  },
+
+  updateAllScenes (state, message) {
+    console.log(message)
+  },
+
+  updateSceneId (state, message) {
+    state.sceneId = message
+  },
+
+  updatePlayId (state, message) {
+    state.playId = message
   },
 
   updateEditMode (state, event) {
@@ -897,6 +956,27 @@ const mutations = {
   updateAddUpgrade (state, item) {
     if (state.creatorVision === true) {
       state.addUpgrade = item
+    }
+  },
+
+  updateClick (state, item) {
+    if (state.creatorVision === false) {
+      let result = state.world[state.currentWorld].gridButtons.filter(obj => {
+        return obj.ref === item.ref
+      })
+
+      let coinResult = state.coins.filter(obj => {
+        return obj.ref === result[0].coin.ref
+      })
+
+      let actualCoin = state.play.coins.filter(obj => {
+        return obj.ref === coinResult[0].ref
+      })
+
+      state.play.clickCount++
+
+      let indexOfCoin = state.play.coins.indexOf(actualCoin[0])
+      state.play.coins[indexOfCoin].count++
     }
   }
 }

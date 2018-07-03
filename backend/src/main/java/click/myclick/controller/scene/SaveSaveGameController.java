@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(allowedHeaders = "*")
 @RestController
-@RequestMapping("/api/loadScene")
+@RequestMapping("/api/saveSaveGame")
 public class SaveSaveGameController {
     
     private final SaveGameService saveGameService;

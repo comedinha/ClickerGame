@@ -482,7 +482,7 @@ export default {
       },
 
       updateInformation: {
-        title: 'Atualizar Informações',
+        title: 'Editar Informações',
         description: 'Os campos em branco terão suas informações mantidas.',
         button: 'Salvar',
         close: 'Fechar',

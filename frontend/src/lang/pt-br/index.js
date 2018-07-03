@@ -398,12 +398,12 @@ export default {
 
           countPerSecond: {
             title: 'Qnt /s',
-            help: 'Quantidade que o player irá receber por segundo'
+            help: 'Quantidade de moedas que o jogador irá receber por segundo'
           },
 
-          perSecond: {
-            title: 'Segundo',
-            help: 'A cada quantos segundos irá o player irá receber'
+          coin: {
+            title: 'Moeda',
+            help: 'A moeda que o jogador irá receber'
           },
 
           startCount: {

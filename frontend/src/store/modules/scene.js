@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 const state = {
   sceneId: '',
-  sceneLoading: true,
+  sceneLoading: false,
   creatorVision: true,
   editMode: true,
 

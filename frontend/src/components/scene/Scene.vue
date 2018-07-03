@@ -1,5 +1,5 @@
 <template>
-  <v-container fluid grid-list-sm fixed>
+  <v-container fluid grid-list-sm fixed v-if="!getSceneLoading">
     <Coins v-if="getCreatorVision && getCoinsDialog" />
     <Config v-if="getCreatorVision && getEditConfigDialog" />
     <EditCoin v-if="getCreatorVision && getEditCoinDialog" />
@@ -68,6 +68,7 @@ export default {
   },
   computed: {
     ...mapGetters([
+      'getSceneLoading',
       'getGuest',
       'getCreatorVision',
       'getAddItemDialog',

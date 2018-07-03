@@ -46,10 +46,10 @@
                     </v-tooltip>
                   </v-card-actions>
                   <v-card-actions>
-                    <v-text-field v-model="addItem.perSecond" :label="$ml.get('scene.creator.dialog.item.perSecond.title')" required />
+                    <v-text-field v-model="addItem.perSecond" :label="$ml.get('scene.creator.dialog.item.coin.title')" required />
                     <v-tooltip bottom>
                       <v-icon slot="activator">help</v-icon>
-                      <span>{{ $ml.get('scene.creator.dialog.item.perSecond.help') }}</span>
+                      <span>{{ $ml.get('scene.creator.dialog.item.coin.help') }}</span>
                     </v-tooltip>
                   </v-card-actions>
                 </v-card-actions>

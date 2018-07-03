@@ -207,7 +207,6 @@ const actions = {
   saveScene ({ commit, getters }) {
     if (getters.getConfig.name !== '') {
       console.log('saveScene')
-      // Comentário: Utilizar getters.getConfig (const talves seja útil para dividir) e getters.getWorld (const aqui não...)
       let saveScene = {
         name: getters.getConfig.name,
         smallDescription: getters.getConfig.smallDescription,

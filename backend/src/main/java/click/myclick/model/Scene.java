@@ -27,6 +27,7 @@ public class Scene extends BaseEntity implements Serializable {
 	private int numberReports;
 	private List<World> worlds;
 	private List<Coin> coins;
+	private int coinsCount;
 
 	public String getName()
 	{
@@ -166,5 +167,15 @@ public class Scene extends BaseEntity implements Serializable {
 	public void setCoins(List<Coin> coins)
 	{
 		this.coins = coins;
+	}
+
+	public int getCoinsCount()
+	{
+		return this.coinsCount;
+	}
+
+	public void setCoinsCount(int coinsCount)
+	{
+		this.coinsCount = coinsCount;
 	}
 }

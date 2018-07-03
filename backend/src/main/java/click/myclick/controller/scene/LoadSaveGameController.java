@@ -25,7 +25,8 @@ public class LoadSaveGameController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> save(@RequestBody final String idScene, Authentication auth) {
+    //@RequestBody final String idScene,
+    public ResponseEntity<?> save(Authentication auth) {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

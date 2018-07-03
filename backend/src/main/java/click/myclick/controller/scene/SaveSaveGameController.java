@@ -1,6 +1,7 @@
 package click.myclick.controller.scene;
 
 import click.myclick.service.dao.game.SaveGameService;
+import click.myclick.dto.game.SaveGameDTO;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -25,7 +26,7 @@ public class SaveSaveGameController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> save(@RequestBody final String idScene, Authentication auth) {
+    public ResponseEntity<?> save(@RequestBody final SaveGameDTO dto, Authentication auth) {
 
         return new ResponseEntity<>(HttpStatus.OK);
     }

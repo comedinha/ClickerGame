@@ -1002,13 +1002,19 @@ const mutations = {
   newButtonGrid (state) {
     state.buttonGridDialog = true
     state.newButtonDialog = true
-    state.buttonGrid = []
+    state.buttonGrid = {
+      style: {
+        backgroundColor: {},
+        borderRadius: '100%'
+      },
+      clickValue: 1
+    }
   },
 
   updateButtonGridDialog (state, event) {
     if (state.creatorVision === true) {
       if (event === false) {
-        state.buttonGrid = []
+        state.buttonGrid = {}
         state.newButtonDialog = false
       }
 
@@ -1025,7 +1031,20 @@ const mutations = {
   buttonGrid (state) {
     if (state.creatorVision === true) {
       if (state.newButtonDialog === true) {
-        console.log('oi')
+        state.buttonGrid.ref = 'Button ' + state.world[state.currentWorld].gridButtonsCount++
+        state.world[state.currentWorld].gridButtons.push(state.buttonGrid)
+
+        let newGridItem = {
+          x: 0,
+          y: 0,
+          w: 1,
+          h: 1,
+          i: 'Grid ' + state.world[state.currentWorld].gridCount++,
+          type: 'button',
+          ref: state.buttonGrid.ref
+        }
+
+        state.world[state.currentWorld].gridContent.push(newGridItem)
       } else {
         let result = state.world[state.currentWorld].gridButtons.filter(obj => {
           return obj.ref === state.buttonGrid.ref
@@ -1037,7 +1056,7 @@ const mutations = {
 
       state.newButtonDialog = false
       state.buttonGridDialog = false
-      state.buttonGrid = []
+      state.buttonGrid = {}
       state.saved = false
     }
   },
@@ -1045,14 +1064,18 @@ const mutations = {
   newInformationGrid (state) {
     state.newInformationDialog = true
     state.informationGridDialog = true
-    state.informationGrid = []
+    state.informationGrid = {
+      style: {
+        backgroundColor: {}
+      }
+    }
   },
 
   updateInformationGridDialog (state, event) {
     if (state.creatorVision === true) {
       if (event === false) {
         state.newInformationDialog = false
-        state.informationGrid = []
+        state.informationGrid = {}
       }
 
       state.informationGridDialog = event
@@ -1068,7 +1091,20 @@ const mutations = {
   informationGrid (state) {
     if (state.creatorVision === true) {
       if (state.newInformationDialog === true) {
-        // Comentário: Adicionar novo dialog.
+        state.informationGrid.ref = 'Information ' + state.world[state.currentWorld].gridInformationCount++
+        state.world[state.currentWorld].gridInformation.push(state.informationGrid)
+
+        let newGridItem = {
+          x: 0,
+          y: 0,
+          w: 1,
+          h: 1,
+          i: 'Grid ' + state.world[state.currentWorld].gridCount++,
+          type: 'information',
+          ref: state.informationGrid.ref
+        }
+
+        state.world[state.currentWorld].gridContent.push(newGridItem)
       } else {
         let result = state.world[state.currentWorld].gridInformation.filter(obj => {
           return obj.ref === state.informationGrid.ref
@@ -1080,7 +1116,7 @@ const mutations = {
 
       state.newInformationDialog = false
       state.informationGridDialog = false
-      state.informationGrid = []
+      state.informationGrid = {}
       state.saved = false
     }
   },

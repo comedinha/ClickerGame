@@ -114,11 +114,13 @@ export default {
 
     viewInformationStyle (item) {
       let newItem = this.viewItemRef(item)
-      let newStyle = {
-        'background-color': newItem.style.backgroundColor.hex
-      }
+      if (newItem.style.backgroundColor.hex) {
+        let newStyle = {
+          'background-color': newItem.style.backgroundColor.hex
+        }
 
-      return newStyle
+        return newStyle
+      }
     },
 
     viewButtonStyle (item) {

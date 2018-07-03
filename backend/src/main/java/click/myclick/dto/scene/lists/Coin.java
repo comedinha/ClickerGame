@@ -9,7 +9,8 @@ public class Coin implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
-    private String name;
+	private String name;
+	private String ref;
     private String symbol;
     private int used;
     private List<Worlds> worlds;
@@ -22,6 +23,16 @@ public class Coin implements Serializable {
 	public void setName(String name)
 	{
 		this.name = name;
+	}
+
+	public String getRef()
+	{
+		return this.ref;
+	}
+
+	public void setRef(String ref)
+	{
+		this.ref = ref;
 	}
 
 	public String getSymbol()
@@ -53,4 +64,7 @@ public class Coin implements Serializable {
 	{
 		this.worlds = worlds;
 	}
+
+
+	
 }

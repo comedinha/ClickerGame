@@ -35,27 +35,17 @@ public class SaveSceneController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> save(@RequestBody final SceneDTO dto, Authentication auth) {
 
-        try {
-            if(dto.getId().length() > 8) {
-                Scene scene = sceneService.find(dto.getId());
-                sceneService.getRepository().save(converterFacade.convertSave(dto, scene));
-                return new ResponseEntity<>(dto.getId(), HttpStatus.OK);
-            } else {
-                dto.setIdCreator(userService.findByUsername(auth.getPrincipal().toString()).getId());            
-                try {
-                    System.out.println("Saving...");
-                    return new ResponseEntity<>(sceneService.create(converterFacade.convert(dto)).getId(), HttpStatus.OK);
-                } catch(Exception e) {
-                    System.out.println("Error Save Scene");
-                    return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
-                }
-            }
-        } catch(Exception e) {
-            dto.setIdCreator(userService.findByUsername(auth.getPrincipal().toString()).getId());            
+        if(dto.getId().length() > 8) {
+            System.out.println("Saving...");
+            Scene scene = sceneService.find(dto.getId());
+            sceneService.getRepository().save(converterFacade.convertSave(dto, scene));
+            return new ResponseEntity<>(dto.getId(), HttpStatus.OK);
+        } else {
+            dto.setIdCreator(userService.findByUsername(auth.getPrincipal().toString()).getId());        
             try {
                 System.out.println("Saving...");
                 return new ResponseEntity<>(sceneService.create(converterFacade.convert(dto)).getId(), HttpStatus.OK);
-            } catch(Exception e2) {
+            } catch(Exception e) {
                 System.out.println("Error Save Scene");
                 return new ResponseEntity<>(HttpStatus.BAD_REQUEST);
             }

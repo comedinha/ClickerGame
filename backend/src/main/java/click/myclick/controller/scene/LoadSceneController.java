@@ -29,7 +29,7 @@ public class LoadSceneController {
 
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> save(@RequestBody final String idScene, Authentication auth) {
-
+        System.out.println(idScene);
         return new ResponseEntity<>(loadScene.getScene(sceneService, idScene), HttpStatus.OK);
     }
 }

@@ -1,6 +1,6 @@
 package click.myclick.dto.scene.lists.world;
 
-import click.myclick.dto.scene.lists.world.gridbutton.Style;
+import click.myclick.dto.scene.lists.world.gridbutton.*;
 
 import java.io.Serializable;
 
@@ -8,8 +8,30 @@ public class GridButton implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
+	private int clickValue;
+	private Coin coin;
 	private String ref;
-    private Style style;
+	private Style style;
+
+	public int getClickValue()
+	{
+		return this.clickValue;
+	}
+
+	public void setClickValue(int clickValue)
+	{
+		this.clickValue = clickValue;
+	}
+
+	public Coin getCoin()
+	{
+		return this.coin;
+	}
+
+	public void setCoin(Coin coin)
+	{
+		this.coin = coin;
+	}
 
 	public String getRef()
 	{
@@ -31,4 +53,5 @@ public class GridButton implements Serializable {
 		this.style = style;
 	}
 
+	
 }

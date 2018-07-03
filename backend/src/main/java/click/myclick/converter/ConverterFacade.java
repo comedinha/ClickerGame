@@ -40,4 +40,16 @@ public class ConverterFacade {
     public Scene convert(final SceneDTO dto) {
         return converterSceneFactory.getConverter(dto.getClass()).convert(dto);
     }
+
+    public Scene convertSave(final SceneDTO dto, Scene scene) {
+
+        scene.setIdCreator(dto.getIdCreator());
+        scene.setName(dto.getName());
+        scene.setSmallDescription(dto.getSmallDescription());
+        scene.setCompleteDescription(dto.getCompleteDescription());
+        scene.setImage(dto.getImage());
+        scene.setWorlds(dto.getWorlds());    
+
+        return scene;
+    }
 }

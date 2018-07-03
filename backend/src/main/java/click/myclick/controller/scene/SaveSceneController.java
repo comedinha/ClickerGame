@@ -2,6 +2,7 @@ package click.myclick.controller.scene;
 
 import click.myclick.service.dao.scene.SceneService;
 import click.myclick.service.dao.user.UserService;
+import click.myclick.model.Scene;
 import click.myclick.converter.ConverterFacade;
 import click.myclick.dto.scene.SceneDTO;
 
@@ -35,7 +36,8 @@ public class SaveSceneController {
     public ResponseEntity<?> save(@RequestBody final SceneDTO dto, Authentication auth) {
 
         if(dto.getId().length() > 8) {
-            sceneService.getRepository().save(converterFacade.convert(dto));
+            Scene scene = sceneService.find(dto.getId());
+            sceneService.getRepository().save(converterFacade.convertSave(dto, scene));
             return new ResponseEntity<>(dto.getId(), HttpStatus.OK);
         } else {
             dto.setIdCreator(userService.findByUsername(auth.getPrincipal().toString()).getId());

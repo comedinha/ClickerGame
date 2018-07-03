@@ -16,9 +16,6 @@ import Lobby from '@/components/lobby/Lobby'
 
 import Scene from '@/components/scene/Scene'
 
-import Test from '@/components/tests/Test'
-import Counter from '@/components/tests/Counter'
-
 const ifNotAuthenticated = (to, from, next) => {
   if (!store.getters.isAuthenticated) {
     next()
@@ -100,19 +97,6 @@ export default new Router({
           component: Scene
         }
       ]
-    },
-
-    {
-      path: '/Test',
-      name: 'Test',
-      component: Test,
-      beforeEnter: ifAuthenticated
-    },
-    {
-      path: '/Counter',
-      name: 'Counter',
-      component: Counter,
-      beforeEnter: ifAuthenticated
     }
   ]
 })

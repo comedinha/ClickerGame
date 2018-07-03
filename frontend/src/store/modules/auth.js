@@ -8,7 +8,9 @@ const state = {
   recoveryDialog: false,
 
   successMessage: '',
-  successDialog: false
+  successDialog: false,
+
+  backgroundImage: ''
 }
 
 const getters = {
@@ -22,7 +24,9 @@ const getters = {
 
   getSuccessMessage: state => state.successMessage,
 
-  getSuccessDialog: state => state.successDialog
+  getSuccessDialog: state => state.successDialog,
+
+  getBackgroundImage: state => state.backgroundImage
 }
 
 const actions = {
@@ -110,7 +114,8 @@ const actions = {
     return new Promise((resolve, reject) => {
       commit('authStatus', 'loading')
       Vue.http.post('api/imageRandom')
-        .then(image => {
+        .then(response => {
+          commit('updateImage', response.bodyText)
           commit('authStatus', 'success')
           resolve()
         }, errorCode => {
@@ -144,6 +149,11 @@ const actions = {
 }
 
 const mutations = {
+  updateImage (state, message) {
+    console.log(message)
+    state.backgroundImage = message
+  },
+
   authStatus (state, status) {
     state.status = status
   },

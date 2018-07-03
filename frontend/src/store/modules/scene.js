@@ -280,6 +280,10 @@ const actions = {
     }, 1000)
   },
 
+  setSaveWarning ({ commit }, event) {
+    commit('saveWarning')
+  },
+
   setEditMode ({ commit }, event) {
     commit('updateEditMode', event)
   },
@@ -701,6 +705,10 @@ const mutations = {
         }
       }
     }
+  },
+
+  saveWarning (state, event) {
+    state.saveWarning = event
   },
 
   updateGame (state, event) {

@@ -15,7 +15,7 @@
       <v-container fluid fill-height>
         <v-layout align-center justify-center>
           <v-flex xs12 sm8 md5>
-            <v-card class="elevation-12">
+            <v-card class="layout-revert elevation-12">
               <v-toolbar>
                 <v-toolbar-title>{{ $ml.get('game.name') }}</v-toolbar-title>
                 <v-spacer />
@@ -35,11 +35,33 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 import Footer from '@/components/template/block/Footer'
 
 export default {
   components: {
     Footer
+  },
+  mounted () {
+    let container = document.querySelectorAll('.container')
+    console.log(container)
+    for (let i = 0; i < container.length; i++) {
+      container[i].style.backgroundImage = 'url("' + this.getBackgroundImage + '")'
+    }
+  },
+  computed: {
+    ...mapGetters([
+      'getBackgroundImage'
+    ])
   }
 }
 </script>
+
+<style scoped>
+  .container {
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+  }
+</style>

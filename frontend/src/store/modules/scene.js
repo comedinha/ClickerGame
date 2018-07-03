@@ -3,7 +3,7 @@ import * as math from 'mathjs'
 
 const state = {
   sceneId: '',
-  sceneLoading: false,
+  sceneLoading: true,
   creatorVision: true,
   editMode: true,
 
@@ -109,20 +109,28 @@ const getters = {
   getTabLayout: state => {
     let layout = {}
 
-    if (state.world[state.currentWorld].layout.tab.backgroundColor.hex) {
-      layout['backgroundColor'] = state.world[state.currentWorld].layout.tab.backgroundColor.hex
+    if (state.world[state.currentWorld].layout.tab.backgroundColor) {
+      if (state.world[state.currentWorld].layout.tab.backgroundColor.hex) {
+        layout['backgroundColor'] = state.world[state.currentWorld].layout.tab.backgroundColor.hex
+      }
     }
 
-    if (state.world[state.currentWorld].layout.tab.textColor.hex) {
-      layout['textColor'] = state.world[state.currentWorld].layout.tab.textColor.hex
+    if (state.world[state.currentWorld].layout.tab.textColor) {
+      if (state.world[state.currentWorld].layout.tab.textColor.hex) {
+        layout['textColor'] = state.world[state.currentWorld].layout.tab.textColor.hex
+      }
     }
 
-    if (state.world[state.currentWorld].layout.tab.btnColor.hex) {
-      layout['btnColor'] = state.world[state.currentWorld].layout.tab.btnColor.hex
+    if (state.world[state.currentWorld].layout.tab.btnColor) {
+      if (state.world[state.currentWorld].layout.tab.btnColor.hex) {
+        layout['btnColor'] = state.world[state.currentWorld].layout.tab.btnColor.hex
+      }
     }
 
-    if (state.world[state.currentWorld].layout.tab.btnTextColor.hex) {
-      layout['btnTextColor'] = state.world[state.currentWorld].layout.tab.btnTextColor.hex
+    if (state.world[state.currentWorld].layout.tab.btnTextColor) {
+      if (state.world[state.currentWorld].layout.tab.btnTextColor.hex) {
+        layout['btnTextColor'] = state.world[state.currentWorld].layout.tab.btnTextColor.hex
+      }
     }
 
     return layout
@@ -134,8 +142,10 @@ const getters = {
       'max-height': '84vh'
     }
 
-    if (state.world[state.currentWorld].layout.grid.backgroundColor.hex) {
-      layout['background-color'] = state.world[state.currentWorld].layout.grid.backgroundColor.hex
+    if (state.world[state.currentWorld].layout.grid.backgroundColor) {
+      if (state.world[state.currentWorld].layout.grid.backgroundColor.hex) {
+        layout['background-color'] = state.world[state.currentWorld].layout.grid.backgroundColor.hex
+      }
     }
     if (state.world[state.currentWorld].layout.grid.backgroundImage) {
       layout['background-image'] = 'url(' + state.world[state.currentWorld].layout.grid.backgroundImage + ')'
@@ -149,16 +159,22 @@ const getters = {
   getToolbarLayout: state => {
     let layout = {}
 
-    if (state.world[state.currentWorld].layout.toolbar.backgroundColor.hex) {
-      layout['backgroundColor'] = state.world[state.currentWorld].layout.toolbar.backgroundColor.hex
+    if (state.world[state.currentWorld].layout.toolbar.backgroundColor) {
+      if (state.world[state.currentWorld].layout.toolbar.backgroundColor.hex) {
+        layout['backgroundColor'] = state.world[state.currentWorld].layout.toolbar.backgroundColor.hex
+      }
     }
 
-    if (state.world[state.currentWorld].layout.toolbar.btnColor.hex) {
-      layout['btnColor'] = state.world[state.currentWorld].layout.toolbar.btnColor.hex
+    if (state.world[state.currentWorld].layout.toolbar.btnColor) {
+      if (state.world[state.currentWorld].layout.toolbar.btnColor.hex) {
+        layout['btnColor'] = state.world[state.currentWorld].layout.toolbar.btnColor.hex
+      }
     }
 
-    if (state.world[state.currentWorld].layout.toolbar.btnTextColor.hex) {
-      layout['btnTextColor'] = state.world[state.currentWorld].layout.toolbar.btnTextColor.hex
+    if (state.world[state.currentWorld].layout.toolbar.btnTextColor) {
+      if (state.world[state.currentWorld].layout.toolbar.btnTextColor.hex) {
+        layout['btnTextColor'] = state.world[state.currentWorld].layout.toolbar.btnTextColor.hex
+      }
     }
 
     return layout
@@ -234,7 +250,7 @@ const actions = {
     console.log('loadCreate')
 
     Vue.http.post('api/loadScene', scene.createId).then(response => {
-      console.log(response)
+      commit('updateCreateScene', response.body)
     })
 
     commit('updateSceneId', scene.createId)
@@ -715,6 +731,22 @@ const mutations = {
     state.saveWarning = event
   },
 
+  updateCreateScene (state, message) {
+    console.log(message)
+    let loadConfig = {
+      name: message.name,
+      smallDescription: message.smallDescription,
+      image: message.image,
+      completeDescription: message.completeDescription
+    }
+
+    state.config = loadConfig
+    state.world = message.worlds
+    state.coinsCount = message.coinsCount
+    state.coins = message.coins
+    state.sceneLoading = false
+  },
+
   updateGame (state, event) {
     state.editMode = event
     state.creatorVision = event
@@ -814,6 +846,50 @@ const mutations = {
   updateLayoutDialog (state, event) {
     if (state.creatorVision === true) {
       if (event === true) {
+        if (state.world[state.currentWorld].layout) {
+          let layout = state.world[state.currentWorld].layout
+          if (layout.tab) {
+            let layoutTab = layout.tab
+            if (!layoutTab.backgroundColor) {
+              layoutTab.backgroundColor = {}
+            }
+
+            if (!layoutTab.textColor) {
+              layoutTab.textColor = {}
+            }
+
+            if (!layoutTab.btnColor) {
+              layoutTab.btnColor = {}
+            }
+
+            if (!layoutTab.btnTextColor) {
+              layoutTab.btnTextColor = {}
+            }
+          }
+
+          if (layout.grid) {
+            let layoutGrid = layout.grid
+            if (!layoutGrid.backgroundColor) {
+              layoutGrid.backgroundColor = {}
+            }
+          }
+
+          if (layout.toolbar) {
+            let layoutToolbar = layout.toolbar
+            if (!layoutToolbar.backgroundColor) {
+              layoutToolbar.backgroundColor = {}
+            }
+
+            if (!layoutToolbar.btnColor) {
+              layoutToolbar.btnColor = {}
+            }
+
+            if (!layoutToolbar.btnTextColor) {
+              layoutToolbar.btnTextColor = {}
+            }
+          }
+        }
+
         state.editLayout = JSON.parse(JSON.stringify(state.world[state.currentWorld].layout))
       }
 
@@ -891,6 +967,17 @@ const mutations = {
         let result = state.world[state.currentWorld].gridInformation.filter(obj => {
           return obj.ref === item.ref
         })
+
+        if (result[0].style) {
+          if (!result[0].style.backgroundColor) {
+            result[0].style.backgroundColor = {}
+          }
+        } else {
+          result[0].style = {
+            backgroundColor: {}
+          }
+        }
+
         state.informationGrid = JSON.parse(JSON.stringify(result[0]))
       } else if (item.type === 'button') {
         state.buttonGridDialog = true
@@ -898,6 +985,11 @@ const mutations = {
         let result = state.world[state.currentWorld].gridButtons.filter(obj => {
           return obj.ref === item.ref
         })
+
+        if (!result[0].style.backgroundColor) {
+          result[0].style.backgroundColor = {}
+        }
+
         state.buttonGrid = JSON.parse(JSON.stringify(result[0]))
       }
 

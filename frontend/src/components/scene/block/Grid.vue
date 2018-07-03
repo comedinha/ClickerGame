@@ -114,23 +114,35 @@ export default {
 
     viewInformationStyle (item) {
       let newItem = this.viewItemRef(item)
-      if (newItem.style.backgroundColor.hex) {
-        let newStyle = {
-          'background-color': newItem.style.backgroundColor.hex
-        }
+      if (newItem.style) {
+        if (newItem.style.backgroundColor) {
+          if (newItem.style.backgroundColor.hex) {
+            let newStyle = {
+              'background-color': newItem.style.backgroundColor.hex
+            }
 
-        return newStyle
+            return newStyle
+          }
+        }
       }
     },
 
     viewButtonStyle (item) {
       let newItem = this.viewItemRef(item)
-      let newStyle = {
-        'background-color': newItem.style.backgroundColor.hex,
-        'border-radius': newItem.style.borderRadius
-      }
+      if (newItem.style) {
+        let newStyle = {}
+        if (newItem.style.backgroundColor) {
+          if (newItem.style.backgroundColor.hex) {
+            newStyle['background-color'] = newItem.style.backgroundColor.hex
+          }
+        }
 
-      return newStyle
+        if (newItem.style.borderRadius) {
+          newStyle['border-radius'] = newItem.style.borderRadius
+        }
+
+        return newStyle
+      }
     },
 
     updateInformationText (item) {

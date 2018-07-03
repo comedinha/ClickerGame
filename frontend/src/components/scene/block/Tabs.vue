@@ -56,7 +56,7 @@
       </v-list>
       <v-container v-if="tab.type === 'upgrade'" fluid grid-list-md>
         <v-layout row wrap>
-        <v-flex v-for="item in tab.items" :key="item.ref" md3 v-if="getBuyedUpgrade(tab, item)">
+        <v-flex v-for="item in tab.items" :key="item.ref" xs3 sm3 md3 v-if="getBuyedUpgrade(tab, item)">
           <v-card>
             <v-system-bar>
               <span>{{ item.title }}</span>
@@ -69,7 +69,7 @@
             <v-card-text v-if="!item.image">
               {{ item.description }}
             </v-card-text>
-            <v-btn v-if="!getEditMode" @click="buyUpgrade(tab, item)">{{ getPriceSymbol(item) + ' ' + item.price }}</v-btn>
+            <v-btn block v-if="!getEditMode" @click="buyUpgrade(tab, item)">{{ getPriceSymbol(item) + ' ' + item.price }}</v-btn>
             <v-card-actions v-if="getEditMode">
               <v-tooltip bottom>
                 <v-btn icon slot="activator" @click="editUpgrade(tab, item)">

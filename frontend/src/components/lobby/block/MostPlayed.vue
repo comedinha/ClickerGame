@@ -101,7 +101,7 @@ export default {
 
 <style>
   .card-image .card__media__background {
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
 
     -webkit-filter: blur(5px);
     filter: blur(5px);
@@ -111,7 +111,7 @@ export default {
   }
 
   .background-image .card__media__background {
-    background-repeat:no-repeat;
+    background-repeat: no-repeat;
 
     -webkit-filter: blur(0px);
     filter: blur(0px);

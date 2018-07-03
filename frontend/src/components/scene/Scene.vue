@@ -7,19 +7,20 @@
     <Item v-if="getCreatorVision && getAddItemDialog" />
     <ItemGrid v-if="getCreatorVision && getItemGridDialog" />
     <Layout v-if="getCreatorVision && getLayoutDialog" />
+    <Save v-if="getCreatorVision && getSaveWarning" />
     <Upgrade v-if="getCreatorVision && getAddUpgradeDialog" />
     <InformationGrid v-if="getCreatorVision && getInformationGridDialog" />
     <v-layout row wrap>
-      <v-flex v-if="getTabLeft" md4>
+      <v-flex v-if="getTabLeft" xs12 sm12 md4>
         <Tabs />
       </v-flex>
-      <v-flex md8>
+      <v-flex xs12 sm12 md8>
         <v-card height="90vh">
           <Toolbar />
           <Grid />
         </v-card>
       </v-flex>
-      <v-flex v-if="!getTabLeft" md4>
+      <v-flex v-if="!getTabLeft" xs12 sm12 md4>
         <Tabs />
       </v-flex>
     </v-layout>
@@ -41,6 +42,7 @@ import InformationGrid from '@/components/scene/creator/dialog/InformationGrid'
 import Item from '@/components/scene/creator/dialog/Item'
 import ItemGrid from '@/components/scene/creator/dialog/ItemGrid'
 import Layout from '@/components/scene/creator/dialog/Layout'
+import Save from '@/components/scene/creator/dialog/Save'
 import Upgrade from '@/components/scene/creator/dialog/Upgrade'
 
 export default {
@@ -82,7 +84,8 @@ export default {
       'getEditCoinDialog',
       'getLayoutDialog',
       'getTabLeft',
-      'getButtonGridDialog'
+      'getButtonGridDialog',
+      'getSaveWarning'
     ])
   },
   components: {
@@ -98,7 +101,8 @@ export default {
     Coins,
     EditCoin,
     Layout,
-    ButtonGrid
+    ButtonGrid,
+    Save
   }
 }
 </script>

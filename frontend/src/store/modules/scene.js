@@ -40,6 +40,11 @@ const state = {
   itemGridItem: [],
   itemGrid: [],
 
+  buttonGridDialog: false,
+  newButtonDialog: false,
+  buttonGridRef: [],
+  buttonGrid: '',
+
   informationGridDialog: false,
   newInformationDialog: false,
   informationGridRef: [],
@@ -90,6 +95,7 @@ const getters = {
   getEditCoinDialog: state => state.editCoinDialog,
   getEditCoin: state => state.editCoin,
 
+  getWorld: state => state.world,
   getCurrentWorld: state => state.world[state.currentWorld],
 
   getGridContent: state => state.world[state.currentWorld].gridContent,
@@ -160,6 +166,9 @@ const getters = {
 
   getItemGridDialog: state => state.itemGridDialog,
   getItemGrid: state => state.itemGrid,
+
+  getButtonGridDialog: state => state.buttonGridDialog,
+  getButtonGrid: state => state.buttonGrid,
 
   getInformationGridDialog: state => state.informationGridDialog,
   getInformationGrid: state => state.informationGrid,
@@ -355,6 +364,26 @@ const actions = {
 
   removeGridItem ({ commit }, item) {
     commit('removeGridItem', item)
+  },
+
+  newButtonGrid ({ commit }) {
+    commit('newButtonGrid')
+  },
+
+  setButtonGridDialog ({ commit }, event) {
+    commit('updateButtonGridDialog', event)
+  },
+
+  setButtonGrid ({ commit }, message) {
+    commit('updateButtonGrid', message)
+  },
+
+  buttonGrid ({ commit }) {
+    commit('buttonGrid')
+  },
+
+  newInformationGrid ({ commit }) {
+    commit('newInformationGrid')
   },
 
   setInformationGridDialog ({ commit }, event) {
@@ -851,6 +880,13 @@ const mutations = {
           return obj.ref === item.ref
         })
         state.informationGrid = JSON.parse(JSON.stringify(result[0]))
+      } else if (item.type === 'button') {
+        state.buttonGridDialog = true
+
+        let result = state.world[state.currentWorld].gridButtons.filter(obj => {
+          return obj.ref === item.ref
+        })
+        state.buttonGrid = JSON.parse(JSON.stringify(result[0]))
       }
 
       state.saved = false
@@ -963,9 +999,59 @@ const mutations = {
     }
   },
 
+  newButtonGrid (state) {
+    state.buttonGridDialog = true
+    state.newButtonDialog = true
+    state.buttonGrid = []
+  },
+
+  updateButtonGridDialog (state, event) {
+    if (state.creatorVision === true) {
+      if (event === false) {
+        state.buttonGrid = []
+        state.newButtonDialog = false
+      }
+
+      state.buttonGridDialog = event
+    }
+  },
+
+  updateButtonGrid (state, message) {
+    if (state.creatorVision === true) {
+      state.buttonGrid = message
+    }
+  },
+
+  buttonGrid (state) {
+    if (state.creatorVision === true) {
+      if (state.newButtonDialog === true) {
+        console.log('oi')
+      } else {
+        let result = state.world[state.currentWorld].gridButtons.filter(obj => {
+          return obj.ref === state.buttonGrid.ref
+        })
+
+        let indexOfButton = state.world[state.currentWorld].gridButtons.indexOf(result[0])
+        Vue.set(state.world[state.currentWorld].gridButtons, indexOfButton, state.buttonGrid)
+      }
+
+      state.newButtonDialog = false
+      state.buttonGridDialog = false
+      state.buttonGrid = []
+      state.saved = false
+    }
+  },
+
+  newInformationGrid (state) {
+    state.newInformationDialog = true
+    state.informationGridDialog = true
+    state.informationGrid = []
+  },
+
   updateInformationGridDialog (state, event) {
     if (state.creatorVision === true) {
       if (event === false) {
+        state.newInformationDialog = false
         state.informationGrid = []
       }
 
@@ -992,6 +1078,7 @@ const mutations = {
         Vue.set(state.world[state.currentWorld].gridInformation, indexOfInformation, state.informationGrid)
       }
 
+      state.newInformationDialog = false
       state.informationGridDialog = false
       state.informationGrid = []
       state.saved = false

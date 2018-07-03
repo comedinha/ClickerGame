@@ -8,10 +8,10 @@
     <v-menu offset-y v-if="editMode">
       <v-btn small slot="activator">Grid</v-btn>
       <v-list>
-        <v-list-tile @click="editConfigDialog = !editConfigDialog">
+        <v-list-tile @click="newInformationGrid">
           <v-list-tile-title>Adicinar Botão</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile @click="layoutDialog = !layoutDialog">
+        <v-list-tile @click="newGridInformation">
           <v-list-tile-title>Adicionar Informação</v-list-tile-title>
         </v-list-tile>
       </v-list>
@@ -142,9 +142,14 @@ export default {
 
     saveScene () {
       this.$store.dispatch('saveScene')
-      /* this.$store.dispatch('saveScene').then(id => {
-        this.$router.push('?createId=' + )
-      }) */
+    },
+
+    newGridButton () {
+      this.$store.dispatch('newButtonGrid')
+    },
+
+    newGridInformation () {
+      this.$store.dispatch('newInformationGrid')
     }
   }
 }

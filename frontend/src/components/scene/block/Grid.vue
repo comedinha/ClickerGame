@@ -2,7 +2,7 @@
   <div height="100%" src="https://i.ytimg.com/vi/Xy_7tq7xn6I/maxresdefault.jpg">
     <grid-layout class="scroll-y" v-bind:style="getGridLayout" :layout="gridContent" @layout-updated="updateGridContent" :col-num="22" :row-height="30" :is-draggable="getEditMode" :is-resizable="getEditMode" :vertical-compact="false" :margin="[10, 10]" :use-css-transforms="true">
       <grid-item v-for="item in gridContent" :key="item.i" :x="item.x" :y="item.y" :w="item.w" :h="item.h" :i="item.i">
-        <v-card v-if="item.type === 'button'" ripple fab height="100%" v-bind:style="viewItemRef(item).style" @click.native="clickButton(item)">
+        <v-card v-if="item.type === 'button'" ripple fab height="100%" v-bind:style="viewButtonStyle(item)" @click.native="clickButton(item)">
           <v-card-actions v-if="getEditMode">
             <v-spacer />
             <v-menu offset-y>
@@ -116,6 +116,16 @@ export default {
       let newItem = this.viewItemRef(item)
       let newStyle = {
         'background-color': newItem.style.backgroundColor.hex
+      }
+
+      return newStyle
+    },
+
+    viewButtonStyle (item) {
+      let newItem = this.viewItemRef(item)
+      let newStyle = {
+        'background-color': newItem.style.backgroundColor.hex,
+        'border-radius': newItem.style.borderRadius
       }
 
       return newStyle

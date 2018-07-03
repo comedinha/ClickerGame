@@ -1,5 +1,6 @@
 <template>
   <v-container fluid grid-list-sm fixed v-if="!getSceneLoading">
+    <ButtonGrid v-if="getCreatorVision && getButtonGridDialog" />
     <Coins v-if="getCreatorVision && getCoinsDialog" />
     <Config v-if="getCreatorVision && getEditConfigDialog" />
     <EditCoin v-if="getCreatorVision && getEditCoinDialog" />
@@ -32,6 +33,7 @@ import Toolbar from '@/components/scene/block/Toolbar'
 import Grid from '@/components/scene/block/Grid'
 import Tabs from '@/components/scene/block/Tabs'
 
+import ButtonGrid from '@/components/scene/creator/dialog/ButtonGrid'
 import Coins from '@/components/scene/creator/dialog/Coins'
 import Config from '@/components/scene/creator/dialog/Config'
 import EditCoin from '@/components/scene/creator/dialog/EditCoin'
@@ -79,7 +81,8 @@ export default {
       'getCoinsDialog',
       'getEditCoinDialog',
       'getLayoutDialog',
-      'getTabLeft'
+      'getTabLeft',
+      'getButtonGridDialog'
     ])
   },
   components: {
@@ -94,7 +97,8 @@ export default {
     Config,
     Coins,
     EditCoin,
-    Layout
+    Layout,
+    ButtonGrid
   }
 }
 </script>

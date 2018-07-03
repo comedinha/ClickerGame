@@ -1,0 +1,87 @@
+<template>
+  <v-dialog v-model="buttonGridDialog" max-width="750px">
+    <v-card>
+      <v-toolbar dense flat>
+        <v-toolbar-title>{{ $ml.get('scene.creator.dialog.informationGrid.title') }}</v-toolbar-title>
+      </v-toolbar>
+      <v-container fluid grid-list-md>
+        <v-layout row>
+          <v-flex md12>
+            <v-card-actions>
+              <v-menu>
+                <v-card ripple fab slot="activator" width='20px' :style="{'background-color': buttonGrid.style.backgroundColor.hex}"> ‏‏‎ </v-card>
+                <chrome-picker v-model="buttonGrid.style.backgroundColor" />
+              </v-menu>
+              <v-text-field v-model="buttonGrid.style.backgroundColor.hex" label="Cor do card" required />
+              <v-tooltip bottom>
+                <v-icon slot="activator">help</v-icon>
+                <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+              </v-tooltip>
+              <v-text-field v-model="buttonGrid.style.borderRadius" label="Raio do Botão" required />
+              <v-tooltip bottom>
+                <v-icon slot="activator">help</v-icon>
+                <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+              </v-tooltip>
+            </v-card-actions>
+            <v-card-actions>
+              <v-text-field v-model="buttonGrid.clickValue" label="Valor do Click" required />
+              <v-tooltip bottom>
+                <v-icon slot="activator">help</v-icon>
+                <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+              </v-tooltip>
+              <v-select :items="getCoins" item-text="name" item-value="ref" v-model="buttonGrid.coin" label="Moeda" required />
+              <v-tooltip bottom>
+                <v-icon slot="activator">help</v-icon>
+                <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+              </v-tooltip>
+            </v-card-actions>
+          </v-flex>
+        </v-layout>
+      </v-container>
+      <v-card-actions>
+        <v-spacer />
+        <v-btn @click="buttonGridDialog = !buttonGridDialog">{{ $ml.get('scene.creator.dialog.informationGrid.close') }}</v-btn>
+        <v-btn color="primary" @click="buttonGridUpdate">{{ $ml.get('scene.creator.dialog.informationGrid.save') }}</v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</template>
+
+<script>
+import { mapGetters } from 'vuex'
+import { Chrome } from 'vue-color'
+
+export default {
+  components: {
+    'chrome-picker': Chrome
+  },
+  computed: {
+    ...mapGetters([
+      'getCoins'
+    ]),
+
+    buttonGrid: {
+      get () {
+        return this.$store.getters.getButtonGrid
+      },
+      set (value) {
+        this.$store.dispatch('setButtonGrid', value)
+      }
+    },
+
+    buttonGridDialog: {
+      get () {
+        return this.$store.getters.getButtonGridDialog
+      },
+      set (value) {
+        this.$store.dispatch('setButtonGridDialog', value)
+      }
+    }
+  },
+  methods: {
+    buttonGridUpdate () {
+      this.$store.dispatch('buttonGrid')
+    }
+  }
+}
+</script>

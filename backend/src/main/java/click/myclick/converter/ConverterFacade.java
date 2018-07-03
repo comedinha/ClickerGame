@@ -48,7 +48,8 @@ public class ConverterFacade {
         scene.setSmallDescription(dto.getSmallDescription());
         scene.setCompleteDescription(dto.getCompleteDescription());
         scene.setImage(dto.getImage());
-        scene.setWorlds(dto.getWorlds());    
+        scene.setWorlds(dto.getWorlds());
+        scene.setCoins(dto.getCoins());
 
         return scene;
     }

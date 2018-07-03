@@ -10,16 +10,16 @@
     <Upgrade v-if="getCreatorVision && getAddUpgradeDialog" />
     <InformationGrid v-if="getCreatorVision && getInformationGridDialog" />
     <v-layout row wrap>
-      <v-flex v-if="getTabLeft" md4>
+      <v-flex v-if="getTabLeft" xs12 sm12 md4>
         <Tabs />
       </v-flex>
-      <v-flex md8>
+      <v-flex xs12 sm12 md8>
         <v-card height="90vh">
           <Toolbar />
           <Grid />
         </v-card>
       </v-flex>
-      <v-flex v-if="!getTabLeft" md4>
+      <v-flex v-if="!getTabLeft" xs12 sm12 md4>
         <Tabs />
       </v-flex>
     </v-layout>

@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 public class LoadScene {
-    public SceneDTO getScene(SceneService service, String idScene) {
+    public SceneDTO getScene(SceneService service, String idScene, boolean isAdmin) {
         SceneDTO dto = new SceneDTO();
         Scene scene = service.find(idScene);
 
@@ -21,6 +21,8 @@ public class LoadScene {
         dto.setWorlds(scene.getWorlds());
         dto.setCoins(scene.getCoins());
         dto.setCoinsCount(scene.getCoinsCount());
+        dto.setCanApprove(isAdmin);
+        dto.setCanResolve(isAdmin);
         
         return dto;
     }

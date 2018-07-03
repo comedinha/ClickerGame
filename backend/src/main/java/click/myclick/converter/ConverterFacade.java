@@ -27,7 +27,7 @@ public class ConverterFacade {
         String token = Integer.toString(new Random().nextInt(1000000));
         String title = "Confirmação de Email";
         String msg = "Clique no link para confirmar o e-mail\n\n" +
-        "http://localhost:8080/#/email?email=" + dto.getUsername() + "&token=" + token;
+        "https://myclick-game.herokuapp.com/#/email?email=" + dto.getUsername() + "&token=" + token;
         email.send(dto.getUsername(), token, title, msg);
 
         User user = (User) converterUserFactory.getConverter(dto.getClass()).convert(dto);

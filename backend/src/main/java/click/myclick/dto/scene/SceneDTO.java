@@ -18,6 +18,8 @@ public class SceneDTO implements Serializable {
     private String smallDescription;
 	private List<World> worlds;
 	private String idCreator;
+	private boolean canApprove;
+	private boolean canResolve;
 
 	public SceneDTO() {
 		this.coins = null;
@@ -112,5 +114,25 @@ public class SceneDTO implements Serializable {
 	public void setIdCreator(String idCreator)
 	{
 		this.idCreator = idCreator;
+	}
+
+	public boolean getCanApprove()
+	{
+		return this.canApprove;
+	}
+
+	public void setCanApprove(boolean canApprove)
+	{
+		this.canApprove = canApprove;
+	}
+
+	public boolean getCanResolve()
+	{
+		return this.canResolve;
+	}
+
+	public void setCanResolve(boolean canResolve)
+	{
+		this.canResolve = canResolve;
 	}
 }

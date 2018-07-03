@@ -48,7 +48,7 @@ public class PasswordRecovery {
         String token = Integer.toString(new Random().nextInt(1000000));
         String title = "Recuperação de Senha";
         String msg = "Clique no link para fazer a alteração da senha da conta\n\n" +
-        "http://localhost:8080/#/ResetPassword?email=" + username + "&token=" + token;
+        "https://myclick-game.herokuapp.com/#/ResetPassword?email=" + username + "&token=" + token;
 
         user.setTokenEmail(token);
         service.getRepository().save(user);

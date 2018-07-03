@@ -20,6 +20,7 @@ public class LoadScene {
         dto.setImage(scene.getImage());
         dto.setWorlds(scene.getWorlds());
         dto.setCoins(scene.getCoins());
+        dto.setCoinsCount(scene.getCoinsCount());
         
         return dto;
     }

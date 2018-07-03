@@ -1,8 +1,6 @@
 package click.myclick.controller.scene;
 
 import click.myclick.service.dao.scene.SceneService;
-import click.myclick.converter.ConverterFacade;
-import click.myclick.dto.scene.SceneDTO;
 import click.myclick.service.scene.LoadScene;
 
 import org.springframework.beans.factory.annotation.Autowired;

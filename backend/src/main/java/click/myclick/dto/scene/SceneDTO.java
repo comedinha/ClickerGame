@@ -17,6 +17,7 @@ public class SceneDTO implements Serializable {
     private String image;
 	private List<World> worlds;
 	private List<Coin> coins;
+	private int coinsCount;
 
 	public String getId()
 	{
@@ -95,5 +96,15 @@ public class SceneDTO implements Serializable {
 	public void setCoins(List<Coin> coins)
 	{
 		this.coins = coins;
+	}
+
+	public int getCoinsCount()
+	{
+		return this.coinsCount;
+	}
+
+	public void setCoinsCount(int coinsCount)
+	{
+		this.coinsCount = coinsCount;
 	}
 }

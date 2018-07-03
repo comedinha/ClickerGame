@@ -25,6 +25,7 @@ public class SceneDTOConverter implements Converter<SceneDTO, Scene> {
         scene.setNumberReports(0);
         scene.setWorlds(dto.getWorlds());
         scene.setCoins(dto.getCoins());
+        scene.setCoinsCount(dto.getCoinsCount());
 
         return scene;
     }

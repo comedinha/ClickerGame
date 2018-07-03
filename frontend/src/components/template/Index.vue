@@ -23,7 +23,7 @@
         <span>{{ $ml.get('lobby.lobby.news') }}</span>
       </v-tooltip>
       <v-spacer />
-      <v-toolbar-title>{{ $ml.get('game.name') }}</v-toolbar-title>
+      <v-toolbar-title><img height="60px" src="./../../assets/logo.png"></v-toolbar-title>
       <v-spacer />
       <v-tooltip v-if="getAdmin" bottom>
         <v-btn class="mx-0" slot="activator" @click="sceneApprovalDialog = !sceneApprovalDialog" small icon>

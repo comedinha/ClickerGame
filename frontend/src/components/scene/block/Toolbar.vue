@@ -1,18 +1,17 @@
 <template>
   <v-toolbar dense flat>
     <v-btn small @click="backToLobby">{{ $ml.get('scene.block.toolbar.backLobby') }}</v-btn>
-    <v-btn small>{{ $ml.get('scene.block.toolbar.information') }}</v-btn>
     <v-spacer />
     <v-btn small v-if="editMode" @click="editMode = !editMode">{{ $ml.get('scene.block.toolbar.userVision') }}</v-btn>
     <v-btn small v-if="getCreatorVision && !editMode" @click="editMode = !editMode">{{ $ml.get('scene.block.toolbar.creatorVision') }}</v-btn>
     <v-menu offset-y v-if="editMode">
-      <v-btn small slot="activator">Grid</v-btn>
+      <v-btn small slot="activator">{{ $ml.get('scene.block.toolbar.grid') }}</v-btn>
       <v-list>
         <v-list-tile @click="newGridButton">
-          <v-list-tile-title>Adicinar Botão</v-list-tile-title>
+          <v-list-tile-title>{{ $ml.get('scene.block.toolbar.addButton') }}</v-list-tile-title>
         </v-list-tile>
         <v-list-tile @click="newGridInformation">
-          <v-list-tile-title>Adicionar Informação</v-list-tile-title>
+          <v-list-tile-title>{{ $ml.get('scene.block.toolbar.addInfomation') }}</v-list-tile-title>
         </v-list-tile>
       </v-list>
     </v-menu>

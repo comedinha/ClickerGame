@@ -271,22 +271,29 @@ export default {
 
   scene: {
     block: {
-      buyableTabs: {
-        addGrid: 'Adicionar ao Grid',
-        settings: 'Configurações',
-        delete: 'Deletar'
-      },
-
-      gridContent: {
+      grid: {
         edit: 'Editar',
         remove: 'Remover'
       },
 
+      tabs: {
+        x: '{v}x',
+        addGrid: 'Adicionar ao Grid',
+        settings: 'Configurações',
+        delete: 'Deletar',
+
+        totalBuyed: 'Total comprado',
+        price: 'Preço'
+      },
+
       toolbar: {
         backLobby: 'Voltar ao Lobby',
-        information: 'Informações',
         userVision: 'Visão do usuário',
         creatorVision: 'Visão do Criador',
+
+        grid: 'Grade',
+        addButton: 'Adicionar Botão',
+        addInfomation: 'Adicionar Informação',
 
         scene: 'Cenário',
         editConfig: 'Editar Configurações',
@@ -302,6 +309,33 @@ export default {
 
     creator: {
       dialog: {
+        buttonGrid: {
+          title: 'Grid de Botão',
+
+          color: {
+            title: 'Cor',
+            help: 'Cor do botão'
+          },
+
+          radius: {
+            title: 'Raio',
+            help: 'Raio do botão'
+          },
+
+          clickValue: {
+            title: 'Valor do click',
+            help: 'Quanto o jogador recebe ao clicar'
+          },
+
+          coin: {
+            title: 'Moeda',
+            help: 'Moeda que irá ser afetada pelo botão'
+          },
+
+          close: 'Fechar',
+          save: 'Salvar'
+        },
+
         coins: {
           title: 'Moedas',
           close: 'Fechar',
@@ -363,15 +397,28 @@ export default {
 
         informationGrid: {
           title: 'Grid de informação',
-          help: `
-            Este editor fica as informações do nível
-            <br />
-            Tags:
-            <br/> {tc}: Dinheiro Atual
-            <br/> {ts}: Dinheiro por segundo
-            <br/> {cn}: Nome da moeda
-            <br/> {cs}: Símbolo da moeda
-          `,
+
+          color: {
+            title: 'Cor',
+            help: 'Cor do card'
+          },
+
+          coin: {
+            title: 'Moeda',
+            help: 'Moeda que será afetada pelo card'
+          },
+
+          ckeditor: {
+            help: `
+              Este editor fica as informações do nível
+              <br />
+              Tags:
+              <br/> {tc}: Dinheiro Atual
+              <br/> {ts}: Dinheiro por segundo
+              <br/> {cn}: Nome da moeda
+              <br/> {cs}: Símbolo da moeda
+            `
+          },
 
           close: 'Fechar',
           save: 'Salvar'
@@ -421,8 +468,8 @@ export default {
               Formula para comprar o item
               <br />
               Tags:
-              <br />
-              {v}: valor atual
+              <br /> {tb}: Total comprado
+              <br /> {bp}: Preço base
             `
           },
 
@@ -452,8 +499,105 @@ export default {
           save: 'Salvar'
         },
 
-        upgrade: {
+        layout: {
+          title: 'Editar Layout',
 
+          tabs: 'Abas',
+          toolbar: 'Barra de Ferramentas',
+          grid: 'Grade',
+
+          positionLeft: {
+            title: 'Posicionar a esquerda',
+            help: 'O tab irá ficar posicioando a esquerda'
+          },
+
+          backgroundColor: {
+            title: 'Cor de fundo',
+            help: 'Cor de fundo do local'
+          },
+
+          textColor: {
+            title: 'Cor da letra',
+            help: 'Cor da letra do local'
+          },
+
+          btnColor: {
+            title: 'Cor do botão',
+            help: 'Cor do botão no local'
+          },
+
+          btnTextColor: {
+            title: 'Cor do texto do botão',
+            help: 'Cor do texto do botão no local'
+          },
+
+          backgroundImage: {
+            title: 'Imagem de fundo',
+            help: 'Imagem de fundo do grid'
+          },
+
+          close: 'Fechar',
+          save: 'Salvar'
+        },
+
+        save: {
+          title: 'Salvar Cenário',
+          message: 'Você deseja salvar seu cenário?',
+          cancel: 'Cancelar',
+          close: 'Sair',
+          save: 'Salvar'
+        },
+
+        upgrade: {
+          title: 'Adicionar Upgrade',
+
+          image: {
+            title: 'Imagem',
+            help: 'Imagem do upgrade'
+          },
+
+          upgradeTitle: {
+            title: 'Título',
+            help: 'Título do upgrade'
+          },
+
+          description: {
+            title: 'Descrição',
+            help: 'Descrição do upgrade'
+          },
+
+          price: {
+            title: 'Preço',
+            help: 'Preço do upgrade'
+          },
+
+          coin: {
+            title: 'Moeda',
+            help: 'Moeda que o upgrade utiliza'
+          },
+
+          type: {
+            title: 'Ação',
+            help: 'Ação de modificação que o upgrade toma'
+          },
+
+          item: {
+            title: 'Item',
+            help: 'Item que o upgrade afeta'
+          },
+
+          formula: {
+            title: 'Formula',
+            help: `
+              Formula que o upgrade executa
+              <br />
+              Tags:
+              <br /> {v}: Valor antigo
+            `
+          },
+
+          close: 'Fechar',
+          save: 'Salvar'
         }
       }
     }

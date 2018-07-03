@@ -9,10 +9,10 @@
               <v-btn small icon slot="activator"><v-icon>settings</v-icon></v-btn>
               <v-list>
                 <v-list-tile @click="changeGridItem(item)">
-                  <v-list-tile-title>{{ $ml.get('scene.block.gridContent.edit') }}</v-list-tile-title>
+                  <v-list-tile-title>{{ $ml.get('scene.block.grid.edit') }}</v-list-tile-title>
                 </v-list-tile>
                 <v-list-tile @click="removeGridItem(item)">
-                  <v-list-tile-title>{{ $ml.get('scene.block.gridContent.remove') }}</v-list-tile-title>
+                  <v-list-tile-title>{{ $ml.get('scene.block.grid.remove') }}</v-list-tile-title>
                 </v-list-tile>
               </v-list>
             </v-menu>
@@ -25,10 +25,10 @@
               <v-btn small icon slot="activator"><v-icon>settings</v-icon></v-btn>
               <v-list>
                 <v-list-tile @click="changeGridItem(item)">
-                  <v-list-tile-title>{{ $ml.get('scene.block.gridContent.edit') }}</v-list-tile-title>
+                  <v-list-tile-title>{{ $ml.get('scene.block.grid.edit') }}</v-list-tile-title>
                 </v-list-tile>
                 <v-list-tile @click="removeGridItem(item)">
-                  <v-list-tile-title>{{ $ml.get('scene.block.gridContent.remove') }}</v-list-tile-title>
+                  <v-list-tile-title>{{ $ml.get('scene.block.grid.remove') }}</v-list-tile-title>
                 </v-list-tile>
               </v-list>
             </v-menu>
@@ -42,10 +42,10 @@
               <v-btn small icon slot="activator"><v-icon>settings</v-icon></v-btn>
               <v-list>
                 <v-list-tile @click="changeGridItem(item)">
-                  <v-list-tile-title>{{ $ml.get('scene.block.gridContent.edit') }}</v-list-tile-title>
+                  <v-list-tile-title>{{ $ml.get('scene.block.grid.edit') }}</v-list-tile-title>
                 </v-list-tile>
                 <v-list-tile @click="removeGridItem(item)">
-                  <v-list-tile-title>{{ $ml.get('scene.block.gridContent.remove') }}</v-list-tile-title>
+                  <v-list-tile-title>{{ $ml.get('scene.block.grid.remove') }}</v-list-tile-title>
                 </v-list-tile>
               </v-list>
             </v-menu>

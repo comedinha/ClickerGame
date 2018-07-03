@@ -111,18 +111,10 @@ const actions = {
   },
 
   imageRandom ({commit}) {
-    return new Promise((resolve, reject) => {
-      commit('authStatus', 'loading')
-      Vue.http.post('api/imageRandom')
-        .then(response => {
-          commit('updateImage', response.bodyText)
-          commit('authStatus', 'success')
-          resolve()
-        }, errorCode => {
-          commit('authStatus', 'error')
-          reject(errorCode)
-        })
-    })
+    Vue.http.post('api/imageRandom')
+      .then(response => {
+        commit('updateImage', response.bodyText)
+      })
   },
 
   signout ({commit}) {

@@ -17,7 +17,7 @@
           <v-flex xs12 sm8 md5>
             <v-card class="layout-revert elevation-12">
               <v-toolbar>
-                <v-toolbar-title>{{ $ml.get('game.name') }}</v-toolbar-title>
+                <v-toolbar-title><img height="60px" src="./../../assets/logo.png"></v-toolbar-title>
                 <v-spacer />
                 <v-toolbar-items>
                   <v-btn block flat color="primary" to="Signin">{{ $ml.get('auth.signin.title') }}</v-btn>
@@ -40,12 +40,14 @@ import { mapGetters } from 'vuex'
 import Footer from '@/components/template/block/Footer'
 
 export default {
+  beforeCreate () {
+    this.$store.dispatch('imageRandom')
+  },
   components: {
     Footer
   },
   mounted () {
     let container = document.querySelectorAll('.container')
-    console.log(container)
     for (let i = 0; i < container.length; i++) {
       container[i].style.backgroundImage = 'url("' + this.getBackgroundImage + '")'
     }

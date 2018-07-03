@@ -2,21 +2,21 @@
   <v-dialog v-model="layoutDialog" max-width="750px">
     <v-card>
       <v-toolbar dense flat>
-        <v-toolbar-title>Editar Layout</v-toolbar-title>
+        <v-toolbar-title>{{ $ml.get('scene.creator.dialog.layout.title') }}</v-toolbar-title>
       </v-toolbar>
       <v-container fluid grid-list-md>
         <v-layout row>
           <v-flex md6>
             <v-card>
               <v-system-bar>
-                <span>Abas</span>
+                <span>{{ $ml.get('scene.creator.dialog.layout.tabs') }}</span>
               </v-system-bar>
               <v-card-text>
                 <v-card-actions>
-                  <v-checkbox label="Posicionar a esquerda" v-model="layout.tab.left" />
+                  <v-checkbox :label="$ml.get('scene.creator.dialog.layout.positionLeft.title')" v-model="layout.tab.left" />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+                    <span>{{ $ml.get('scene.creator.dialog.layout.positionLeft.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
                 <v-card-actions>
@@ -24,10 +24,10 @@
                     <v-card ripple fab slot="activator" width='20px' :style="{'background-color': layout.tab.backgroundColor.hex}"> ‏‏‎ </v-card>
                     <chrome-picker v-model="layout.tab.backgroundColor" />
                   </v-menu>
-                  <v-text-field v-model="layout.tab.backgroundColor.hex" label="Cor de fundo" required />
+                  <v-text-field v-model="layout.tab.backgroundColor.hex" :label="$ml.get('scene.creator.dialog.layout.backgroundColor.title')" required />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+                    <span>{{ $ml.get('scene.creator.dialog.layout.backgroundColor.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
                 <v-card-actions>
@@ -35,10 +35,10 @@
                     <v-card ripple fab slot="activator" width='20px' :style="{'background-color': layout.tab.textColor.hex}"> ‏‏‎ </v-card>
                     <chrome-picker v-model="layout.tab.textColor" />
                   </v-menu>
-                  <v-text-field v-model="layout.tab.textColor.hex" label="Cor do Texto" required />
+                  <v-text-field v-model="layout.tab.textColor.hex" :label="$ml.get('scene.creator.dialog.layout.textColor.title')" required />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+                    <span>{{ $ml.get('scene.creator.dialog.layout.textColor.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
                 <v-card-actions>
@@ -46,10 +46,10 @@
                     <v-card ripple fab slot="activator" width='20px' :style="{'background-color': layout.tab.btnColor.hex}"> ‏‏‎ </v-card>
                     <chrome-picker v-model="layout.tab.btnColor" />
                   </v-menu>
-                  <v-text-field v-model="layout.tab.btnColor.hex" label="Cor do botão" required />
+                  <v-text-field v-model="layout.tab.btnColor.hex" :label="$ml.get('scene.creator.dialog.layout.btnColor.title')" required />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+                    <span>{{ $ml.get('scene.creator.dialog.layout.btnColor.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
                 <v-card-actions>
@@ -57,10 +57,10 @@
                     <v-card ripple fab slot="activator" width='20px' :style="{'background-color': layout.tab.btnTextColor.hex}"> ‏‏‎ </v-card>
                     <chrome-picker v-model="layout.tab.btnTextColor" />
                   </v-menu>
-                  <v-text-field v-model="layout.tab.btnTextColor.hex" label="Cor do texto do botão" required />
+                  <v-text-field v-model="layout.tab.btnTextColor.hex" :label="$ml.get('scene.creator.dialog.layout.btnTextColor.title')" required />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+                    <span>{{ $ml.get('scene.creator.dialog.layout.btnTextColor.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
               </v-card-text>
@@ -69,7 +69,7 @@
           <v-flex md6>
             <v-card>
               <v-system-bar>
-                <span>Toolbar</span>
+                <span>{{ $ml.get('scene.creator.dialog.layout.toolbar') }}</span>
               </v-system-bar>
               <v-card-text>
                 <v-card-actions>
@@ -77,10 +77,10 @@
                     <v-card ripple fab slot="activator" width='20px' :style="{'background-color': layout.toolbar.backgroundColor.hex}"> ‏‏‎ </v-card>
                     <chrome-picker v-model="layout.toolbar.backgroundColor" />
                   </v-menu>
-                  <v-text-field v-model="layout.toolbar.backgroundColor.hex" label="Cor de Fundo" required />
+                  <v-text-field v-model="layout.toolbar.backgroundColor.hex" :label="$ml.get('scene.creator.dialog.layout.backgroundColor.title')" required />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.config.smallDescription.help') }}</span>
+                    <span>{{ $ml.get('scene.creator.dialog.layout.backgroundColor.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
                 <v-card-actions>
@@ -88,10 +88,10 @@
                     <v-card ripple fab slot="activator" width='20px' :style="{'background-color': layout.toolbar.btnColor.hex}"> ‏‏‎ </v-card>
                     <chrome-picker v-model="layout.toolbar.btnColor" />
                   </v-menu>
-                  <v-text-field v-model="layout.toolbar.btnColor.hex" label="Cor do botão" required />
+                  <v-text-field v-model="layout.toolbar.btnColor.hex" :label="$ml.get('scene.creator.dialog.layout.btnColor.title')" required />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+                    <span>{{ $ml.get('scene.creator.dialog.layout.btnColor.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
                 <v-card-actions>
@@ -99,10 +99,10 @@
                     <v-card ripple fab slot="activator" width='20px' :style="{'background-color': layout.toolbar.btnTextColor.hex}"> ‏‏‎ </v-card>
                     <chrome-picker v-model="layout.toolbar.btnTextColor" />
                   </v-menu>
-                  <v-text-field v-model="layout.toolbar.btnTextColor.hex" label="Cor do texto do botão" required />
+                  <v-text-field v-model="layout.toolbar.btnTextColor.hex" :label="$ml.get('scene.creator.dialog.layout.btnTextColor.title')" required />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+                    <span>{{ $ml.get('scene.creator.dialog.layout.btnTextColor.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
               </v-card-text>
@@ -110,7 +110,7 @@
             <v-divider />
             <v-card>
               <v-system-bar>
-                <span>Grid</span>
+                <span>{{ $ml.get('scene.creator.dialog.layout.grid') }}</span>
               </v-system-bar>
               <v-card-text>
                 <v-card-actions>
@@ -118,17 +118,17 @@
                     <v-card ripple fab slot="activator" width='20px' :style="{'background-color': layout.grid.backgroundColor.hex}"> ‏‏‎ </v-card>
                     <chrome-picker v-model="layout.grid.backgroundColor" />
                   </v-menu>
-                  <v-text-field v-model="layout.grid.backgroundColor.hex" label="Cor de fundo" required />
+                  <v-text-field v-model="layout.grid.backgroundColor.hex" :label="$ml.get('scene.creator.dialog.layout.backgroundColor.title')" required />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.config.smallDescription.help') }}</span>
+                    <span>{{ $ml.get('scene.creator.dialog.layout.backgroundColor.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
                 <v-card-actions>
-                  <v-text-field v-model="layout.grid.backgroundImage" label="Imagem de Fundo" required />
+                  <v-text-field v-model="layout.grid.backgroundImage" :label="$ml.get('scene.creator.dialog.layout.backgroundImage.title')" required />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.config.smallDescription.help') }}</span>
+                    <span>{{ $ml.get('scene.creator.dialog.layout.backgroundImage.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
                 <v-card-media v-if="layout.grid.backgroundImage" :src="layout.grid.backgroundImage" height="250px" contain />
@@ -139,8 +139,8 @@
       </v-container>
       <v-card-actions>
         <v-spacer />
-        <v-btn @click="layoutDialog = !layoutDialog">{{ $ml.get('scene.creator.dialog.config.close') }}</v-btn>
-        <v-btn color="primary" @click="saveLayout">Salvar</v-btn>
+        <v-btn @click="layoutDialog = !layoutDialog">{{ $ml.get('scene.creator.dialog.layout.close') }}</v-btn>
+        <v-btn color="primary" @click="saveLayout">{{ $ml.get('scene.creator.dialog.layout.save') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

@@ -12,21 +12,21 @@
                 <v-card ripple fab slot="activator" width='20px' :style="{'background-color': informationGrid.style.backgroundColor.hex}"> ‏‏‎ </v-card>
                 <chrome-picker v-model="informationGrid.style.backgroundColor" />
               </v-menu>
-              <v-text-field v-model="informationGrid.style.backgroundColor.hex" label="Cor do card" required />
+              <v-text-field v-model="informationGrid.style.backgroundColor.hex" :label="$ml.get('scene.creator.dialog.informationGrid.color.title')" required />
               <v-tooltip bottom>
                 <v-icon slot="activator">help</v-icon>
-                <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+                <span>{{ $ml.get('scene.creator.dialog.informationGrid.color.help') }}</span>
               </v-tooltip>
-              <v-select :items="getCoins" item-text="name" item-value="ref" v-model="informationGrid.coin" label="Moeda" required />
+              <v-select :items="getCoins" item-text="name" item-value="ref" v-model="informationGrid.coin" :label="$ml.get('scene.creator.dialog.informationGrid.coin.title')" required />
               <v-tooltip bottom>
                 <v-icon slot="activator">help</v-icon>
-                <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+                <span>{{ $ml.get('scene.creator.dialog.informationGrid.coin.help') }}</span>
               </v-tooltip>
             </v-card-actions>
             <vue-ckeditor v-model="informationGrid.text" :config="config" />
             <v-tooltip bottom>
               <v-icon slot="activator">help</v-icon>
-              <span v-html="$ml.get('scene.creator.dialog.informationGrid.help')"/>
+              <span v-html="$ml.get('scene.creator.dialog.informationGrid.ckeditor.help')"/>
             </v-tooltip>
           </v-flex>
         </v-layout>

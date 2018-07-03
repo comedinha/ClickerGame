@@ -269,6 +269,7 @@ const actions = {
         commit('updateSceneId', response.bodyText)
       })
     } else {
+      commit('saveWarning', false)
       commit('updateEditConfigDialog', true)
     }
   },
@@ -281,7 +282,7 @@ const actions = {
   },
 
   setSaveWarning ({ commit }, event) {
-    commit('saveWarning')
+    commit('saveWarning', event)
   },
 
   setEditMode ({ commit }, event) {

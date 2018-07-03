@@ -2,18 +2,18 @@
   <v-dialog v-model="saveWarning" max-width="750px">
     <v-card>
       <v-toolbar dense flat>
-        <v-toolbar-title>Salvar Cenário</v-toolbar-title>
+        <v-toolbar-title>{{ $ml.get('scene.creator.dialog.save.title') }}</v-toolbar-title>
       </v-toolbar>
       <v-card-text>
         <v-alert :value="true" type="info">
-          Você deseja salvar seu cenário?
+          {{ $ml.get('scene.creator.dialog.save.message') }}
         </v-alert>
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn @click="saveWarning = !saveWarning">Cancelar</v-btn>
-        <v-btn color="error" to="/lobby">Sair</v-btn>
-        <v-btn color="primary" @click="saveGame">Salvar</v-btn>
+        <v-btn @click="saveWarning = !saveWarning">{{ $ml.get('scene.creator.dialog.save.cancel') }}</v-btn>
+        <v-btn color="error" to="/lobby">{{ $ml.get('scene.creator.dialog.save.close') }}</v-btn>
+        <v-btn color="primary" @click="saveGame">{{ $ml.get('scene.creator.dialog.save.save') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

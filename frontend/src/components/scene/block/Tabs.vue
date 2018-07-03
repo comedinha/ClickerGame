@@ -10,7 +10,7 @@
       </v-card-actions>
       <v-card-actions v-if="!getEditMode && tab.type === 'item'">
         <v-spacer />
-        <v-btn>1x</v-btn>
+        <v-btn>{{ $ml.with('v', 1).get('scene.block.tabs.x') }}</v-btn>
       </v-card-actions>
       <v-list v-if="tab.type === 'item'" two-line>
         <template v-for="item in tab.items">
@@ -33,19 +33,19 @@
                   <v-btn icon slot="activator" @click="newGridItem(tab, item)">
                     <v-icon>grid_on</v-icon>
                   </v-btn>
-                  <span>{{ $ml.get('scene.block.buyableTabs.addGrid') }}</span>
+                  <span>{{ $ml.get('scene.block.tabs.addGrid') }}</span>
                 </v-tooltip>
                 <v-tooltip bottom>
                   <v-btn icon slot="activator" @click="editItem(tab, item)">
                     <v-icon>settings</v-icon>
                   </v-btn>
-                  <span>{{ $ml.get('scene.block.buyableTabs.settings') }}</span>
+                  <span>{{ $ml.get('scene.block.tabs.settings') }}</span>
                 </v-tooltip>
                 <v-tooltip bottom>
                   <v-btn icon slot="activator" @click="deleteItem(tab, item)">
                     <v-icon>delete</v-icon>
                   </v-btn>
-                  <span>{{ $ml.get('scene.block.buyableTabs.delete') }}</span>
+                  <span>{{ $ml.get('scene.block.tabs.delete') }}</span>
                 </v-tooltip>
               </v-card>
               <span v-if="!getEditMode">{{ totalBuyed(item) }}</span>
@@ -75,13 +75,13 @@
                 <v-btn icon slot="activator" @click="editUpgrade(tab, item)">
                   <v-icon>settings</v-icon>
                 </v-btn>
-                <span>{{ $ml.get('scene.block.buyableTabs.settings') }}</span>
+                <span>{{ $ml.get('scene.block.tabs.settings') }}</span>
               </v-tooltip>
               <v-tooltip bottom>
                 <v-btn icon slot="activator" @click="deleteUpgrade(tab, item)">
                   <v-icon>delete</v-icon>
                 </v-btn>
-                <span>{{ $ml.get('scene.block.buyableTabs.delete') }}</span>
+                <span>{{ $ml.get('scene.block.tabs.delete') }}</span>
               </v-tooltip>
             </v-card-actions>
           </v-card>
@@ -192,7 +192,7 @@ export default {
 
         return math.eval(formula)
       }
-      return 'Price'
+      return this.$ml.get('scene.block.tabs.price')
     },
 
     getPriceSymbol (item) {
@@ -227,7 +227,7 @@ export default {
         return total
       }
 
-      return 'Total Comprado'
+      return this.$ml.get('scene.block.tabs.totalBuyed')
     },
 
     buyUpgrade (tab, item) {

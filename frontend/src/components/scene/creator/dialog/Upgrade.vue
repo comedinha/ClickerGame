@@ -2,7 +2,7 @@
   <v-dialog v-model="addUpgradeDialog" max-width="750px">
     <v-card>
       <v-toolbar dense flat>
-        <v-toolbar-title>{{ $ml.get('scene.creator.dialog.item.title') }}</v-toolbar-title>
+        <v-toolbar-title>{{ $ml.get('scene.creator.dialog.upgrade.title') }}</v-toolbar-title>
       </v-toolbar>
       <v-container fluid grid-list-md>
         <v-layout row>
@@ -10,10 +10,10 @@
             <v-card-media v-if="addUpgrade.image" :src="addUpgrade.image" height="250px" contain />
             <v-card-text>
               <v-card-actions>
-                <v-text-field v-model="addUpgrade.image" :label="$ml.get('scene.creator.dialog.item.image.title')" />
+                <v-text-field v-model="addUpgrade.image" :label="$ml.get('scene.creator.dialog.upgrade.image.title')" />
                 <v-tooltip bottom>
                   <v-icon slot="activator">help</v-icon>
-                  <span>{{ $ml.get('scene.creator.dialog.item.image.help') }}</span>
+                  <span>{{ $ml.get('scene.creator.dialog.upgrade.image.help') }}</span>
                 </v-tooltip>
               </v-card-actions>
             </v-card-text>
@@ -22,56 +22,56 @@
             <v-card>
               <v-card-text>
                 <v-card-actions>
-                  <v-text-field v-model="addUpgrade.title" :label="$ml.get('scene.creator.dialog.item.itemTitle.title')" required />
+                  <v-text-field v-model="addUpgrade.title" :label="$ml.get('scene.creator.dialog.upgrade.upgradeTitle.title')" required />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.item.itemTitle.help') }}</span>
+                    <span>{{ $ml.get('scene.creator.dialog.upgrade.upgradeTitle.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
                 <v-card-actions>
-                  <v-text-field v-model="addUpgrade.description" :label="$ml.get('scene.creator.dialog.item.description.title')" multi-line />
+                  <v-text-field v-model="addUpgrade.description" :label="$ml.get('scene.creator.dialog.upgrade.description.title')" multi-line />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.item.description.help') }}</span>
+                    <span>{{ $ml.get('scene.creator.dialog.upgrade.description.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
                 <v-card-actions>
                   <v-card-actions>
-                    <v-text-field v-model="addUpgrade.price" :label="$ml.get('scene.creator.dialog.item.countPerSecond.title')" />
+                    <v-text-field v-model="addUpgrade.price" :label="$ml.get('scene.creator.dialog.upgrade.price.title')" />
                     <v-tooltip bottom>
                       <v-icon slot="activator">help</v-icon>
-                      <span>{{ $ml.get('scene.creator.dialog.item.countPerSecond.help') }}</span>
+                      <span>{{ $ml.get('scene.creator.dialog.upgrade.price.help') }}</span>
                     </v-tooltip>
                   </v-card-actions>
                   <v-card-actions>
-                    <v-select :items="getCoins" item-text="name" item-value="ref" v-model="addUpgrade.coin" :label="$ml.get('scene.creator.dialog.item.coin.title')" required />
+                    <v-select :items="getCoins" item-text="name" item-value="ref" v-model="addUpgrade.coin" :label="$ml.get('scene.creator.dialog.upgrade.coin.title')" required />
                     <v-tooltip bottom>
                       <v-icon slot="activator">help</v-icon>
-                      <span>{{ $ml.get('scene.creator.dialog.item.coin.help') }}</span>
+                      <span>{{ $ml.get('scene.creator.dialog.upgrade.coin.help') }}</span>
                     </v-tooltip>
                   </v-card-actions>
                 </v-card-actions>
                 <v-card-actions>
                   <v-card-actions>
-                    <v-select :items="roles" item-text="text" item-value="type" v-model="addUpgrade.type" :label="$ml.get('scene.creator.dialog.item.coin.title')" required />
+                    <v-select :items="roles" item-text="text" item-value="type" v-model="addUpgrade.type" :label="$ml.get('scene.creator.dialog.upgrade.type.title')" required />
                     <v-tooltip bottom>
                       <v-icon slot="activator">help</v-icon>
-                      <span>{{ $ml.get('scene.creator.dialog.item.countPerSecond.help') }}</span>
+                      <span>{{ $ml.get('scene.creator.dialog.upgrade.type.help') }}</span>
                     </v-tooltip>
                   </v-card-actions>
                   <v-card-actions v-if="addUpgrade.type === 'item'">
-                    <v-select :items="getWorldItems" item-text="text" item-value="item" v-model="addUpgrade.item" :label="$ml.get('scene.creator.dialog.item.coin.title')" required />
+                    <v-select :items="getWorldItems" item-text="text" item-value="item" v-model="addUpgrade.item" :label="$ml.get('scene.creator.dialog.upgrade.item.title')" required />
                     <v-tooltip bottom>
                       <v-icon slot="activator">help</v-icon>
-                      <span>{{ $ml.get('scene.creator.dialog.item.coin.help') }}</span>
+                      <span>{{ $ml.get('scene.creator.dialog.upgrade.item.help') }}</span>
                     </v-tooltip>
                   </v-card-actions>
                 </v-card-actions>
                 <v-card-actions>
-                  <v-text-field v-model="addUpgrade.formula" :label="$ml.get('scene.creator.dialog.item.formula.title')" required />
+                  <v-text-field v-model="addUpgrade.formula" :label="$ml.get('scene.creator.dialog.upgrade.formula.title')" required />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
-                    <span>{{ $ml.get('scene.creator.dialog.item.formula.help') }}</span>
+                    <span>{{ $ml.get('scene.creator.dialog.upgrade.formula.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
               </v-card-text>
@@ -81,8 +81,8 @@
       </v-container>
       <v-card-actions>
         <v-spacer />
-        <v-btn @click="addUpgradeDialog = !addUpgradeDialog">{{ $ml.get('scene.creator.dialog.item.close') }}</v-btn>
-        <v-btn color="primary" @click="addUpgradeTab">{{ $ml.get('scene.creator.dialog.item.save') }}</v-btn>
+        <v-btn @click="addUpgradeDialog = !addUpgradeDialog">{{ $ml.get('scene.creator.dialog.upgrade.close') }}</v-btn>
+        <v-btn color="primary" @click="addUpgradeTab">{{ $ml.get('scene.creator.dialog.upgrade.save') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

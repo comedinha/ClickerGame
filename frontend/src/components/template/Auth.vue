@@ -17,7 +17,7 @@
           <v-flex xs12 sm8 md5>
             <v-card class="layout-revert elevation-12">
               <v-toolbar>
-                <v-toolbar-title><img height="60px" src="./../../assets/logo.png"></v-toolbar-title>
+                <v-toolbar-title><img height="55px" src="./../../assets/logo.png"></v-toolbar-title>
                 <v-spacer />
                 <v-toolbar-items>
                   <v-btn block flat color="primary" to="Signin">{{ $ml.get('auth.signin.title') }}</v-btn>

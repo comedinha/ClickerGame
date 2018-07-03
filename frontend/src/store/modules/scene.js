@@ -1,4 +1,5 @@
 import Vue from 'vue'
+import * as math from 'mathjs'
 
 const state = {
   sceneId: '',
@@ -51,6 +52,7 @@ const state = {
   addItem: {},
 
   addUpgradeDialog: false,
+  newUpgrade: false,
   addUpgrade: {},
 
   playId: '',
@@ -168,8 +170,31 @@ const getters = {
 
   getPlayCoins: state => state.play.coins,
   getPlayBuyedItems: state => state.play.buyedItems,
+  getPlayBuyedUpgrades: state => state.play.buyedUpgrades,
 
-  getPlayAutomaticValue: state => state.playAutomaticValue
+  getPlayAutomaticValue: state => state.playAutomaticValue,
+
+  getWorldItems: state => {
+    let listItems = []
+    if (state.creatorVision === true) {
+      let getWorldItems = state.world[state.currentWorld].tabs.filter(obj => {
+        return obj.type === 'item'
+      })
+
+      for (let i = 0; i < getWorldItems.length; i++) {
+        for (let j = 0; j < getWorldItems[i].items.length; j++) {
+          let newItem = {
+            item: getWorldItems[i].items[j].ref,
+            text: getWorldItems[i].items[j].title
+          }
+
+          listItems.push(newItem)
+        }
+      }
+    }
+
+    return listItems
+  }
 }
 
 // actions
@@ -369,8 +394,24 @@ const actions = {
     commit('updateUpgradeDialog', event)
   },
 
-  addUpgrade ({ commit }, item) {
-    commit('updateAddUpgrade', item)
+  setAddUpgradeDialogNewItem ({ commit }, message) {
+    commit('updateAddUpgradeDialogNewItem', message)
+  },
+
+  addUpgrade ({ commit }, message) {
+    commit('updateAddUpgrade', message)
+  },
+
+  addUpgradeTab ({ commit }) {
+    commit('addUpgradeTab')
+  },
+
+  editUpgrade ({ commit }, message) {
+    commit('updateEditUpgrade', message)
+  },
+
+  deleteUpgrade ({ commit }, message) {
+    commit('updateDeleteUpgrade', message)
   },
 
   addClick ({ commit }, item) {
@@ -379,6 +420,10 @@ const actions = {
 
   buyTabItem ({ commit }, message) {
     commit('updateBuyTabItem', message)
+  },
+
+  buyTabUpgrade ({ commit }, message) {
+    commit('updateBuyTabUpgrade', message)
   }
 }
 
@@ -468,13 +513,13 @@ const mutations = {
         title: 'Image Test',
         image: 'https://media.giphy.com/media/14chvzoFjnDBGE/giphy.gif',
         description: 'Descrição de teste',
-        countPerSecond: 1,
+        countPerSecond: 100,
         coin: {
           ref: state.coins[0].ref
         },
-        startCount: 0,
+        startCount: 1,
         basePrice: 1,
-        formula: '',
+        formula: '{tb} * {bp}',
         gridsCount: 0,
         grids: []
       }
@@ -491,8 +536,8 @@ const mutations = {
           ref: state.coins[0].ref
         },
         startCount: 0,
-        basePrice: 1,
-        formula: '',
+        basePrice: 5,
+        formula: '{tb} * {bp}',
         gridsCount: 0,
         grids: []
       }
@@ -503,14 +548,25 @@ const mutations = {
         refTab: 'Tab ' + state.world[state.currentWorld].tabCount,
         refItem: 'Item ' + state.world[state.currentWorld].tabCount++,
         title: 'Upgrades',
+        itemsCount: 0,
         items: []
       }
       state.world[state.currentWorld].tabs.push(tabUpgrade)
 
+      const indexFirstItem = state.world[state.currentWorld].tabs[indexTabItem].items.indexOf(firstItem)
       const indexTabUpgrade = state.world[state.currentWorld].tabs.indexOf(tabUpgrade)
       let firstUpgrade = {
+        ref: 'Upgrade ' + state.world[state.currentWorld].tabs[indexTabUpgrade].itemsCount++,
         title: 'Upgrade',
+        description: 'Upgrade Test',
+        type: 'item',
+        tab: state.world[state.currentWorld].tabs[indexTabItem].refTab,
+        item: state.world[state.currentWorld].tabs[indexTabItem].items[indexFirstItem].ref,
         price: '100',
+        formula: '{v} * 2',
+        coin: {
+          ref: state.coins[0].ref
+        },
         image: 'https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Stick_Figure.svg/170px-Stick_Figure.svg.png'
       }
       state.world[state.currentWorld].tabs[indexTabUpgrade].items.push(firstUpgrade)
@@ -521,6 +577,7 @@ const mutations = {
           backgroundColor: {},
           borderRadius: '100%'
         },
+        clickValue: 1,
         coin: {
           ref: state.coins[0].ref
         }
@@ -573,7 +630,8 @@ const mutations = {
     let firstPlay = {
       clickCount: 0,
       coins: [],
-      buyedItems: []
+      buyedItems: [],
+      buyedUpgrades: []
     }
     state.play = firstPlay
 
@@ -584,6 +642,32 @@ const mutations = {
       }
 
       state.play.coins.push(firstCoins)
+    }
+
+    let resultTab = state.world[state.currentWorld].tabs.filter(obj => {
+      return obj.type === 'item'
+    })
+
+    for (let i = 0; i < resultTab.length; i++) {
+      for (let j = 0; j < resultTab[i].items.length; j++) {
+        if (resultTab[i].items[j].startCount > 0) {
+          let newBuy = {
+            ref: resultTab[i].items[j].ref,
+            count: resultTab[i].items[j].startCount
+          }
+
+          state.play.buyedItems.push(newBuy)
+
+          for (let k = 0; k < resultTab[i].items[j].startCount; k++) {
+            let automatic = {
+              tab: resultTab[i].refTab,
+              item: resultTab[i].items[j].ref
+            }
+
+            state.playAutomatic.push(automatic)
+          }
+        }
+      }
     }
   },
 
@@ -947,7 +1031,6 @@ const mutations = {
 
   deleteItem (state, message) {
     if (state.creatorVision === true) {
-      // Comentário: Falta deletar upgrade se tiver...
       const { tab, item } = message
 
       var result = state.world[state.currentWorld].gridContent.find(gridItem => gridItem.item === item.ref)
@@ -956,6 +1039,20 @@ const mutations = {
         state.world[state.currentWorld].gridContent.splice(indexGrid, 1)
 
         result = state.world[state.currentWorld].gridContent.find(gridItem => gridItem.item === item.ref)
+      }
+
+      let getWorldItems = state.world[state.currentWorld].tabs.filter(obj => {
+        return obj.type === 'upgrade'
+      })
+
+      for (let i = 0; i < getWorldItems.length; i++) {
+        for (let j = (getWorldItems[i].items.length - 1); j >= 0; j--) {
+          if (getWorldItems[i].items[j].itemRef) {
+            if (getWorldItems[i].items[j].itemRef.item) {
+              getWorldItems[i].items.splice(j, 1)
+            }
+          }
+        }
       }
 
       const indexItem = tab.items.indexOf(item)
@@ -992,13 +1089,69 @@ const mutations = {
 
   updateUpgradeDialog (state, event) {
     if (state.creatorVision === true) {
+      if (!event) {
+        state.newUpgrade = false
+      }
+
       state.addUpgradeDialog = event
     }
   },
 
-  updateAddUpgrade (state, item) {
+  updateAddUpgradeDialogNewItem (state, message) {
     if (state.creatorVision === true) {
-      state.addUpgrade = item
+      state.newUpgrade = message
+    }
+  },
+
+  updateAddUpgrade (state, message) {
+    if (state.creatorVision === true) {
+      const { tab } = message
+
+      state.currentTab = tab
+      state.addUpgrade = {}
+    }
+  },
+
+  addUpgradeTab (state) {
+    if (state.creatorVision === true) {
+      if (state.newUpgrade) {
+        let count = state.currentTab.itemsCount++
+        state.addUpgrade.ref = 'Ref ' + count
+        state.addUpgrade.tab = state.currentTab.refTab
+
+        state.currentTab.items.push(state.addUpgrade)
+      } else {
+        let result = state.currentTab.items.filter(obj => {
+          return obj.ref === state.addUpgrade.ref
+        })
+
+        let indexItem = state.currentTab.items.indexOf(result[0])
+        Vue.set(state.currentTab.items, indexItem, state.addUpgrade)
+      }
+
+      state.addUpgrade = {}
+      state.currentTab = {}
+      state.newUpgrade = false
+      state.addUpgradeDialog = false
+      state.saved = false
+    }
+  },
+
+  updateEditUpgrade (state, message) {
+    if (state.creatorVision === true) {
+      const { tab, item } = message
+
+      state.currentTab = tab
+      state.addUpgrade = JSON.parse(JSON.stringify(item))
+    }
+  },
+
+  updateDeleteUpgrade (state, message) {
+    if (state.creatorVision === true) {
+      const { tab, item } = message
+
+      let indexOfItem = tab.items.indexOf(item)
+      tab.items.splice(indexOfItem, 1)
     }
   },
 
@@ -1008,6 +1161,7 @@ const mutations = {
         return obj.ref === item.ref
       })
 
+      let clickValue = result[0].clickValue
       let coinResult = state.coins.filter(obj => {
         return obj.ref === result[0].coin.ref
       })
@@ -1019,28 +1173,64 @@ const mutations = {
       state.play.clickCount++
 
       let indexOfCoin = state.play.coins.indexOf(actualCoin[0])
-      state.play.coins[indexOfCoin].count++
+      if (indexOfCoin !== -1) {
+        let getBuyedAll = state.play.buyedUpgrades.filter(obj => {
+          return obj.type === 'GPC'
+        })
+
+        for (let i = 0; i < getBuyedAll.length; i++) {
+          let formula = getBuyedAll[i].formula
+          formula = formula.replace(/{v}/g, clickValue)
+
+          clickValue = math.eval(formula)
+        }
+
+        state.play.coins[indexOfCoin].count += clickValue
+      }
     }
   },
 
   updateBuyTabItem (state, message) {
-    // Comentário: Verificar valor atual e remover valor.
-
     const { tab, item } = message
     if (state.creatorVision === false) {
+      let formula = item.formula
+      let totalBuy = 1
+
       let getBuyed = state.play.buyedItems.filter(obj => {
         return obj.ref === item.ref
       })
 
-      if (!getBuyed[0]) {
-        let newBuy = {
-          ref: item.ref,
-          count: 1
-        }
+      let getCoin = state.play.coins.filter(obj => {
+        return obj.ref === item.coin.ref
+      })
 
-        state.play.buyedItems.push(newBuy)
+      if (!getBuyed[0]) {
+        formula = formula
+          .replace(/{tb}/g, totalBuy)
+          .replace(/{bp}/g, item.basePrice)
+
+        if (getCoin[0].count >= math.eval(formula)) {
+          let newBuy = {
+            ref: item.ref,
+            count: totalBuy
+          }
+
+          state.play.buyedItems.push(newBuy)
+
+          let indexOfCoin = state.play.coins.indexOf(getCoin[0])
+          state.play.coins[indexOfCoin].count -= math.eval(formula)
+        }
       } else {
-        getBuyed[0].count++
+        formula = formula
+          .replace(/{tb}/g, getBuyed[0].count)
+          .replace(/{bp}/g, item.basePrice)
+
+        if (getCoin[0].count >= math.eval(formula)) {
+          getBuyed[0].count += totalBuy
+
+          let indexOfCoin = state.play.coins.indexOf(getCoin[0])
+          state.play.coins[indexOfCoin].count -= math.eval(formula)
+        }
       }
 
       let automatic = {
@@ -1063,12 +1253,78 @@ const mutations = {
         return obj.ref === state.playAutomatic[i].item
       })
 
+      let tabUpgrades = state.world[state.currentWorld].tabs.filter(obj => {
+        return obj.type === 'upgrade'
+      })
+
+      let getUpgrades = []
+      for (let i = 0; i < tabUpgrades.length; i++) {
+        for (let j = 0; j < tabUpgrades[i].items.length; j++) {
+          let getBuyed = state.play.buyedUpgrades.filter(obj => {
+            return obj.item === tabUpgrades[i].items[j].item && obj.tab === tabUpgrades[i].items[j].tab
+          })
+
+          if (getBuyed.length !== 0) {
+            getUpgrades.push(tabUpgrades[i].items[j])
+          }
+        }
+      }
+
+      let perSecond = resultItem[0].countPerSecond
+      for (let i = 0; i < getUpgrades.length; i++) {
+        let formula = getUpgrades[i].formula
+        formula = formula.replace(/{v}/g, perSecond)
+
+        perSecond = math.eval(formula)
+      }
+
       let getCoin = state.play.coins.filter(obj => {
         return obj.ref === resultItem[0].coin.ref
       })
 
-      getCoin[0].count += resultItem[0].countPerSecond
-      state.playAutomaticValue += resultItem[0].countPerSecond
+      if (getCoin[0]) {
+        let getBuyedAll = state.play.buyedUpgrades.filter(obj => {
+          return obj.type === 'GPS'
+        })
+
+        for (let i = 0; i < getBuyedAll.length; i++) {
+          let formula = getBuyedAll[i].formula
+          formula = formula.replace(/{v}/g, perSecond)
+
+          perSecond = math.eval(formula)
+        }
+
+        getCoin[0].count += perSecond
+        state.playAutomaticValue += perSecond
+      }
+    }
+  },
+
+  updateBuyTabUpgrade (state, item) {
+    if (state.creatorVision === false) {
+      let price = item.price
+
+      let getBuyed = state.play.buyedUpgrades.filter(obj => {
+        return obj.item === item.item && obj.tab === item.tab
+      })
+
+      let getCoin = state.play.coins.filter(obj => {
+        return obj.ref === item.coin.ref
+      })
+
+      if (!getBuyed[0]) {
+        if (getCoin[0].count >= price) {
+          let newBuy = {
+            item: item.item,
+            tab: item.tab
+          }
+
+          state.play.buyedUpgrades.push(newBuy)
+
+          let indexOfCoin = state.play.coins.indexOf(getCoin[0])
+          state.play.coins[indexOfCoin].count -= price
+        }
+      }
     }
   }
 }

@@ -3,8 +3,6 @@
     <v-card>
       <v-toolbar dense flat>
         <v-toolbar-title>{{ $ml.get('scene.creator.dialog.item.title') }}</v-toolbar-title>
-        <v-spacer />
-        <v-btn disabled>{{ $ml.get('scene.creator.dialog.item.advanced') }}</v-btn>
       </v-toolbar>
       <v-container fluid grid-list-md>
         <v-layout row>

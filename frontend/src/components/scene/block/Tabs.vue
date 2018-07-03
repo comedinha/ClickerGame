@@ -5,7 +5,8 @@
     </v-tab>
     <v-tab-item class="scroll-y" style="max-height: 82vh" v-for="tab in getTabs" :key="tab.refItem">
       <v-card-actions v-if="getEditMode">
-        <v-btn block @click="addItem(tab)">+</v-btn>
+        <v-btn block v-if="tab.type === 'item'" @click="addItem(tab)">+</v-btn>
+        <v-btn block v-if="tab.type === 'upgrade'" @click="addUpgrade(tab)">+</v-btn>
       </v-card-actions>
       <v-card-actions v-if="!getEditMode && tab.type === 'item'">
         <v-spacer />
@@ -14,7 +15,7 @@
       <v-list v-if="tab.type === 'item'" two-line>
         <template v-for="item in tab.items">
           <v-divider :key="item.divRef" />
-          <v-list-tile :key="item.ref" avatar @click.native="buyItem(tab, item)">
+          <v-list-tile :key="item.ref" :disabled="canBuy(item)" avatar @click.native="buyItem(tab, item)">
             <v-list-tile-avatar v-if="item.image">
               <img :src="item.image" />
             </v-list-tile-avatar>
@@ -24,7 +25,7 @@
                 <span>{{ item.description }}</span>
               </v-tooltip>
               <v-list-tile-title v-if="!item.description">{{ item.title }}</v-list-tile-title>
-              <v-list-tile-sub-title v-if="!getCreatorVision">{{ calculePrice(item) }}</v-list-tile-sub-title>
+              <v-list-tile-sub-title v-if="!getEditMode">{{ getPriceSymbol(item) + ' ' + calculePrice(item) }}</v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action>
               <v-card flat v-if="getEditMode">
@@ -47,8 +48,7 @@
                   <span>{{ $ml.get('scene.block.buyableTabs.delete') }}</span>
                 </v-tooltip>
               </v-card>
-              <span v-if="getCreatorVision && !getEditMode">Price</span>
-              <span v-if="!getCreatorVision">{{ totalBuyed(item) }}</span>
+              <span v-if="!getEditMode">{{ totalBuyed(item) }}</span>
             </v-list-tile-action>
           </v-list-tile>
         </template>
@@ -56,19 +56,29 @@
       </v-list>
       <v-container v-if="tab.type === 'upgrade'" fluid grid-list-md>
         <v-layout row wrap>
-        <v-flex v-for="item in tab.items" :key="item.ref" md3>
+        <v-flex v-for="item in tab.items" :key="item.ref" md3 v-if="getBuyedUpgrade(tab, item)">
           <v-card>
-            <img height="50" width="100" :src="item.image" />
-            <v-btn v-if="!getEditMode">{{ item.price }}</v-btn>
+            <v-system-bar>
+              <span>{{ item.title }}</span>
+            </v-system-bar>
+            <v-tooltip bottom v-if="item.description && item.image">
+              <img height="50" width="100" slot="activator" :src="item.image" />
+              <span>{{ item.description }}</span>
+            </v-tooltip>
+            <img v-if="!item.description && item.image" height="50" width="100" :src="item.image" />
+            <v-card-text v-if="!item.image">
+              {{ item.description }}
+            </v-card-text>
+            <v-btn v-if="!getEditMode" @click="buyUpgrade(tab, item)">{{ getPriceSymbol(item) + ' ' + item.price }}</v-btn>
             <v-card-actions v-if="getEditMode">
               <v-tooltip bottom>
-                <v-btn icon slot="activator">
+                <v-btn icon slot="activator" @click="editUpgrade(tab, item)">
                   <v-icon>settings</v-icon>
                 </v-btn>
                 <span>{{ $ml.get('scene.block.buyableTabs.settings') }}</span>
               </v-tooltip>
               <v-tooltip bottom>
-                <v-btn icon slot="activator">
+                <v-btn icon slot="activator" @click="deleteUpgrade(tab, item)">
                   <v-icon>delete</v-icon>
                 </v-btn>
                 <span>{{ $ml.get('scene.block.buyableTabs.delete') }}</span>
@@ -83,6 +93,7 @@
 </template>
 
 <script>
+import * as math from 'mathjs'
 import { mapGetters } from 'vuex'
 
 export default {
@@ -102,7 +113,10 @@ export default {
       'getTabs',
       'getAddItemDialog',
       'getTabLayout',
-      'getPlayBuyedItems'
+      'getPlayBuyedItems',
+      'getPlayCoins',
+      'getPlayBuyedUpgrades',
+      'getCoins'
     ])
   },
   watch: {
@@ -155,24 +169,83 @@ export default {
   },
   methods: {
     buyItem (tab, item) {
-      this.$store.dispatch('buyTabItem', { tab, item })
+      if (this.getCreatorVision === false) {
+        this.$store.dispatch('buyTabItem', { tab, item })
+      }
     },
 
     calculePrice (item) {
-      return 1
+      if (this.getCreatorVision === false) {
+        let totalBuyed = 0
+        let formula = item.formula
+        let getBuyed = this.getPlayBuyedItems.filter(obj => {
+          return obj.ref === item.ref
+        })
+
+        if (getBuyed[0]) {
+          totalBuyed = getBuyed[0].count
+        }
+
+        formula = formula
+          .replace(/{tb}/g, totalBuyed)
+          .replace(/{bp}/g, item.basePrice)
+
+        return math.eval(formula)
+      }
+      return 'Price'
+    },
+
+    getPriceSymbol (item) {
+      let getCoin = this.getCoins.filter(obj => {
+        return obj.ref === item.coin.ref
+      })
+
+      return getCoin[0].symbol
+    },
+
+    canBuy (item) {
+      if (this.getCreatorVision === false) {
+        let getCoin = this.getPlayCoins.filter(obj => {
+          return obj.ref === item.coin.ref
+        })
+
+        return !!(getCoin[0].count < this.calculePrice(item))
+      }
     },
 
     totalBuyed (item) {
-      let total = 0
-      let getBuyed = this.getPlayBuyedItems.filter(obj => {
-        return obj.ref === item.ref
-      })
+      if (this.getCreatorVision === false) {
+        let total = 0
+        let getBuyed = this.getPlayBuyedItems.filter(obj => {
+          return obj.ref === item.ref
+        })
 
-      if (getBuyed[0]) {
-        total = getBuyed[0].count
+        if (getBuyed[0]) {
+          total = getBuyed[0].count
+        }
+
+        return total
       }
 
-      return total
+      return 'Total Comprado'
+    },
+
+    buyUpgrade (tab, item) {
+      if (this.getCreatorVision === false) {
+        this.$store.dispatch('buyTabUpgrade', item)
+      }
+    },
+
+    getBuyedUpgrade (tab, item) {
+      if (this.getCreatorVision === false) {
+        let getBuyed = this.getPlayBuyedUpgrades.filter(obj => {
+          return obj.item === item.item && obj.tab === item.tab
+        })
+
+        return getBuyed.length === 0
+      }
+
+      return true
     },
 
     newGridItem (tab, item) {
@@ -192,6 +265,21 @@ export default {
 
     deleteItem (tab, item) {
       this.$store.dispatch('deleteItem', { tab, item })
+    },
+
+    addUpgrade (tab) {
+      this.$store.dispatch('setAddUpgradeDialog', !this.getAddUpgradeDialog)
+      this.$store.dispatch('setAddUpgradeDialogNewItem', true)
+      this.$store.dispatch('addUpgrade', { tab })
+    },
+
+    editUpgrade (tab, item) {
+      this.$store.dispatch('setAddUpgradeDialog', !this.getAddUpgradeDialog)
+      this.$store.dispatch('editUpgrade', { tab, item })
+    },
+
+    deleteUpgrade (tab, item) {
+      this.$store.dispatch('deleteUpgrade', { tab, item })
     }
   }
 }

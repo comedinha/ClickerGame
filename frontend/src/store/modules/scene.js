@@ -52,6 +52,7 @@ const state = {
   addItem: {},
 
   addUpgradeDialog: false,
+  newUpgrade: false,
   addUpgrade: {},
 
   playId: '',
@@ -170,7 +171,32 @@ const getters = {
   getPlayCoins: state => state.play.coins,
   getPlayBuyedItems: state => state.play.buyedItems,
 
-  getPlayAutomaticValue: state => state.playAutomaticValue
+  getPlayAutomaticValue: state => state.playAutomaticValue,
+
+  getWorldItems: state => {
+    let listItems = []
+    if (state.creatorVision === true) {
+      let getWorldItems = state.world[state.currentWorld].tabs.filter(obj => {
+        return obj.type === 'item'
+      })
+
+      for (let i = 0; i < getWorldItems.length; i++) {
+        for (let j = 0; j < getWorldItems[i].items.length; j++) {
+          let newItem = {
+            itemRef: {
+              tab: getWorldItems[i].refTab,
+              item: getWorldItems[i].items[j].ref
+            },
+            text: getWorldItems[i].items[j].title
+          }
+
+          listItems.push(newItem)
+        }
+      }
+    }
+
+    return listItems
+  }
 }
 
 // actions
@@ -370,8 +396,24 @@ const actions = {
     commit('updateUpgradeDialog', event)
   },
 
-  addUpgrade ({ commit }, item) {
-    commit('updateAddUpgrade', item)
+  setAddUpgradeDialogNewItem ({ commit }, message) {
+    commit('updateAddUpgradeDialogNewItem', message)
+  },
+
+  addUpgrade ({ commit }, message) {
+    commit('updateAddUpgrade', message)
+  },
+
+  addUpgradeTab ({ commit }) {
+    commit('addUpgradeTab')
+  },
+
+  editUpgrade ({ commit }, message) {
+    commit('updateEditUpgrade', message)
+  },
+
+  deleteUpgrade ({ commit }, message) {
+    commit('updateDeleteUpgrade', message)
   },
 
   addClick ({ commit }, item) {
@@ -504,6 +546,7 @@ const mutations = {
         refTab: 'Tab ' + state.world[state.currentWorld].tabCount,
         refItem: 'Item ' + state.world[state.currentWorld].tabCount++,
         title: 'Upgrades',
+        itemsCount: 0,
         items: []
       }
       state.world[state.currentWorld].tabs.push(tabUpgrade)
@@ -948,7 +991,6 @@ const mutations = {
 
   deleteItem (state, message) {
     if (state.creatorVision === true) {
-      // Comentário: Falta deletar upgrade se tiver...
       const { tab, item } = message
 
       var result = state.world[state.currentWorld].gridContent.find(gridItem => gridItem.item === item.ref)
@@ -957,6 +999,20 @@ const mutations = {
         state.world[state.currentWorld].gridContent.splice(indexGrid, 1)
 
         result = state.world[state.currentWorld].gridContent.find(gridItem => gridItem.item === item.ref)
+      }
+
+      let getWorldItems = state.world[state.currentWorld].tabs.filter(obj => {
+        return obj.type === 'upgrade'
+      })
+
+      for (let i = 0; i < getWorldItems.length; i++) {
+        for (let j = (getWorldItems[i].items.length - 1); j >= 0; j--) {
+          if (getWorldItems[i].items[j].itemRef) {
+            if (getWorldItems[i].items[j].itemRef.item) {
+              getWorldItems[i].items.splice(j, 1)
+            }
+          }
+        }
       }
 
       const indexItem = tab.items.indexOf(item)
@@ -993,13 +1049,68 @@ const mutations = {
 
   updateUpgradeDialog (state, event) {
     if (state.creatorVision === true) {
+      if (!event) {
+        state.newUpgrade = false
+      }
+
       state.addUpgradeDialog = event
     }
   },
 
-  updateAddUpgrade (state, item) {
+  updateAddUpgradeDialogNewItem (state, message) {
     if (state.creatorVision === true) {
-      state.addUpgrade = item
+      state.newUpgrade = message
+    }
+  },
+
+  updateAddUpgrade (state, message) {
+    if (state.creatorVision === true) {
+      const { tab } = message
+
+      state.currentTab = tab
+      state.addUpgrade = {}
+    }
+  },
+
+  addUpgradeTab (state) {
+    if (state.creatorVision === true) {
+      if (state.newUpgrade) {
+        let count = state.currentTab.itemsCount++
+        state.addUpgrade.ref = 'Ref ' + count
+
+        state.currentTab.items.push(state.addUpgrade)
+      } else {
+        let result = state.currentTab.items.filter(obj => {
+          return obj.ref === state.addUpgrade.ref
+        })
+
+        let indexItem = state.currentTab.items.indexOf(result[0])
+        Vue.set(state.currentTab.items, indexItem, state.addUpgrade)
+      }
+
+      state.addUpgrade = {}
+      state.currentTab = {}
+      state.newUpgrade = false
+      state.addUpgradeDialog = false
+      state.saved = false
+    }
+  },
+
+  updateEditUpgrade (state, message) {
+    if (state.creatorVision === true) {
+      const { tab, item } = message
+
+      state.currentTab = tab
+      state.addUpgrade = JSON.parse(JSON.stringify(item))
+    }
+  },
+
+  updateDeleteUpgrade (state, message) {
+    if (state.creatorVision === true) {
+      const { tab, item } = message
+
+      let indexOfItem = tab.items.indexOf(item)
+      tab.items.splice(indexOfItem, 1)
     }
   },
 

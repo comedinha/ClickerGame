@@ -379,7 +379,6 @@ export default {
 
         item: {
           title: 'Adicionar Item',
-          advanced: 'Avançado',
 
           image: {
             title: 'Imagem',

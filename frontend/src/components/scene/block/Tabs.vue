@@ -5,7 +5,8 @@
     </v-tab>
     <v-tab-item class="scroll-y" style="max-height: 82vh" v-for="tab in getTabs" :key="tab.refItem">
       <v-card-actions v-if="getEditMode">
-        <v-btn block @click="addItem(tab)">+</v-btn>
+        <v-btn block v-if="tab.type === 'item'" @click="addItem(tab)">+</v-btn>
+        <v-btn block v-if="tab.type === 'upgrade'" @click="addUpgrade(tab)">+</v-btn>
       </v-card-actions>
       <v-card-actions v-if="!getEditMode && tab.type === 'item'">
         <v-spacer />
@@ -61,13 +62,13 @@
             <v-btn v-if="!getEditMode">{{ item.price }}</v-btn>
             <v-card-actions v-if="getEditMode">
               <v-tooltip bottom>
-                <v-btn icon slot="activator">
+                <v-btn icon slot="activator" @click="editUpgrade(tab, item)">
                   <v-icon>settings</v-icon>
                 </v-btn>
                 <span>{{ $ml.get('scene.block.buyableTabs.settings') }}</span>
               </v-tooltip>
               <v-tooltip bottom>
-                <v-btn icon slot="activator">
+                <v-btn icon slot="activator" @click="deleteUpgrade(tab, item)">
                   <v-icon>delete</v-icon>
                 </v-btn>
                 <span>{{ $ml.get('scene.block.buyableTabs.delete') }}</span>
@@ -226,6 +227,21 @@ export default {
 
     deleteItem (tab, item) {
       this.$store.dispatch('deleteItem', { tab, item })
+    },
+
+    addUpgrade (tab) {
+      this.$store.dispatch('setAddUpgradeDialog', !this.getAddUpgradeDialog)
+      this.$store.dispatch('setAddUpgradeDialogNewItem', true)
+      this.$store.dispatch('addUpgrade', { tab })
+    },
+
+    editUpgrade (tab, item) {
+      this.$store.dispatch('setAddUpgradeDialog', !this.getAddUpgradeDialog)
+      this.$store.dispatch('editUpgrade', { tab, item })
+    },
+
+    deleteUpgrade (tab, item) {
+      this.$store.dispatch('deleteUpgrade', { tab, item })
     }
   }
 }

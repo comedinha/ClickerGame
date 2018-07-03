@@ -7,6 +7,22 @@
       <v-container fluid grid-list-md>
         <v-layout row>
           <v-flex md12>
+            <v-card-actions>
+              <v-menu>
+                <v-card ripple fab slot="activator" width='20px' :style="{'background-color': informationGrid.style.backgroundColor.hex}"> ‏‏‎ </v-card>
+                <chrome-picker v-model="informationGrid.style.backgroundColor" />
+              </v-menu>
+              <v-text-field v-model="informationGrid.style.backgroundColor.hex" label="Cor do card" required />
+              <v-tooltip bottom>
+                <v-icon slot="activator">help</v-icon>
+                <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+              </v-tooltip>
+              <v-select :items="getCoins" item-text="name" item-value="ref" v-model="informationGrid.coin" label="Moeda" required />
+              <v-tooltip bottom>
+                <v-icon slot="activator">help</v-icon>
+                <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
+              </v-tooltip>
+            </v-card-actions>
             <vue-ckeditor v-model="informationGrid.text" :config="config" />
             <v-tooltip bottom>
               <v-icon slot="activator">help</v-icon>
@@ -25,7 +41,8 @@
 </template>
 
 <script>
-import CKEditor from '@/components/template/dialog/CKEditor'
+import { mapGetters } from 'vuex'
+import { Chrome } from 'vue-color'
 
 export default {
   data () {
@@ -44,9 +61,13 @@ export default {
     }
   },
   components: {
-    CKEditor
+    'chrome-picker': Chrome
   },
   computed: {
+    ...mapGetters([
+      'getCoins'
+    ]),
+
     informationGrid: {
       get () {
         return this.$store.getters.getInformationGrid

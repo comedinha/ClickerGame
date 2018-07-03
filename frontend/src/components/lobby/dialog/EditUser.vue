@@ -11,7 +11,7 @@
         <v-card-text>
           <v-card-actions>
             <v-text-field prepend-icon="person" v-model="editUserInfo.name" :error-messages="nameErrors" :label="$ml.get('lobby.dialog.editUser.name.title')" @input="$v.editUserInfo.name.$touch()" @blur="$v.editUserInfo.name.$touch()" />
-            <v-select :items="roles" item-text="text" item-value="id" v-model="editUserInfo.role" overflow :label="$ml.get('lobby.dialog.editUser.select')" />
+            <v-select :items="roles" item-text="text" item-value="id" v-model="editUserInfo.role" :label="$ml.get('lobby.dialog.editUser.select')" />
           </v-card-actions>
           <v-text-field prepend-icon="email" v-model="editUserInfo.email" :error-messages="emailErrors" :label="$ml.get('lobby.dialog.editUser.email.title')" @input="$v.editUserInfo.email.$touch()" @blur="$v.editUserInfo.email.$touch()" />
           <v-card-actions>

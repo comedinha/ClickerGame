@@ -517,7 +517,7 @@ const mutations = {
         coin: {
           ref: state.coins[0].ref
         },
-        startCount: 0,
+        startCount: 1,
         basePrice: 1,
         formula: '{tb} * {bp}',
         gridsCount: 0,
@@ -577,6 +577,7 @@ const mutations = {
           backgroundColor: {},
           borderRadius: '100%'
         },
+        clickValue: 1,
         coin: {
           ref: state.coins[0].ref
         }
@@ -641,6 +642,32 @@ const mutations = {
       }
 
       state.play.coins.push(firstCoins)
+    }
+
+    let resultTab = state.world[state.currentWorld].tabs.filter(obj => {
+      return obj.type === 'item'
+    })
+
+    for (let i = 0; i < resultTab.length; i++) {
+      for (let j = 0; j < resultTab[i].items.length; j++) {
+        if (resultTab[i].items[j].startCount > 0) {
+          let newBuy = {
+            ref: resultTab[i].items[j].ref,
+            count: resultTab[i].items[j].startCount
+          }
+
+          state.play.buyedItems.push(newBuy)
+
+          for (let k = 0; k < resultTab[i].items[j].startCount; k++) {
+            let automatic = {
+              tab: resultTab[i].refTab,
+              item: resultTab[i].items[j].ref
+            }
+
+            state.playAutomatic.push(automatic)
+          }
+        }
+      }
     }
   },
 
@@ -1130,11 +1157,11 @@ const mutations = {
 
   updateClick (state, item) {
     if (state.creatorVision === false) {
-      let clickValue = 1
       let result = state.world[state.currentWorld].gridButtons.filter(obj => {
         return obj.ref === item.ref
       })
 
+      let clickValue = result[0].clickValue
       let coinResult = state.coins.filter(obj => {
         return obj.ref === result[0].coin.ref
       })

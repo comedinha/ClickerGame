@@ -25,7 +25,7 @@
                 <span>{{ item.description }}</span>
               </v-tooltip>
               <v-list-tile-title v-if="!item.description">{{ item.title }}</v-list-tile-title>
-              <v-list-tile-sub-title v-if="!getEditMode">{{ calculePrice(item) }}</v-list-tile-sub-title>
+              <v-list-tile-sub-title v-if="!getEditMode">{{ getPriceSymbol(item) + ' ' + calculePrice(item) }}</v-list-tile-sub-title>
             </v-list-tile-content>
             <v-list-tile-action>
               <v-card flat v-if="getEditMode">
@@ -69,7 +69,7 @@
             <v-card-text v-if="!item.image">
               {{ item.description }}
             </v-card-text>
-            <v-btn v-if="!getEditMode" @click="buyUpgrade(tab, item)">{{ item.price }}</v-btn>
+            <v-btn v-if="!getEditMode" @click="buyUpgrade(tab, item)">{{ getPriceSymbol(item) + ' ' + item.price }}</v-btn>
             <v-card-actions v-if="getEditMode">
               <v-tooltip bottom>
                 <v-btn icon slot="activator" @click="editUpgrade(tab, item)">
@@ -115,7 +115,8 @@ export default {
       'getTabLayout',
       'getPlayBuyedItems',
       'getPlayCoins',
-      'getPlayBuyedUpgrades'
+      'getPlayBuyedUpgrades',
+      'getCoins'
     ])
   },
   watch: {
@@ -192,6 +193,14 @@ export default {
         return math.eval(formula)
       }
       return 'Price'
+    },
+
+    getPriceSymbol (item) {
+      let getCoin = this.getCoins.filter(obj => {
+        return obj.ref === item.coin.ref
+      })
+
+      return getCoin[0].symbol
     },
 
     canBuy (item) {

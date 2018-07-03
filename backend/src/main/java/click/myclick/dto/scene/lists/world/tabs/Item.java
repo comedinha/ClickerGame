@@ -9,19 +9,40 @@ public class Item implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
+	private String basePrice;
+	private String coin;
 	private String countPerSecond;
 	private String description;
 	private String divRef;
 	private String formula;
-    private List<Grid> grids;
-    private String image;
+	private List<Grid> grids;
+	private String image;
 	private String ref;
 	private String startCount;
-	private String startPrice;
 	private String title;
-	
-	public Item() {
-		this.grids = null;
+	private String item;
+	private String price;
+	private String tab;
+	private String type;
+
+	public String getBaseprice()
+	{
+		return this.basePrice;
+	}
+
+	public void setBaseprice(String basePrice)
+	{
+		this.basePrice = basePrice;
+	}
+
+	public String getCoin()
+	{
+		return this.coin;
+	}
+
+	public void setCoin(String coin)
+	{
+		this.coin = coin;
 	}
 
 	public String getCountpersecond()
@@ -104,16 +125,6 @@ public class Item implements Serializable {
 		this.startCount = startCount;
 	}
 
-	public String getStartprice()
-	{
-		return this.startPrice;
-	}
-
-	public void setStartprice(String startPrice)
-	{
-		this.startPrice = startPrice;
-	}
-
 	public String getTitle()
 	{
 		return this.title;
@@ -122,6 +133,46 @@ public class Item implements Serializable {
 	public void setTitle(String title)
 	{
 		this.title = title;
+	}
+
+	public String getItem()
+	{
+		return this.item;
+	}
+
+	public void setItem(String item)
+	{
+		this.item = item;
+	}
+
+	public String getPrice()
+	{
+		return this.price;
+	}
+
+	public void setPrice(String price)
+	{
+		this.price = price;
+	}
+
+	public String getTab()
+	{
+		return this.tab;
+	}
+
+	public void setTab(String tab)
+	{
+		this.tab = tab;
+	}
+
+	public String getType()
+	{
+		return this.type;
+	}
+
+	public void setType(String type)
+	{
+		this.type = type;
 	}
 
 }

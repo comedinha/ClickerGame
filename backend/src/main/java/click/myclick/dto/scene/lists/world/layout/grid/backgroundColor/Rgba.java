@@ -6,47 +6,47 @@ public class Rgba implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
-    private int a;
-    private int b;
-    private int g;
-    private int r;
+    private double a;
+    private double b;
+    private double g;
+    private double r;
 
-	public int getA()
+	public double getA()
 	{
 		return this.a;
 	}
 
-	public void setA(int a)
+	public void setA(double a)
 	{
 		this.a = a;
 	}
 
-	public int getB()
+	public double getB()
 	{
 		return this.b;
 	}
 
-	public void setB(int b)
+	public void setB(double b)
 	{
 		this.b = b;
 	}
 
-	public int getG()
+	public double getG()
 	{
 		return this.g;
 	}
 
-	public void setG(int g)
+	public void setG(double g)
 	{
 		this.g = g;
 	}
 
-	public int getR()
+	public double getR()
 	{
 		return this.r;
 	}
 
-	public void setR(int r)
+	public void setR(double r)
 	{
 		this.r = r;
 	}

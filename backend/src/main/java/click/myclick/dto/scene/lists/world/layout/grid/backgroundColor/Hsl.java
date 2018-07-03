@@ -6,27 +6,27 @@ public class Hsl implements Serializable {
 
     private static final long serialVersionUID = -4159366809929151486L;
 
-    private int a;
-    private int h;
+    private double a;
+    private double h;
     private double l;
     private double s;
 
-	public int getA()
+	public double getA()
 	{
 		return this.a;
 	}
 
-	public void setA(int a)
+	public void setA(double a)
 	{
 		this.a = a;
 	}
 
-	public int getH()
+	public double getH()
 	{
 		return this.h;
 	}
 
-	public void setH(int h)
+	public void setH(double h)
 	{
 		this.h = h;
 	}
@@ -50,5 +50,4 @@ public class Hsl implements Serializable {
 	{
 		this.s = s;
 	}
-
 }

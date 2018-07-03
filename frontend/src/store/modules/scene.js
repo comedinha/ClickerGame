@@ -229,7 +229,7 @@ const actions = {
       console.log(saveScene)
 
       Vue.http.post('api/saveScene', saveScene).then(response => {
-        commit('updateAllScenes', response)
+        commit('updateSceneId', response.bodyText)
       })
     } else {
       commit('updateEditConfigDialog', true)
@@ -590,10 +590,6 @@ const mutations = {
   updateGame (state, event) {
     state.editMode = event
     state.creatorVision = event
-  },
-
-  updateAllScenes (state, message) {
-    console.log(message)
   },
 
   updateSceneId (state, message) {

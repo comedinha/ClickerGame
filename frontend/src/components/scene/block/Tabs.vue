@@ -56,10 +56,20 @@
       </v-list>
       <v-container v-if="tab.type === 'upgrade'" fluid grid-list-md>
         <v-layout row wrap>
-        <v-flex v-for="item in tab.items" :key="item.ref" md3>
+        <v-flex v-for="item in tab.items" :key="item.ref" md3 v-if="getBuyedUpgrade(tab, item)">
           <v-card>
-            <img height="50" width="100" :src="item.image" />
-            <v-btn v-if="!getEditMode">{{ item.price }}</v-btn>
+            <v-system-bar>
+              <span>{{ item.title }}</span>
+            </v-system-bar>
+            <v-tooltip bottom v-if="item.description && item.image">
+              <img height="50" width="100" slot="activator" :src="item.image" />
+              <span>{{ item.description }}</span>
+            </v-tooltip>
+            <img v-if="!item.description && item.image" height="50" width="100" :src="item.image" />
+            <v-card-text v-if="!item.image">
+              {{ item.description }}
+            </v-card-text>
+            <v-btn v-if="!getEditMode" @click="buyUpgrade(tab, item)">{{ item.price }}</v-btn>
             <v-card-actions v-if="getEditMode">
               <v-tooltip bottom>
                 <v-btn icon slot="activator" @click="editUpgrade(tab, item)">
@@ -104,7 +114,8 @@ export default {
       'getAddItemDialog',
       'getTabLayout',
       'getPlayBuyedItems',
-      'getPlayCoins'
+      'getPlayCoins',
+      'getPlayBuyedUpgrades'
     ])
   },
   watch: {
@@ -208,6 +219,24 @@ export default {
       }
 
       return 'Total Comprado'
+    },
+
+    buyUpgrade (tab, item) {
+      if (this.getCreatorVision === false) {
+        this.$store.dispatch('buyTabUpgrade', item)
+      }
+    },
+
+    getBuyedUpgrade (tab, item) {
+      if (this.getCreatorVision === false) {
+        let getBuyed = this.getPlayBuyedUpgrades.filter(obj => {
+          return obj.item === item.item && obj.tab === item.tab
+        })
+
+        return getBuyed.length === 0
+      }
+
+      return true
     },
 
     newGridItem (tab, item) {

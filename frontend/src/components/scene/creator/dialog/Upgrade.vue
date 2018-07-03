@@ -60,7 +60,7 @@
                     </v-tooltip>
                   </v-card-actions>
                   <v-card-actions v-if="addUpgrade.type === 'item'">
-                    <v-select :items="getWorldItems" item-text="text" item-value="itemRef" v-model="addUpgrade.itemRef" :label="$ml.get('scene.creator.dialog.item.coin.title')" required />
+                    <v-select :items="getWorldItems" item-text="text" item-value="item" v-model="addUpgrade.item" :label="$ml.get('scene.creator.dialog.item.coin.title')" required />
                     <v-tooltip bottom>
                       <v-icon slot="activator">help</v-icon>
                       <span>{{ $ml.get('scene.creator.dialog.item.coin.help') }}</span>

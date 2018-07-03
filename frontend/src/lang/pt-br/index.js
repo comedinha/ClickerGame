@@ -417,9 +417,12 @@ export default {
 
           formula: {
             title: 'Formula',
-            // Comentário: Corrigir depois de feito.
             help: `
               Formula para comprar o item
+              <br />
+              Tags:
+              <br />
+              {v}: valor atual
             `
           },
 

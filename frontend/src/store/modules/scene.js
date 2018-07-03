@@ -1,8 +1,13 @@
 import Vue from 'vue'
 
 const state = {
+  sceneId: '',
   creatorVision: true,
   editMode: true,
+
+  isPublished: false,
+  canApprove: false,
+  canResolve: false,
 
   saved: true,
   saveWarning: false,
@@ -12,6 +17,7 @@ const state = {
   oldConfig: {},
 
   coinsDialog: false,
+  coinsCount: 0,
   coins: [],
 
   editCoinDialog: false,
@@ -44,11 +50,18 @@ const state = {
   addItem: {},
 
   addUpgradeDialog: false,
-  addUpgrade: {}
+  addUpgrade: {},
+
+  playId: ''
 }
 
 // getters
 const getters = {
+  hasSceneId: state => !!state.sceneId,
+  isPublished: state => state.creatorVision && state.isPublished,
+  canApprove: state => state.creatorVision && state.canApprove,
+  canResolve: state => state.creatorVision && state.canResolve,
+
   getCreatorVision: state => state.creatorVision,
 
   getEditMode: state => state.creatorVision && state.editMode,
@@ -61,6 +74,7 @@ const getters = {
   getConfig: state => state.config,
 
   getCoinsDialog: state => state.coinsDialog,
+  getCoinsCount: state => state.coinsCount,
   getCoins: state => state.coins,
 
   getEditCoinDialog: state => state.editCoinDialog,
@@ -172,24 +186,29 @@ const actions = {
   },
 
   saveScene ({ commit, getters }) {
-    console.log('saveScene')
-    // Comentário: Utilizar getters.getConfig (const talves seja útil para dividir) e getters.getWorld (const aqui não...)
-    let saveScene = {
-      name: getters.getConfig.name,
-      smallDescription: getters.getConfig.smallDescription,
-      completeDescription: getters.getConfig.completeDescription,
-      image: getters.getConfig.image,
-      worlds: getters.getWorld,
-      coins: getters.getCoins
-    }
-    console.log(saveScene)
+    if (getters.getConfig.name !== '') {
+      console.log('saveScene')
+      // Comentário: Utilizar getters.getConfig (const talves seja útil para dividir) e getters.getWorld (const aqui não...)
+      let saveScene = {
+        name: getters.getConfig.name,
+        smallDescription: getters.getConfig.smallDescription,
+        completeDescription: getters.getConfig.completeDescription,
+        image: getters.getConfig.image,
+        worlds: getters.getWorld,
+        coinsCount: getters.getCoinsCount,
+        coins: getters.getCoins
+      }
+      console.log(saveScene)
 
-    Vue.http.post('api/saveScene', saveScene).then(response => {
-      console.log(response)
-      commit('updateAllScenes', response)
-    }).catch(() => {
-      commit('updateAllScenesLoading', false)
-    })
+      Vue.http.post('api/saveScene', saveScene).then(response => {
+        console.log(response)
+        commit('updateAllScenes', response)
+      }).catch(() => {
+        commit('updateAllScenesLoading', false)
+      })
+    } else {
+      commit('updateEditConfigDialog', true)
+    }
   },
 
   setEditMode ({ commit }, event) {
@@ -374,6 +393,7 @@ const mutations = {
       state.world.push(firstWorld)
 
       let firstCoin = {
+        ref: 'Ref ' + state.coinsCount++,
         name: 'Money',
         symbol: '$',
         worlds: [ { ref: firstWorld.ref } ],
@@ -451,8 +471,11 @@ const mutations = {
       let firstGridInformation = {
         ref: 'Information ' + state.world[state.currentWorld].gridInformationCount++,
         text: `
-          <center>{tc}</center>
-          <center>{ts} por segundo</center>
+          <div style="text-align:center">
+            {tc}
+            <br />
+            {ts} por segundo
+          </div>
         `
       }
       state.world[state.currentWorld].gridInformation.push(firstGridInformation)
@@ -500,14 +523,7 @@ const mutations = {
           state.config = state.oldConfig
         }
       } else {
-        let old = {
-          name: state.config.name,
-          smallDescription: state.config.smallDescription,
-          completeDescription: state.config.completeDescription,
-          image: state.config.image
-        }
-
-        state.oldConfig = old
+        state.oldConfig = JSON.parse(JSON.stringify(state.config))
       }
 
       state.editConfigDialog = event
@@ -523,6 +539,7 @@ const mutations = {
   saveConfig (state) {
     if (state.creatorVision === true) {
       state.editConfigDialog = false
+      state.saved = false
     }
   },
 
@@ -548,6 +565,7 @@ const mutations = {
 
       state.editCoinDialog = false
       state.coinsDialog = false
+      state.saved = false
     }
   },
 
@@ -584,6 +602,7 @@ const mutations = {
       state.world[state.currentWorld].layout = state.editLayout
       state.editLayout = {}
       state.layoutDialog = false
+      state.saved = false
     }
   },
 
@@ -602,12 +621,14 @@ const mutations = {
         showWhen: 0
       }
       state.itemGrid = itemDefault
+      state.saved = false
     }
   },
 
   updateGridContent (state, event) {
     if (state.creatorVision === true) {
       state.world[state.currentWorld].gridContent = event
+      state.saved = false
     }
   },
 
@@ -637,11 +658,13 @@ const mutations = {
       } else if (item.type === 'information') {
         state.informationGridDialog = true
 
-        var result = state.world[state.currentWorld].gridInformation.filter(obj => {
+        let result = state.world[state.currentWorld].gridInformation.filter(obj => {
           return obj.ref === item.ref
         })
         state.informationGrid = JSON.parse(JSON.stringify(result[0]))
       }
+
+      state.saved = false
     }
   },
 
@@ -704,6 +727,7 @@ const mutations = {
       state.itemGrid = []
       state.itemGridTab = []
       state.itemGridItem = []
+      state.saved = false
     }
   },
 
@@ -745,6 +769,7 @@ const mutations = {
         }
 
         state.world[state.currentWorld].gridContent.splice(indexGrid, 1)
+        state.saved = false
       }
     }
   },
@@ -770,14 +795,17 @@ const mutations = {
       if (state.newInformationDialog === true) {
         // Comentário: Adicionar novo dialog.
       } else {
-        const indexInformation = state.world[state.currentWorld].gridInformation.indexOf(state.informationGridRef.ref)
-        state.world[state.currentWorld].gridInformation[indexInformation] = state.informationGrid
+        let result = state.world[state.currentWorld].gridInformation.filter(obj => {
+          return obj.ref === state.informationGrid.ref
+        })
 
-        state.informationGridRef.ref = state.world[state.currentWorld].gridInformation[indexInformation]
+        let indexOfInformation = state.world[state.currentWorld].gridInformation.indexOf(result[0])
+        Vue.set(state.world[state.currentWorld].gridInformation, indexOfInformation, state.informationGrid)
       }
 
       state.informationGridDialog = false
       state.informationGrid = []
+      state.saved = false
     }
   },
 
@@ -830,6 +858,7 @@ const mutations = {
 
       const indexItem = tab.items.indexOf(item)
       tab.items.splice(indexItem, 1)
+      state.saved = false
     }
   },
 
@@ -855,6 +884,7 @@ const mutations = {
       state.currentTab = {}
       state.newItem = false
       state.addItemDialog = false
+      state.saved = false
     }
   },
 

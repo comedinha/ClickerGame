@@ -50,7 +50,7 @@
       <v-card-actions>
         <v-spacer />
         <v-btn @click="editConfigDialog = !editConfigDialog">{{ $ml.get('scene.creator.dialog.config.close') }}</v-btn>
-        <v-btn color="primary" @click="saveConfig">{{ $ml.get('scene.creator.dialog.config.save') }}</v-btn>
+        <v-btn color="primary" @click="saveConfig">{{ $ml.get('scene.creator.dialog.config.edit') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>

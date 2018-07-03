@@ -29,22 +29,22 @@ public class SceneDTO implements Serializable {
 		this.coins = coins;
 	}
 
-	public int getCoinscount()
+	public int getCoinsCount()
 	{
 		return this.coinsCount;
 	}
 
-	public void setCoinscount(int coinsCount)
+	public void setCoinsCount(int coinsCount)
 	{
 		this.coinsCount = coinsCount;
 	}
 
-	public String getCompletedescription()
+	public String getCompleteDescription()
 	{
 		return this.completeDescription;
 	}
 
-	public void setCompletedescription(String completeDescription)
+	public void setCompleteDescription(String completeDescription)
 	{
 		this.completeDescription = completeDescription;
 	}
@@ -79,12 +79,12 @@ public class SceneDTO implements Serializable {
 		this.name = name;
 	}
 
-	public String getSmalldescription()
+	public String getSmallDescription()
 	{
 		return this.smallDescription;
 	}
 
-	public void setSmalldescription(String smallDescription)
+	public void setSmallDescription(String smallDescription)
 	{
 		this.smallDescription = smallDescription;
 	}
@@ -99,12 +99,12 @@ public class SceneDTO implements Serializable {
 		this.worlds = worlds;
 	}
 
-	public String getIdcreator()
+	public String getIdCreator()
 	{
 		return this.idCreator;
 	}
 
-	public void setIdcreator(String idCreator)
+	public void setIdCreator(String idCreator)
 	{
 		this.idCreator = idCreator;
 	}

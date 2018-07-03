@@ -34,6 +34,11 @@ import Message from '@/components/auth/dialog/Message'
 import Recovery from '@/components/auth/dialog/Recovery'
 
 export default {
+  beforeCreate () {
+    this.$store.dispatch('imageRandom').catch(() => {
+      console.log('d')
+    })
+  },
   data () {
     return {
       sitekey: '6Lfk1FwUAAAAAMcjjT1vE-D9MLIgLaKm4_4BN44W',

@@ -8,7 +8,7 @@
     <v-menu offset-y v-if="editMode">
       <v-btn small slot="activator">Grid</v-btn>
       <v-list>
-        <v-list-tile @click="newInformationGrid">
+        <v-list-tile @click="newGridButton">
           <v-list-tile-title>Adicinar Botão</v-list-tile-title>
         </v-list-tile>
         <v-list-tile @click="newGridInformation">

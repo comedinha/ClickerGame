@@ -1,7 +1,5 @@
 package click.myclick.dto.scene.lists.world;
 
-import click.myclick.dto.scene.lists.world.gridcontent.Ref;
-
 import java.io.Serializable;
 
 public class GridContent implements Serializable {

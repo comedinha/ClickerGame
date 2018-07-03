@@ -2,7 +2,7 @@ import Vue from 'vue'
 
 const state = {
   role: 'ANONYMOUS',
-  username: 'Anônimo',
+  username: 'Visitante',
 
   drawer: false,
 

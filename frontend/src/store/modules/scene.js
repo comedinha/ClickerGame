@@ -874,6 +874,10 @@ const mutations = {
       completeDescription: message.completeDescription
     }
 
+    state.isPublished = message.isPublished || false
+    state.canApprove = message.canApprove || false
+    state.canResolve = message.canResolve || false
+
     state.config = loadConfig
     state.world = message.worlds
     state.coinsCount = message.coinsCount

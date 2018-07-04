@@ -27,7 +27,10 @@
               </v-system-bar>
               <v-card-media height="100%" :src="props.item.image">
                 <v-card height="105px" width="100%" class='white--text' color="transparent" flat tile>
-                  <v-card-text class="transprent-text body-2">
+                  <v-card-text v-if="props.item.report" class="transprent-text body-2">
+                    {{ props.item.report }}
+                  </v-card-text>
+                  <v-card-text v-if="!props.item.report" class="transprent-text body-2">
                     {{ props.item.smallDescription }}
                   </v-card-text>
                 </v-card>

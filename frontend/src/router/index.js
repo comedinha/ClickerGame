@@ -97,6 +97,12 @@ export default new Router({
           component: Scene
         }
       ]
+    },
+
+    {
+      path: '*',
+      redirect: '/Signin',
+      component: Auth
     }
   ]
 })

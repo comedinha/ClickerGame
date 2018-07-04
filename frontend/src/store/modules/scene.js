@@ -195,6 +195,7 @@ const getters = {
   getAddUpgradeDialog: state => state.creatorVision && state.addUpgradeDialog,
   getAddUpgrade: state => state.creatorVision && state.addUpgrade,
 
+  getPlay: state => state.play,
   getPlayCoins: state => state.play.coins,
   getPlayBuyedItems: state => state.play.buyedItems,
   getPlayBuyedUpgrades: state => state.play.buyedUpgrades,
@@ -228,7 +229,6 @@ const getters = {
 const actions = {
   loadPlay ({ dispatch, commit }, scene) {
     commit('clearScene')
-    // Comentário: Fazer tudo que envolve carregar o jogo
     console.log('loadPlay')
 
     commit('updateSceneId', scene.playId)
@@ -241,6 +241,7 @@ const actions = {
       commit('playDefault')
     }
 
+    dispatch('saveAutomatic')
     dispatch('loadAutomatic')
     commit('updateGame', false)
   },
@@ -264,9 +265,9 @@ const actions = {
     commit('sceneDefault')
   },
 
-  savePlay ({ commit }) {
+  savePlay ({ commit, getters }) {
     console.log('savePlay')
-    // Comentário: Fazer tanto salvar cenário quanto salvar jogo.
+    console.log(getters.getPlay)
   },
 
   saveScene ({ commit, getters }) {
@@ -291,6 +292,13 @@ const actions = {
       commit('saveWarning', false)
       commit('updateEditConfigDialog', true)
     }
+  },
+
+  async saveAutomatic ({ dispatch }) {
+    setTimeout(() => {
+      dispatch('savePlay')
+      dispatch('saveAutomatic')
+    }, 5000)
   },
 
   async loadAutomatic ({ dispatch, commit }) {

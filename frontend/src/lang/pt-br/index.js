@@ -141,6 +141,7 @@ export default {
       approved: 'Aguardando aprovação',
       deleted: 'Fase deletada',
       enabled: 'Não foi publicado',
+      reviews: 'Avaliações',
       edit: 'Editar',
       details: 'Detalhes',
       newGame: 'Novo Jogo',
@@ -232,6 +233,14 @@ export default {
 
       report: {
         title: 'Denunciados',
+        pagination: 'Página {a} de {t}',
+        close: 'Fechar'
+      },
+
+      reviews: {
+        title: 'Avaliações',
+        newReview: 'Nova Avaliação',
+
         pagination: 'Página {a} de {t}',
         close: 'Fechar'
       },

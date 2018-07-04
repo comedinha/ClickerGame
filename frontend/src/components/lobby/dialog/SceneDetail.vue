@@ -5,6 +5,10 @@
         <v-toolbar-title>{{ getSceneDetailInfo.name }}</v-toolbar-title>
         <v-spacer />
         <v-tooltip v-if="getSceneDetailInfo.canEdit" bottom>
+          <v-btn small class="mx-0" icon slot="activator" @click="reviewDialog = !reviewDialog"><v-icon>rate_review</v-icon></v-btn>
+          <span>{{ $ml.get('lobby.lobby.reviews') }}</span>
+        </v-tooltip>
+        <v-tooltip v-if="getSceneDetailInfo.canEdit" bottom>
           <v-btn small class="mx-0" icon slot="activator" @click="editGame(getSceneDetailInfo)"><v-icon>settings</v-icon></v-btn>
           <span>{{ $ml.get('lobby.lobby.edit') }}</span>
         </v-tooltip>
@@ -93,6 +97,15 @@ export default {
       },
       set (value) {
         this.$store.dispatch('setSceneDetailDialog', value)
+      }
+    },
+
+    reviewDialog: {
+      get () {
+        return this.$store.getters.getReviewDialog
+      },
+      set (value) {
+        this.$store.dispatch('setReviewDialog', value)
       }
     }
   },

@@ -28,7 +28,6 @@ public class GetReviewSceneController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> getAddNews(@RequestBody final ReviewDTO dto) {
 
-        
-
+        return new ResponseEntity<>(reviewUtility.getReviewScene(reviewService), HttpStatus.OK);
     }
 }

@@ -32,10 +32,10 @@ public class LoadSaveGameController {
     }
 
     @RequestMapping(method = RequestMethod.POST)
-    public ResponseEntity<?> save(@RequestBody final SaveDTO id, Authentication auth) {
+    public ResponseEntity<?> save(@RequestBody final String id, Authentication auth) {
 
-        System.out.println(id.getIdscene());
+        System.out.println(id);
 
-        return new ResponseEntity<>(saveLoad.load(saveGameService, id.getIdscene(), uService.findByUsername(auth.getPrincipal().toString()).getId()), HttpStatus.OK);
+        return new ResponseEntity<>(saveLoad.load(saveGameService, id, uService.findByUsername(auth.getPrincipal().toString()).getId()), HttpStatus.OK);
     }
 }

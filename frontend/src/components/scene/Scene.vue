@@ -68,7 +68,7 @@ export default {
     }
   },
   beforeDestroy () {
-    // Comentário: Criar save automático.
+    this.$store.dispatch('setStopAutos', true)
   },
   computed: {
     ...mapGetters([

@@ -10,7 +10,7 @@
             <v-card-media v-if="addItem.image" :src="addItem.image" height="250px" contain />
             <v-card-text>
               <v-card-actions>
-                <v-text-field v-model="addItem.image" :label="$ml.get('scene.creator.dialog.item.image.title')" />
+                <v-text-field v-model="addItem.image" :label="$ml.get('scene.creator.dialog.item.image.title')" :error-messages="imageErrors" @input="$v.addItem.image.$touch()" @blur="$v.addItem.image.$touch()" />
                 <v-tooltip bottom>
                   <v-icon slot="activator">help</v-icon>
                   <span>{{ $ml.get('scene.creator.dialog.item.image.help') }}</span>
@@ -89,12 +89,15 @@
 </template>
 
 <script>
-import { required, maxLength, minValue } from 'vuelidate/lib/validators'
+import { required, url, maxLength, minValue } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 
 export default {
   validations: {
     addItem: {
+      image: {
+        url
+      },
       title: {
         required,
         maxLength: maxLength(16)
@@ -120,6 +123,13 @@ export default {
     }
   },
   computed: {
+    imageErrors () {
+      const errors = []
+      if (!this.$v.addItem.image.$dirty) return errors
+      !this.$v.addItem.image.url && errors.push('URL')
+      return errors
+    },
+
     titleErrors () {
       const errors = []
       if (!this.$v.addItem.title.$dirty) return errors
@@ -132,6 +142,7 @@ export default {
       const errors = []
       if (!this.$v.addItem.countPerSecond.$dirty) return errors
       !this.$v.addItem.countPerSecond.required && errors.push('Requerido')
+      !this.$v.addItem.countPerSecond.minValue && errors.push(this.$ml.with('c', this.$v.addItem.countPerSecond.$params.minValue.min).get('auth.signup.name.minLength'))
       return errors
     },
 
@@ -146,6 +157,7 @@ export default {
       const errors = []
       if (!this.$v.addItem.startCount.$dirty) return errors
       !this.$v.addItem.startCount.required && errors.push('Requerido')
+      !this.$v.addItem.startCount.minValue && errors.push(this.$ml.with('c', this.$v.addItem.startCount.$params.minValue.min).get('auth.signup.name.minLength'))
       return errors
     },
 
@@ -153,6 +165,7 @@ export default {
       const errors = []
       if (!this.$v.addItem.basePrice.$dirty) return errors
       !this.$v.addItem.basePrice.required && errors.push('Requerido')
+      !this.$v.addItem.basePrice.minValue && errors.push(this.$ml.with('c', this.$v.addItem.basePrice.$params.minValue.min).get('auth.signup.name.minLength'))
       return errors
     },
 

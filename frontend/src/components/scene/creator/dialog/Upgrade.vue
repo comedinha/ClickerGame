@@ -97,15 +97,15 @@ export default {
       roles: [
         {
           type: 'item',
-          text: 'Item'
+          text: this.$ml.get('scene.creator.dialog.upgrade.type.item')
         },
         {
           type: 'GPC',
-          text: 'Gold Per Click'
+          text: this.$ml.get('scene.creator.dialog.upgrade.type.gpc')
         },
         {
           type: 'GPS',
-          text: 'Gold Per Second'
+          text: this.$ml.get('scene.creator.dialog.upgrade.type.gps')
         }
       ]
     }

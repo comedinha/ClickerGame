@@ -10,7 +10,7 @@
             <v-card-media v-if="itemGrid.image" :src="itemGrid.image" height="250px" contain />
             <v-card-text>
               <v-card-actions>
-                <v-text-field :disabled="itemGrid.useItemImage" v-model="itemGrid.image" :label="$ml.get('scene.creator.dialog.itemGrid.image.title')" />
+                <v-text-field :disabled="itemGrid.useItemImage" v-model="itemGrid.image" :label="$ml.get('scene.creator.dialog.itemGrid.image.title')" :error-messages="imageErrors" @input="$v.itemGrid.image.$touch()" @blur="$v.itemGrid.image.$touch()" />
                 <v-tooltip bottom>
                   <v-icon slot="activator">help</v-icon>
                   <span>{{ $ml.get('scene.creator.dialog.itemGrid.image.help') }}</span>
@@ -29,7 +29,7 @@
                   </v-tooltip>
                 </v-card-actions>
                 <v-card-actions>
-                  <v-text-field v-model="itemGrid.showWhen" :label="$ml.with('v', itemGrid.showWhen).get('scene.creator.dialog.itemGrid.showWhen.title')" />
+                  <v-text-field v-model="itemGrid.showWhen" :label="$ml.with('v', itemGrid.showWhen).get('scene.creator.dialog.itemGrid.showWhen.title')" required :error-messages="showWhenErrors" @input="$v.itemGrid.showWhen.$touch()" @blur="$v.itemGrid.showWhen.$touch()" />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
                     <span>{{ $ml.get('scene.creator.dialog.itemGrid.showWhen.help') }}</span>
@@ -50,8 +50,36 @@
 </template>
 
 <script>
+import { required, url, minValue } from 'vuelidate/lib/validators'
+
 export default {
+  validations: {
+    itemGrid: {
+      image: {
+        url
+      },
+      showWhen: {
+        required,
+        minValue: minValue(0)
+      }
+    }
+  },
   computed: {
+    imageErrors () {
+      const errors = []
+      if (!this.$v.addItem.image.$dirty) return errors
+      !this.$v.addItem.image.url && errors.push('URL')
+      return errors
+    },
+
+    showWhenErrors () {
+      const errors = []
+      if (!this.$v.itemGrid.showWhen.$dirty) return errors
+      !this.$v.itemGrid.showWhen.required && errors.push('Requerido')
+      !this.$v.itemGrid.showWhen.minValue && errors.push(this.$ml.with('c', this.$v.itemGrid.showWhen.$params.minValue.min).get('auth.signup.name.minLength'))
+      return errors
+    },
+
     itemGrid: {
       get () {
         return this.$store.getters.getItemGrid
@@ -76,7 +104,10 @@ export default {
     },
 
     itemGridUpdate () {
-      this.$store.dispatch('itemGrid')
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        this.$store.dispatch('itemGrid')
+      }
     }
   }
 }

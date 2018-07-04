@@ -239,9 +239,14 @@ const actions = {
       Vue.http.post('api/loadScene', scene.playId).then(responseScene => {
         commit('updateCreateScene', responseScene.body)
         Vue.http.post('api/loadSaveGame', scene.playId).then(responsePlay => {
-          commit('updatePlayScene', responsePlay.body)
+          if (responsePlay.body.idplayer !== '') {
+            commit('updatePlayScene', responsePlay.body)
+          } else {
+            commit('playDefault')
+          }
           dispatch('saveAutomatic')
           dispatch('loadAutomatic')
+          commit('updateSceneLoading', false)
           resolve()
         }, errorCode => {
           reject(errorCode)
@@ -260,6 +265,7 @@ const actions = {
 
       Vue.http.post('api/loadScene', scene.createId).then(response => {
         commit('updateCreateScene', response.body)
+        commit('updateSceneLoading', false)
         resolve()
       }, errorCode => {
         reject(errorCode)
@@ -838,11 +844,15 @@ const mutations = {
     state.world = message.worlds
     state.coinsCount = message.coinsCount
     state.coins = message.coins
-    state.sceneLoading = false
   },
 
   updatePlayScene (state, message) {
+    console.log(message)
     state.play = message
+  },
+
+  updateSceneLoading (state, message) {
+    state.sceneLoading = message
   },
 
   updateGame (state, event) {

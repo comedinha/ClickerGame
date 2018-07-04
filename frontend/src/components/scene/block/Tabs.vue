@@ -183,7 +183,9 @@ export default {
         })
 
         if (getBuyed[0]) {
-          totalBuyed = getBuyed[0].count
+          if (getBuyed[0].count) {
+            totalBuyed = getBuyed[0].count
+          }
         }
 
         formula = formula
@@ -196,20 +198,34 @@ export default {
     },
 
     getPriceSymbol (item) {
+      let symbol = '$'
       let getCoin = this.getCoins.filter(obj => {
         return obj.ref === item.coin.ref
       })
 
-      return getCoin[0].symbol
+      if (getCoin[0]) {
+        if (getCoin[0].symbol) {
+          symbol = getCoin[0].symbol
+        }
+      }
+
+      return symbol
     },
 
     canBuy (item) {
+      let count = 0
       if (this.getCreatorVision === false) {
         let getCoin = this.getPlayCoins.filter(obj => {
           return obj.ref === item.coin.ref
         })
 
-        return !!(getCoin[0].count < this.calculePrice(item))
+        if (getCoin[0]) {
+          if (getCoin[0].count) {
+            count = getCoin[0].count
+          }
+        }
+
+        return !!(count < this.calculePrice(item))
       }
     },
 

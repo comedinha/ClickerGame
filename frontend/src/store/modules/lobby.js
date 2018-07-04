@@ -348,11 +348,12 @@ const actions = {
     commit('updateReviewAddContent', content)
   },
 
-  addReview ({ commit, getters }, tl) {
+  addReview ({ commit }, message) {
     return new Promise((resolve, reject) => {
+      const {sc, desc} = message
       let review = {
-        title: tl,
-        content: getters.getReviewAddContent
+        score: sc,
+        review: desc
       }
 
       Vue.http.post('api/addNews', review)

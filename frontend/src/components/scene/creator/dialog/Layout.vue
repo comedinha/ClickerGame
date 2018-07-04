@@ -168,7 +168,7 @@ export default {
     imageErrors () {
       const errors = []
       if (!this.$v.layout.grid.backgroundImage.$dirty) return errors
-      !this.$v.layout.grid.backgroundImage.url && errors.push('URL')
+      !this.$v.layout.grid.backgroundImage.url && errors.push(this.$ml.get('scene.creator.dialog.layout.backgroundImage.urlError'))
       return errors
     },
 

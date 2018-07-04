@@ -56,6 +56,7 @@ export default {
   validations: {
     itemGrid: {
       image: {
+        required,
         url
       },
       showWhen: {
@@ -67,16 +68,17 @@ export default {
   computed: {
     imageErrors () {
       const errors = []
-      if (!this.$v.addItem.image.$dirty) return errors
-      !this.$v.addItem.image.url && errors.push('URL')
+      if (!this.$v.itemGrid.image.$dirty) return errors
+      !this.$v.itemGrid.image.required && errors.push(this.$ml.get('scene.creator.dialog.itemGrid.required'))
+      !this.$v.itemGrid.image.url && errors.push(this.$ml.get('scene.creator.dialog.itemGrid.image.urlError'))
       return errors
     },
 
     showWhenErrors () {
       const errors = []
       if (!this.$v.itemGrid.showWhen.$dirty) return errors
-      !this.$v.itemGrid.showWhen.required && errors.push('Requerido')
-      !this.$v.itemGrid.showWhen.minValue && errors.push(this.$ml.with('c', this.$v.itemGrid.showWhen.$params.minValue.min).get('auth.signup.name.minLength'))
+      !this.$v.itemGrid.showWhen.required && errors.push(this.$ml.get('scene.creator.dialog.itemGrid.required'))
+      !this.$v.itemGrid.showWhen.minValue && errors.push(this.$ml.with('c', this.$v.itemGrid.showWhen.$params.minValue.min).get('scene.creator.dialog.itemGrid.showWhen.minValue'))
       return errors
     },
 

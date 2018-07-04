@@ -59,16 +59,16 @@ export default {
     nameErrors () {
       const errors = []
       if (!this.$v.coin.name.$dirty) return errors
-      !this.$v.coin.name.required && errors.push('Requerido')
-      !this.$v.coin.name.maxLength && errors.push(this.$ml.with('c', this.$v.coin.name.$params.maxLength.max).get('auth.signup.name.minLength'))
+      !this.$v.coin.name.required && errors.push(this.$ml.get('scene.creator.dialog.editCoin.required'))
+      !this.$v.coin.name.maxLength && errors.push(this.$ml.with('c', this.$v.coin.name.$params.maxLength.max).get('scene.creator.dialog.editCoin.name.maxLength'))
       return errors
     },
 
     symbolErrors () {
       const errors = []
       if (!this.$v.coin.symbol.$dirty) return errors
-      !this.$v.coin.symbol.required && errors.push('Requerido')
-      !this.$v.coin.symbol.maxLength && errors.push(this.$ml.with('c', this.$v.coin.symbol.$params.maxLength.max).get('auth.signup.name.minLength'))
+      !this.$v.coin.symbol.required && errors.push(this.$ml.get('scene.creator.dialog.editCoin.required'))
+      !this.$v.coin.symbol.maxLength && errors.push(this.$ml.with('c', this.$v.coin.symbol.$params.maxLength.max).get('scene.creator.dialog.editCoin.coin.maxLength'))
       return errors
     },
 

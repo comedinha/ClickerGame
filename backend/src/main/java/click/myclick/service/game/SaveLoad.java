@@ -3,6 +3,8 @@ package click.myclick.service.game;
 import click.myclick.service.dao.game.SaveGameService;
 import click.myclick.dto.scene.SaveDTO;
 import click.myclick.model.SaveGame;
+import click.myclick.model.Scene;
+import click.myclick.service.dao.scene.SceneService;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ import org.springframework.stereotype.Service;
 public class SaveLoad {
 
     public String save(SaveGameService service, SaveDTO dto) {
-        
+
         try {
             List<SaveGame> saves = service.findAll();
 
@@ -37,7 +39,7 @@ public class SaveLoad {
             save.setBuyedupgrades(dto.getBuyedupgrades());
             save.setClickcount(dto.getClickcount());
             save.setCoins(dto.getCoins());
-            
+
             return service.create(save).getId();
         } catch(Exception e) {
             System.out.println(e);
@@ -45,8 +47,8 @@ public class SaveLoad {
         }
     }
 
-    public SaveDTO load(SaveGameService service, String idPlayer, String idScene) {
-    
+    public SaveDTO load(SaveGameService service, SceneService sScene, String idPlayer, String idScene) {
+
         List<SaveGame> saves = service.findAll();
         SaveDTO dto = new SaveDTO();
 
@@ -63,7 +65,7 @@ public class SaveLoad {
                 return dto;
             }
         }
-        
+
         return dto;
     }
 }

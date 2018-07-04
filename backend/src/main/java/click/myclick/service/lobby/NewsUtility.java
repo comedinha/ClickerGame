@@ -13,7 +13,6 @@ import java.util.List;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 
-
 @Service
 public class NewsUtility {
     public int addNews(NewsService service, AddNewsDTO dto) {

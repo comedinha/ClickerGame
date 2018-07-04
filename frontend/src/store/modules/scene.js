@@ -680,6 +680,7 @@ const mutations = {
       }
       state.world[state.currentWorld].gridContent.push(firstInfomation)
     }
+    state.sceneLoading = false
   },
 
   playDefault (state) {

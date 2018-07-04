@@ -12,12 +12,12 @@
                 <v-card ripple fab slot="activator" width='20px' :style="{'background-color': informationGrid.style.backgroundColor.hex}"> ‏‏‎ </v-card>
                 <chrome-picker v-model="informationGrid.style.backgroundColor" />
               </v-menu>
-              <v-text-field v-model="informationGrid.style.backgroundColor.hex" :label="$ml.get('scene.creator.dialog.informationGrid.color.title')" required />
+              <v-text-field v-model="informationGrid.style.backgroundColor.hex" :label="$ml.get('scene.creator.dialog.informationGrid.color.title')" />
               <v-tooltip bottom>
                 <v-icon slot="activator">help</v-icon>
                 <span>{{ $ml.get('scene.creator.dialog.informationGrid.color.help') }}</span>
               </v-tooltip>
-              <v-select :items="getCoins" item-text="name" item-value="ref" v-model="informationGrid.coin" :label="$ml.get('scene.creator.dialog.informationGrid.coin.title')" required />
+              <v-select :items="getCoins" item-text="name" item-value="ref" v-model="informationGrid.coin" :label="$ml.get('scene.creator.dialog.informationGrid.coin.title')" required :error-messages="coinErrors" @input="$v.informationGrid.coin.$touch()" @blur="$v.informationGrid.coin.$touch()" />
               <v-tooltip bottom>
                 <v-icon slot="activator">help</v-icon>
                 <span>{{ $ml.get('scene.creator.dialog.informationGrid.coin.help') }}</span>
@@ -41,6 +41,7 @@
 </template>
 
 <script>
+import { required } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
 import { Chrome } from 'vue-color'
 
@@ -63,10 +64,24 @@ export default {
   components: {
     'chrome-picker': Chrome
   },
+  validations: {
+    informationGrid: {
+      coin: {
+        required
+      }
+    }
+  },
   computed: {
     ...mapGetters([
       'getCoins'
     ]),
+
+    coinErrors () {
+      const errors = []
+      if (!this.$v.informationGrid.coin.$dirty) return errors
+      !this.$v.informationGrid.coin.required && errors.push('Requerido')
+      return errors
+    },
 
     informationGrid: {
       get () {
@@ -88,7 +103,10 @@ export default {
   },
   methods: {
     informationGridUpdate () {
-      this.$store.dispatch('informationGrid')
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        this.$store.dispatch('informationGrid')
+      }
     }
   }
 }

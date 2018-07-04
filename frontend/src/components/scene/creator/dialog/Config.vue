@@ -10,7 +10,7 @@
             <v-card-media v-if="config.image" :src="config.image" height="250px" contain />
             <v-card-text>
               <v-card-actions>
-                <v-text-field v-model="config.image" :label="$ml.get('scene.creator.dialog.config.thumbnail.title')" required />
+                <v-text-field v-model="config.image" :label="$ml.get('scene.creator.dialog.config.thumbnail.title')" required :error-messages="imageErrors" @input="$v.config.image.$touch()" @blur="$v.config.image.$touch()" />
                 <v-tooltip bottom>
                   <v-icon slot="activator">help</v-icon>
                   <span>{{ $ml.get('scene.creator.dialog.config.thumbnail.help') }}</span>
@@ -22,21 +22,21 @@
             <v-card>
               <v-card-text>
                 <v-card-actions>
-                  <v-text-field v-model="config.name" :label="$ml.get('scene.creator.dialog.config.name.title')" required />
+                  <v-text-field v-model="config.name" :label="$ml.get('scene.creator.dialog.config.name.title')" required :error-messages="nameErrors" @input="$v.config.name.$touch()" @blur="$v.config.name.$touch()" />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
                     <span>{{ $ml.get('scene.creator.dialog.config.name.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
                 <v-card-actions>
-                  <v-text-field v-model="config.smallDescription" :label="$ml.get('scene.creator.dialog.config.smallDescription.title')" required />
+                  <v-text-field v-model="config.smallDescription" :label="$ml.get('scene.creator.dialog.config.smallDescription.title')" required :error-messages="smallDescriptionErrors" @input="$v.config.smallDescription.$touch()" @blur="$v.config.smallDescription.$touch()" />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
                     <span>{{ $ml.get('scene.creator.dialog.config.smallDescription.help') }}</span>
                   </v-tooltip>
                 </v-card-actions>
                 <v-card-actions>
-                  <v-text-field v-model="config.completeDescription" :label="$ml.get('scene.creator.dialog.config.completeDescription.title')" multi-line required />
+                  <v-text-field v-model="config.completeDescription" :label="$ml.get('scene.creator.dialog.config.completeDescription.title')" multi-line required :error-messages="completeDescriptionErrors" @input="$v.config.completeDescription.$touch()" @blur="$v.config.completeDescription.$touch()" />
                   <v-tooltip bottom>
                     <v-icon slot="activator">help</v-icon>
                     <span>{{ $ml.get('scene.creator.dialog.config.completeDescription.help') }}</span>
@@ -57,8 +57,62 @@
 </template>
 
 <script>
+import { required, url, minLength, maxLength } from 'vuelidate/lib/validators'
+
 export default {
+  validations: {
+    config: {
+      image: {
+        required,
+        url
+      },
+      name: {
+        required,
+        minLength: minLength(4),
+        maxLength: maxLength(32)
+      },
+      smallDescription: {
+        required,
+        maxLength: maxLength(64)
+      },
+      completeDescription: {
+        required
+      }
+    }
+  },
   computed: {
+    imageErrors () {
+      const errors = []
+      if (!this.$v.config.image.$dirty) return errors
+      !this.$v.config.image.required && errors.push('Requerido')
+      !this.$v.config.image.url && errors.push('URL')
+      return errors
+    },
+
+    nameErrors () {
+      const errors = []
+      if (!this.$v.config.name.$dirty) return errors
+      !this.$v.config.name.required && errors.push('Requerido')
+      !this.$v.config.name.minLength && errors.push(this.$ml.with('c', this.$v.config.name.$params.minLength.min).get('auth.signup.name.minLength'))
+      !this.$v.config.name.maxLength && errors.push(this.$ml.with('c', this.$v.config.name.$params.maxLength.max).get('auth.signup.name.minLength'))
+      return errors
+    },
+
+    smallDescriptionErrors () {
+      const errors = []
+      if (!this.$v.config.smallDescription.$dirty) return errors
+      !this.$v.config.smallDescription.required && errors.push('Requerido')
+      !this.$v.config.smallDescription.maxLength && errors.push(this.$ml.with('c', this.$v.config.smallDescription.$params.maxLength.max).get('auth.signup.name.minLength'))
+      return errors
+    },
+
+    completeDescriptionErrors () {
+      const errors = []
+      if (!this.$v.config.completeDescription.$dirty) return errors
+      !this.$v.config.completeDescription.required && errors.push('Requerido')
+      return errors
+    },
+
     config: {
       get () {
         return this.$store.getters.getConfig
@@ -79,7 +133,10 @@ export default {
   },
   methods: {
     saveConfig () {
-      this.$store.dispatch('saveConfig')
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        this.$store.dispatch('saveConfig')
+      }
     }
   }
 }

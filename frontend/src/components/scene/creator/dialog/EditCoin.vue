@@ -11,14 +11,14 @@
               <v-card-text>
                 <v-card-actions>
                   <v-card-actions>
-                    <v-text-field v-model="coin.name" :label="$ml.get('scene.creator.dialog.editCoin.name.title')" required />
+                    <v-text-field v-model="coin.name" :label="$ml.get('scene.creator.dialog.editCoin.name.title')" required :error-messages="nameErrors" @input="$v.coin.name.$touch()" @blur="$v.coin.name.$touch()" />
                     <v-tooltip bottom>
                       <v-icon slot="activator">help</v-icon>
                       <span>{{ $ml.get('scene.creator.dialog.editCoin.name.help') }}</span>
                     </v-tooltip>
                   </v-card-actions>
                   <v-card-actions>
-                    <v-text-field v-model="coin.symbol" :label="$ml.get('scene.creator.dialog.editCoin.symbol.title')" required />
+                    <v-text-field v-model="coin.symbol" :label="$ml.get('scene.creator.dialog.editCoin.symbol.title')" required :error-messages="symbolErrors" @input="$v.coin.symbol.$touch()" @blur="$v.coin.symbol.$touch()" />
                     <v-tooltip bottom>
                       <v-icon slot="activator">help</v-icon>
                       <span>{{ $ml.get('scene.creator.dialog.editCoin.symbol.help') }}</span>
@@ -40,8 +40,38 @@
 </template>
 
 <script>
+import { required, maxLength } from 'vuelidate/lib/validators'
+
 export default {
+  validations: {
+    coin: {
+      name: {
+        required,
+        maxLength: maxLength(12)
+      },
+      symbol: {
+        required,
+        maxLength: maxLength(2)
+      }
+    }
+  },
   computed: {
+    nameErrors () {
+      const errors = []
+      if (!this.$v.coin.name.$dirty) return errors
+      !this.$v.coin.name.required && errors.push('Requerido')
+      !this.$v.coin.name.maxLength && errors.push(this.$ml.with('c', this.$v.coin.name.$params.maxLength.max).get('auth.signup.name.minLength'))
+      return errors
+    },
+
+    symbolErrors () {
+      const errors = []
+      if (!this.$v.coin.symbol.$dirty) return errors
+      !this.$v.coin.symbol.required && errors.push('Requerido')
+      !this.$v.coin.symbol.maxLength && errors.push(this.$ml.with('c', this.$v.coin.symbol.$params.maxLength.max).get('auth.signup.name.minLength'))
+      return errors
+    },
+
     coin: {
       get () {
         return this.$store.getters.getEditCoin
@@ -62,7 +92,10 @@ export default {
   },
   methods: {
     saveCoin () {
-      this.$store.dispatch('saveCoin')
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        this.$store.dispatch('saveCoin')
+      }
     }
   }
 }

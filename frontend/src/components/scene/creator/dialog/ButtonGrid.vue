@@ -12,24 +12,24 @@
                 <v-card ripple fab slot="activator" width='20px' :style="{'background-color': buttonGrid.style.backgroundColor.hex}"> ‏‏‎ </v-card>
                 <chrome-picker v-model="buttonGrid.style.backgroundColor" />
               </v-menu>
-              <v-text-field v-model="buttonGrid.style.backgroundColor.hex" :label="$ml.get('scene.creator.dialog.buttonGrid.color.title')" required />
+              <v-text-field v-model="buttonGrid.style.backgroundColor.hex" :label="$ml.get('scene.creator.dialog.buttonGrid.color.title')" />
               <v-tooltip bottom>
                 <v-icon slot="activator">help</v-icon>
                 <span>{{ $ml.get('scene.creator.dialog.buttonGrid.color.help') }}</span>
               </v-tooltip>
-              <v-text-field v-model="buttonGrid.style.borderRadius" :label="$ml.get('scene.creator.dialog.buttonGrid.radius.title')" required />
+              <v-text-field v-model="buttonGrid.style.borderRadius" :label="$ml.get('scene.creator.dialog.buttonGrid.radius.title')" />
               <v-tooltip bottom>
                 <v-icon slot="activator">help</v-icon>
                 <span>{{ $ml.get('scene.creator.dialog.buttonGrid.radius.help') }}</span>
               </v-tooltip>
             </v-card-actions>
             <v-card-actions>
-              <v-text-field v-model="buttonGrid.clickValue" :label="$ml.get('scene.creator.dialog.buttonGrid.clickValue.title')" required />
+              <v-text-field v-model="buttonGrid.clickValue" :label="$ml.get('scene.creator.dialog.buttonGrid.clickValue.title')" required :error-messages="clickValueErrors" @input="$v.buttonGrid.clickValue.$touch()" @blur="$v.buttonGrid.clickValue.$touch()" />
               <v-tooltip bottom>
                 <v-icon slot="activator">help</v-icon>
                 <span>{{ $ml.get('scene.creator.dialog.buttonGrid.clickValue.help') }}</span>
               </v-tooltip>
-              <v-select :items="getCoins" item-text="name" item-value="ref" v-model="buttonGrid.coin" :label="$ml.get('scene.creator.dialog.buttonGrid.coin.title')" required />
+              <v-select :items="getCoins" item-text="name" item-value="ref" v-model="buttonGrid.coin" :label="$ml.get('scene.creator.dialog.buttonGrid.coin.title')" required :error-messages="coinErrors" @input="$v.buttonGrid.coin.$touch()" @blur="$v.buttonGrid.coin.$touch()" />
               <v-tooltip bottom>
                 <v-icon slot="activator">help</v-icon>
                 <span>{{ $ml.get('scene.creator.dialog.buttonGrid.coin.help') }}</span>
@@ -50,12 +50,39 @@
 <script>
 import { mapGetters } from 'vuex'
 import { Chrome } from 'vue-color'
+import { required, minValue } from 'vuelidate/lib/validators'
 
 export default {
   components: {
     'chrome-picker': Chrome
   },
+  validations: {
+    buttonGrid: {
+      clickValue: {
+        required,
+        minValue: minValue(0)
+      },
+      coin: {
+        required
+      }
+    }
+  },
   computed: {
+    clickValueErrors () {
+      const errors = []
+      if (!this.$v.buttonGrid.clickValue.$dirty) return errors
+      !this.$v.buttonGrid.clickValue.required && errors.push('Requerido')
+      !this.$v.buttonGrid.clickValue.minValue && errors.push(this.$ml.with('c', this.$v.buttonGrid.clickValue.$params.minValue.min).get('auth.signup.name.minLength'))
+      return errors
+    },
+
+    coinErrors () {
+      const errors = []
+      if (!this.$v.buttonGrid.coin.$dirty) return errors
+      !this.$v.buttonGrid.coin.required && errors.push('Requerido')
+      return errors
+    },
+
     ...mapGetters([
       'getCoins'
     ]),
@@ -80,7 +107,10 @@ export default {
   },
   methods: {
     buttonGridUpdate () {
-      this.$store.dispatch('buttonGrid')
+      this.$v.$touch()
+      if (!this.$v.$invalid) {
+        this.$store.dispatch('buttonGrid')
+      }
     }
   }
 }

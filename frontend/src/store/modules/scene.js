@@ -512,60 +512,60 @@ const mutations = {
     state.editMode = true
 
     state.stopAutos = false
-  
+
     state.isPublished = false
     state.canApprove = false
     state.canResolve = false
-  
+
     state.saved = true
     state.saveWarning = false
-  
+
     state.editConfigDialog = false
     state.config = {}
     state.oldConfig = {}
-  
+
     state.coinsDialog = false
     state.coinsCount = 0
     state.coins = []
-  
+
     state.editCoinDialog = false
     state.editCoin = []
     state.oldCoin = []
-  
+
     state.currentWorld = 0
     state.worldCount = 0
     state.world = []
-  
+
     state.layoutDialog = false
     state.editLayout = {}
     state.oldLayout = {}
-  
+
     state.itemGridDialog = false
     state.newItemGrid = false
     state.itemGridTab = []
     state.itemGridItem = []
     state.itemGrid = []
-  
+
     state.buttonGridDialog = false
     state.newButtonDialog = false
     state.buttonGridRef = []
     state.buttonGrid = ''
-  
+
     state.informationGridDialog = false
     state.newInformationDialog = false
     state.informationGridRef = []
     state.informationGrid = ''
-  
+
     state.currentTab = []
-  
+
     state.addItemDialog = false
     state.newItem = false
     state.addItem = {}
-  
+
     state.addUpgradeDialog = false
     state.newUpgrade = false
     state.addUpgrade = {}
-  
+
     state.playId = ''
     state.play = {}
     state.playAutomatic = []

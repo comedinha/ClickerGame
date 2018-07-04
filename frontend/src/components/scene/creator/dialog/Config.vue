@@ -84,32 +84,32 @@ export default {
     imageErrors () {
       const errors = []
       if (!this.$v.config.image.$dirty) return errors
-      !this.$v.config.image.required && errors.push('Requerido')
-      !this.$v.config.image.url && errors.push('URL')
+      !this.$v.config.image.required && errors.push(this.$ml.get('scene.creator.dialog.config.required'))
+      !this.$v.config.image.url && errors.push(this.$ml.get('scene.creator.dialog.config.thumbnail.urlError'))
       return errors
     },
 
     nameErrors () {
       const errors = []
       if (!this.$v.config.name.$dirty) return errors
-      !this.$v.config.name.required && errors.push('Requerido')
-      !this.$v.config.name.minLength && errors.push(this.$ml.with('c', this.$v.config.name.$params.minLength.min).get('auth.signup.name.minLength'))
-      !this.$v.config.name.maxLength && errors.push(this.$ml.with('c', this.$v.config.name.$params.maxLength.max).get('auth.signup.name.minLength'))
+      !this.$v.config.name.required && errors.push(this.$ml.get('scene.creator.dialog.config.required'))
+      !this.$v.config.name.minLength && errors.push(this.$ml.with('v', this.$v.config.name.$params.minLength.min).get('scene.creator.dialog.config.name.minLength'))
+      !this.$v.config.name.maxLength && errors.push(this.$ml.with('v', this.$v.config.name.$params.maxLength.max).get('scene.creator.dialog.config.name.maxLength'))
       return errors
     },
 
     smallDescriptionErrors () {
       const errors = []
       if (!this.$v.config.smallDescription.$dirty) return errors
-      !this.$v.config.smallDescription.required && errors.push('Requerido')
-      !this.$v.config.smallDescription.maxLength && errors.push(this.$ml.with('c', this.$v.config.smallDescription.$params.maxLength.max).get('auth.signup.name.minLength'))
+      !this.$v.config.smallDescription.required && errors.push(this.$ml.get('scene.creator.dialog.config.required'))
+      !this.$v.config.smallDescription.maxLength && errors.push(this.$ml.with('v', this.$v.config.smallDescription.$params.maxLength.max).get('scene.creator.dialog.config.smallDescription.minLength'))
       return errors
     },
 
     completeDescriptionErrors () {
       const errors = []
       if (!this.$v.config.completeDescription.$dirty) return errors
-      !this.$v.config.completeDescription.required && errors.push('Requerido')
+      !this.$v.config.completeDescription.required && errors.push(this.$ml.get('scene.creator.dialog.config.required'))
       return errors
     },
 

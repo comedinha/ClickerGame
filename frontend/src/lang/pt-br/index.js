@@ -312,6 +312,8 @@ export default {
         buttonGrid: {
           title: 'Grid de Botão',
 
+          required: 'Campo necessário',
+
           color: {
             title: 'Cor',
             help: 'Cor do botão'
@@ -324,7 +326,9 @@ export default {
 
           clickValue: {
             title: 'Valor do click',
-            help: 'Quanto o jogador recebe ao clicar'
+            help: 'Quanto o jogador recebe ao clicar',
+
+            minValue: 'O valor mínimo deve ser {v}'
           },
 
           coin: {
@@ -352,21 +356,27 @@ export default {
           title: 'Editar Configurações',
 
           required: 'Campo necessário.',
-          errorRequired: 'Entre com os dados em todos os campos requeridos.',
 
           thumbnail: {
             title: 'Thumbnail',
-            help: 'Imagem que irá aparecer no Lobby'
+            help: 'Imagem que irá aparecer no Lobby',
+
+            urlError: 'Deve ser um URL válido'
           },
 
           name: {
             title: 'Nome',
-            help: 'Nome do jogo'
+            help: 'Nome do jogo',
+
+            minLength: 'O tamanho mínimo deve ser de {v}',
+            maxLength: 'O tamanho máximo deve ser de {v}'
           },
 
           smallDescription: {
             title: 'Pequena Descrição',
-            help: 'Descrição que irá aparecer no Lobby'
+            help: 'Descrição que irá aparecer no Lobby',
+
+            minLength: 'O tamanho mínimo deve ser de {v}'
           },
 
           completeDescription: {
@@ -381,14 +391,20 @@ export default {
         editCoin: {
           title: 'Editar Moeda',
 
+          required: 'Campo necessário.',
+
           name: {
             title: 'Nome',
-            help: 'Nome da Moeda'
+            help: 'Nome da Moeda',
+
+            maxLength: 'O tamanho máximo deve ser de {v}'
           },
 
           symbol: {
             title: 'Símbolo',
-            help: 'Símbolo da moeda'
+            help: 'Símbolo da moeda',
+
+            maxLength: 'O tamanho máximo deve ser de {v}'
           },
 
           close: 'Fechar',
@@ -397,6 +413,8 @@ export default {
 
         informationGrid: {
           title: 'Grid de informação',
+
+          required: 'Campo necessário.',
 
           color: {
             title: 'Cor',
@@ -427,14 +445,20 @@ export default {
         item: {
           title: 'Adicionar Item',
 
+          required: 'Campo necessário.',
+
           image: {
             title: 'Imagem',
-            help: 'Imagem do item'
+            help: 'Imagem do item',
+
+            urlError: 'Deve ter uma URL válida'
           },
 
           itemTitle: {
             title: 'Título',
-            help: 'Título do Item'
+            help: 'Título do Item',
+
+            maxLength: 'O tamanho máximo deve ser {v}'
           },
 
           description: {
@@ -444,7 +468,9 @@ export default {
 
           countPerSecond: {
             title: 'Qnt /s',
-            help: 'Quantidade de moedas que o jogador irá receber por segundo'
+            help: 'Quantidade de moedas que o jogador irá receber por segundo',
+
+            minValue: 'O valor mínimo deve ser {v}'
           },
 
           coin: {
@@ -454,12 +480,16 @@ export default {
 
           startCount: {
             title: 'Quantidade',
-            help: 'Quantidade desse item que o jogador irá começar'
+            help: 'Quantidade desse item que o jogador irá começar',
+
+            minValue: 'O valor mínimo deve ser {v}'
           },
 
           basePrice: {
             title: 'Preço base',
-            help: 'Preço base do item'
+            help: 'Preço base do item',
+
+            minValue: 'O valor mínimo deve ser {v}'
           },
 
           formula: {
@@ -470,7 +500,9 @@ export default {
               Tags:
               <br /> {tb}: Total comprado
               <br /> {bp}: Preço base
-            `
+            `,
+
+            validFormula: 'A fórmula deve ser válida.'
           },
 
           close: 'Fechar',
@@ -480,9 +512,13 @@ export default {
         itemGrid: {
           title: 'Grid de Item',
 
+          required: 'Campo necessário.',
+
           image: {
             title: 'Imagem',
-            help: 'Imagem que irá aparecer no grid'
+            help: 'Imagem que irá aparecer no grid',
+
+            urlError: 'A imagem deve ter uma URL válida.'
           },
 
           useItemImage: {
@@ -492,7 +528,9 @@ export default {
 
           showWhen: {
             title: 'Aparecer quando atingir {v} compras',
-            help: 'Quando o item irá aparecer para o jogador'
+            help: 'Quando o item irá aparecer para o jogador',
+
+            minValue: 'O valor mínimo deve ser de {v}'
           },
 
           close: 'Fechar',
@@ -533,7 +571,9 @@ export default {
 
           backgroundImage: {
             title: 'Imagem de fundo',
-            help: 'Imagem de fundo do grid'
+            help: 'Imagem de fundo do grid',
+
+            urlError: 'A imagem deve ter uma URL válida.'
           },
 
           close: 'Fechar',
@@ -551,14 +591,20 @@ export default {
         upgrade: {
           title: 'Adicionar Upgrade',
 
+          required: 'Campo necessário.',
+
           image: {
             title: 'Imagem',
-            help: 'Imagem do upgrade'
+            help: 'Imagem do upgrade',
+
+            urlError: 'A imagem deve ser válida.'
           },
 
           upgradeTitle: {
             title: 'Título',
-            help: 'Título do upgrade'
+            help: 'Título do upgrade',
+
+            maxLength: 'O tamanho máximo deve ser de {v}'
           },
 
           description: {
@@ -568,7 +614,9 @@ export default {
 
           price: {
             title: 'Preço',
-            help: 'Preço do upgrade'
+            help: 'Preço do upgrade',
+
+            minValue: 'O valor mínimo deve ser de {v}'
           },
 
           coin: {
@@ -597,7 +645,9 @@ export default {
               <br />
               Tags:
               <br /> {v}: Valor antigo
-            `
+            `,
+
+            validFormula: 'A fórmula deve ser válida.'
           },
 
           close: 'Fechar',

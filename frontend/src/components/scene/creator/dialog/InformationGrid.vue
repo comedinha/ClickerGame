@@ -79,7 +79,7 @@ export default {
     coinErrors () {
       const errors = []
       if (!this.$v.informationGrid.coin.$dirty) return errors
-      !this.$v.informationGrid.coin.required && errors.push('Requerido')
+      !this.$v.informationGrid.coin.required && errors.push(this.$ml.get('scene.creator.dialog.informationGrid.required'))
       return errors
     },
 

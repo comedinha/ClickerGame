@@ -71,15 +71,15 @@ export default {
     clickValueErrors () {
       const errors = []
       if (!this.$v.buttonGrid.clickValue.$dirty) return errors
-      !this.$v.buttonGrid.clickValue.required && errors.push('Requerido')
-      !this.$v.buttonGrid.clickValue.minValue && errors.push(this.$ml.with('c', this.$v.buttonGrid.clickValue.$params.minValue.min).get('auth.signup.name.minLength'))
+      !this.$v.buttonGrid.clickValue.required && errors.push(this.$ml.get('scene.creator.dialog.buttonGrid.required'))
+      !this.$v.buttonGrid.clickValue.minValue && errors.push(this.$ml.with('v', this.$v.buttonGrid.clickValue.$params.minValue.min).get('scene.creator.dialog.buttonGrid.clickValue.minValue'))
       return errors
     },
 
     coinErrors () {
       const errors = []
       if (!this.$v.buttonGrid.coin.$dirty) return errors
-      !this.$v.buttonGrid.coin.required && errors.push('Requerido')
+      !this.$v.buttonGrid.coin.required && errors.push(this.$ml.get('scene.creator.dialog.buttonGrid.required'))
       return errors
     },
 

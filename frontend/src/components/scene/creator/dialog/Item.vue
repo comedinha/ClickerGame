@@ -91,6 +91,7 @@
 <script>
 import { required, url, maxLength, minValue } from 'vuelidate/lib/validators'
 import { mapGetters } from 'vuex'
+import * as math from 'mathjs'
 
 export default {
   validations: {
@@ -126,53 +127,54 @@ export default {
     imageErrors () {
       const errors = []
       if (!this.$v.addItem.image.$dirty) return errors
-      !this.$v.addItem.image.url && errors.push('URL')
+      !this.$v.addItem.image.url && errors.push(this.$ml.get('scene.creator.dialog.item.image.urlError'))
       return errors
     },
 
     titleErrors () {
       const errors = []
       if (!this.$v.addItem.title.$dirty) return errors
-      !this.$v.addItem.title.required && errors.push('Requerido')
-      !this.$v.addItem.title.maxLength && errors.push(this.$ml.with('c', this.$v.addItem.title.$params.maxLength.max).get('auth.signup.name.minLength'))
+      !this.$v.addItem.title.required && errors.push(this.$ml.get('scene.creator.dialog.item.required'))
+      !this.$v.addItem.title.maxLength && errors.push(this.$ml.with('v', this.$v.addItem.title.$params.maxLength.max).get('scene.creator.dialog.item.itemTitle.maxLength'))
       return errors
     },
 
     countPerSecondErrors () {
       const errors = []
       if (!this.$v.addItem.countPerSecond.$dirty) return errors
-      !this.$v.addItem.countPerSecond.required && errors.push('Requerido')
-      !this.$v.addItem.countPerSecond.minValue && errors.push(this.$ml.with('c', this.$v.addItem.countPerSecond.$params.minValue.min).get('auth.signup.name.minLength'))
+      !this.$v.addItem.countPerSecond.required && errors.push(this.$ml.get('scene.creator.dialog.item.required'))
+      !this.$v.addItem.countPerSecond.minValue && errors.push(this.$ml.with('c', this.$v.addItem.countPerSecond.$params.minValue.min).get('scene.creator.dialog.item.countPerSecond.minValue'))
       return errors
     },
 
     coinErrors () {
       const errors = []
       if (!this.$v.addItem.coin.$dirty) return errors
-      !this.$v.addItem.coin.required && errors.push('Requerido')
+      !this.$v.addItem.coin.required && errors.push(this.$ml.get('scene.creator.dialog.item.required'))
       return errors
     },
 
     startCountErrors () {
       const errors = []
       if (!this.$v.addItem.startCount.$dirty) return errors
-      !this.$v.addItem.startCount.required && errors.push('Requerido')
-      !this.$v.addItem.startCount.minValue && errors.push(this.$ml.with('c', this.$v.addItem.startCount.$params.minValue.min).get('auth.signup.name.minLength'))
+      !this.$v.addItem.startCount.required && errors.push(this.$ml.get('scene.creator.dialog.item.required'))
+      !this.$v.addItem.startCount.minValue && errors.push(this.$ml.with('c', this.$v.addItem.startCount.$params.minValue.min).get('scene.creator.dialog.item.startCount.minValue'))
       return errors
     },
 
     basePriceErrors () {
       const errors = []
       if (!this.$v.addItem.basePrice.$dirty) return errors
-      !this.$v.addItem.basePrice.required && errors.push('Requerido')
-      !this.$v.addItem.basePrice.minValue && errors.push(this.$ml.with('c', this.$v.addItem.basePrice.$params.minValue.min).get('auth.signup.name.minLength'))
+      !this.$v.addItem.basePrice.required && errors.push(this.$ml.get('scene.creator.dialog.item.required'))
+      !this.$v.addItem.basePrice.minValue && errors.push(this.$ml.with('c', this.$v.addItem.basePrice.$params.minValue.min).get('scene.creator.dialog.item.basePrice.minValue'))
       return errors
     },
 
     formulaErrors () {
       const errors = []
       if (!this.$v.addItem.formula.$dirty) return errors
-      !this.$v.addItem.formula.required && errors.push('Requerido')
+      !this.$v.addItem.formula.required && errors.push(this.$ml.get('scene.creator.dialog.item.required'))
+      !this.requiredFormula() && errors.push(this.$ml.get('scene.creator.dialog.item.formula.validFormula'))
       return errors
     },
 
@@ -199,6 +201,24 @@ export default {
     }
   },
   methods: {
+    requiredFormula () {
+      if (this.addItem.formula) {
+        let formula = this.addItem.formula
+          .replace(/{tb}/g, 0)
+          .replace(/{bp}/g, 0)
+        let ret = true
+
+        try {
+          math.eval(formula)
+        } catch (err) {
+          ret = false
+        }
+
+        return ret
+      }
+      return false
+    },
+
     addItemTab () {
       this.$v.$touch()
       if (!this.$v.$invalid) {

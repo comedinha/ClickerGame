@@ -28,7 +28,8 @@ public class AddReviewController {
     @RequestMapping(method = RequestMethod.POST)
     public ResponseEntity<?> addNews(@RequestBody final ReviewDTO dto) {
         
+        reviewUtility.setReview(reviewService, dto);
 
-        
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

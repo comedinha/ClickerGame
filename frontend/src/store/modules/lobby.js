@@ -356,7 +356,7 @@ const actions = {
         scene: getters.getSceneDetailInfo.id
       }
 
-      Vue.http.post('api/addNews', content)
+      Vue.http.post('api/addReview', content)
         .then(() => {
           commit('updateReviewAdd')
           resolve()

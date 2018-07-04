@@ -65,7 +65,9 @@ const state = {
   playId: '',
   play: {},
   playAutomatic: [],
-  playAutomaticValue: 0
+  playAutomaticValue: 0,
+
+  reportDialog: false
 }
 
 // getters
@@ -226,7 +228,9 @@ const getters = {
     }
 
     return listItems
-  }
+  },
+
+  getReportDialog: state => state.reportDialog
 }
 
 // actions
@@ -519,7 +523,48 @@ const actions = {
 
   buyTabUpgrade ({ commit }, message) {
     commit('updateBuyTabUpgrade', message)
-  }
+  },
+
+  publishScene ({ getters }) {
+    console.log(getters.getSceneId)
+  },
+
+  approveScene ({ getters }) {
+    console.log(getters.getSceneId)
+  },
+
+  resolveScene ({ getters }) {
+    console.log(getters.getSceneId)
+  },
+
+  deleteScene ({ getters }) {
+    console.log(getters.getSceneId)
+  },
+
+  setReportDialog ({ commit }, event) {
+    commit('updateReportDialog', event)
+  },
+
+  setReportContent ({ commit }, content) {
+    commit('updateReportContent', content)
+  },
+
+  addReport ({ commit, getters }, message) {
+    return new Promise((resolve, reject) => {
+      let content = {
+        report: message,
+        sceneId: getters.getSceneDetailInfo.id
+      }
+
+      Vue.http.post('api/addNews', content)
+        .then(() => {
+          commit('updateReportDialog', false)
+          resolve()
+        }, errorCode => {
+          reject(errorCode)
+        })
+    })
+  },
 }
 
 // mutations
@@ -847,7 +892,6 @@ const mutations = {
   },
 
   updatePlayScene (state, message) {
-    console.log(message)
     state.play = message
   },
 

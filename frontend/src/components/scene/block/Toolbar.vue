@@ -4,6 +4,7 @@
     <v-spacer />
     <v-btn small v-if="editMode" @click="editMode = !editMode">{{ $ml.get('scene.block.toolbar.userVision') }}</v-btn>
     <v-btn small v-if="getCreatorVision && !editMode" @click="editMode = !editMode">{{ $ml.get('scene.block.toolbar.creatorVision') }}</v-btn>
+    <v-btn small v-if="!getCreatorVision" @click="reportDialog = !reportDialog">{{ $ml.get('scene.block.toolbar.report') }}</v-btn>
     <v-menu offset-y v-if="editMode">
       <v-btn small slot="activator">{{ $ml.get('scene.block.toolbar.grid') }}</v-btn>
       <v-list>
@@ -30,16 +31,16 @@
         <v-list-tile @click="saveScene">
           <v-list-tile-title>{{ $ml.get('scene.block.toolbar.save') }}</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile v-if="hasSceneId && !isPublished">
+        <v-list-tile v-if="hasSceneId && !isPublished" @click="publishScene">
           <v-list-tile-title>{{ $ml.get('scene.block.toolbar.publish') }}</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile v-if="hasSceneId">
+        <v-list-tile v-if="hasSceneId" @click="deleteScene">
           <v-list-tile-title>{{ $ml.get('scene.block.toolbar.delete') }}</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile v-if="canApprove">
+        <v-list-tile v-if="canApprove" @click="approveScene">
           <v-list-tile-title>{{ $ml.get('scene.block.toolbar.approval') }}</v-list-tile-title>
         </v-list-tile>
-        <v-list-tile v-if="canResolve">
+        <v-list-tile v-if="canResolve" @click="resolveScene">
           <v-list-tile-title>{{ $ml.get('scene.block.toolbar.resolve') }}</v-list-tile-title>
         </v-list-tile>
       </v-list>
@@ -130,6 +131,15 @@ export default {
       set (value) {
         this.$store.dispatch('setCoinsDialog', value)
       }
+    },
+
+    reportDialog: {
+      get () {
+        return this.$store.getters.getReportDialog
+      },
+      set (value) {
+        this.$store.dispatch('setReportDialog', value)
+      }
     }
   },
   methods: {
@@ -149,6 +159,22 @@ export default {
 
     newGridInformation () {
       this.$store.dispatch('newInformationGrid')
+    },
+
+    publishScene () {
+      this.$store.dispatch('publishScene')
+    },
+
+    approveScene () {
+      this.$store.dispatch('approveScene')
+    },
+
+    resolveScene () {
+      this.$store.dispatch('resolveScene')
+    },
+
+    deleteScene () {
+      this.$store.dispatch('deleteScene')
     }
   }
 }

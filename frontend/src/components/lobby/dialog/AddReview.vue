@@ -5,18 +5,18 @@
     </v-alert>
     <v-card>
       <v-card-title>
-        <span class="headline">{{ $ml.get('template.dialog.addNews.title') }}</span>
+        <span class="headline">{{ $ml.get('lobby.dialog.addReview.title') }}</span>
       </v-card-title>
       <v-card-text>
         <v-form>
-          <v-text-field v-model="score" :label="$ml.get('template.dialog.addNews.addTitle')" :error-messages="scoreErrors" required @input="$v.score.$touch()" @blur="$v.score.$touch()" />
-          <v-text-field v-model="review" :label="$ml.get('template.dialog.addNews.addTitle')" :error-messages="reviewErrors" required @input="$v.review.$touch()" @blur="$v.review.$touch()" />
+          <v-text-field v-model="score" :label="$ml.get('lobby.dialog.addReview.score')" :error-messages="scoreErrors" required @input="$v.score.$touch()" @blur="$v.score.$touch()" />
+          <v-text-field v-model="review" :label="$ml.get('lobby.dialog.addReview.review')" multi-line :error-messages="reviewErrors" required @input="$v.review.$touch()" @blur="$v.review.$touch()" />
         </v-form>
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn @click="reviewAddDialog = !reviewAddDialog">{{ $ml.get('template.dialog.addNews.cancel') }}</v-btn>
-        <v-btn color="primary" :loading="load" @click="send"> {{ $ml.get('template.dialog.addNews.add') }}</v-btn>
+        <v-btn @click="reviewAddDialog = !reviewAddDialog">{{ $ml.get('lobby.dialog.addReview.cancel') }}</v-btn>
+        <v-btn color="primary" :loading="load" @click="send"> {{ $ml.get('lobby.dialog.addReview.add') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -46,14 +46,14 @@ export default {
     scoreErrors () {
       const errors = []
       if (!this.$v.score.$dirty) return errors
-      !this.$v.score.required && errors.push(this.$ml.get('template.dialog.addNews.required'))
+      !this.$v.score.required && errors.push(this.$ml.get('lobby.dialog.addReview.required'))
       return errors
     },
 
     reviewErrors () {
       const errors = []
       if (!this.$v.review.$dirty) return errors
-      !this.$v.review.required && errors.push(this.$ml.get('template.dialog.addNews.required'))
+      !this.$v.review.required && errors.push(this.$ml.get('lobby.dialog.addReview.required'))
       return errors
     },
 

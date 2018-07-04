@@ -195,6 +195,18 @@ export default {
     },
 
     dialog: {
+      addReview: {
+        title: 'Adicionar Review',
+
+        required: 'Campo necessário.',
+
+        score: 'Nota',
+        review: 'Avaliação',
+
+        cancel: 'Cancelar',
+        add: 'Adicionar'
+      },
+
       approval: {
         title: 'Aguardando aprovação',
         pagination: 'Página {a} de {t}',
@@ -299,6 +311,7 @@ export default {
         backLobby: 'Voltar ao Lobby',
         userVision: 'Visão do usuário',
         creatorVision: 'Visão do Criador',
+        report: 'Denunciar',
 
         grid: 'Grade',
         addButton: 'Adicionar Botão',

@@ -7,6 +7,8 @@ const state = {
   creatorVision: true,
   editMode: true,
 
+  stopAutos: false,
+
   isPublished: false,
   canApprove: false,
   canResolve: false,
@@ -74,6 +76,8 @@ const getters = {
   isPublished: state => state.creatorVision && state.isPublished,
   canApprove: state => state.creatorVision && state.canApprove,
   canResolve: state => state.creatorVision && state.canResolve,
+
+  getStopAutos: state => state.stopAutos,
 
   getSceneLoading: state => state.sceneLoading,
 
@@ -294,18 +298,26 @@ const actions = {
     }
   },
 
-  async saveAutomatic ({ dispatch }) {
-    setTimeout(() => {
-      dispatch('savePlay')
-      dispatch('saveAutomatic')
-    }, 5000)
+  async saveAutomatic ({ dispatch, getters }) {
+    if (getters.getStopAutos === true) {
+      setTimeout(() => {
+        dispatch('savePlay')
+        dispatch('saveAutomatic')
+      }, 5000)
+    }
   },
 
-  async loadAutomatic ({ dispatch, commit }) {
-    commit('updateAutomatic')
-    setTimeout(() => {
-      dispatch('loadAutomatic')
-    }, 1000)
+  async loadAutomatic ({ dispatch, commit, getters }) {
+    if (getters.getStopAutos === true) {
+      commit('updateAutomatic')
+      setTimeout(() => {
+        dispatch('loadAutomatic')
+      }, 1000)
+    }
+  },
+
+  setStopAutos ({ commit }, event) {
+    commit('updateStopAutos', event)
   },
 
   setSaveWarning ({ commit }, event) {
@@ -494,13 +506,70 @@ const actions = {
 // mutations
 const mutations = {
   clearScene (state) {
-    state.config = {}
-    state.currentWorld = 0
-    state.world = []
-    state.coins = []
-    state.play = {}
     state.sceneId = ''
+    state.sceneLoading = true
+    state.creatorVision = true
+    state.editMode = true
+
+    state.stopAutos = false
+  
+    state.isPublished = false
+    state.canApprove = false
+    state.canResolve = false
+  
+    state.saved = true
+    state.saveWarning = false
+  
+    state.editConfigDialog = false
+    state.config = {}
+    state.oldConfig = {}
+  
+    state.coinsDialog = false
+    state.coinsCount = 0
+    state.coins = []
+  
+    state.editCoinDialog = false
+    state.editCoin = []
+    state.oldCoin = []
+  
+    state.currentWorld = 0
+    state.worldCount = 0
+    state.world = []
+  
+    state.layoutDialog = false
+    state.editLayout = {}
+    state.oldLayout = {}
+  
+    state.itemGridDialog = false
+    state.newItemGrid = false
+    state.itemGridTab = []
+    state.itemGridItem = []
+    state.itemGrid = []
+  
+    state.buttonGridDialog = false
+    state.newButtonDialog = false
+    state.buttonGridRef = []
+    state.buttonGrid = ''
+  
+    state.informationGridDialog = false
+    state.newInformationDialog = false
+    state.informationGridRef = []
+    state.informationGrid = ''
+  
+    state.currentTab = []
+  
+    state.addItemDialog = false
+    state.newItem = false
+    state.addItem = {}
+  
+    state.addUpgradeDialog = false
+    state.newUpgrade = false
+    state.addUpgrade = {}
+  
     state.playId = ''
+    state.play = {}
+    state.playAutomatic = []
+    state.playAutomaticValue = 0
   },
 
   sceneDefault (state) {
@@ -736,6 +805,10 @@ const mutations = {
     }
   },
 
+  updateStopAutos (state, event) {
+    state.stopAutos = event
+  },
+
   saveWarning (state, event) {
     state.saveWarning = event
   },
@@ -759,6 +832,7 @@ const mutations = {
   updateGame (state, event) {
     state.editMode = event
     state.creatorVision = event
+    state.saveWarning = false
   },
 
   updateSceneId (state, message) {
@@ -778,11 +852,13 @@ const mutations = {
   backToLobby (state, resolve) {
     if (state.creatorVision === true) {
       if (state.saved) {
+        state.stopAutos = true
         resolve()
       } else {
         state.saveWarning = true
       }
     } else {
+      state.stopAutos = true
       resolve()
     }
   },

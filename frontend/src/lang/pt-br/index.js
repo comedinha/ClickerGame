@@ -578,7 +578,11 @@ export default {
 
           type: {
             title: 'Ação',
-            help: 'Ação de modificação que o upgrade toma'
+            help: 'Ação de modificação que o upgrade toma',
+
+            item: 'Item',
+            gpc: 'Dinheiro por clique',
+            gps: 'Dinheiro por segundo'
           },
 
           item: {

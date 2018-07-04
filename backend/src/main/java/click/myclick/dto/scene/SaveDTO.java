@@ -1,17 +1,15 @@
-package click.myclick.model;
+package click.myclick.dto.scene;
 
 import click.myclick.dto.scene.save.*;
-
-import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.io.Serializable;
 import java.util.List;
 
-@Document
-public class SaveGame extends BaseEntity implements Serializable {
+public class SaveDTO implements Serializable {
 
-    private static final long serialVersionUID = 8571261118900116242L;
-    
+    private static final long serialVersionUID = -4159366809929151486L;
+
+    private String idSave;
     private String idScene;
     private String idPlayer;
     private List<BuyedItems> buyedItems;
@@ -19,11 +17,25 @@ public class SaveGame extends BaseEntity implements Serializable {
     private String clickCount;
     private List<Coin> coins;
 
-    public SaveGame() {
+    public SaveDTO() {
         this.buyedItems = null;
         this.buyedItems = null;
-        this.coins = null;
+		this.coins = null;
+		this.idSave = "";
+		this.idScene = "";
+		this.idPlayer = "";
+		this.clickCount = "";
     }
+
+	public String getIdsave()
+	{
+		return this.idSave;
+	}
+
+	public void setIdsave(String idSave)
+	{
+		this.idSave = idSave;
+	}
 
 	public String getIdscene()
 	{

@@ -227,19 +227,21 @@ const getters = {
 
 // actions
 const actions = {
-  loadPlay ({ dispatch, commit }, scene) {
+  loadPlay ({ dispatch, commit, getters }, scene) {
     commit('clearScene')
     console.log('loadPlay')
 
     commit('updateSceneId', scene.playId)
-    if (scene.saveId) {
-      commit('updateSceneId', scene.saveId)
-    } else {
-      // Comentário: sceneDefault Só para testar...
-      commit('sceneDefault')
 
-      commit('playDefault')
+    let id = {
+      idScene: getters.getSceneId
     }
+
+    Vue.http.post('api/loadSaveGame', id).then(response => {
+      console.log('Response:')
+      console.log(response)
+      commit('updateCreateScene', response.body)
+    })
 
     dispatch('saveAutomatic')
     dispatch('loadAutomatic')
@@ -268,6 +270,21 @@ const actions = {
   savePlay ({ commit, getters }) {
     console.log('savePlay')
     console.log(getters.getPlay)
+
+    let save = {
+      idScene: getters.getSceneId,
+      buyedItems: getters.getPlay.buyedItems,
+      buyedUpgrades: getters.getPlay.buyedUpgrades,
+      clickCount: getters.getPlay.clickCount,
+      coins: getters.getPlay.coins
+    }
+    console.log(save)
+
+    Vue.http.post('api/saveSaveGame', save).then(response => {
+      console.log('response')
+      console.log(response)
+      commit('updateSceneId', response.bodyText)
+    })
   },
 
   saveScene ({ commit, getters }) {

@@ -8,10 +8,6 @@
         <v-btn block v-if="tab.type === 'item'" @click="addItem(tab)">+</v-btn>
         <v-btn block v-if="tab.type === 'upgrade'" @click="addUpgrade(tab)">+</v-btn>
       </v-card-actions>
-      <v-card-actions v-if="!getEditMode && tab.type === 'item'">
-        <v-spacer />
-        <v-btn>{{ $ml.with('v', 1).get('scene.block.tabs.x') }}</v-btn>
-      </v-card-actions>
       <v-list v-if="tab.type === 'item'" two-line>
         <template v-for="item in tab.items">
           <v-divider :key="item.divRef" />

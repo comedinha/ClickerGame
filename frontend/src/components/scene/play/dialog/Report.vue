@@ -5,17 +5,17 @@
     </v-alert>
     <v-card>
       <v-card-title>
-        <span class="headline">{{ $ml.get('template.dialog.addReview.title') }}</span>
+        <span class="headline">{{ $ml.get('scene.play.dialog.report.title') }}</span>
       </v-card-title>
       <v-card-text>
         <v-form>
-          <v-text-field v-model="report" :label="$ml.get('template.dialog.addReview.review')" multi-line :error-messages="reportErrors" required @input="$v.report.$touch()" @blur="$v.report.$touch()" />
+          <v-text-field v-model="report" :label="$ml.get('scene.play.dialog.report.report')" multi-line :error-messages="reportErrors" required @input="$v.report.$touch()" @blur="$v.report.$touch()" />
         </v-form>
       </v-card-text>
       <v-card-actions>
         <v-spacer />
-        <v-btn @click="reportDialog = !reportDialog">{{ $ml.get('template.dialog.addReview.cancel') }}</v-btn>
-        <v-btn color="primary" :loading="load" @click="send"> {{ $ml.get('template.dialog.addReview.add') }}</v-btn>
+        <v-btn @click="reportDialog = !reportDialog">{{ $ml.get('scene.play.dialog.report.cancel') }}</v-btn>
+        <v-btn color="primary" :loading="load" @click="send"> {{ $ml.get('scene.play.dialog.report.add') }}</v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -41,7 +41,7 @@ export default {
     reportErrors () {
       const errors = []
       if (!this.$v.report.$dirty) return errors
-      !this.$v.report.required && errors.push(this.$ml.get('template.dialog.addNews.required'))
+      !this.$v.report.required && errors.push(this.$ml.get('scene.play.dialog.report.required'))
       return errors
     },
 

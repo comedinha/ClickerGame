@@ -676,6 +676,20 @@ export default {
           save: 'Salvar'
         }
       }
+    },
+
+    play: {
+      dialog: {
+        report: {
+          title: 'Reportar',
+          report: 'Mensagem',
+
+          required: 'Preencha o campo necessário',
+
+          cancel: 'Cancelar',
+          add: 'Reportar'
+        }
+      }
     }
   },
 

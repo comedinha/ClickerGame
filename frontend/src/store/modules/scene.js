@@ -240,7 +240,7 @@ const actions = {
       commit('clearScene')
       commit('updateSceneId', scene.playId)
 
-      if (scene.playId !== 'teste') {
+      if (scene.playId !== '5b3bcf935f444f8bfc2e5174') {
         Vue.http.post('api/loadScene', scene.playId).then(responseScene => {
           commit('updateCreateScene', responseScene.body)
           Vue.http.post('api/loadSaveGame', scene.playId).then(responsePlay => {

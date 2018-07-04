@@ -50,16 +50,16 @@ export default {
     if (this.$route.query.playId) {
       const { playId, saveId } = this.$route.query
       this.$store.dispatch('loadPlay', { playId, saveId }).catch(() => {
-        this.$router.go('/')
+        this.$router.push('/Lobby')
       })
     } else {
       if (this.getGuest) {
-        this.$router.go('/')
+        this.$router.push('/Lobby')
       } else {
         const { createId } = this.$route.query
         if (createId) {
           this.$store.dispatch('loadCreate', { createId }).catch(() => {
-            this.$router.go('/')
+            this.$router.push('/Lobby')
           })
         } else {
           this.$store.dispatch('loadDefault')

@@ -231,50 +231,57 @@ const getters = {
 
 // actions
 const actions = {
-  loadPlay ({ dispatch, commit, getters }, scene) {
-    commit('clearScene')
-    console.log('loadPlay')
+  loadPlay ({ dispatch, commit }, scene) {
+    return new Promise((resolve, reject) => {
+      commit('clearScene')
+      commit('updateSceneId', scene.playId)
 
-    commit('updateSceneId', scene.playId)
+      Vue.http.post('api/loadScene', scene.playId).then(responseScene => {
+        commit('updateCreateScene', responseScene.body)
+        Vue.http.post('api/loadSaveGame', scene.playId).then(responsePlay => {
+          if (responsePlay.body.idplayer !== '') {
+            commit('updatePlayScene', responsePlay.body)
+          } else {
+            commit('playDefault')
+          }
+          dispatch('saveAutomatic')
+          dispatch('loadAutomatic')
+          commit('updateSceneLoading', false)
+          resolve()
+        }, errorCode => {
+          reject(errorCode)
+        })
+      }, errorCode => {
+        reject(errorCode)
+      })
 
-    let id = {
-      idScene: getters.getSceneId
-    }
-
-    Vue.http.post('api/loadSaveGame', id).then(response => {
-      console.log('Response:')
-      console.log(response)
-      commit('updateCreateScene', response.body)
+      commit('updateGame', false)
     })
-
-    dispatch('saveAutomatic')
-    dispatch('loadAutomatic')
-    commit('updateGame', false)
   },
 
   loadCreate ({ commit }, scene) {
-    commit('clearScene')
-    console.log('loadCreate')
+    return new Promise((resolve, reject) => {
+      commit('clearScene')
 
-    Vue.http.post('api/loadScene', scene.createId).then(response => {
-      commit('updateCreateScene', response.body)
+      Vue.http.post('api/loadScene', scene.createId).then(response => {
+        commit('updateCreateScene', response.body)
+        commit('updateSceneLoading', false)
+        resolve()
+      }, errorCode => {
+        reject(errorCode)
+      })
+
+      commit('updateSceneId', scene.createId)
+      commit('updateGame', true)
     })
-
-    commit('updateSceneId', scene.createId)
-    commit('updateGame', true)
   },
 
   loadDefault ({ commit }) {
     commit('clearScene')
-
-    console.log('loadDeafault')
     commit('sceneDefault')
   },
 
   savePlay ({ commit, getters }) {
-    console.log('savePlay')
-    console.log(getters.getPlay)
-
     let save = {
       idScene: getters.getSceneId,
       buyedItems: getters.getPlay.buyedItems,
@@ -282,18 +289,14 @@ const actions = {
       clickCount: getters.getPlay.clickCount,
       coins: getters.getPlay.coins
     }
-    console.log(save)
 
     Vue.http.post('api/saveSaveGame', save).then(response => {
-      console.log('response')
-      console.log(response)
       commit('updateSceneId', response.bodyText)
     })
   },
 
   saveScene ({ commit, getters }) {
     if (getters.getConfig.name !== '') {
-      console.log('saveScene')
       let saveScene = {
         id: getters.getSceneId,
         name: getters.getConfig.name,
@@ -304,7 +307,6 @@ const actions = {
         coinsCount: getters.getCoinsCount,
         coins: getters.getCoins
       }
-      console.log(saveScene)
 
       Vue.http.post('api/saveScene', saveScene).then(response => {
         commit('updateSceneId', response.bodyText)
@@ -831,7 +833,6 @@ const mutations = {
   },
 
   updateCreateScene (state, message) {
-    console.log(message)
     let loadConfig = {
       name: message.name,
       smallDescription: message.smallDescription,
@@ -843,7 +844,15 @@ const mutations = {
     state.world = message.worlds
     state.coinsCount = message.coinsCount
     state.coins = message.coins
-    state.sceneLoading = false
+  },
+
+  updatePlayScene (state, message) {
+    console.log(message)
+    state.play = message
+  },
+
+  updateSceneLoading (state, message) {
+    state.sceneLoading = message
   },
 
   updateGame (state, event) {

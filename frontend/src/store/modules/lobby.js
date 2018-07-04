@@ -73,7 +73,16 @@ const state = {
   allScenesLoading: true,
   allScenes: {
     items: []
-  }
+  },
+
+  reviewDialog: false,
+  reviewLoading: true,
+  reviewContent: {
+    items: []
+  },
+
+  reviewAddDialog: false,
+  reviewAddContent: ''
 }
 
 // getters
@@ -134,7 +143,14 @@ const getters = {
   getViewAllScenes: state => state.viewAllScenes,
 
   getAllScenesLoading: state => state.allScenesLoading,
-  getAllScenes: state => state.allScenes
+  getAllScenes: state => state.allScenes,
+
+  getReviewDialog: state => state.reviewDialog,
+  getReviewLoading: state => state.reviewLoading,
+  getReviewContent: state => state.reviewContent,
+
+  getReviewAddDialog: state => state.reviewAddDialog,
+  getReviewAddContent: state => state.reviewAddContent
 }
 
 // actions
@@ -158,18 +174,6 @@ const actions = {
     commit('updateNewsAddContent', content)
   },
 
-  getInfoLobby ({ commit }) {
-    return new Promise((resolve, reject) => {
-      Vue.http.post('api/getinfolobby')
-        .then(response => {
-          commit('updateInfoLobby', response)
-          resolve()
-        }, errorCode => {
-          reject(errorCode)
-        })
-    })
-  },
-
   addNews ({ commit, getters }, tl) {
     return new Promise((resolve, reject) => {
       let addNew = {
@@ -188,14 +192,22 @@ const actions = {
   },
 
   deleteNews ({ commit }, news) {
-    Vue.http.post('api/deletenews', news).then(response => {
-      commit('updateUser', response)
-    }).catch(() => {
-      commit('updateUsersLoading', false)
-    })
+    Vue.http.post('api/deletenews', news)
 
     commit('updateNewsLoading', true)
     commit('updateNewsDialog', false)
+  },
+
+  getInfoLobby ({ commit }) {
+    return new Promise((resolve, reject) => {
+      Vue.http.post('api/getinfolobby')
+        .then(response => {
+          commit('updateInfoLobby', response)
+          resolve()
+        }, errorCode => {
+          reject(errorCode)
+        })
+    })
   },
 
   setInformationDialog ({ commit }, event) {
@@ -315,6 +327,49 @@ const actions = {
     })
     commit('updateUser')
     commit('updateUser')
+  },
+
+  setReviewDialog ({ commit, getters }, event) {
+    if (event === true && getters.getReviewLoading === true) {
+      Vue.http.post('api/getNews').then(responseList => {
+        commit('updateReviewList', responseList)
+      }).catch(() => {
+        commit('updateReviewLoading', false)
+      })
+    }
+    commit('updateReviewDialog', event)
+  },
+
+  setReviewAddDialog ({ commit }, event) {
+    commit('updateReviewAddDialog', event)
+  },
+
+  setReviewAddContent ({ commit }, content) {
+    commit('updateReviewAddContent', content)
+  },
+
+  addReview ({ commit, getters }, tl) {
+    return new Promise((resolve, reject) => {
+      let review = {
+        title: tl,
+        content: getters.getReviewAddContent
+      }
+
+      Vue.http.post('api/addNews', review)
+        .then(() => {
+          commit('updateReviewAdd')
+          resolve()
+        }, errorCode => {
+          reject(errorCode)
+        })
+    })
+  },
+
+  deleteReview ({ commit }, review) {
+    Vue.http.post('api/deletenews', review)
+
+    commit('updateReviewLoading', true)
+    commit('updateReviewDialog', false)
   }
 }
 
@@ -521,6 +576,40 @@ const mutations = {
 
     state.playedGamesLoading = false
     state.playedGames.items = body.playedGames
+  },
+
+  updateReviewDialog (state, event) {
+    if (event === false && state.reviewContent.items.length === 0) {
+      state.reviewLoading = true
+    }
+
+    state.reviewDialog = event
+  },
+
+  updateReviewList (state, responseList) {
+    state.reviewContent.items = responseList.body
+    state.reviewLoading = false
+  },
+
+  updateReviewLoading (state, event) {
+    state.reviewLoading = event
+  },
+
+  updateReviewAddDialog (state, event) {
+    if (event === false) {
+      state.reviewDialog = false
+    }
+
+    state.reviewAddDialog = event
+  },
+
+  updateReviewAddContent (state, content) {
+    state.reviewAddContent = content
+  },
+
+  updateReviewAdd (state) {
+    state.reviewAddContent = ''
+    state.reviewLoading = true
   }
 }
 

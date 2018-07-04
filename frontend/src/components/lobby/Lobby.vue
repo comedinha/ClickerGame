@@ -7,6 +7,8 @@
       <Users v-if="getUsersDialog" />
       <EditUser v-if="getEditUserDialog" />
       <UserScene v-if="getUserSceneDialog" />
+      <Reviews v-if="getReviewDialog" />
+      <AddReview v-if="getReviewAddDialog" />
       <v-layout row wrap>
         <MyScenes v-if="!getGuest" />
         <GuestMessage v-if="getGuest" />
@@ -39,9 +41,11 @@ import GuestMessage from '@/components/lobby/block/GuestMessage'
 
 import AllScenes from '@/components/lobby/block/AllScenes'
 
+import AddReview from '@/components/lobby/dialog/AddReview'
 import Approval from '@/components/lobby/dialog/Approval'
 import EditUser from '@/components/lobby/dialog/EditUser'
 import Report from '@/components/lobby/dialog/Report'
+import Reviews from '@/components/lobby/dialog/Reviews'
 import SceneDetail from '@/components/lobby/dialog/SceneDetail'
 import Users from '@/components/lobby/dialog/Users'
 import UserScene from '@/components/lobby/dialog/UserScene'
@@ -58,9 +62,11 @@ export default {
 
     AllScenes,
 
+    AddReview,
     Approval,
     EditUser,
     Report,
+    Reviews,
     SceneDetail,
     Users,
     UserScene
@@ -74,7 +80,9 @@ export default {
       'getSceneReportDialog',
       'getUsersDialog',
       'getUserSceneDialog',
-      'getEditUserDialog'
+      'getEditUserDialog',
+      'getReviewDialog',
+      'getReviewAddDialog'
     ])
   }
 }

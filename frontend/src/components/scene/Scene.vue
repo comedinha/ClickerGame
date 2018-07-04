@@ -10,6 +10,7 @@
     <Save v-if="getCreatorVision && getSaveWarning" />
     <Upgrade v-if="getCreatorVision && getAddUpgradeDialog" />
     <InformationGrid v-if="getCreatorVision && getInformationGridDialog" />
+    <Report v-if="!getCreatorVision && getReportDialog" />
     <v-layout row wrap>
       <v-flex v-if="getTabLeft" xs12 sm12 md4>
         <Tabs />
@@ -44,6 +45,8 @@ import ItemGrid from '@/components/scene/creator/dialog/ItemGrid'
 import Layout from '@/components/scene/creator/dialog/Layout'
 import Save from '@/components/scene/creator/dialog/Save'
 import Upgrade from '@/components/scene/creator/dialog/Upgrade'
+
+import Report from '@/components/scene/play/dialog/Report'
 
 export default {
   beforeCreate () {
@@ -85,7 +88,8 @@ export default {
       'getLayoutDialog',
       'getTabLeft',
       'getButtonGridDialog',
-      'getSaveWarning'
+      'getSaveWarning',
+      'getReportDialog'
     ])
   },
   components: {
@@ -102,7 +106,9 @@ export default {
     EditCoin,
     Layout,
     ButtonGrid,
-    Save
+    Save,
+
+    Report
   }
 }
 </script>

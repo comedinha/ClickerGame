@@ -190,9 +190,16 @@ export default {
 
         formula = formula
           .replace(/{tb}/g, totalBuyed)
-          .replace(/{bp}/g, item.basePrice)
+          .replace(/{bp}/g, item.basePrice || 0)
 
-        return math.eval(formula)
+        let value = 0
+        try {
+          value = math.eval(formula)
+        } catch (err) {
+          console.log(err)
+        }
+
+        return value
       }
       return this.$ml.get('scene.block.tabs.price')
     },

@@ -545,26 +545,15 @@ const actions = {
     commit('updateReportDialog', event)
   },
 
-  setReportContent ({ commit }, content) {
-    commit('updateReportContent', content)
-  },
-
   addReport ({ commit, getters }, message) {
-    return new Promise((resolve, reject) => {
-      let content = {
-        report: message,
-        sceneId: getters.getSceneDetailInfo.id
-      }
+    let content = {
+      report: message,
+      sceneId: getters.getSceneId
+    }
 
-      Vue.http.post('api/addNews', content)
-        .then(() => {
-          commit('updateReportDialog', false)
-          resolve()
-        }, errorCode => {
-          reject(errorCode)
-        })
-    })
-  },
+    Vue.http.post('api/addNews', content)
+    commit('updateReportDialog', false)
+  }
 }
 
 // mutations
@@ -1711,6 +1700,10 @@ const mutations = {
         }
       }
     }
+  },
+
+  updateReportDialog (state, event) {
+    state.reportDialog = event
   }
 }
 

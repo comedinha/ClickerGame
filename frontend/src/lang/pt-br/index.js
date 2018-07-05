@@ -298,7 +298,6 @@ export default {
       },
 
       tabs: {
-        x: '{v}x',
         addGrid: 'Adicionar ao Grid',
         settings: 'Configurações',
         delete: 'Deletar',

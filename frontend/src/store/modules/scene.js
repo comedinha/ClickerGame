@@ -240,24 +240,32 @@ const actions = {
       commit('clearScene')
       commit('updateSceneId', scene.playId)
 
-      Vue.http.post('api/loadScene', scene.playId).then(responseScene => {
-        commit('updateCreateScene', responseScene.body)
-        Vue.http.post('api/loadSaveGame', scene.playId).then(responsePlay => {
-          if (responsePlay.body.idplayer !== '') {
-            commit('updatePlayScene', responsePlay.body)
-          } else {
-            commit('playDefault')
-          }
-          dispatch('saveAutomatic')
-          dispatch('loadAutomatic')
-          commit('updateSceneLoading', false)
-          resolve()
+      if (scene.playId !== '5b3bcf935f444f8bfc2e5174') {
+        Vue.http.post('api/loadScene', scene.playId).then(responseScene => {
+          commit('updateCreateScene', responseScene.body)
+          Vue.http.post('api/loadSaveGame', scene.playId).then(responsePlay => {
+            if (responsePlay.body.idplayer !== '') {
+              commit('updatePlayScene', responsePlay.body)
+            } else {
+              commit('playDefault')
+            }
+            dispatch('saveAutomatic')
+            dispatch('loadAutomatic')
+            commit('updateSceneLoading', false)
+            resolve()
+          }, errorCode => {
+            reject(errorCode)
+          })
         }, errorCode => {
           reject(errorCode)
         })
-      }, errorCode => {
-        reject(errorCode)
-      })
+      } else {
+        commit('sceneDefault')
+        commit('playDefault')
+        dispatch('loadAutomatic')
+        commit('updateSceneLoading', false)
+        resolve()
+      }
 
       commit('updateGame', false)
     })
@@ -323,7 +331,7 @@ const actions = {
   },
 
   async saveAutomatic ({ dispatch, getters }) {
-    if (getters.getStopAutos === true) {
+    if (getters.getStopAutos === false) {
       setTimeout(() => {
         dispatch('savePlay')
         dispatch('saveAutomatic')
@@ -332,7 +340,7 @@ const actions = {
   },
 
   async loadAutomatic ({ dispatch, commit, getters }) {
-    if (getters.getStopAutos === true) {
+    if (getters.getStopAutos === false) {
       commit('updateAutomatic')
       setTimeout(() => {
         dispatch('loadAutomatic')
@@ -874,6 +882,10 @@ const mutations = {
       image: message.image,
       completeDescription: message.completeDescription
     }
+
+    state.isPublished = message.isPublished || false
+    state.canApprove = message.canApprove || false
+    state.canResolve = message.canResolve || false
 
     state.config = loadConfig
     state.world = message.worlds

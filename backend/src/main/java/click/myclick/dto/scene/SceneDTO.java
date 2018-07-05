@@ -33,6 +33,7 @@ public class SceneDTO implements Serializable {
 
 	public void setCoins(List<Coin> coins)
 	{
+		System.out.println("setCoins");
 		this.coins = coins;
 	}
 
@@ -43,6 +44,7 @@ public class SceneDTO implements Serializable {
 
 	public void setCoinsCount(int coinsCount)
 	{
+		System.out.println("setCoinsCount");
 		this.coinsCount = coinsCount;
 	}
 
@@ -53,6 +55,7 @@ public class SceneDTO implements Serializable {
 
 	public void setCompleteDescription(String completeDescription)
 	{
+		System.out.println("setCompleteDescription");
 		this.completeDescription = completeDescription;
 	}
 

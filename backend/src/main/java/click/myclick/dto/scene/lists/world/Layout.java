@@ -27,6 +27,7 @@ public class Layout implements Serializable {
 
 	public void setGrid(Grid grid)
 	{
+		System.out.println("setGrid");
 		this.grid = grid;
 	}
 
@@ -37,6 +38,7 @@ public class Layout implements Serializable {
 
 	public void setTab(Tab tab)
 	{
+		System.out.println("setTab");
 		this.tab = tab;
 	}
 
@@ -47,6 +49,7 @@ public class Layout implements Serializable {
 
 	public void setToolbar(Toolbar toolbar)
 	{
+		System.out.println("setToolbar");
 		this.toolbar = toolbar;
 	}
 

@@ -312,6 +312,7 @@ const actions = {
         coins: getters.getCoins
       }
 
+      console.log(saveScene)
       Vue.http.post('api/saveScene', saveScene).then(response => {
         commit('updateSceneId', response.bodyText)
       })
